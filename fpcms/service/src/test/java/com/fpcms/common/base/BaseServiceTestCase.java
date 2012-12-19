@@ -1,5 +1,11 @@
 package com.fpcms.common.base;
 
+import org.junit.After;
+import org.junit.Before;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+
+import com.duowan.common.util.holder.BeanValidatorHolder;
+
 /**
  * 
  * 本基类主要为子类指定好要装载的spring配置文件
@@ -10,4 +16,14 @@ package com.fpcms.common.base;
  * 所以你要装载的资源文件应改为"classpath:/spring/*-test-resource.xml"
  */
 public class BaseServiceTestCase {
+	@Before
+	public void init() {
+		LocalValidatorFactoryBean factory  = new LocalValidatorFactoryBean();
+		factory.afterPropertiesSet();
+		new BeanValidatorHolder().setValidator(factory.getValidator());
+	}
+	@After
+	public void tearDown() {
+		new BeanValidatorHolder().cleanHolder();
+	}
 }

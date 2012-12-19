@@ -35,9 +35,9 @@
 		   
 	<!-- 数据源定义 -->
 	<bean id="dataSource" parent="fatherDataSource">
-		<property name="jdbcUrl" value="${jdbc_url}"/>
-		<property name="user" value="${jdbc_user}"/>
-		<property name="password" value="${jdbc_password}"/>		
+		<property name="jdbcUrl" value="${fpcms_jdbc_url}"/>
+		<property name="user" value="${fpcms_jdbc_user}"/>
+		<property name="password" value="${fpcms_jdbc_password}"/>		
 	</bean>
 
 

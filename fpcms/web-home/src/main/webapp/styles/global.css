@@ -10,6 +10,27 @@ a:visited {color: #006699;text-decoration:none;}
 a:hover {color: #bc2931; text-decoration:underline;}
 a:active {color: #bc2931;}
 
+/* 可抽取出 global.css  START*/
+html, body, div, span, object, iframe, pre, a, code, font, ul, li, img, samp, small, strong, big, form, label, table, caption, tr, td {
+    margin:0px;
+	padding:0px;
+	border:0px;
+	outline:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-family:inherit;
+	text-align:left;
+	vertical-align:baseline;
+}
+
+.content { 
+	clear:both;
+	margin:0px auto 0px auto;
+	text-align:left;
+}
+/* 可抽取出 global.css  END*/
+
+
 /* for button: <input type=submit class=stdButton /> */
 .stdButton {
 	background-color:buttonface;

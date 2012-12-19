@@ -15,10 +15,7 @@
 		<property name="validationMessageSource" ref="messageSource"/>
 	</bean>
     
-    <!-- 用于持有JSR303 Validator(Hibernate Validator),可以将Validator当做静态方法调用,示例:BeanValidatorHolder.validate(blogBean) -->
     <bean class="com.duowan.common.util.holder.BeanValidatorHolder">
- 	 	<property name="validator" ref="validator"/>
- 	</bean>
-   
-    
+    	<property name="validator" ref="validator"></property>
+    </bean>
 </beans>

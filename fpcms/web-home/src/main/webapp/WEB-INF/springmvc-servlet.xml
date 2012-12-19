@@ -19,14 +19,7 @@
     default-autowire="byName"   >
 
 	<!-- 自动搜索@Controller标注的类 -->
-	<context:component-scan base-package="com.fpcms.**.controller"/>
-	
-	<!-- 相关静态资源映射 -->
-	<mvc:resources location="/favicon.ico" mapping="/favicon.ico"/>  
-	<mvc:resources location="/img" mapping="/img/**"/>  
-	<mvc:resources location="/js/" mapping="/js/**"/>  
-	<mvc:resources location="/styles/" mapping="/styles/**"/>  
-	<mvc:resources location="/widgets/" mapping="/widgets/**"/>  
+	<context:component-scan base-package="com.fpcms.admin.controller"/>
 	
 	<!-- 开启支持@NumberFormat @DateTimeFormat @Valid标注 ,@DateTimeFormat用于bean 日期属性的格式化,请查看: http://static.springsource.org/spring/docs/3.0.2.RELEASE/spring-framework-reference/htmlsingle/spring-framework-reference.html#mvc-config-->
 	<!-- spring3.1 RequestMappingHandlerMapping与 ConventionAnnotationHandlerMapping存在冲突-->
@@ -46,7 +39,6 @@
  	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/pages"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 			    

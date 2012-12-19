@@ -26,3 +26,12 @@
 <script src="<c:url value="/js/jquery.js"/>" type="text/javascript"></script>
 
 <script src="<c:url value="/js/My97DatePicker/WdatePicker.js"/>" type="text/javascript"></script>
+	
+	<!-- kindeditor -->
+	<link rel="stylesheet" href="${ctx}/js/kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="${ctx}/js/kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="${ctx}/js/kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="${ctx}/js/kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="${ctx}/js/kindeditor/plugins/code/prettify.js"></script>
+	
+	

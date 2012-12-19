@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DBUnit flatXml DataFile -->
+<dataset>
+
+
+	  <cms_channel 
+			id='234' 
+			channel_name='ChannelName907' 
+			channel_code='ChannelCode613' 
+			channel_desc='ChannelDesc258' 
+			parent_id='473' 
+			date_last_modified='2012-12-18 11:21:42.4' 
+			author='Author083' 
+			site='Site893' 
+	  />	
+  
+</dataset>

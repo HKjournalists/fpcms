@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DBUnit flatXml DataFile -->
+<dataset>
+
+
+	  <cms_content 
+			id='359' 
+			channel_code='ChannelCode271' 
+			tags='Tags623' 
+			head_title='HeadTitle651' 
+			title='Title116' 
+			content='Content472' 
+			author='Author596' 
+			date_created='2012-12-18 11:21:43.048' 
+			date_last_modified='2012-12-18 11:21:43.048' 
+			site='Site659' 
+	  />	
+  
+</dataset>
