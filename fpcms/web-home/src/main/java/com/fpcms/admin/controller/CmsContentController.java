@@ -72,7 +72,7 @@ public class CmsContentController extends BaseController{
 	}
 	
 	/** 列表 */
-	@RequestMapping(value="/index")
+	@RequestMapping()
 	public String index(ModelMap model,CmsContentQuery query,HttpServletRequest request) {
 		query.setChannelCode(RequestUtil.getAndCreateSession(request,"channelCode"));
 		query.setSite(RequestUtil.getAndCreateSession(request,"site"));
@@ -84,7 +84,7 @@ public class CmsContentController extends BaseController{
 	}
 
 	/** 显示 */
-	@RequestMapping(value="/show")
+	@RequestMapping()
 	public String show(ModelMap model,@RequestParam("id") long id) throws Exception {
 		CmsContent cmsContent = (CmsContent)cmsContentService.getById(id);
 		model.addAttribute("cmsContent",cmsContent);
@@ -92,14 +92,14 @@ public class CmsContentController extends BaseController{
 	}
 
 	/** 进入新增 */
-	@RequestMapping(value="/add")
+	@RequestMapping()
 	public String add(ModelMap model,CmsContent cmsContent) throws Exception {
 		model.addAttribute("cmsContent",cmsContent);
 		return "/admin/cmscontent/add";
 	}
 	
 	/** 保存新增,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/create")
+	@RequestMapping()
 	public String create(ModelMap model,CmsContent cmsContent,BindingResult errors) throws Exception {
 		try {
 			cmsContentService.create(cmsContent);
@@ -115,7 +115,7 @@ public class CmsContentController extends BaseController{
 	}
 	
 	/** 编辑 */
-	@RequestMapping(value="/edit")
+	@RequestMapping()
 	public String edit(ModelMap model,@RequestParam("id") long id) throws Exception {
 		CmsContent cmsContent = (CmsContent)cmsContentService.getById(id);
 		model.addAttribute("cmsContent",cmsContent);
@@ -123,7 +123,7 @@ public class CmsContentController extends BaseController{
 	}
 	
 	/** 保存更新,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/update")
+	@RequestMapping()
 	public String update(ModelMap model,@RequestParam("id") long id,CmsContent cmsContent,BindingResult errors) throws Exception {
 		try {
 			cmsContentService.update(cmsContent);
@@ -139,7 +139,7 @@ public class CmsContentController extends BaseController{
 	}
 	
 	/** 批量删除 */
-	@RequestMapping(value="/delete")
+	@RequestMapping()
 	public String delete(ModelMap model,@RequestParam("id") long id) {
 		cmsContentService.removeById(id);
 		Flash.current().success(DELETE_SUCCESS);

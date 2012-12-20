@@ -35,6 +35,10 @@
 				<td><fmt:formatDate value='${cmsChannel.dateLastModified}' pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<tr>	
+				<td class="tdLabel">创建时间</td>	
+				<td><fmt:formatDate value='${cmsChannel.dateCreated}' pattern="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>	
 				<td class="tdLabel">作者</td>	
 				<td><c:out value='${cmsChannel.author}'/></td>
 			</tr>
@@ -47,9 +51,14 @@
 				<td><c:out value='${cmsChannel.level}'/></td>
 			</tr>
 			<tr>	
+				<td class="tdLabel">关键字</td>	
+				<td><c:out value='${cmsChannel.keyword}'/></td>
+			</tr>
+			<tr>	
 				<td class="tdLabel">内容</td>	
 				<td><c:out value='${cmsChannel.content}'/></td>
 			</tr>
+			
 		</table>
 	</form:form>
 </duowan:override>

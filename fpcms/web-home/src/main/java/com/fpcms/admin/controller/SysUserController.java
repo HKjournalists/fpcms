@@ -72,7 +72,7 @@ public class SysUserController extends BaseController{
 	}
 	
 	/** 列表 */
-	@RequestMapping(value="/index")
+	@RequestMapping()
 	public String index(ModelMap model,SysUserQuery query,HttpServletRequest request) {
 		Page<SysUser> page = this.sysUserService.findPage(query);
 		
@@ -83,7 +83,7 @@ public class SysUserController extends BaseController{
 
 
 	/** 显示 */
-	@RequestMapping(value="/show")
+	@RequestMapping()
 	public String show(ModelMap model,@RequestParam("id") long id) throws Exception {
 		SysUser sysUser = (SysUser)sysUserService.getById(id);
 		model.addAttribute("sysUser",sysUser);
@@ -91,14 +91,14 @@ public class SysUserController extends BaseController{
 	}
 
 	/** 进入新增 */
-	@RequestMapping(value="/add")
+	@RequestMapping()
 	public String add(ModelMap model,SysUser sysUser) throws Exception {
 		model.addAttribute("sysUser",sysUser);
 		return "/admin/sysuser/add";
 	}
 	
 	/** 保存新增,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/create")
+	@RequestMapping()
 	public String create(ModelMap model,SysUser sysUser,BindingResult errors) throws Exception {
 		try {
 			sysUserService.create(sysUser);
@@ -114,7 +114,7 @@ public class SysUserController extends BaseController{
 	}
 	
 	/** 编辑 */
-	@RequestMapping(value="/edit")
+	@RequestMapping()
 	public String edit(ModelMap model,@RequestParam("id") long id) throws Exception {
 		SysUser sysUser = (SysUser)sysUserService.getById(id);
 		model.addAttribute("sysUser",sysUser);
@@ -122,7 +122,7 @@ public class SysUserController extends BaseController{
 	}
 	
 	/** 保存更新,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/update")
+	@RequestMapping()
 	public String update(ModelMap model,@RequestParam("id") long id,SysUser sysUser,BindingResult errors) throws Exception {
 		try {
 			sysUserService.update(sysUser);
@@ -138,7 +138,7 @@ public class SysUserController extends BaseController{
 	}
 	
 	/** 批量删除 */
-	@RequestMapping(value="/delete")
+	@RequestMapping()
 	public String delete(ModelMap model,@RequestParam("id") long id) {
 		sysUserService.removeById(id);
 		Flash.current().success(DELETE_SUCCESS);

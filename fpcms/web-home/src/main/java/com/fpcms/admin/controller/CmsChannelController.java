@@ -73,7 +73,7 @@ public class CmsChannelController extends BaseController{
 	}
 	
 	/** 列表 */
-	@RequestMapping(value="/index")
+	@RequestMapping()
 	public String index(ModelMap model,CmsChannelQuery query,HttpServletRequest request) {
 		Page<CmsChannel> page = this.cmsChannelService.findPage(query);
 		
@@ -82,7 +82,7 @@ public class CmsChannelController extends BaseController{
 	}
 	
 	/** 显示 */
-	@RequestMapping(value="/show")
+	@RequestMapping()
 	public String show(ModelMap model,@RequestParam("id") long id) throws Exception {
 		CmsChannel cmsChannel = (CmsChannel)cmsChannelService.getById(id);
 		model.addAttribute("cmsChannel",cmsChannel);
@@ -90,14 +90,14 @@ public class CmsChannelController extends BaseController{
 	}
 
 	/** 进入新增 */
-	@RequestMapping(value="/add")
+	@RequestMapping()
 	public String add(ModelMap model,CmsChannel cmsChannel) throws Exception {
 		model.addAttribute("cmsChannel",cmsChannel);
 		return "/admin/cmschannel/add";
 	}
 	
 	/** 保存新增,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/create")
+	@RequestMapping()
 	public String create(ModelMap model,CmsChannel cmsChannel,BindingResult errors) throws Exception {
 		try {
 			cmsChannelService.create(cmsChannel);
@@ -113,7 +113,7 @@ public class CmsChannelController extends BaseController{
 	}
 	
 	/** 编辑 */
-	@RequestMapping(value="/edit")
+	@RequestMapping()
 	public String edit(ModelMap model,@RequestParam("id") long id) throws Exception {
 		CmsChannel cmsChannel = (CmsChannel)cmsChannelService.getById(id);
 		model.addAttribute("cmsChannel",cmsChannel);
@@ -121,7 +121,7 @@ public class CmsChannelController extends BaseController{
 	}
 	
 	/** 保存更新,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/update")
+	@RequestMapping()
 	public String update(ModelMap model,@RequestParam("id") long id,CmsChannel cmsChannel,BindingResult errors) throws Exception {
 		try {
 			cmsChannelService.update(cmsChannel);
@@ -137,7 +137,7 @@ public class CmsChannelController extends BaseController{
 	}
 	
 	/** 批量删除 */
-	@RequestMapping(value="/delete")
+	@RequestMapping()
 	public String delete(ModelMap model,@RequestParam("id") long id) {
 		cmsChannelService.removeById(id);
 		Flash.current().success(DELETE_SUCCESS);

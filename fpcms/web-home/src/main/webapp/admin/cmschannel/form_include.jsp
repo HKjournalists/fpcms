@@ -94,7 +94,17 @@
 		<font color='red'><form:errors path="dateLastModified"/></font>
 		</td>
 	</tr>	
-	
+
+	<tr>	
+		<td class="tdLabel">
+			创建时间:
+		</td>		
+		<td>
+		<input value='<fmt:formatDate value="${cmsChannel.dateCreated}" pattern="yyyy-MM-dd"/>' onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="dateCreated" name="dateCreated"  maxlength="0" class="" />
+		<font color='red'><form:errors path="dateCreated"/></font>
+		</td>
+	</tr>
+		
 	<tr>	
 		<td class="tdLabel">
 			作者:
@@ -104,7 +114,17 @@
 		<font color='red'><form:errors path="author"/></font>
 		</td>
 	</tr>	
-	
+
+	<tr>	
+		<td class="tdLabel">
+			关键字:
+		</td>		
+		<td>
+		<form:input path="keyword" id="keyword" cssClass="" maxlength="50" />
+		<font color='red'><form:errors path="keyword"/></font>
+		</td>
+	</tr>
+		
 	<tr>	
 		<td class="tdLabel">
 			内容:

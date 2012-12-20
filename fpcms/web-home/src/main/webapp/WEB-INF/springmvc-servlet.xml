@@ -20,6 +20,7 @@
 
 	<!-- 自动搜索@Controller标注的类 -->
 	<context:component-scan base-package="com.fpcms.admin.controller"/>
+	<context:component-scan base-package="com.fpcms.home.controller"/>
 	
 	<!-- 开启支持@NumberFormat @DateTimeFormat @Valid标注 ,@DateTimeFormat用于bean 日期属性的格式化,请查看: http://static.springsource.org/spring/docs/3.0.2.RELEASE/spring-framework-reference/htmlsingle/spring-framework-reference.html#mvc-config-->
 	<!-- spring3.1 RequestMappingHandlerMapping与 ConventionAnnotationHandlerMapping存在冲突-->

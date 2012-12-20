@@ -6,6 +6,8 @@
 
 package com.fpcms.service;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.duowan.common.util.page.Page;
@@ -54,6 +56,16 @@ public interface CmsChannelService {
 	
 	public String createTreeXmlString(long rootNodeId);
 	
-	public Map<Long,String> getChannelMapping();
+	/**
+	 * 得到频道代码与频道ID的映射关系
+	 * 
+	 * @return Map<频道代码，频道ID>
+	 */
+	public Map<String, Long> getChannelMapping();
 	
+	public List<CmsChannel> findChildsByChannelId(long channelId);
+	
+	public List<CmsChannel> findChildsByChannelCode(String channelCode);
+	
+	public CmsChannel findByChannelCode(String channelCode);
 }

@@ -52,7 +52,7 @@ $(document).ready(function() {
    <ul>
     <li><a href="left.jsp" target="leftFrame">菜单</a></li>
     <li><a href="../doc/guide.html" target="rightFrame">文章管理</a></li>
-	<li><a href="http://code.google.com/p/rapid-framework/" target="rightFrame">rapid-framework</a></li>
+	<li><a href="/admin/cmschannel/index.do" target="rightFrame">频道管理</a></li>
    </ul>
   </div>
 

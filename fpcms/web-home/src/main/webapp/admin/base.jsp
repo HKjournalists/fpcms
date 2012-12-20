@@ -1,4 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="../base.jsp"  %>
+<%@ include file="/commons/taglibs.jsp" %>
 
-<!-- 请删除本模板,本文件目的是让你自定义layout，避免重复生成 -->
+<%-- jsp模板继承,具体使用请查看: http://code.google.com/p/rapid-framework/wiki/rapid_jsp_extends --%>
+
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<html>
+
+<head>
+	<%@ include file="/commons/meta.jsp" %>
+	<base href="<%=basePath%>">
+	<duowan:block name="head"/>
+</head>
+<body>
+	<%@ include file="/commons/messages.jsp" %>
+
+	<duowan:block name="content"/>
+	
+</body>
+</html>	

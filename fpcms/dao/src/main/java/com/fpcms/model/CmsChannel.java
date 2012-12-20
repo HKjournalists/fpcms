@@ -70,6 +70,12 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
      */ 	
 	
 	private java.util.Date dateLastModified;
+
+    /**
+     * 创建时间       db_column: date_created 
+     */ 	
+	
+	private java.util.Date dateCreated;
 	
     /**
      * 作者       db_column: author 
@@ -92,6 +98,26 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
      * 频道内容      db_column: content 
      */ 	
 	private String content;
+	
+	/**
+	 * 链接
+	 */
+	@Length(max=100)
+	private String link;
+	
+	
+	/**
+	 * 链接 target
+	 */
+	@Length(max=30)
+	private String linkTarget;
+	
+	/**
+	 * 关键字
+	 */
+	@Length(max=50)
+	private String keyword;
+	
 	//columns END
 
 	public CmsChannel(){
@@ -181,6 +207,38 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public String getLink() {
+		return link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+
+	public String getLinkTarget() {
+		return linkTarget;
+	}
+
+	public void setLinkTarget(String linkTarget) {
+		this.linkTarget = linkTarget;
+	}
+	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
+	public java.util.Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(java.util.Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public String toString() {

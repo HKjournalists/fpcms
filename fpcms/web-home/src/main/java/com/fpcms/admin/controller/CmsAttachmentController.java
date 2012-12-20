@@ -71,7 +71,7 @@ public class CmsAttachmentController extends BaseController{
 	}
 	
 	/** 列表 */
-	@RequestMapping(value="/index")
+	@RequestMapping()
 	public String index(ModelMap model,CmsAttachmentQuery query,HttpServletRequest request) {
 		Page<CmsAttachment> page = this.cmsAttachmentService.findPage(query);
 		
@@ -80,7 +80,7 @@ public class CmsAttachmentController extends BaseController{
 	}
 	
 	/** 显示 */
-	@RequestMapping(value="/show")
+	@RequestMapping()
 	public String show(ModelMap model,@RequestParam("id") long id) throws Exception {
 		CmsAttachment cmsAttachment = (CmsAttachment)cmsAttachmentService.getById(id);
 		model.addAttribute("cmsAttachment",cmsAttachment);
@@ -88,14 +88,14 @@ public class CmsAttachmentController extends BaseController{
 	}
 
 	/** 进入新增 */
-	@RequestMapping(value="/add")
+	@RequestMapping()
 	public String add(ModelMap model,CmsAttachment cmsAttachment) throws Exception {
 		model.addAttribute("cmsAttachment",cmsAttachment);
 		return "/admin/cmsattachment/add";
 	}
 	
 	/** 保存新增,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/create")
+	@RequestMapping()
 	public String create(ModelMap model,CmsAttachment cmsAttachment,BindingResult errors) throws Exception {
 		try {
 			cmsAttachmentService.create(cmsAttachment);
@@ -111,7 +111,7 @@ public class CmsAttachmentController extends BaseController{
 	}
 	
 	/** 编辑 */
-	@RequestMapping(value="/edit")
+	@RequestMapping()
 	public String edit(ModelMap model,@RequestParam("id") long id) throws Exception {
 		CmsAttachment cmsAttachment = (CmsAttachment)cmsAttachmentService.getById(id);
 		model.addAttribute("cmsAttachment",cmsAttachment);
@@ -119,7 +119,7 @@ public class CmsAttachmentController extends BaseController{
 	}
 	
 	/** 保存更新,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
-	@RequestMapping(value="/update")
+	@RequestMapping()
 	public String update(ModelMap model,@RequestParam("id") long id,CmsAttachment cmsAttachment,BindingResult errors) throws Exception {
 		try {
 			cmsAttachmentService.update(cmsAttachment);
@@ -135,7 +135,7 @@ public class CmsAttachmentController extends BaseController{
 	}
 	
 	/** 批量删除 */
-	@RequestMapping(value="/delete")
+	@RequestMapping()
 	public String delete(ModelMap model,@RequestParam("id") long id) {
 		cmsAttachmentService.removeById(id);
 		Flash.current().success(DELETE_SUCCESS);

@@ -152,13 +152,29 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	}
 
 	@Override
-	public Map<Long, String> getChannelMapping() {
+	public Map<String, Long> getChannelMapping() {
 		List<CmsChannel> list = cmsChannelDao.findAll();
-		Map<Long,String> result = new HashMap<Long,String>();
+		Map<String,Long> result = new HashMap<String,Long>();
 		for(CmsChannel item : list) {
-			result.put(item.getId(), item.getChannelCode());
+			result.put(item.getChannelCode(), item.getId());
 		}
 		return result;
+	}
+
+	public List<CmsChannel> findChildsByChannelId(long channelId) {
+		return cmsChannelDao.findChildsByChannelId(channelId);
+	}
+	
+	public List<CmsChannel> findChildsByChannelCode(String channelCode) {
+		Long channelId = getChannelMapping().get(channelCode);
+		Assert.notNull(channelId,"not found channelId by channelCode:"+channelCode);
+		return cmsChannelDao.findChildsByChannelId(channelId);
+	}
+
+	@Override
+	public CmsChannel findByChannelCode(String channelCode) {
+		long channelId = getChannelMapping().get(channelCode);
+		return cmsChannelDao.getById(channelId);
 	}
 	
 }

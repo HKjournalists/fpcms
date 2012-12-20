@@ -34,7 +34,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	
 	private RowMapper<CmsChannel> entityRowMapper = new BeanPropertyRowMapper<CmsChannel>(getEntityClass());
 	
-	static final private String COLUMNS = "id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content";
+	static final private String COLUMNS = "id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_channel";
 	
 	@Override
@@ -53,10 +53,11 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	
 	public void insert(CmsChannel entity) {
 		String sql = "insert into cms_channel " 
-			 + " (id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content) " 
+			 + " (id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created) " 
 			 + " values "
-			 + " (:id,:channelName,:channelCode,:channelDesc,:parentId,:dateLastModified,:author,:site,:level,:content)";
+			 + " (:id,:channelName,:channelCode,:channelDesc,:parentId,:dateLastModified,:author,:site,:level,:content,:link,:linkTarget,:keyword,:dateCreated)";
 		entity.setDateLastModified(new Date());
+		entity.setDateCreated(new Date());
 		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
 		
 		//其它主键生成策略
@@ -70,7 +71,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 		entity.setDateLastModified(new Date());
 		
 		String sql = "update cms_channel set "
-					+ " channel_name=:channelName,channel_code=:channelCode,channel_desc=:channelDesc,parent_id=:parentId,date_last_modified=:dateLastModified,author=:author,site=:site,level=:level,content=:content "
+					+ " channel_name=:channelName,channel_code=:channelCode,channel_desc=:channelDesc,parent_id=:parentId,date_last_modified=:dateLastModified,author=:author,site=:site,level=:level,content=:content,link=:link,link_target=:linkTarget,keyword=:keyword,date_created=:dateCreated "
 					+ " where  id = :id ";
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
 	}
