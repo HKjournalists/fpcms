@@ -13,6 +13,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
 
+import com.fpcms.common.util.FreemarkerUtil;
+
 
 /**
  * tableName: cms_content [CmsContent] 

@@ -16,13 +16,20 @@ public class WebUtil {
 	 */
 	public static boolean isNotModified(HttpServletRequest request,
 			HttpServletResponse response, Date lastModified) {
+		if(AppModeUtil.isDevAppMode()) {
+			return false;
+		}
 		if(lastModified == null) {
 			return false;
 		}
-		
 		response.setDateHeader("Last-Modified", lastModified.getTime());
+		
 		String ifModifiedSince = request.getHeader("If-Modified-Since");
+		if(ifModifiedSince == null) {
+			return false;
+		}
 		Date ifModifiedSenceDate = new Date(ifModifiedSince);
+		
 //		System.out.println("ifModifiedSince:"+ifModifiedSince+" ifModifiedSenceDate:"+DateFormatUtils.format(ifModifiedSenceDate, "yyyy-MM-dd HH:mm:ss") + " dateLastModified:"+DateFormatUtils.format(lastModified, "yyyy-MM-dd HH:mm:ss"));
 		if(ifModifiedSenceDate.equals(lastModified)) {
 			response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
@@ -30,5 +37,5 @@ public class WebUtil {
 		}
 		return false;
 	}
-	
+
 }

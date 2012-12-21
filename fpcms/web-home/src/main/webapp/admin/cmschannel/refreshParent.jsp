@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ include file="/commons/taglibs.jsp" %>
 <script type="text/javascript">
-	parent.location='/admin/cmschannel/index.do';
+	parent.location='${ctx}/admin/cmschannel/index.do';
 </script>

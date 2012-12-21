@@ -55,6 +55,7 @@
 
 	<div class="width mt10">
 		<div id="page_left">
+			<duowan:block name="page_left">
 			<div class="border">
 				<div class="subject_bg">
 					<div class="subject_title">地区发票</div>
@@ -85,6 +86,7 @@
 					</dl>
 				</div>
 			</div>
+			</duowan:block>
 		</div>
 
 		<!--Left Over-->
@@ -94,7 +96,9 @@
 					<div class="subject_title">title</div>
 				</div>
 				<div class="m10">
-					<div class="other_content"><duowan:block name="content"></duowan:block></div>
+					<div class="other_content">
+						<duowan:block name="content"></duowan:block>
+					</div>
 					<div class="content_page"></div>
 				</div>
 			</div>
@@ -108,8 +112,7 @@
 		</div>
 		<strong>诚达通财税代理有限公司</strong> <br /> Copyright &copy; 2011-2012嘉华财税代理公司｜&nbsp;&nbsp;保留所有权利<br />
 	</div>
-	<script src="/editor/jquery.js" language="javascript"></script>
-	<script type="text/javascript" src="/Plug/qq/qq.js"></script>
+	
 	<script type="text/javascript" id="bdshare_js" data="type=slide&img=2"></script>
 	<script type="text/javascript" id="bdshell_js"></script>
 	<script type="text/javascript">

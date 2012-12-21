@@ -34,6 +34,10 @@
 <duowan:override name="content">
 	<div id="container">
 		<div id="sidebar">
+			<div>
+				<input type="button" onclick="tree.openAllItems(0)"  value="打开所有" ></button>
+				<input type="button" onclick="tree.closeAllItems()" value="关闭所有"></button>
+			</div>
 			<div id="dhtmlXTree" style="width: 100%; height: 100%; background-color: #f5f5f5; border: 1px solid Silver;">
 			</div>
 		</div>
@@ -55,17 +59,27 @@
 		//tree.setImageArrays("minus", "", "", "", "minus.gif");
 		//tree.setStdImages("book.gif", "books_open.gif", "books_close.gif");
 		//tree.setXMLAutoLoading("../common/tree4.xml");
-		tree.loadXML("${ctx}/admin/cmschannel/treeXml.do");
-
-		tree.attachEvent("onClick", function(id) {
+		tree.loadXML("${ctx}/admin/cmschannel/treeXml.do",function() {
+			clickTree($.cookie('currentTreeId'));
+		});
+	
+		var clickTree = function(id) {
+			if(id == null) return;
+			
 			var channelCode = tree.getUserData(id, "channelCode");
 			var site = tree.getUserData(id, "site");
 			document.getElementById('detailframe').src = '${ctx}/admin/cmschannel/edit.do?id='+id;
 			document.getElementById('channelContentIframe').src = '${ctx}/admin/cmscontent/index.do?channelCode='+channelCode+'&site='+site;
+			
+			$.cookie('currentTreeId',id, { expires: 1, });
+			
+			tree.selectItem(id);			
+			tree.focusItem(id);
+			tree.openAllItems(id);
 			return true;
-		});
+		};
+		tree.attachEvent("onClick", clickTree);
 		
-		tree.openAllItems(0);
 	</script>
 	<div id="channelContentIframeContainer">
 			<iframe id="channelContentIframe" src="${ctx}/admin/cmscontent/index.do?channelId=${channelId}" style="width: 100%; height: 100%;"></iframe>

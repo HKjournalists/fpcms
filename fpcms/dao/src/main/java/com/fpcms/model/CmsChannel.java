@@ -18,6 +18,7 @@ import org.hibernate.validator.constraints.Length;
 import com.duowan.common.util.tree.Node;
 import com.duowan.common.util.tree.NodeWrapper;
 import com.duowan.common.util.tree.TreeCreator;
+import com.fpcms.common.util.FreemarkerUtil;
 
 
 /**
@@ -208,7 +209,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	public String getLink() {
 		return link;
 	}

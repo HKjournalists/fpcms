@@ -24,6 +24,7 @@
 
 <script src="<c:url value="/js/application.js"/>" type="text/javascript"></script>
 <script src="<c:url value="/js/jquery.js"/>" type="text/javascript"></script>
+<script src="<c:url value="/js/jquery.cookie.js"/>" type="text/javascript"></script>
 
 <script src="<c:url value="/js/My97DatePicker/WdatePicker.js"/>" type="text/javascript"></script>
 	
