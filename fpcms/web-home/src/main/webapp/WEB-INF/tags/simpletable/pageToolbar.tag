@@ -47,7 +47,7 @@
 				</c:forEach>
 				
 				<c:choose>
-				<c:when test="${paginator.hasNextPage}"><a href="javascript:simpleTable.togglePage(${paginator.nextPageNumber});"><img src="<c:url value='/widgets/simpletable/images/nextPage.gif'/>" style="border:0" ></a></c:when>
+				<c:when test="${paginator.hasNextPage}"><a href="javascript:simpleTable.togglePage(${paginator.nextPage});"><img src="<c:url value='/widgets/simpletable/images/nextPage.gif'/>" style="border:0" ></a></c:when>
 				<c:otherwise><img src="<c:url value='/widgets/simpletable/images/nextPageDisabled.gif'/>" style="border:0" ></c:otherwise>
 				</c:choose>
 				

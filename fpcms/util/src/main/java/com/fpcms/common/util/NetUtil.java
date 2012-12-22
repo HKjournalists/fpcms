@@ -1,23 +1,24 @@
 package com.fpcms.common.util;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import org.apache.commons.io.IOUtils;
+import org.apache.shiro.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NetUtil {
-	public static char splitchar = ' ';
+	private static Logger logger = LoggerFactory.getLogger(NetUtil.class);
 	public static MultiThreadedHttpConnectionManager manager = new MultiThreadedHttpConnectionManager();
 	static HttpClient client = new HttpClient();
+	
 	static {
 		init();
 	}
@@ -28,8 +29,7 @@ public class NetUtil {
 			manager = null;
 		}
 		manager = new MultiThreadedHttpConnectionManager();
-		System.setProperty("apache.commons.httpclient.cookiespec",
-				"COMPATIBILITY");
+		System.setProperty("apache.commons.httpclient.cookiespec","COMPATIBILITY");
 		HttpConnectionManagerParams params = new HttpConnectionManagerParams();
 		params.setDefaultMaxConnectionsPerHost(50);
 		params.setMaxTotalConnections(1000);
@@ -44,177 +44,52 @@ public class NetUtil {
 		client.setParams(cparams);
 	}
 
-	public static String readURL(String urladdress) {
-		return readURL(urladdress, "ISO-8859-1");
+
+	public static String httpGet(String url) {
+		return httpGet(url,null);
 	}
 	
-	public static String readURL(String urladdress, String encoding) {
-		
-		try {
-			return readByUrl(urladdress, encoding);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
-		} 
-	}
-	
-	public static String readByUrl(String urladdress, String encoding) {
-		while (urladdress.indexOf("&amp;") > -1) {
-			urladdress = replace(urladdress, "&amp;", "&");
-		}
-		
-		urladdress = encodeUrl(urladdress);
-		GetMethod method = new GetMethod(urladdress);
+	public static String httpGet(String url, String parameters) {
+		String finalUrl = getUrlWithParameters(url, parameters);
+		logger.info("httpGet:"+finalUrl+" parameters:"+parameters);
+		GetMethod method = new GetMethod(finalUrl);
 		method.setFollowRedirects(true);
-		method.setRequestHeader("User-Agent",
-				"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)");
-		method.setRequestHeader("Accept-Language", "zh-cn");
-		
+		method.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1");
+		method.setRequestHeader("Accept-Language", "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3");
+		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+//		method.setRequestHeader("Accept-Encoding", "gzip, deflate");
 		try {
 			client.executeMethod(method);
 			InputStream is = method.getResponseBodyAsStream();
-			InputStreamReader isr = new InputStreamReader(is, "ISO-8859-1");
-			BufferedReader in = new BufferedReader(isr);
-			String strread = null;
-			
-			StringBuffer buf = new StringBuffer();
-			while ((strread = in.readLine()) != null) {
-				buf.append(strread);
-				buf.append(splitchar);
-			}
-			in.close();
-			is.close();
-			isr.close();
-			String str = buf.toString();
-			if (isFine(encoding)
-					&& !encoding.equalsIgnoreCase("ISO-8859-1")) {
-				return new String(str.getBytes("ISO-8859-1"), encoding);
-			}
-			return new String(str.getBytes("ISO-8859-1"), getCharset(str));
+			String result = IOUtils.toString(is,"GBK");
+			return result;
 		} catch (Exception e) {
-			throw new RuntimeException("读取url=[" + urladdress + "]数据异常",e); 
+			throw new RuntimeException("读取url=[" + finalUrl + "]数据异常",e); 
 		} finally {
 			method.releaseConnection();
-			manager.deleteClosedConnections();
-			if (manager.getConnectionsInPool() > 50) {
-				init();
-			}
 		}
 	}
-	
-	public static int readURL_(String urladdress, String encoding) {
-		while (urladdress.indexOf("&amp;") > -1) {
-			urladdress = replace(urladdress, "&amp;", "&");
+
+
+	private static String getUrlWithParameters(String url, String parameters) {
+		String finalUrl = null;
+		if(url.contains("?")) {
+			finalUrl = url + "&" + encode(parameters);
+		}else {
+			finalUrl = url + "?" + encode(parameters);
 		}
-		
-		urladdress = encodeUrl(urladdress);
-		GetMethod method = new GetMethod(urladdress);
-		method.setFollowRedirects(true);
-		method.setRequestHeader("User-Agent",
-						"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)");
-		method.setRequestHeader("Accept-Language", "zh-cn");
-		int status = -1;
+		return finalUrl;
+	}
+
+
+	private static String encode(String parameters) {
+		if(parameters == null) return null;
 		try {
-			status = client.executeMethod(method);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return -1;
-		} finally {
-			method.releaseConnection();
-			manager.deleteClosedConnections();
-			if (manager.getConnectionsInPool() > 50) {
-				init();
-			}
-		}
-		return status;
-	}
-
-	public static String getCharset(String str) {
-		Pattern p = Pattern.compile("<meta[^>]*>", 2);
-		Matcher m = p.matcher(str);
-		while (m.find()) {
-			String meta = m.group(0).toLowerCase();
-			if (meta.indexOf("http-equiv") > -1
-					&& meta.indexOf("content-type") > -1
-					&& meta.indexOf("content") > -1
-					&& meta.indexOf("text/html") > -1) {
-				Pattern p2 = Pattern
-						.compile("<meta(.*?)charset=(.*?)['\" ]{1}[^>]*>");
-				Matcher m2 = p2.matcher(meta);
-				if (m2.find()) {
-					String charset = m2.group(2);
-					if (charset.equals("gb2312")) {
-						return "GBK";
-					}
-					return charset.toUpperCase();
-				}
-			}
-		}
-		return "GBK";
-	}
-
-
-	public static String encodeUrl(String url) {
-		if (isFine(url)) {
-			return url;
-		}
-		char[] cs = url.toCharArray();
-		StringBuffer sb = new StringBuffer();
-		try {
-			for (int i = 0; i < cs.length; i++) {
-				if (cs[i] > 255) {
-					sb.append(URLEncoder.encode(String.valueOf(cs[i]), "GBK"));
-				} else {
-					sb.append(cs[i]);
-				}
-			}
-			return sb.toString();
-		} catch (Exception e) {
+			return URLEncoder.encode(parameters, "UTF-8").replace("%3D", "=").replace("%26", "&");
+		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public static boolean isFine(String str) {
-		return str != null && str.length() > 0;
-	}
-	
-	/**
-	 * s中的s1替换成s2
-	 * @param s
-	 * @param s1
-	 * @param s2
-	 * @return
-	 */
-	public static String replace(String s, String s1, String s2)
-	{
-		if (s == null)
-			return null;
-		int i = 0;
-		if ((i = s.indexOf(s1, i)) >= 0)
-		{
-			char ac[] = s.toCharArray();
-			char ac1[] = s2.toCharArray();
-			int j = s1.length();
-			StringBuffer sb = new StringBuffer(ac.length);
-			sb.append(ac, 0, i).append(ac1);
-			i += j;
-			int k;
-			for (k = i; (i = s.indexOf(s1, i)) > 0; k = i)
-			{
-				sb.append(ac, k, i - k).append(ac1);
-				i += j;
-			}
-			sb.append(ac, k, ac.length - k);
-			return sb.toString();
-		}
-		else
-		{
-			return s;
-		}
-	}
-	public static void main(String[] args) throws UnsupportedEncodingException{
-		String url2 = "http://www.iteye.com/search?query=%E5%8F%91%E7%A5%A8&sort=&type=all";
-		String result = NetUtil.readByUrl(url2,"UTF-8").trim();
-		System.out.println(result);
-	}
+
 }

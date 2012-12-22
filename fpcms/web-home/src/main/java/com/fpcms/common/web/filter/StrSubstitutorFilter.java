@@ -24,7 +24,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fpcms.common.util.FreemarkerUtil;
 import com.fpcms.common.util.StrSubstitutorUtil;
 import com.fpcms.service.CmsPropertyService;
 
@@ -65,6 +64,17 @@ public class StrSubstitutorFilter extends OncePerRequestFilter implements Filter
 
 	private boolean isInclude(HttpServletRequest request) {
 		String path = request.getServletPath();
+		String requestURI = request.getRequestURI();
+		String contextPath = request.getContextPath();
+		String requestPath = requestURI.substring(contextPath.length());
+		return isInclude(path) || isInclude(requestPath) ;
+	}
+
+	private boolean isInclude(String path) {
+		if(includeSet.contains(path)) {
+			return true;
+		}
+		
 		for(String pattern : includeSet) {
 			if( antPathMatcher.match(pattern, path)) {
 				return true;

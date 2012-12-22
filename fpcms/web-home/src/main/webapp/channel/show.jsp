@@ -3,11 +3,14 @@
 <%@ include file="/commons/taglibs.jsp" %>
 
 <duowan:override name="head">
-	<title>${cmsChannel.channelName}</title>
+	<title>${default.keyword} - ${cmsChannel.channelName}</title>
+</duowan:override>
+
+<duowan:override name="subTitle">
+	${cmsChannel.channelName} - ${cmsChannel.channelDesc }
 </duowan:override>
 
 <duowan:override name="content">
-		<h1>${cmsChannel.channelName} : ${cmsChannel.channelDesc} 更新时间:${cmsChannel.dateLastModified} 创建时间:${cmsChannel.dateCreated}</h1>
 		<div>
 			${cmsChannel.content}
 		</div>

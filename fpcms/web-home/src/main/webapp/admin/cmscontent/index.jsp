@@ -92,16 +92,10 @@
 				<th style="width:1px;"> </th>
 				
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
-				<th sortColumn="channel_code" >频道ID</th>
-				<th sortColumn="tags" >标签</th>
-				<th sortColumn="head_title" >网页头title</th>
 				<th sortColumn="title" >标题</th>
-				<th sortColumn="content" >内容</th>
 				<th sortColumn="author" >作者</th>
-				<th sortColumn="date_created" >创建时间</th>
 				<th sortColumn="date_last_modified" >更新时间</th>
-				<th sortColumn="site" >网站</th>
-	
+	 
 				<th>操作</th>
 			  </tr>
 			  
@@ -112,15 +106,9 @@
 			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}">
 				<td>${page.paginator.startRow + status.index}</td>
 				
-				<td><c:out value='${item.channelCode}'/>&nbsp;</td>
-				<td><c:out value='${item.tags}'/>&nbsp;</td>
-				<td><c:out value='${item.headTitle}'/>&nbsp;</td>
 				<td><c:out value='${item.title}'/>&nbsp;</td>
-				<td><c:out value='${item.content}'/>&nbsp;</td>
 				<td><c:out value='${item.author}'/>&nbsp;</td>
-				<td><fmt:formatDate value='${item.dateCreated}' pattern='yyyy-MM-dd'/>&nbsp;</td>
 				<td><fmt:formatDate value='${item.dateLastModified}' pattern='yyyy-MM-dd'/>&nbsp;</td>
-				<td><c:out value='${item.site}'/>&nbsp;</td>
 				<td>
 					<a href="${ctx}/admin/cmscontent/show.do?id=${item.id}">查看</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmscontent/edit.do?id=${item.id}">修改</a>&nbsp;&nbsp;

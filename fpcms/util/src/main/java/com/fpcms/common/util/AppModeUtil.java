@@ -8,6 +8,7 @@ public class AppModeUtil {
 	
 	public static void setAppMode(String mode) {
 		System.setProperty("appMode", mode);
+		System.out.println("executed setAppMode:"+mode);
 	}
 	
 }

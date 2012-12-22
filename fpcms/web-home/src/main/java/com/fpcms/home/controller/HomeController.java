@@ -11,7 +11,7 @@ import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsPropertyService;
 
 @Controller
-public class IndexController {
+public class HomeController {
 	@Autowired(required=true)
 	private CmsChannelService cmsChannelService;
 	
@@ -24,13 +24,13 @@ public class IndexController {
 	
 	/** 显示 */
 	@RequestMapping()
-	public String index(ModelMap model) throws Exception {
+	public String home(ModelMap model) throws Exception {
 		model.put("nav", cmsChannelService.findChildsByChannelCode("nav"));
-		model.put("area", cmsChannelService.findChildsByChannelCode("area"));
+//		model.put("area", cmsChannelService.findChildsByChannelCode("area"));
 		model.put("category", cmsChannelService.findChildsByChannelCode("category"));
-		
 		model.putAll(cmsPropertyService.findAllGroup());
-		return "/index";
+		System.out.println("-------------------- index --------------------");
+		return "/home";
 	}
 	
 }

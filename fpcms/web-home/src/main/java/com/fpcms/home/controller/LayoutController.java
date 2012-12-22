@@ -22,7 +22,6 @@ public class LayoutController {
 		model.putAll(cmsPropertyService.findAllGroup());
 		
 		model.put("nav", cmsChannelService.findChildsByChannelCode("nav"));
-		model.put("area", cmsChannelService.findChildsByChannelCode("area"));
 		model.put("category", cmsChannelService.findChildsByChannelCode("category"));
 		return "/layout";
 	}

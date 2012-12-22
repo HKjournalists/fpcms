@@ -1,4 +1,4 @@
-package com.fpcms.common.util;
+package com.fpcms.common.random_gen_article;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,33 +7,73 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.util.StringUtils;
 
-public class RssArticleGenerator {
-	private String rssUrl;
+import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.RandomUtil;
+
+public class ArticleContentProcesser {
 	static String delimiters = " \t\n\r\f,.!?;:'\"()<>-，。！？；：、‘“”（《》";
+	private boolean filterToken = false;
+	private String searchKeyword;
 	
-	public String buildArticle() {
-		String content = SimpleNetUtil.readUrl("http://www.iteye.com/search?query=发票&sort=&type=all","");
-		return NaipanArticleGeneratorUtil.transformArticle(buildArticle(content));
+	public ArticleContentProcesser(String searchKeyword) {
+		super();
+		this.searchKeyword = searchKeyword;
 	}
 
+	private long pCount = 0;
 	public String buildArticle(String content) {
 		Set<String> tokens = getValidTokens(content);
 		insertKeyWords(tokens);
 		
-		tokens = filterTokens(tokens);
+		if(filterToken) {
+			tokens = filterTokens(tokens);
+		}
+		
+//		return toString(tokens);
+		return NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
+	}
+
+	private String toString(Set<String> tokens) {
 		StringBuilder result = new StringBuilder();
 		for(String token : tokens) {
+			if(pCount % 30 == 0) {
+				result.append("<p>");
+			}
+			boolean strongToken = isStrongToken(token) ;
+			if(strongToken) {
+				result.append("<h3>");
+			}
+			
 			result.append(token).append(getSymbol(token));
+			
+			if(strongToken) {
+				result.append("</h3>");
+			}
+			if(pCount % 30 == 29) {
+				result.append("</p>");
+			}
+			pCount++;
 		}
 		return result.toString();
 	}
 	
-	String[] filterArray = {"发票","增值税","税控","地税","国税","税务","发票税","纳税","纳税人","税法","税收"};
+	private boolean isStrongToken(String token) {
+		for(String strong : Constants.FAIPIAO_KEYWORDS) {
+			if(token.indexOf(strong) >= 0) {
+				return true && RandomUtils.nextInt(2) % 2 == 0;
+			}
+		}
+		if(token.contains(searchKeyword)) {
+			return true;
+		}
+		return false;
+	}
+
 	String[] replaseToken = {"物品","建筑","广告","教育","商品","房屋","商业"};
 	private Set<String> filterTokens(Set<String> tokens) {
 		Set<String> result = new HashSet<String>();
 		for(String token : tokens) {
-			for(String filter : filterArray) {
+			for(String filter : Constants.FAIPIAO_KEYWORDS) {
 				String newToken = RandomUtil.randomSelect(replaseToken);
 				token = StringUtils.replace(token,filter,newToken);
 			}
@@ -47,10 +87,6 @@ public class RssArticleGenerator {
 		tokens.add("广东发票");
 	}
 	
-	private void strongTokens(Set<String> tokens) {
-		
-	}
-
 	String[] a = {"啊","呀","嗯","啦","哪","吧"};
 	String[] question = {"吗"};
 	String[] symbols = {",",".","!",";"};
