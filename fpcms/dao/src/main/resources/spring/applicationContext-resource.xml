@@ -27,8 +27,10 @@
     	<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
-				<!-- 统一配置文件,通过JAVA CLASSPATH变量配置在外部目录中 -->
+				<!-- 生产环境 -->
 				<value>classpath*:app.properties</value>
+				<!-- 开发环境 -->
+				<value>classpath*:app-local.properties</value>
 			</list>
 		</property>
     </bean>

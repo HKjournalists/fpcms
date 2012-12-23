@@ -60,7 +60,7 @@ public class GzipFilter extends OncePerRequestFilter implements Filter{
 			super(resp);
 		}
 
-		 
+		@Override
 	    public void flushBuffer() throws IOException {  
 	    	if(printWriter != null) {
 	    		printWriter.flush();
@@ -70,15 +70,45 @@ public class GzipFilter extends OncePerRequestFilter implements Filter{
 	        }  
 	    }  
 	    
+		@Override
+		public void setContentLength(int length) {  
+	    }
+		final static String HEADER_CONTENT_LENGTH = "Content-Length";
+		@Override
+		public void addIntHeader(String name, int value) {
+			if(name != null && HEADER_CONTENT_LENGTH.equalsIgnoreCase(name.trim())) {
+				return;
+			}
+			super.addIntHeader(name, value);
+		}
+		
+		@Override
+		public void addHeader(String name, String value) {
+			if(name != null && HEADER_CONTENT_LENGTH.equalsIgnoreCase(name.trim())) {
+				return;
+			}
+			super.addHeader(name, value);
+		}
+		
+		@Override
+		public void addDateHeader(String name, long date) {
+			if(name != null && HEADER_CONTENT_LENGTH.equalsIgnoreCase(name.trim())) {
+				return;
+			}
+			super.addDateHeader(name, date);
+		}
+		
 		public void finishResponse() {  
 	        try {  
+	        	flushBuffer();
 	            if (printWriter != null) {  
 	            	printWriter.close();  
 	            }
-	            if (servletOutputStream != null) {  
-	            	servletOutputStream.close();  
+	            if (gzipStream != null) {  
+	            	gzipStream.close();  
                 }  
-	        } catch (IOException e) {  
+	        } catch (IOException e) { 
+	        	logger.error("close error",e);
 	        }  
 	    }
 		
@@ -109,13 +139,8 @@ public class GzipFilter extends OncePerRequestFilter implements Filter{
 
 		private ServletOutputStream createOutputStream() throws IOException {
 			ServletResponse resp = this.getResponse();
-			gzipStream = new GZIPOutputStream(resp.getOutputStream()) {
-				private boolean hasWrite = false;
-				public void write(byte[] b) throws IOException {super.write(b);hasWrite=true;};
-				public synchronized void write(byte[] buf, int off, int len) throws IOException {super.write(buf, off, len);hasWrite=true;};
-				public void write(int b) throws IOException {super.write(b);hasWrite=true;};
-				public void close() throws IOException {super.close();};
-			};
+			gzipStream = new GZIPOutputStream(resp.getOutputStream());
+			
 			addHeader("Content-Encoding", "gzip");
 			addHeader("Vary", "Accept-Encoding");
 			return new ServletOutputStream() {

@@ -13,6 +13,7 @@ public class RandomArticle {
 	private String faipiaoKeyword;
 	private String finalSearchKeyword;
 	private String content;
+	private String perfectKeyword; //推荐使用的keyword
 	private Date dateCreated;
 
 	public RandomArticle() {
@@ -28,6 +29,14 @@ public class RandomArticle {
 		dateCreated = new Date();
 	}
 	
+	public String getPerfectKeyword() {
+		return perfectKeyword;
+	}
+
+	public void setPerfectKeyword(String perfectKeyword) {
+		this.perfectKeyword = perfectKeyword;
+	}
+
 	public String getKeyword() {
 		return keyword;
 	}

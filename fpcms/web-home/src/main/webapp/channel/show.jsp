@@ -3,7 +3,7 @@
 <%@ include file="/commons/taglibs.jsp" %>
 
 <duowan:override name="head">
-	<title>${default.keyword} - ${cmsChannel.channelName}</title>
+	<title>${keyword} - ${cmsChannel.channelName}</title>
 </duowan:override>
 
 <duowan:override name="subTitle">

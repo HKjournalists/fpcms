@@ -44,6 +44,8 @@ public interface SysUserService {
 	 * 分页查询: SysUser
 	 **/      
 	public Page<SysUser> findPage(SysUserQuery query);
+
+	public SysUser findByUsername(String username);
 	
-    
+    public SysUser authUser(String username,String password);
 }

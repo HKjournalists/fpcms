@@ -24,6 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.StrSubstitutorUtil;
 import com.fpcms.service.CmsPropertyService;
 
@@ -115,13 +116,13 @@ public class StrSubstitutorFilter extends OncePerRequestFilter implements Filter
 			return map;
 		}
 
-		private Map<String, Map<String, String>> getAllCmsProperty() {
+		private Map<String, String> getAllCmsProperty() {
 			WebApplicationContext wac = WebApplicationContextUtils
 					.getRequiredWebApplicationContext(getServletContext());
 			CmsPropertyService cmdPropertyService = wac
 					.getBean(CmsPropertyService.class);
-			Map<String, Map<String, String>> appProperties = cmdPropertyService
-					.findAllGroup();
+			Map<String, String> appProperties = cmdPropertyService
+					.findByGroup(Constants.PROPERTY_DEFAULT_GROUP);
 			return appProperties;
 		}
 

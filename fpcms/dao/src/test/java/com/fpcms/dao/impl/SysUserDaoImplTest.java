@@ -81,6 +81,9 @@ public class SysUserDaoImplTest extends BaseDaoTestCase{
 		dao.getById(new java.lang.Long("1"));
 	}
 	
-	
+	@Test
+	public void test_getByUsername() {
+		dao.findByUsername("1");
+	}
 }
 

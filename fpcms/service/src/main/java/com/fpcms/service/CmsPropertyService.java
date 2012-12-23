@@ -47,6 +47,7 @@ public interface CmsPropertyService {
 	 **/      
 	public Page<CmsProperty> findPage(CmsPropertyQuery query);
 	
-    public Map<String,Map<String,String>> findAllGroup();
+//    public Map<String,Map<String,String>> findAllGroup();
     
+    public Map<String,String> findByGroup(String group);
 }

@@ -118,10 +118,12 @@
 		<groupId>cglib</groupId>
 		<artifactId>cglib-nodep</artifactId>
 	</dependency>
+	<!-- 
 	<dependency>
 	    <groupId>apache-oro</groupId>
 	    <artifactId>jakarta-oro</artifactId>
 	</dependency>			
+	 -->
 	<!-- spring end -->
 
 	<!--  apache-commons BEGIN -->

@@ -8,7 +8,7 @@ public class RandomArticleBuilderTest extends Assert{
 	@Test
 	public void test() {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
-		RandomArticle a = builder.buildRandomArticle();
+		RandomArticle a = builder.buildRandomArticle("中文");
 		assertTrue("a.getContent().length() > 400 is false,length"+a.getContent().length()+" content:"+a.getContent(),a.getContent().length() > 400);
 	}
 	

@@ -3,7 +3,9 @@
 <%@ include file="/commons/taglibs.jsp" %>
 
 <duowan:override name="head">
-	<title>${default.keyword} - ${cmsContent.title}</title>
+	<title>${cmsContent.title} - ${keyword}</title>
+	<meta name="keywords" content="${cmsContent.title} - ${keyword}" />
+	<meta name="description" content="${fn:substring(item.content,0,80)}" /> 
 </duowan:override>
 
 <duowan:override name="content">

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fpcms.common.util.Constants;
 import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsPropertyService;
 @Controller
@@ -19,7 +20,7 @@ public class LayoutController {
 	
 	@RequestMapping
 	public String layout(ModelMap model) throws Exception {
-		model.putAll(cmsPropertyService.findAllGroup());
+		model.putAll(cmsPropertyService.findByGroup(Constants.PROPERTY_DEFAULT_GROUP));
 		
 		model.put("nav", cmsChannelService.findChildsByChannelCode("nav"));
 		model.put("category", cmsChannelService.findChildsByChannelCode("category"));

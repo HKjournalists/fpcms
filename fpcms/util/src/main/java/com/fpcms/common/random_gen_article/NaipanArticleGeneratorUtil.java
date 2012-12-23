@@ -8,6 +8,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.duowan.common.util.Profiler;
 import com.fpcms.common.util.SimpleHttpInvokerRequestExecutor;
 
 public class NaipanArticleGeneratorUtil {
@@ -20,10 +21,13 @@ public class NaipanArticleGeneratorUtil {
 	static int SEGEMENT_SIZE = 170; //奶盘一次只能转换170字节
 	public static String transformArticle(String content) {
 		try {
+			Profiler.enter("NaipanArticleGeneratorUtil.transformArticle");
 			return transformArticle0(content);
 		}catch(Exception e) {
 			logger.error("transformArticle error,result input content",e);
 			return content;
+		}finally {
+			Profiler.release();
 		}
 	}
 

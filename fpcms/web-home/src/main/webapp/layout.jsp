@@ -4,11 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	
 	<duowan:block name="head">
-	<title>公司执照-${default.keyword}</title>
-	<meta name="keywords" content="${default.keyword}" />
-	<meta name="description" content="${default.company}代理有限公司于2005年挂牌成立,是经政府批准的具有${default.city}开发票，代开发票资格的专业税务开票公司" />
+	<title>公司执照-${keyword}</title>
+	<meta name="keywords" content="${keyword}" />
+	<meta name="description" content="${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}开发票，代开发票资格的专业税务开票公司" />
 	</duowan:block>
+	
 	<script type="text/javascript" src="${ctx}/js/application.js"></script>
 	<script type="text/javascript" src="${ctx}/js/topad.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -25,17 +27,17 @@
 					<div>
 						<div style="height:15px;"></div>
 						<div style="float: left;width: 510px;">
-							<div><span style="font-size: 30pt;font-weight: 900;">${default.company}</span></div>
+							<div><span style="font-size: 30pt;font-weight: 900;">${company}</span></div>
 						</div>
 						<div  style="float: left;display: block; width: 400px;">
-							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:${default.qq} <font color=red>电话</font>:${default.mobile }</font>
+							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:${qq} <font color=red>电话</font>:${mobile }</font>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="top_other">
-			<a href="javascript:addFavorite('${default.company}-代开发票');">加入收藏夹</a>
+			<a href="javascript:addFavorite('${company}-代开发票');">加入收藏夹</a>
 			<dl>
 				<dt>
 					<input id="searchKeyword" name="searchKeyword" type="text" class="input" value="请输入关键字" onfocus="if (value =='请输入关键字'){value =''}" onblur="if (value ==''){value='请输入关键字'}" />
@@ -85,7 +87,7 @@
 					<dl class="class_list">
 						<c:forEach	items="${category}" var="item">
 							<dt>
-								<a href="${ctx}/channel/show/${item.channelCode}.do" id="${item.id == cmsChannel.id ? 'a_hover' : '' }"><span>${item.channelName}</span></a>
+								<a><span>${item.channelName}</span></a>
 							</dt>
 						</c:forEach>
 					</dl>
@@ -98,7 +100,7 @@
 				</div>
 				<div class="m10">
 					<dl class="all_list">
-						<c:forEach	items="${area}" var="item">
+						<c:forEach	items="${hot_news}" var="item">
 							<dt>
 								<a href="${ctx}/channel/show/${item.channelCode}.do" style="font-weight: bold;">${item.channelName}</a>
 							</dt>
@@ -112,9 +114,9 @@
 				</div>
 				<div class="m10 " >
 					<div align="left" >
-					<b>联系人:</b> ${default.contactName} <br/>
-					<b>电话:</b>&nbsp;&nbsp;&nbsp;${default.mobile} <br/>
-					<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${default.qq}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${default.qq}:41" border="0" /></a>
+					<b>联系人:</b> ${contactName} <br/>
+					<b>电话:</b>&nbsp;&nbsp;&nbsp;${mobile} <br/>
+					<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${qq}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
 					</div>
 				</div>
 			</div>
@@ -142,7 +144,7 @@
 		<div class="foot_menu">
 			<a href="/">网站首页</a> | 
 		</div>
-		<strong>${default.company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利<br />
+		<strong>${company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利<br />
 		<duowan:block name="foot">
 		</duowan:block>
 	</div>
@@ -153,8 +155,8 @@
 		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
 	</script>
 	<script  type="text/javascript">
-		var chatLink = "<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=${requestHost}&amp;menu=yes'><img src='${ctx}/images/online_chat.gif'/><br/><img src='${ctx}/images/qq.png'/></a><br/>";
-		var chatLink2 = "客服1<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=${requestHost}&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${default.qq}:41' border='0'/></a><br/>客服2<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${default.qq}:41' border='0'/></a><br/>客服3<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${default.qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${default.qq}:41' border='0'/></a><br/>";
+		var chatLink = "<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes'><img src='${ctx}/images/online_chat.gif'/><br/><img src='${ctx}/images/qq.png'/></a><br/>";
+		var chatLink2 = "客服1<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>客服2<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>客服3<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>";
 		generateLeftRightAD(chatLink,chatLink2);
 	</script>
 </body>

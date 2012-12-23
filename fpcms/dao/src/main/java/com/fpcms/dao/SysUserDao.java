@@ -29,6 +29,8 @@ public interface SysUserDao {
 	public SysUser getById(long id);
 	
 
-	public Page<SysUser> findPage(SysUserQuery query);	
+	public Page<SysUser> findPage(SysUserQuery query);
+
+	public SysUser findByUsername(String username);	
 	
 }

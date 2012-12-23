@@ -1,5 +1,6 @@
 package com.fpcms.scheduled.job;
 
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +15,9 @@ import org.springframework.util.Assert;
 import com.duowan.common.util.Profiler;
 import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
+import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.KeywordUtil;
+import com.fpcms.common.util.RandomUtil;
 import com.fpcms.model.CmsContent;
 import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsContentService;
@@ -63,16 +67,37 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 
 	private void genCmsContent() {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
-		RandomArticle article = builder.buildRandomArticle();
+		RandomArticle article = builder.buildRandomArticle(null);
 		
+		String keyword = getAttachKeyword() + getSiteKeyword();
 		CmsContent cmsContent = new CmsContent();
 		cmsContent.setContent(article.getContent());
-		cmsContent.setTitle(article.getKeyword()); //TODO 网站:关键字要附加进去
+		String title = keyword + article.getPerfectKeyword();
+		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
 		cmsContent.setAuthor("admin_ramd");
-		cmsContent.setChannelCode("news");
+		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
 		cmsContentService.create(cmsContent);
-		logger.info("generate random news by:"+article.getFinalSearchKeyword());
-		System.out.println(article);
+		logger.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
+	}
+	
+	private String getAttachKeyword() {
+		if(RandomUtil.randomTrue(35)) {
+			return "";
+		}
+		return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
+	}
+
+	/**
+	 * 随机一定概率生成有关键字的title
+	 * @return
+	 */
+	private String getSiteKeyword() {
+		Map<String,String> map = cmsPropertyService.findByGroup(Constants.PROPERTY_DEFAULT_GROUP);
+		if(map == null) {
+			throw new IllegalArgumentException("not found default group");
+		}
+		String keyword = map.get("keyword") + " ";
+		return RandomUtils.nextInt(3) == 1 ? keyword : " ";
 	}
 
 	@Override
@@ -87,7 +112,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 			@Override
 			public void run() {
 				try {
-					execute();
+//					execute();
 				}catch(Exception e) {
 					logger.error("AutoGeneratorNewsJob error",e);
 				}

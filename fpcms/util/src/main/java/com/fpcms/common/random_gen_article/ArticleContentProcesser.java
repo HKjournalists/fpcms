@@ -4,20 +4,34 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
-import org.springframework.util.StringUtils;
+import org.springframework.util.Assert;
 
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
 
+/**
+ * 对文件进行:过滤,替换,分段落,增加<h1>标题等操作,然后生成随机文章. 
+ * 
+ * @author badqiu
+ *
+ */
 public class ArticleContentProcesser {
-	static String delimiters = " \t\n\r\f,.!?;:'\"()<>-，。！？；：、‘“”（《》";
-	private boolean filterToken = false;
-	private String searchKeyword;
+	/**
+	 * 需要加强的keyword
+	 */
+	private String strongKeyword;
+	/**
+	 * 需要插入在文档中的keyword
+	 */
+	private String insertKeyword;
 	
-	public ArticleContentProcesser(String searchKeyword) {
+	public ArticleContentProcesser(String strongKeyword,String insertKeyword) {
 		super();
-		this.searchKeyword = searchKeyword;
+		this.strongKeyword = strongKeyword;
+		this.insertKeyword = insertKeyword;
 	}
 
 	private long pCount = 0;
@@ -25,9 +39,7 @@ public class ArticleContentProcesser {
 		Set<String> tokens = getValidTokens(content);
 		insertKeyWords(tokens);
 		
-		if(filterToken) {
-			tokens = filterTokens(tokens);
-		}
+		KeywordUtil.filterSensitiveKeyword(tokens);
 		
 //		return toString(tokens);
 		return NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
@@ -58,33 +70,27 @@ public class ArticleContentProcesser {
 	}
 	
 	private boolean isStrongToken(String token) {
+		Assert.notNull(token,"token must be not null");
 		for(String strong : Constants.FAIPIAO_KEYWORDS) {
 			if(token.indexOf(strong) >= 0) {
 				return true && RandomUtils.nextInt(2) % 2 == 0;
 			}
 		}
-		if(token.contains(searchKeyword)) {
+		if(token.contains(strongKeyword)) {
 			return true;
 		}
 		return false;
 	}
 
 	String[] replaseToken = {"物品","建筑","广告","教育","商品","房屋","商业"};
-	private Set<String> filterTokens(Set<String> tokens) {
-		Set<String> result = new HashSet<String>();
-		for(String token : tokens) {
-			for(String filter : Constants.FAIPIAO_KEYWORDS) {
-				String newToken = RandomUtil.randomSelect(replaseToken);
-				token = StringUtils.replace(token,filter,newToken);
-			}
-			result.add(token);
-		}
-		return result;
-	}
+
 
 
 	private void insertKeyWords(Set<String> tokens) {
-		tokens.add("广东发票");
+		if(StringUtils.isNotBlank(insertKeyword)) {
+			tokens.add(insertKeyword);
+			tokens.add(insertKeyword+"2");
+		}
 	}
 	
 	String[] a = {"啊","呀","嗯","啦","哪","吧"};
@@ -108,7 +114,7 @@ public class ArticleContentProcesser {
 
 	public Set<String> getValidTokens(String string) {
 		Set<String> tokens = new HashSet<String>();
-		StringTokenizer tokenizer = new StringTokenizer(string,delimiters);
+		StringTokenizer tokenizer = new StringTokenizer(string,KeywordUtil.DELIMITERS);
 		while(tokenizer.hasMoreElements()) {
 			String token = tokenizer.nextToken();
 			if(isValidToken(token)) {
@@ -118,12 +124,23 @@ public class ArticleContentProcesser {
 		return tokens;
 	}
 
-	private boolean isValidToken(String token) {
+	boolean isValidToken(String token) {
 		if(token.length() < 8) {
 			return false;
 		}
+		
+		if(token.matches(".*\\d{11}.*")) {
+			return false;
+		}
+		if(token.matches("\\d+")) {
+			return false;
+		}
+		
 		for(int i = 0; i < token.length(); i++) {
 			char c = token.charAt(i);
+			if(Character.isDigit(c)) {
+				continue;
+			}
 			if((int)c < 1024) {
 				return false;
 			}

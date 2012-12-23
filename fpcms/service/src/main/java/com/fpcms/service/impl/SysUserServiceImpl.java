@@ -8,6 +8,7 @@ package com.fpcms.service.impl;
 
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,9 @@ public class SysUserServiceImpl implements SysUserService {
 	    Assert.notNull(sysUser,"'sysUser' must be not null");
 	    initDefaultValuesForCreate(sysUser);
 	    new SysUserChecker().checkCreateSysUser(sysUser);
+	    
+	    sysUser.setPassword(getPasswordMd5(sysUser.getUsername(),sysUser.getPassword()));
+	    
 	    sysUserDao.insert(sysUser);
 	    return sysUser;
 	}
@@ -117,4 +121,31 @@ public class SysUserServiceImpl implements SysUserService {
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
     }
+
+	@Override
+	public SysUser findByUsername(String username) {
+		return sysUserDao.findByUsername(username);
+	}
+
+	@Override
+	public SysUser authUser(String username, String password) {
+		SysUser user = findByUsername(username);
+		if(user == null) {
+			throw new RuntimeException("username error:"+username);
+		}
+		if(getPasswordMd5(user.getUsername(),password).equals(user.getPassword())) {
+			return user;
+		}else {
+			throw new RuntimeException("password error");
+		}
+	}
+	
+	private static String getPasswordMd5(String username,String password) {
+		String salt = "fpcms"; //盐
+		return DigestUtils.md5Hex(salt+username+password);
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(getPasswordMd5("fpqqchao", "asdf@1234"));
+	}
 }

@@ -10,7 +10,6 @@ package com.fpcms.admin.controller;
 import static com.duowan.common.util.ValidationErrorsUtils.convert;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,6 +31,7 @@ import com.duowan.common.exception.MessageException;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.util.Constants;
 import com.fpcms.model.CmsChannel;
 import com.fpcms.query.CmsChannelQuery;
 import com.fpcms.service.CmsChannelService;
@@ -147,7 +147,8 @@ public class CmsChannelController extends BaseController{
 	
 	@RequestMapping
 	public void treeXml(HttpServletResponse response,ModelMap model) throws IOException {
-		String treeXml = cmsChannelService.createTreeXmlString(0);
+		response.setContentType("text/xml;charset=UTF-8");
+		String treeXml = cmsChannelService.createTreeXmlString(Constants.TREE_ROOT_ID);
 		response.getWriter().println(treeXml);
 	}
 	

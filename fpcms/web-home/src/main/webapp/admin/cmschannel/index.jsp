@@ -51,7 +51,7 @@
 				
 		var tree = new dhtmlXTreeObject("dhtmlXTree", "100%","100%", 0);
 		tree.setSkin('csh_vista');
-		tree.setImagePath("${ctx}/js/dhtmlXTree/imgs/csh_dhx_skyblue/");
+		tree.setImagePath("${ctx}/js/dhtmlXTree/imgs/");
 		tree.enableDragAndDrop(false);
 		tree.enableTreeLines(true);
 		tree.enableHighlighting(true);
