@@ -166,15 +166,21 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	}
 	
 	public List<CmsChannel> findChildsByChannelCode(String channelCode) {
-		Long channelId = getChannelMapping().get(channelCode);
+		Long channelId = getChannelId(channelCode);
 		Assert.notNull(channelId,"not found channelId by channelCode:"+channelCode);
 		return cmsChannelDao.findChildsByChannelId(channelId);
 	}
 
 	@Override
 	public CmsChannel findByChannelCode(String channelCode) {
-		long channelId = getChannelMapping().get(channelCode);
+		long channelId = getChannelId(channelCode);
 		return cmsChannelDao.getById(channelId);
+	}
+
+	private Long getChannelId(String channelCode) {
+		Long result =  getChannelMapping().get(channelCode);
+		if(result == null) throw new IllegalArgumentException("not found channelId by channelCode:"+channelCode);
+		return result;
 	}
 	
 }

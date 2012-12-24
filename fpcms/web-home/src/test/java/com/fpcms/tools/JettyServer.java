@@ -2,6 +2,8 @@ package com.fpcms.tools;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
+
+import com.fpcms.common.util.AppModeUtil;
 /**
  * 开发调试使用的 Jetty Server
  * @author badqiu
@@ -10,6 +12,7 @@ import org.eclipse.jetty.webapp.WebAppContext;
 public class JettyServer {
 	
 	public static void main(String[] args) throws Exception {
+		AppModeUtil.setAppMode("dev");
 		Server server = buildNormalServer(8080, "/fpcms");
 		server.start();
 	}

@@ -14,6 +14,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,11 +24,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.duowan.common.util.page.Page;
 import com.fpcms.common.BaseController;
 import com.fpcms.common.util.WebUtil;
 import com.fpcms.model.CmsChannel;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsChannelQuery;
+import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsContentService;
 
@@ -78,10 +81,14 @@ public class ChannelController extends BaseController{
 	/** 列表 */
 	@RequestMapping("/show/{channelCode}.do")
 	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("channelCode") String channelCode,HttpServletRequest request,HttpServletResponse response) {
-		CmsChannel channel = cmsChannelService.findByChannelCode(channelCode);
-		model.put("cmsChannel", channel);
+		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(channelCode);
+		if(StringUtils.isBlank(cmsChannel.getContent())) {
+			return "forward:/channel/showContentList/"+channelCode+".do";
+		}
 		
-		if(WebUtil.isNotModified(request, response, channel.getDateLastModified())) {
+		model.put("cmsChannel", cmsChannel);
+		
+		if(WebUtil.isNotModified(request, response, cmsChannel.getDateLastModified())) {
 			return null;
 		}
 		
@@ -89,9 +96,17 @@ public class ChannelController extends BaseController{
 	}
 	
 	@RequestMapping("/showContentList/{channelCode}.do")
-	public String showContentList(ModelMap model,CmsChannelQuery query,HttpServletRequest request,@PathVariable("channelCode") String channelCode) {
-		List<CmsContent> cmsContentList = cmsContentService.findByChannelCode(channelCode);
-		model.put("cmsContentList", cmsContentList);
+	public String showContentList(ModelMap model,CmsContentQuery query,HttpServletRequest request,@PathVariable("channelCode") String channelCode) {
+		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(channelCode);
+		if(query.getPageSize() < 10) {
+			query.setPageSize(10);
+		}
+		
+		query.setChannelCode(channelCode);
+		Page<CmsContent> cmsContentPage = cmsContentService.findPage(query);
+		
+		model.put("cmsChannel", cmsChannel);
+		model.put("page", cmsContentPage);
 		return "/channel/showContentList";
 	}
 	

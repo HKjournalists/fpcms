@@ -68,14 +68,14 @@
 	<dependency>
 	  <groupId>com.googlecode.rapid-framework</groupId>
 	  <artifactId>rapid-generator</artifactId>
-	  <version>4.0.2</version>
+	  <version>4.0.6</version>
 	  <scope>test</scope>        
 	</dependency>
 	
 	<dependency>
 	  <groupId>com.googlecode.rapid-framework</groupId>
 	  <artifactId>rapid-generator-ext</artifactId>
-	  <version>4.0.2</version>
+	  <version>4.0.6</version>
 	  <scope>test</scope>           
 	</dependency>
   	<!-- rapid generator end -->
@@ -180,11 +180,13 @@
 		<artifactId>cglib-nodep</artifactId>
 		<version>2.2</version>
 	</dependency>
+	<!--
 	<dependency>
 	    <groupId>apache-oro</groupId>
 	    <artifactId>jakarta-oro</artifactId>
 	    <version>2.0.8</version>
-	</dependency>			
+	</dependency>	
+	-->
 	<!-- spring end -->
 
 	<!-- datasource -->
@@ -351,19 +353,17 @@
 		<version>2.5</version>
 		<scope>provided</scope>
 	</dependency>
+	-->
 	<dependency>
 		<groupId>javax.servlet</groupId>
 		<artifactId>jstl</artifactId>
 		<version>1.2</version>
-		<scope>provided</scope>
 	</dependency>
 	<dependency>
 		<groupId>taglibs</groupId>
 		<artifactId>standard</artifactId>
 		<version>1.1.2</version>
-		<scope>provided</scope>
 	</dependency>
-	 -->
 
 	<!-- email begin -->
 	<dependency>
@@ -736,7 +736,8 @@
 			</plugin>											
 		</plugins>
 	</build>
-
+	
+	<!--
 	<profiles>
 		<profile>
 			<id>dev</id>
@@ -780,6 +781,7 @@
 			</activation>
 		</profile>
 	</profiles>	
+	-->
 
   <modules>
     <module>util</module>

@@ -126,14 +126,14 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
             sql.append(" and site = :site ");
         }
 		
-        //sql.append(" order by :sortColumns ");
+        sql.append(" order by date_created desc ");
 		
 		return pageQuery(sql.toString(),query,getEntityRowMapper());				
 	}
 
 	@Override
 	public List<CmsContent> findByChannelCode(String channelCode) {
-		String sql = SELECT_FROM+" where channel_code = ? order by date_created";
+		String sql = SELECT_FROM+" where channel_code = ? order by date_created desc";
 		return getSimpleJdbcTemplate().query(sql,getEntityRowMapper(),channelCode);
 	}
 }

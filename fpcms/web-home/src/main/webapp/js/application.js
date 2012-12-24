@@ -48,3 +48,15 @@ function getReferenceForm(elm) {
 	}
 	return null;
 }
+
+function addFavorite(title) {
+   var url = location.protocol + "//" +location.host;
+   if (document.all)
+   {
+      window.external.addFavorite(url,title);
+   }
+   else if (window.sidebar)
+   {
+      window.sidebar.addPanel(title, url, "");
+   }
+}

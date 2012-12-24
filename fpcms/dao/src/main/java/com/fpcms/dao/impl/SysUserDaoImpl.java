@@ -103,4 +103,11 @@ public class SysUserDaoImpl extends BaseSpringJdbcDao implements SysUserDao{
 		
 		return pageQuery(sql.toString(),query,getEntityRowMapper());				
 	}
+
+	@Override
+	public SysUser findByUsername(String username) {
+		String sql = SELECT_FROM + " where  username = ? ";
+		return (SysUser)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),username));
+	}
+	
 }

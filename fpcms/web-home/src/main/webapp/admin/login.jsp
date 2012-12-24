@@ -17,7 +17,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <%@ include file="/commons/messages.jsp" %>
 
-<form action="${ctx}/login" method="post" >
+<h1>FPCMS登陆页面</h1>
+<form action="${ctx}/admin/login.do" method="post" >
 	<table height="100%" width="100%" >
 	<tr valign="middle">
 		<td>

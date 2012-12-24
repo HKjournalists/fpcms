@@ -33,7 +33,7 @@
 	  <h3 class="headerbar">内容管理</h3>
 	  <ul>
 		<li><a href="${ctx}/admin/cmschannel/index.do" target="rightFrame">频道管理</a></li>
-		<li><a href="${ctx}/admin/cmscontent/index.do" target="rightFrame">文章管理</a></li>
+		<li><a href="${ctx}/admin/cmschannel/manageContentList.jsp" target="rightFrame">文章管理</a></li>
 		<li><a href="${ctx}/admin/cmsattachment/index.do" target="rightFrame">附件管理</a></li>
 	  </ul>
 	  <h3 class="headerbar">系统管理</h3>

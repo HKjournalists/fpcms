@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" isErrorPage="true" %>
 <%@ page import="org.apache.commons.logging.LogFactory" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/commons/taglibs.jsp" %>
 <html>
 <head>
 	<title>Error Page</title>
@@ -26,7 +27,7 @@
 		LogFactory.getLog(requestUri).error(exception.getMessage(), exception);
 	%>
 	示例远程图片,请自行下载<br />
-	<img alt="system internal error" src="http://rapid-framework.googlecode.com/svn/trunk/images/doc/other/demo/error.gif" />
+	<img alt="system internal error" src="${ctx}/images/error.gif" />
 	<h3>
 	对不起,发生系统内部错误,不能处理你的请求<br />
 	</h3>

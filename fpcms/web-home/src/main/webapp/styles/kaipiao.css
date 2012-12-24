@@ -427,3 +427,5 @@ div#menu li.back .left {
 .class_list dt a{line-height:25px; display:block;background:url(images/kaipiao/kaipiao.gif) 0 -254px; border-bottom:1px #dedede solid; text-indent:30px; color:#666}
 .class_list dt a:hover{ background:#009eba; color:#FFF}
 #a_hover{background:#009eba; color:#FFF}
+
+.neirong,.next{line-height:25px;font-size:10pt;padding:0 10px;}

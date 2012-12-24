@@ -2,13 +2,13 @@
 
 function generateLeftRightAD(leftDiv,rightDiv) {
 	//左边
-	leftDivContent	="<div id=LeftAda style='left:5px;POSITION:absolute;TOP:5px;'>";
+	leftDivContent	="<div id=LeftAda style='left:5px;POSITION:absolute;TOP:250px;'>";
 	leftDivContent	+=leftDiv;
 	leftDivContent	+="<a style='text-align:left; cursor: hand; display:block; background:#eee; width:100px;' onclick='javascript:closedivLeft1()' hidefocus='true'>关闭</a>";
 	leftDivContent	+="</div>";
 
 	//右边
-	rightDivContent = "<div id=RightAda style='right:5px;POSITION:absolute;TOP:5px;'>";
+	rightDivContent = "<div id=RightAda style='right:5px;POSITION:absolute;TOP:250px;'>";
 	rightDivContent	+= rightDiv;
 	rightDivContent +="<a style='text-align:right; cursor: hand; display:block; background:#e0e0e0; width:100px;' onclick='javascript:closedivLeft1()' hidefocus='true'>关闭</a>";
 	rightDivContent	+="</div>";

@@ -74,8 +74,8 @@ public class CmsContentController extends BaseController{
 	/** 列表 */
 	@RequestMapping()
 	public String index(ModelMap model,CmsContentQuery query,HttpServletRequest request) {
-		query.setChannelCode(RequestUtil.getAndCreateSession(request,"channelCode"));
-		query.setSite(RequestUtil.getAndCreateSession(request,"site"));
+//		query.setChannelCode(RequestUtil.getAndCreateSession(request,"channelCode"));
+//		query.setSite(RequestUtil.getAndCreateSession(request,"site"));
 		
 		Page<CmsContent> page = this.cmsContentService.findPage(query);
 		
