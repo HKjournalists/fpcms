@@ -26,7 +26,7 @@
     <bean id="applicationProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
     	<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
-			<list>
+			<list> 
 				<!-- 服务器环境 -->
 				<value>/data/app/fpcms/config/${DWENV}/app.properties</value>
 				<!-- 开发环境 -->
