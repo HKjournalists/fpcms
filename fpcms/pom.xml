@@ -716,6 +716,7 @@
 				<version>${jetty.version}</version>
 				<configuration>
 					<scanIntervalSeconds>5</scanIntervalSeconds>
+					<contextPath>/</contextPath>
 				</configuration>
 			</plugin>
 			
