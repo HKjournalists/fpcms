@@ -41,17 +41,17 @@
 	<dependency>
 		<groupId>com.duowan.common</groupId>
 		<artifactId>duowan-common-util</artifactId>
-	  	<version>1.0.2</version>        
+	  	<version>1.0.9</version>        
 	</dependency>
 	<dependency>
 		<groupId>com.duowan.common</groupId>
 		<artifactId>duowan-common-web</artifactId>
-	  	<version>1.0</version>        
+	  	<version>1.0.2</version>        
 	</dependency>	
 	<dependency>
 		<groupId>com.duowan.common</groupId>
 		<artifactId>duowan-common-jdbc</artifactId>
-	  	<version>1.0</version>        
+	  	<version>1.0.2</version>        
 	</dependency>	
 	<dependency>
 		<groupId>com.duowan.common</groupId>

@@ -1,0 +1,9 @@
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Mon Apr 11 13:43:41 CST 2011
+http\://maven.app.duowan.com\:8081/nexus/content/groups/public-snapshots/.error=
+http\://dev.game.yy.com/nexus/content/groups/public-snapshots/.error=
+http\://dev.game.yy.com/nexus/content/groups/public-snapshots/.lastUpdated=1302500620550
+http\://maven.app.duowan.com\:8081/nexus/content/groups/public-snapshots/.lastUpdated=1302500544335
+http\://dev.game.yy.com/nexus/content/groups/public/.lastUpdated=1302500621552
+http\://maven.app.duowan.com\:8081/nexus/content/groups/public/.error=
+http\://maven.app.duowan.com\:8081/nexus/content/groups/public/.lastUpdated=1302500544195

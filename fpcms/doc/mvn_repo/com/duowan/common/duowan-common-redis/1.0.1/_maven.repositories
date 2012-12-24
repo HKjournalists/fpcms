@@ -1,0 +1,5 @@
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Fri Sep 28 13:09:01 CST 2012
+duowan-common-redis-1.0.1-sources.jar>=
+duowan-common-redis-1.0.1.pom>=
+duowan-common-redis-1.0.1.jar>=
