@@ -112,7 +112,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 			@Override
 			public void run() {
 				try {
-//					execute();
+					execute();
 				}catch(Exception e) {
 					logger.error("AutoGeneratorNewsJob error",e);
 				}
