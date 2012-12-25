@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
+import org.springframework.util.Assert;
 
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.KeywordUtil;
@@ -22,6 +23,7 @@ public class RandomArticleBuilder {
 	
 	public RandomArticle buildRandomArticle(String insertKeyword) {
 		Set<String> baiduBuzzs = BaiduTopBuzzUtil.getBaiduBuzzs();
+		Assert.isTrue(!baiduBuzzs.isEmpty()," baiduBuzzs must be not empty");
 		KeywordUtil.filterSensitiveKeyword(baiduBuzzs);
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(randomConfuseKeywordArray);

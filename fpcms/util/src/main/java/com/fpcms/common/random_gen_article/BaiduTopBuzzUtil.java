@@ -32,7 +32,7 @@ public class BaiduTopBuzzUtil {
 		Profiler.enter("findBaiduBuzzs");
 		try {
 			String topKeyword =  NetUtil.httpGet(url);
-			Set<String> keyword = RegexUtil.findAllByRegexGroup(topKeyword, "(?s)<td class=.key.><a.href=..*?. target=._blank.>(\\W+)</a></td>", 1);
+			Set<String> keyword = RegexUtil.findAllByRegexGroup(topKeyword, "(?s)<a class=\"list-title\" target=\"_blank\" href=\"./detail.{1,80}>(\\W+)</a>", 1);
 			logger.info("getBaiduKeywords,url=" + url + " result:"+keyword);
 			return keyword;
 		}finally {
