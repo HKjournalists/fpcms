@@ -4445,3 +4445,216 @@
 2012-12-25 10:37:04,149 [demo-loginUsername/127.0.0.1/a1c52097ce34481a8f1838526078ee95 -  - /channel/show/news.do] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel where parent_id = 13 order by level  {executed in 0 msec}
 2012-12-25 10:37:04,151 [demo-loginUsername/127.0.0.1/a1c52097ce34481a8f1838526078ee95 -  - /channel/show/news.do] INFO  com.fpcms.common.springmvc.interceptor.SharedRenderVariableInterceptor - 请注意,在这里可以存放渲染视图时需要的的共享变量
 2012-12-25 10:37:04,153 [demo-loginUsername/127.0.0.1/a1c52097ce34481a8f1838526078ee95 -  - /channel/show/news.do] INFO  jdbc.sqltiming - select prop_group,prop_key,prop_value,ramarks from cms_property  {executed in 0 msec}
+2012-12-25 13:59:36,116 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel  {executed in 1 msec}
+2012-12-25 13:59:36,172 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel where parent_id = 10 order by level  {executed in 53 msec}
+2012-12-25 13:59:36,211 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select count(*) from ( select id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level from cms_content where 1=1 and channel_code = 'news' ) as c  {executed in 37 msec}
+2012-12-25 13:59:36,219 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level from cms_content where 1=1 and channel_code = 'news' order by date_created desc limit 20  {executed in 7 msec}
+2012-12-25 13:59:36,224 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level from cms_content where channel_code = 'hot_news' order by date_created desc  {executed in 1 msec}
+2012-12-25 13:59:36,225 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel  {executed in 0 msec}
+2012-12-25 13:59:36,234 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel where parent_id = 13 order by level  {executed in 7 msec}
+2012-12-25 13:59:36,236 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select prop_group,prop_key,prop_value,ramarks from cms_property  {executed in 0 msec}
+-------------------- index --------------------
+2012-12-25 13:59:36,237 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  com.fpcms.common.springmvc.interceptor.SharedRenderVariableInterceptor - 请注意,在这里可以存放渲染视图时需要的的共享变量
+2012-12-25 13:59:36,246 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select prop_group,prop_key,prop_value,ramarks from cms_property  {executed in 0 msec}
+2012-12-25 13:59:36,248 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel  {executed in 1 msec}
+2012-12-25 13:59:36,262 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel where parent_id = 10 order by level  {executed in 6 msec}
+2012-12-25 13:59:36,264 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel  {executed in 0 msec}
+2012-12-25 13:59:36,268 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel where parent_id = 13 order by level  {executed in 2 msec}
+2012-12-25 13:59:36,274 [demo-loginUsername/127.0.0.1/875ce53d208a4f9fb7c1a45cedd8a4aa -  - /] INFO  com.fpcms.common.springmvc.interceptor.SharedRenderVariableInterceptor - 请注意,在这里可以存放渲染视图时需要的的共享变量
+2012-12-25 13:59:38,827 [demo-loginUsername/127.0.0.1/629eecc30233436f9d025c56b321fa13 -  - /channel/show/aboutus.do] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel  {executed in 0 msec}
+2012-12-25 13:59:38,834 [demo-loginUsername/127.0.0.1/629eecc30233436f9d025c56b321fa13 -  - /channel/show/aboutus.do] INFO  jdbc.sqltiming - select id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created from cms_channel where id = 15  {executed in 4 msec}
+2012-12-25 13:59:38,835 [demo-loginUsername/127.0.0.1/629eecc30233436f9d025c56b321fa13 -  - /channel/show/aboutus.do] INFO  com.fpcms.common.springmvc.interceptor.SharedRenderVariableInterceptor - 请注意,在这里可以存放渲染视图时需要的的共享变量
+[INFO] restarting org.mortbay.jetty.plugin.Jetty6PluginWebAppContext@246c18{/,/data/src/fpcms/fpcms/web-home/src/main/webapp}
+2012-12-25 13:59:39.794:INFO:/:Destroying Spring FrameworkServlet 'springmvc'
+2012-12-25 13:59:39,795 [// -  - ] INFO  org.springframework.web.context.support.XmlWebApplicationContext - Closing WebApplicationContext for namespace 'springmvc-servlet': startup date [Tue Dec 25 00:43:47 HKT 2012]; parent: Root WebApplicationContext
+2012-12-25 13:59:39,796 [// -  - ] INFO  org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@88c63e: defining beans [cmsAttachmentController,loginController,cmsContentController,cmsChannelController,cmsPropertyController,sysUserController,logoutController,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,layoutController,homeController,contentController,channelController,com.duowan.common.web.mvc.annotation.ConventionAnnotationHandlerMapping#0,org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter#0,org.springframework.web.servlet.view.BeanNameViewResolver#0,org.springframework.web.servlet.view.InternalResourceViewResolver#0,exceptionResolver]; parent: org.springframework.beans.factory.support.DefaultListableBeanFactory@8443c9
+2012-12-25 13:59:39.797:INFO:/:Closing Spring root WebApplicationContext
+2012-12-25 13:59:39,797 [// -  - ] INFO  org.springframework.web.context.support.XmlWebApplicationContext - Closing Root WebApplicationContext: startup date [Tue Dec 25 00:43:45 HKT 2012]; root of context hierarchy
+2012-12-25 13:59:39,798 [// -  - ] INFO  org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@8443c9: defining beans [cmsPropertyService,cmsChannelService,sysUserService,cmsAttachmentService,cmsContentService,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,messageSource,applicationProperties,propertyConfigurer,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,fatherDataSource,dataSource,log4jdbcInterceptor,dataSourceLog4jdbcAutoProxyCreator,daoParent,cmsAttachmentDao,cmsChannelDao,cmsContentDao,cmsPropertyDao,sysUserDao,validator,com.duowan.common.util.holder.BeanValidatorHolder#0,jdbcTemplate,transactionManager,dialect,autoGeneratorNewsJob]; root of factory hierarchy
+2012-12-25 13:59:39.808:INFO:/:Shutting down log4j
+2012-12-25 13:59:39.804:WARN::/channel/show/aboutus.do
+java.lang.NullPointerException
+	at org.mortbay.jetty.servlet.HashSessionManager.addSession(HashSessionManager.java:308)
+	at org.mortbay.jetty.servlet.AbstractSessionManager.addSession(AbstractSessionManager.java:561)
+	at org.mortbay.jetty.servlet.AbstractSessionManager.newHttpSession(AbstractSessionManager.java:413)
+	at org.mortbay.jetty.Request.getSession(Request.java:1243)
+	at org.mortbay.jetty.Request.getSession(Request.java:1215)
+	at com.duowan.common.web.scope.Flash.save(Flash.java:34)
+	at com.duowan.common.web.scope.FlashFilter.doFilterInternal(FlashFilter.java:33)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:88)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:76)
+	at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+	at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:388)
+	at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216)
+	at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182)
+	at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:765)
+	at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:418)
+	at org.mortbay.jetty.handler.ContextHandlerCollection.handle(ContextHandlerCollection.java:230)
+	at org.mortbay.jetty.handler.HandlerCollection.handle(HandlerCollection.java:114)
+	at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152)
+	at org.mortbay.jetty.Server.handle(Server.java:326)
+	at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542)
+	at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:926)
+	at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549)
+	at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212)
+	at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404)
+	at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:410)
+	at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)
+[INFO] Webapp source directory = /data/src/fpcms/fpcms/web-home/src/main/webapp
+[INFO] Reload Mechanic: automatic
+[INFO] Classes = /data/src/fpcms/fpcms/web-home/target/classes
+[INFO] Context path = /
+[INFO] Tmp directory =  determined at runtime
+[INFO] Web defaults = org/mortbay/jetty/webapp/webdefault.xml
+[INFO] Web overrides =  none
+[INFO] web.xml file = /data/src/fpcms/fpcms/web-home/src/main/webapp/WEB-INF/web.xml
+[INFO] Webapp directory = /data/src/fpcms/fpcms/web-home/src/main/webapp
+2012-12-25 13:59:39.952:INFO::No Transaction manager found - if your webapp requires one, please configure one.
+2012-12-25 13:59:40.638:INFO:fpcms web application:Set web app root system property: 'webapp.root' = [/data/src/fpcms/fpcms/web-home/src/main/webapp]
+2012-12-25 13:59:40.643:INFO:fpcms web application:Initializing log4j from [classpath:log4j.properties]
+2012-12-25 13:59:40.828:INFO:fpcms web application:Initializing Spring root WebApplicationContext
+2012-12-25 13:59:40,829 [// -  - ] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
+2012-12-25 13:59:40,906 [// -  - ] INFO  org.springframework.web.context.support.XmlWebApplicationContext - Refreshing Root WebApplicationContext: startup date [Tue Dec 25 13:59:40 HKT 2012]; root of context hierarchy
+2012-12-25 13:59:41,034 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-service/1.0-SNAPSHOT/fpcms-service-1.0-SNAPSHOT.jar!/spring/applicationContext-service.xml]
+2012-12-25 13:59:41,729 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-resource.xml]
+2012-12-25 13:59:41,856 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-datasource.xml]
+2012-12-25 13:59:41,928 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-dao-.xml]
+2012-12-25 13:59:41,966 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-validator.xml]
+2012-12-25 13:59:42,038 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-jdbc-dao.xml]
+2012-12-25 13:59:42,058 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-scheduler/1.0-SNAPSHOT/fpcms-scheduler-1.0-SNAPSHOT.jar!/spring/applicationContext-scheduler.xml]
+2012-12-25 13:59:42,293 [// -  - ] INFO  org.springframework.beans.factory.config.PropertiesFactoryBean - Loading properties file from URL [file:/data/app/fpcms/config/prod/app.properties]
+2012-12-25 13:59:42,294 [// -  - ] WARN  org.springframework.beans.factory.config.PropertiesFactoryBean - Could not load properties from URL [file:/data/app/fpcms/config/prod/app.properties]: /data/app/fpcms/config/prod/app.properties (No such file or directory)
+2012-12-25 13:59:42,298 [// -  - ] INFO  org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@16a8dd6: defining beans [cmsPropertyService,cmsChannelService,sysUserService,cmsAttachmentService,cmsContentService,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,messageSource,applicationProperties,propertyConfigurer,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,fatherDataSource,dataSource,log4jdbcInterceptor,dataSourceLog4jdbcAutoProxyCreator,daoParent,cmsAttachmentDao,cmsChannelDao,cmsContentDao,cmsPropertyDao,sysUserDao,validator,com.duowan.common.util.holder.BeanValidatorHolder#0,jdbcTemplate,transactionManager,dialect,autoGeneratorNewsJob]; root of factory hierarchy
+2012-12-25 13:59:42,299 [// -  - ] ERROR org.springframework.web.context.ContextLoader - Context initialization failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name 'dataSource' defined in URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-datasource.xml]: Could not resolve placeholder 'fpcms_jdbc_url'
+	at org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.processProperties(PropertyPlaceholderConfigurer.java:287)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:75)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:663)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:407)
+	at org.springframework.web.context.ContextLoader.createWebApplicationContext(ContextLoader.java:276)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:197)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:47)
+	at org.mortbay.jetty.handler.ContextHandler.startContext(ContextHandler.java:548)
+	at org.mortbay.jetty.servlet.Context.startContext(Context.java:136)
+	at org.mortbay.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1250)
+	at org.mortbay.jetty.handler.ContextHandler.doStart(ContextHandler.java:517)
+	at org.mortbay.jetty.webapp.WebAppContext.doStart(WebAppContext.java:467)
+	at org.mortbay.jetty.plugin.Jetty6PluginWebAppContext.doStart(Jetty6PluginWebAppContext.java:115)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo.restartWebApp(AbstractJettyRunMojo.java:458)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo$1.filesChanged(AbstractJettyRunMojo.java:419)
+	at org.mortbay.util.Scanner.reportBulkChanges(Scanner.java:486)
+	at org.mortbay.util.Scanner.reportDifferences(Scanner.java:352)
+	at org.mortbay.util.Scanner.scan(Scanner.java:280)
+	at org.mortbay.util.Scanner$1.run(Scanner.java:232)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2012-12-25 13:59:42.301:WARN::Failed startup of context org.mortbay.jetty.plugin.Jetty6PluginWebAppContext@246c18{/,/data/src/fpcms/fpcms/web-home/src/main/webapp}
+org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name 'dataSource' defined in URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-datasource.xml]: Could not resolve placeholder 'fpcms_jdbc_url'
+	at org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.processProperties(PropertyPlaceholderConfigurer.java:287)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:75)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:663)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:407)
+	at org.springframework.web.context.ContextLoader.createWebApplicationContext(ContextLoader.java:276)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:197)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:47)
+	at org.mortbay.jetty.handler.ContextHandler.startContext(ContextHandler.java:548)
+	at org.mortbay.jetty.servlet.Context.startContext(Context.java:136)
+	at org.mortbay.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1250)
+	at org.mortbay.jetty.handler.ContextHandler.doStart(ContextHandler.java:517)
+	at org.mortbay.jetty.webapp.WebAppContext.doStart(WebAppContext.java:467)
+	at org.mortbay.jetty.plugin.Jetty6PluginWebAppContext.doStart(Jetty6PluginWebAppContext.java:115)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo.restartWebApp(AbstractJettyRunMojo.java:458)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo$1.filesChanged(AbstractJettyRunMojo.java:419)
+	at org.mortbay.util.Scanner.reportBulkChanges(Scanner.java:486)
+	at org.mortbay.util.Scanner.reportDifferences(Scanner.java:352)
+	at org.mortbay.util.Scanner.scan(Scanner.java:280)
+	at org.mortbay.util.Scanner$1.run(Scanner.java:232)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+[INFO] Restart completed at Tue Dec 25 13:59:42 HKT 2012
+[INFO] restarting org.mortbay.jetty.plugin.Jetty6PluginWebAppContext@246c18{/,/data/src/fpcms/fpcms/web-home/src/main/webapp}
+2012-12-25 13:59:44.761:INFO:fpcms web application:Closing Spring root WebApplicationContext
+2012-12-25 13:59:44.762:INFO:fpcms web application:Shutting down log4j
+[INFO] Webapp source directory = /data/src/fpcms/fpcms/web-home/src/main/webapp
+[INFO] Reload Mechanic: automatic
+[INFO] Classes = /data/src/fpcms/fpcms/web-home/target/classes
+[INFO] Context path = /
+[INFO] Tmp directory =  determined at runtime
+[INFO] Web defaults = org/mortbay/jetty/webapp/webdefault.xml
+[INFO] Web overrides =  none
+[INFO] web.xml file = /data/src/fpcms/fpcms/web-home/src/main/webapp/WEB-INF/web.xml
+[INFO] Webapp directory = /data/src/fpcms/fpcms/web-home/src/main/webapp
+2012-12-25 13:59:45.190:INFO::No Transaction manager found - if your webapp requires one, please configure one.
+2012-12-25 13:59:45.853:INFO:fpcms web application:Set web app root system property: 'webapp.root' = [/data/src/fpcms/fpcms/web-home/src/main/webapp]
+2012-12-25 13:59:45.854:INFO:fpcms web application:Initializing log4j from [classpath:log4j.properties]
+2012-12-25 13:59:46.029:INFO:fpcms web application:Initializing Spring root WebApplicationContext
+2012-12-25 13:59:46,030 [// -  - ] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
+2012-12-25 13:59:46,085 [// -  - ] INFO  org.springframework.web.context.support.XmlWebApplicationContext - Refreshing Root WebApplicationContext: startup date [Tue Dec 25 13:59:46 HKT 2012]; root of context hierarchy
+2012-12-25 13:59:46,184 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-service/1.0-SNAPSHOT/fpcms-service-1.0-SNAPSHOT.jar!/spring/applicationContext-service.xml]
+2012-12-25 13:59:47,050 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-resource.xml]
+2012-12-25 13:59:47,267 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-datasource.xml]
+2012-12-25 13:59:47,346 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-dao-.xml]
+2012-12-25 13:59:47,414 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-validator.xml]
+2012-12-25 13:59:47,463 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-jdbc-dao.xml]
+2012-12-25 13:59:47,500 [// -  - ] INFO  org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loading XML bean definitions from URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-scheduler/1.0-SNAPSHOT/fpcms-scheduler-1.0-SNAPSHOT.jar!/spring/applicationContext-scheduler.xml]
+2012-12-25 13:59:47,768 [// -  - ] INFO  org.springframework.beans.factory.config.PropertiesFactoryBean - Loading properties file from URL [file:/data/app/fpcms/config/prod/app.properties]
+2012-12-25 13:59:47,769 [// -  - ] WARN  org.springframework.beans.factory.config.PropertiesFactoryBean - Could not load properties from URL [file:/data/app/fpcms/config/prod/app.properties]: /data/app/fpcms/config/prod/app.properties (No such file or directory)
+2012-12-25 13:59:47,773 [// -  - ] INFO  org.springframework.beans.factory.support.DefaultListableBeanFactory - Destroying singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@bb6bfc: defining beans [cmsPropertyService,cmsChannelService,sysUserService,cmsAttachmentService,cmsContentService,org.springframework.context.annotation.internalConfigurationAnnotationProcessor,org.springframework.context.annotation.internalAutowiredAnnotationProcessor,org.springframework.context.annotation.internalRequiredAnnotationProcessor,org.springframework.context.annotation.internalCommonAnnotationProcessor,messageSource,applicationProperties,propertyConfigurer,org.springframework.aop.config.internalAutoProxyCreator,org.springframework.transaction.annotation.AnnotationTransactionAttributeSource#0,org.springframework.transaction.interceptor.TransactionInterceptor#0,org.springframework.transaction.config.internalTransactionAdvisor,fatherDataSource,dataSource,log4jdbcInterceptor,dataSourceLog4jdbcAutoProxyCreator,daoParent,cmsAttachmentDao,cmsChannelDao,cmsContentDao,cmsPropertyDao,sysUserDao,validator,com.duowan.common.util.holder.BeanValidatorHolder#0,jdbcTemplate,transactionManager,dialect,autoGeneratorNewsJob]; root of factory hierarchy
+2012-12-25 13:59:47,774 [// -  - ] ERROR org.springframework.web.context.ContextLoader - Context initialization failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name 'dataSource' defined in URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-datasource.xml]: Could not resolve placeholder 'fpcms_jdbc_url'
+	at org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.processProperties(PropertyPlaceholderConfigurer.java:287)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:75)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:663)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:407)
+	at org.springframework.web.context.ContextLoader.createWebApplicationContext(ContextLoader.java:276)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:197)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:47)
+	at org.mortbay.jetty.handler.ContextHandler.startContext(ContextHandler.java:548)
+	at org.mortbay.jetty.servlet.Context.startContext(Context.java:136)
+	at org.mortbay.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1250)
+	at org.mortbay.jetty.handler.ContextHandler.doStart(ContextHandler.java:517)
+	at org.mortbay.jetty.webapp.WebAppContext.doStart(WebAppContext.java:467)
+	at org.mortbay.jetty.plugin.Jetty6PluginWebAppContext.doStart(Jetty6PluginWebAppContext.java:115)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo.restartWebApp(AbstractJettyRunMojo.java:458)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo$1.filesChanged(AbstractJettyRunMojo.java:419)
+	at org.mortbay.util.Scanner.reportBulkChanges(Scanner.java:486)
+	at org.mortbay.util.Scanner.reportDifferences(Scanner.java:352)
+	at org.mortbay.util.Scanner.scan(Scanner.java:280)
+	at org.mortbay.util.Scanner$1.run(Scanner.java:232)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2012-12-25 13:59:47.776:WARN::Failed startup of context org.mortbay.jetty.plugin.Jetty6PluginWebAppContext@246c18{/,/data/src/fpcms/fpcms/web-home/src/main/webapp}
+org.springframework.beans.factory.BeanDefinitionStoreException: Invalid bean definition with name 'dataSource' defined in URL [jar:file:/root/.m2/repository/com/fpcms/fpcms-dao/1.0-SNAPSHOT/fpcms-dao-1.0-SNAPSHOT.jar!/spring/applicationContext-datasource.xml]: Could not resolve placeholder 'fpcms_jdbc_url'
+	at org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.processProperties(PropertyPlaceholderConfigurer.java:287)
+	at org.springframework.beans.factory.config.PropertyResourceConfigurer.postProcessBeanFactory(PropertyResourceConfigurer.java:75)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:663)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:638)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:407)
+	at org.springframework.web.context.ContextLoader.createWebApplicationContext(ContextLoader.java:276)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:197)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:47)
+	at org.mortbay.jetty.handler.ContextHandler.startContext(ContextHandler.java:548)
+	at org.mortbay.jetty.servlet.Context.startContext(Context.java:136)
+	at org.mortbay.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1250)
+	at org.mortbay.jetty.handler.ContextHandler.doStart(ContextHandler.java:517)
+	at org.mortbay.jetty.webapp.WebAppContext.doStart(WebAppContext.java:467)
+	at org.mortbay.jetty.plugin.Jetty6PluginWebAppContext.doStart(Jetty6PluginWebAppContext.java:115)
+	at org.mortbay.component.AbstractLifeCycle.start(AbstractLifeCycle.java:50)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo.restartWebApp(AbstractJettyRunMojo.java:458)
+	at org.mortbay.jetty.plugin.AbstractJettyRunMojo$1.filesChanged(AbstractJettyRunMojo.java:419)
+	at org.mortbay.util.Scanner.reportBulkChanges(Scanner.java:486)
+	at org.mortbay.util.Scanner.reportDifferences(Scanner.java:352)
+	at org.mortbay.util.Scanner.scan(Scanner.java:280)
+	at org.mortbay.util.Scanner$1.run(Scanner.java:232)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+[INFO] Restart completed at Tue Dec 25 13:59:47 HKT 2012
+./appserver.sh: line 8:  5300 Killed                  mvn jetty:run
