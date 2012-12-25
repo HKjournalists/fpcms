@@ -9,7 +9,9 @@ package com.fpcms.service.impl;
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.duowan.common.util.page.Page;
+import com.fpcms.common.random_gen_article.RandomArticle;
+import com.fpcms.common.random_gen_article.RandomArticleBuilder;
+import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.RandomUtil;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsContentService;
+import com.fpcms.service.CmsPropertyService;
 
 
 /**
@@ -36,6 +43,8 @@ public class CmsContentServiceImpl implements CmsContentService {
 
 	protected static final Logger log = LoggerFactory.getLogger(CmsContentServiceImpl.class);
 	
+	private CmsPropertyService cmsPropertyService;
+	
 	//
 	// 请删除无用的方法，代码生成器只是为你生成一个架子
 	//
@@ -46,6 +55,10 @@ public class CmsContentServiceImpl implements CmsContentService {
 		this.cmsContentDao = dao;
 	}
 	
+	public void setCmsPropertyService(CmsPropertyService cmsPropertyService) {
+		this.cmsPropertyService = cmsPropertyService;
+	}
+
 	/** 
 	 * 创建CmsContent
 	 **/
@@ -124,4 +137,29 @@ public class CmsContentServiceImpl implements CmsContentService {
 	public List<CmsContent> findByChannelCode(String channelCode) {
 		return cmsContentDao.findByChannelCode(channelCode);
 	}
+
+	public void genRandomCmsContent() {
+		RandomArticleBuilder builder = new RandomArticleBuilder();
+		RandomArticle article = builder.buildRandomArticle(null);
+		
+		String keyword = getAttachKeyword();
+		CmsContent cmsContent = new CmsContent();
+		cmsContent.setContent(article.getContent());
+		String title = keyword + article.getPerfectKeyword();
+		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
+		cmsContent.setAuthor("admin_ramd");
+		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
+		create(cmsContent);
+		log.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
+	}
+	
+	
+	private String getAttachKeyword() {
+		if(RandomUtil.randomTrue(25)) {
+			return "";
+		}
+		return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
+	}
+
+
 }
