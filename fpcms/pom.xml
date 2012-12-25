@@ -721,7 +721,10 @@
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>${jetty.version}</version>
 				<configuration>
+					<!-- open scanIntervalSeconds for hot deploy,default value: 0 -->
+					<!--
 					<scanIntervalSeconds>5</scanIntervalSeconds>
+					-->
 					<contextPath>/</contextPath>
 				</configuration>
 			</plugin>
