@@ -7,21 +7,24 @@
 # -------------------------------------------------
 
 source /etc/profile
+
 mkdir -p /data/app/${DWPROJECTNO}/
-mkdir -p /data/webapps/${DWPROJECTNO}/
-mkdir -p /data/wwwdata/${DWPROJECTNO}/
-mkdir -p /data2/backup/${DWPROJECTNO}/
-mkdir -p /data2/log/${DWPROJECTNO}/
-mkdir -p /data2/log/nginx/
-mkdir -p /data2/log/resin/
-mkdir -p /data2/log/mysql/
+mkdir -p /data/backup/${DWPROJECTNO}/
+mkdir -p /data/wwwdata/${DWPROJECTNO}
+
+mkdir -p /data/log/${DWPROJECTNO}/
+mkdir -p /data/log/nginx/
+mkdir -p /data/log/jetty/
+mkdir -p /data/log/mysql/
 
 chown -R www-data.www-data  /data/app/${DWPROJECTNO}/
-chown -R www-data.www-data  /data/webapps/${DWPROJECTNO}/
+chown -R www-data.www-data  /data/backup/${DWPROJECTNO}/
 chown -R www-data.www-data  /data/wwwdata/${DWPROJECTNO}/
-chown -R www-data.www-data  /data2/log/resin/
-chown -R www-data.www-data  /data2/log/${DWPROJECTNO}/
-chown -R www-data.www-data  /usr/local/resin/
+
+chown -R www-data.www-data  /data/log/${DWPROJECTNO}/
+chown -R www-data.www-data  /data/log/nginx/
+chown -R www-data.www-data  /data/log/jetty/
+chown -R mysql.mysql  /data/log/mysql
 
 #link sites
 if [ -d "/data/app/${DWPROJECTNO}/config/${DWENV}/sites" ] ; then
@@ -29,8 +32,3 @@ if [ -d "/data/app/${DWPROJECTNO}/config/${DWENV}/sites" ] ; then
    ln -s /data/app/${DWPROJECTNO}/config/${DWENV}/sites /usr/local/nginx/conf/sites
 fi 
 
-#link resin.xml
-if [ -f "/data/app/${DWPROJECTNO}/config/${DWENV}/resin.xml" ] ; then
-   [[ -f  /usr/local/resin/conf/resin.xml  ]] && mv -f /usr/local/resin/conf/resin.xml /usr/local/resin/conf/bak_resin.xml ;
-   ln -s /data/app/${DWPROJECTNO}/config/${DWENV}/resin.xml /usr/local/resin/conf/resin.xml
-fi

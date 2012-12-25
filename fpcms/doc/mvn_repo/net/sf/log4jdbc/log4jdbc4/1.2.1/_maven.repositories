@@ -1,0 +1,6 @@
+#NOTE: This is an internal implementation file, its format can be changed without prior notice.
+#Fri Apr 08 15:40:08 CST 2011
+log4jdbc4-1.2.1.pom>=
+log4jdbc4-1.2.1-sources.jar>=
+log4jdbc4-1.2.1-javadoc.jar>=
+log4jdbc4-1.2.1.jar>=

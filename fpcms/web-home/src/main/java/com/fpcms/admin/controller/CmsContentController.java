@@ -29,7 +29,6 @@ import com.duowan.common.exception.MessageException;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
-import com.fpcms.common.util.RequestUtil;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsContentService;
@@ -146,5 +145,13 @@ public class CmsContentController extends BaseController{
 		return LIST_ACTION;
 	}
 	
+	@RequestMapping
+	public String genRandomCmsContent(ModelMap model,int count) {
+		for(int i = 0; i < count;i++) {
+			cmsContentService.genRandomCmsContent();
+		};
+		Flash.current().success("生成"+count+"文章成功");
+		return "/commons/messages";
+	}
 }
 

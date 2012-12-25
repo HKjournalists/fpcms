@@ -28,19 +28,23 @@ public class NetUtil {
 			manager.shutdown();
 			manager = null;
 		}
+		int connetctTimeout = 10000;
+		int soTimeout = 25000;
 		manager = new MultiThreadedHttpConnectionManager();
 		System.setProperty("apache.commons.httpclient.cookiespec","COMPATIBILITY");
 		HttpConnectionManagerParams params = new HttpConnectionManagerParams();
 		params.setDefaultMaxConnectionsPerHost(50);
 		params.setMaxTotalConnections(1000);
-		params.setConnectionTimeout(10000);
-		params.setSoTimeout(15000);
+		params.setConnectionTimeout(connetctTimeout);
+		params.setSoTimeout(soTimeout);
 		manager.setParams(params);
 		manager.closeIdleConnections(15000);
+		
+		
 		client.setHttpConnectionManager(manager);
 		HttpClientParams cparams = new HttpClientParams();
-		cparams.setConnectionManagerTimeout(10000);
-		cparams.setSoTimeout(15000);
+		cparams.setConnectionManagerTimeout(connetctTimeout);
+		cparams.setSoTimeout(soTimeout);
 		client.setParams(cparams);
 	}
 

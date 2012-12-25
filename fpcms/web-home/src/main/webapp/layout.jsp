@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/commons/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<span id="forInsertHiddenDiv"></span>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
@@ -11,9 +12,6 @@
 	<meta name="description" content="${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}开发票，代开发票资格的专业税务开票公司" />
 	</duowan:block>
 	
-	<script type="text/javascript" src="${ctx}/js/application.js"></script>
-	<script type="text/javascript" src="${ctx}/js/topad.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<link href="${ctx}/styles/kaipiao.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -140,14 +138,19 @@
 		</div>
 	</div>
 
+	<script type="text/javascript" src="${ctx}/js/application.js"></script>
+	<script type="text/javascript" src="${ctx}/js/topad.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
 	<div class="width" id="foot">
+		<duowan:block name="foot">
+		</duowan:block>
 		<div class="foot_menu">
 			<a href="/">网站首页</a> | 
 		</div>
 		<strong>${company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利<br />
-		<duowan:block name="foot">
-		</duowan:block>
 	</div>
+	
 	
 	<script type="text/javascript" id="bdshare_js" data="type=slide&img=2"></script>
 	<script type="text/javascript" id="bdshell_js"></script>

@@ -1,0 +1,10 @@
+1. 日志清理.sh
+2. 时区配置.sh
+# 3. 网页文章增加description
+# 4. content表根据日期建立 partition
+# 5. 应用java缓存
+# 6. 备份: 本地备份,
+# 7. 远程备份
+8. 优化jvm参数: -server,及垃圾收集
+9. cache增加 后台thread 清理数据,需要考虑多个Cache的问题，只有一个CacheManager清理数据
+

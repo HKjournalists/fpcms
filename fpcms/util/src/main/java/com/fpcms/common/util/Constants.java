@@ -13,6 +13,7 @@ public interface Constants {
 	public static String[] BAIDU_BUZZ_URLS = {
 		"http://top.baidu.com/buzz.php?p=weekhotspot",
 		"http://top.baidu.com/buzz.php?p=top10",
+		"http://top.sogou.com/hotword0.html",
 		};
 
 	public static String PROPERTY_DEFAULT_GROUP = "default";

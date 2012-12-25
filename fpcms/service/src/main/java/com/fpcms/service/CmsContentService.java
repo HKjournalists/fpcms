@@ -48,4 +48,9 @@ public interface CmsContentService {
 	public Page<CmsContent> findPage(CmsContentQuery query);
 	
     public List<CmsContent> findByChannelCode(String channelCode);
+    
+    /**
+     * 随机生成文章
+     */
+    public void genRandomCmsContent();
 }
