@@ -15,7 +15,7 @@ rm -fr /data/app/${DWPROJECTNO}/shell/
 rm -fr /data/app/${DWPROJECTNO}/config/
 
 echo "============================== make app dirs ====================================="
-mkdir -p ${appDir}/war
+mkdir -p ${appDir}/webapp
 mkdir -p ${appDir}/lib
 mkdir -p ${appDir}/htdocs
 mkdir -p ${appDir}/config
@@ -33,7 +33,7 @@ mvn -Dmaven.test.skip=true -am clean install $1 $2 $3 $4 $5 $6 $7 $8 $9
 #copy
 echo "==============================*** cp to ${appDir} ***======================================"
 #copy *.war *.jar and config
-find . -maxdepth 4 -regex ".*/target/[^\/]*.war"  -exec cp -f {} ${appDir}/war/ \;
+find . -maxdepth 4 -regex ".*/target/[^\/]*.war"  -exec cp -f {} ${appDir}/webapp/ \;
 find . -maxdepth 4 -regex ".*/target/[^\/]*.jar"  -exec cp -f {} ${appDir}/lib/ \;
 cp -Rf ${srcDir}/shell/ ${appDir}/
 cp -Rf ${srcDir}/config/ ${appDir}/
