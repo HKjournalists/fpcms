@@ -16,6 +16,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 
 import com.duowan.common.util.page.Page;
+import com.fpcms.common.cache.Cache;
+import com.fpcms.common.cache.CacheManager;
+import com.fpcms.common.cache.CacheUtil.ValueCallback;
 import com.fpcms.common.dao.BaseSpringJdbcDao;
 import com.fpcms.dao.CmsPropertyDao;
 import com.fpcms.model.CmsProperty;
@@ -35,6 +38,8 @@ public class CmsPropertyDaoImpl extends BaseSpringJdbcDao implements CmsProperty
 	
 	static final private String COLUMNS = "prop_group,prop_key,prop_value,ramarks";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_property";
+	
+	Cache cache = CacheManager.createCache(1000);
 	
 	@Override
 	public Class<CmsProperty> getEntityClass() {
@@ -62,9 +67,11 @@ public class CmsPropertyDaoImpl extends BaseSpringJdbcDao implements CmsProperty
 		//insertWithDB2Sequence(entity,"sequenceName",sql); //db2 sequence:
 		//insertWithUUID(entity,sql); //uuid
 		insertWithAssigned(entity,sql); //手工分配
+		cache.clear();
 	}
 	
 	public int update(CmsProperty entity) {
+		cache.clear();
 		String sql = "update cms_property set "
 					+ " prop_value=:propValue,ramarks=:ramarks "
 					+ " where  prop_group = :propGroup and prop_key = :propKey ";
@@ -72,6 +79,7 @@ public class CmsPropertyDaoImpl extends BaseSpringJdbcDao implements CmsProperty
 	}
 	
 	public int deleteById(String propGroup, String propKey) {
+		cache.clear();
 		String sql = "delete from cms_property where  prop_group = ? and prop_key = ? ";
 		return  getSimpleJdbcTemplate().update(sql,  propGroup,propKey);
 	}
@@ -104,8 +112,12 @@ public class CmsPropertyDaoImpl extends BaseSpringJdbcDao implements CmsProperty
 	}
 
 	@Override
-	public List<CmsProperty> findAll() {
-		return getSimpleJdbcTemplate().query(SELECT_FROM, getEntityRowMapper());
+	public List<CmsProperty> findByGroup(final String group) {
+		return cache.get("findByGroup:"+group, 3600, new ValueCallback<List<CmsProperty>>() {
+			public List<CmsProperty> create(String key) {
+				return getSimpleJdbcTemplate().query(SELECT_FROM + " where prop_group = ?", getEntityRowMapper(),group);
+			}
+		});
 	}
 	
 }

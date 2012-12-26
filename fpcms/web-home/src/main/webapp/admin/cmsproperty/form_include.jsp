@@ -8,7 +8,7 @@
 			<span class="required">*</span>propGroup:
 		</td>		
 		<td>
-		<form:input path="propGroup" id="propGroup" cssClass="required " maxlength="255" />
+		<form:input path="propGroup" id="propGroup" cssClass="required " maxlength="255" size="120" />
 		<font color='red'><form:errors path="propGroup"/></font>
 		</td>
 	</tr>	
@@ -18,7 +18,7 @@
 			<span class="required">*</span>propKey:
 		</td>		
 		<td>
-		<form:input path="propKey" id="propKey" cssClass="required " maxlength="255" />
+		<form:input path="propKey" id="propKey" cssClass="required " maxlength="255"  size="120"/>
 		<font color='red'><form:errors path="propKey"/></font>
 		</td>
 	</tr>	
@@ -28,7 +28,7 @@
 			propValue:
 		</td>		
 		<td>
-		<form:input path="propValue" id="propValue" cssClass="" maxlength="255" />
+		<form:textarea path="propValue" id="propValue" cssClass="" maxlength="255"  size="120" cols="105" rows="20"/>
 		<font color='red'><form:errors path="propValue"/></font>
 		</td>
 	</tr>	
@@ -38,7 +38,7 @@
 			ramarks:
 		</td>		
 		<td>
-		<form:input path="ramarks" id="ramarks" cssClass="" maxlength="255" />
+		<form:input path="ramarks" id="ramarks" cssClass="" maxlength="255"  size="120"/>
 		<font color='red'><form:errors path="ramarks"/></font>
 		</td>
 	</tr>	

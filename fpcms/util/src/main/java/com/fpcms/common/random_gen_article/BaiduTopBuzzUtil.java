@@ -25,7 +25,7 @@ public class BaiduTopBuzzUtil {
 		Set set = (Set)CacheUtil.get(CACHE_KEYWORD_BUZZS);
 		if(set == null) {
 			set =  getBaiduBuzzs0();
-			CacheUtil.safeAdd(CACHE_KEYWORD_BUZZS, set, 3600 * 6);
+			CacheUtil.set(CACHE_KEYWORD_BUZZS, set, 3600 * 6);
 		}
 		return set;
 	}

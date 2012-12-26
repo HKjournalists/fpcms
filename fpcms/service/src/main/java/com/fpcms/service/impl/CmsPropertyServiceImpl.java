@@ -122,22 +122,14 @@ public class CmsPropertyServiceImpl implements CmsPropertyService {
         }
     }
 
-	private Map<String, Map<String, String>> findAllGroup() {
-		List<CmsProperty> list = cmsPropertyDao.findAll();
-		Map<String,Map<String,String>> map = new HashMap<String,Map<String,String>>();
-		for(CmsProperty p : list) {
-			Map<String,String> group = map.get(p.getPropGroup());
-			if(group == null) {
-				group = new HashMap<String,String>();
-				map.put(p.getPropGroup(), group);
-			}
-			group.put(p.getPropKey(), p.getPropValue());
-		}
-		return map;
-	}
 
 	@Override
 	public Map<String, String> findByGroup(String group) {
-		return findAllGroup().get(group);
+		List<CmsProperty> list = cmsPropertyDao.findByGroup(group);
+		Map<String,String> map = new HashMap<String,String>();
+		for(CmsProperty p : list) {
+			map.put(p.getPropKey(), p.getPropValue());
+		}
+		return map;
 	}
 }

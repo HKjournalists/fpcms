@@ -58,7 +58,7 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 		
 		String requestHost = getRequestHost(request);
 		model.put("requestHost", requestHost);
-		model.put("share_current_request_time", new Date());
+		model.put("now", new Date());
 		model.put("share_current_login_username", "badqiu");
 		model.put("ctx", request.getContextPath());
 		model.put("flash", Flash.current().getData());

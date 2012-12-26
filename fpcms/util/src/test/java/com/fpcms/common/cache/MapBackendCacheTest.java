@@ -17,9 +17,8 @@ public class MapBackendCacheTest extends Assert{
 	@Test
 	public void test_size() throws InterruptedException {
 		
-		
 		for(int i = 1; i < 100; i++) {
-			cache.add(""+i, i, i);
+			cache.set(""+i, i, i);
 			System.out.println("add "+i);
 		}
 		assertEquals(cache.map.size(),10);
@@ -28,7 +27,7 @@ public class MapBackendCacheTest extends Assert{
 	@Test
 	public void test_expir() throws InterruptedException {
 		for(int i = 1; i < 10; i++) {
-			cache.add(""+i, i, i);
+			cache.set(""+i, i, i);
 			System.out.println("add "+i);
 		}
 		Thread.sleep(1000 + 100);

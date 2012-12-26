@@ -38,7 +38,6 @@ public class HomeController {
 		model.put("hot_news", cmsContentService.findByChannelCode("hot_news"));
 		model.put("category", cmsChannelService.findChildsByChannelCode("category"));
 		model.putAll(cmsPropertyService.findByGroup(Constants.PROPERTY_DEFAULT_GROUP));
-		System.out.println("-------------------- index --------------------");
 		return "/home";
 	}
 	

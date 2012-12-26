@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.fpcms.common.cache.CacheUtil.ValueCallback;
+
 public class MapBackendCache implements Cache {
 	LRUMap map = null;
 	
-	public MapBackendCache(int maxEntries) {
+	MapBackendCache(int maxEntries) {
 		super();
 		this.map = new LRUMap(1000,maxEntries);
 	}
@@ -25,16 +27,12 @@ public class MapBackendCache implements Cache {
 		}
 	}
 	
-	public void add(String key, Object value, int expiration) {
-		map.put(key, new Value(value,expiration));
-	}
-
 	public void clear() {
 		map.clear();
 	}
 
 	public long decr(String key, int by) {
-		Long v = (Long)map.get(key);
+		Long v = (Long)get(key);
 		if(v == null) {
 			v = -(long)by;
 		}else {
@@ -44,8 +42,8 @@ public class MapBackendCache implements Cache {
 		return v;
 	}
 
-	public void delete(String key) {
-		map.remove(key);
+	public boolean delete(String key) {
+		return map.remove(key) != null;
 	}
 
 	public Object get(String key) {
@@ -55,6 +53,7 @@ public class MapBackendCache implements Cache {
 			delete(key);
 			return null;
 		}else {
+			value.gmtCreate = System.currentTimeMillis();
 			return value.value;
 		}
 	}
@@ -69,7 +68,7 @@ public class MapBackendCache implements Cache {
 	}
 
 	public long incr(String key, int by) {
-		Long v = (Long)map.get(key);
+		Long v = (Long)get(key);
 		if(v == null) {
 			v = (long)by;
 		}else {
@@ -79,31 +78,18 @@ public class MapBackendCache implements Cache {
 		return v;
 	}
 
-	public void replace(String key, Object value, int expiration) {
-		map.put(key, new Value(value,expiration));
-	}
-
-	public boolean safeAdd(String key, Object value, int expiration) {
+	public boolean set(String key, Object value, int expiration) {
 		map.put(key, new Value(value,expiration));
 		return true;
 	}
-
-	public boolean safeDelete(String key) {
-		return map.remove(key) != null;
-	}
-
-	public boolean safeReplace(String key, Object value, int expiration) {
-		map.put(key, new Value(value,expiration));
-		return true;
-	}
-
-	public boolean safeSet(String key, Object value, int expiration) {
-		map.put(key, new Value(value,expiration));
-		return true;
-	}
-
-	public void set(String key, Object value, int expiration) {
-		map.put(key, new Value(value,expiration));
+	
+	public <T> T get(String key,int expiration,ValueCallback<T> callback) {
+		Object value = get(key);
+		if(value == null) {
+			value = callback.create(key);
+			set(key, value, expiration);
+		}
+		return (T)value;
 	}
 
 	public void stop() {

@@ -17,6 +17,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 
 import com.duowan.common.util.page.Page;
+import com.fpcms.common.cache.Cache;
+import com.fpcms.common.cache.CacheManager;
+import com.fpcms.common.cache.CacheUtil.ValueCallback;
 import com.fpcms.common.dao.BaseSpringJdbcDao;
 import com.fpcms.dao.CmsChannelDao;
 import com.fpcms.model.CmsChannel;
@@ -37,6 +40,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	static final private String COLUMNS = "id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_channel";
 	
+	private Cache cache = CacheManager.createCache(100);
 	@Override
 	public Class<CmsChannel> getEntityClass() {
 		return CmsChannel.class;
@@ -60,6 +64,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 		entity.setDateCreated(new Date());
 		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
 		
+		cache.clear();
 		//其它主键生成策略
 		//insertWithOracleSequence(entity,"sequenceName",sql); //oracle sequence: 
 		//insertWithDB2Sequence(entity,"sequenceName",sql); //db2 sequence:
@@ -68,6 +73,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	}
 	
 	public int update(CmsChannel entity) {
+		cache.clear();
 		entity.setDateLastModified(new Date());
 		
 		String sql = "update cms_channel set "
@@ -77,13 +83,19 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	}
 	
 	public int deleteById(long id) {
+		cache.clear();
 		String sql = "delete from cms_channel where  id = ? ";
 		return  getSimpleJdbcTemplate().update(sql,  id);
 	}
 
-	public CmsChannel getById(long id) {
-		String sql = SELECT_FROM + " where  id = ? ";
-		return (CmsChannel)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),id));
+	public CmsChannel getById(final long id) {
+		return cache.get("getById:"+id, 3600, new ValueCallback<CmsChannel>(){
+			@Override
+			public CmsChannel create(String key) {
+				String sql = SELECT_FROM + " where  id = ? ";
+				return (CmsChannel)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),id));
+			}
+		});
 	}
 	
 

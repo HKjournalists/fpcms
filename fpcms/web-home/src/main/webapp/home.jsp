@@ -88,20 +88,27 @@
 	<div>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var offsetTop = $('#hiddenNews').offset().top;
-				var offsetLeft = $('#hiddenNews').offset().left;
-				var width = $('#hiddenNews').width();
-				var height = $('#hiddenNews').height();
+				var hiddenDivFun = function() {
+					var offsetTop = $('#hiddenNews').offset().top;
+					var offsetLeft = $('#hiddenNews').offset().left;
+					var width = $('#hiddenNews').width();
+					var height = $('#hiddenNews').height();
+					if($.browser.chrome){
+						$('#forInsertHiddenDiv').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
+						$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
+						$('#hiddenDiv').height(height);
+					}else {
+						$('#hiddenNews').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
+						$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
+						$('#hiddenDiv').height(height);
+					}
+					$('#hiddenDiv').width(width);
+				};
 				if($.browser.chrome){
-					$('#forInsertHiddenDiv').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
-					$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
-					$('#hiddenDiv').height(height);
+					setTimeout(hiddenDivFun,100);
 				}else {
-					$('#hiddenNews').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
-					$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
-					$('#hiddenDiv').height(height);
+					hiddenDivFun();
 				}
-				$('#hiddenDiv').width(width);
 				//alert(width+" top:"+offsetTop + " hiddenDiv:"+$('#hiddenDiv').offset().top+","+$('#hiddenDiv').offset().left);
 			});
 		</script>

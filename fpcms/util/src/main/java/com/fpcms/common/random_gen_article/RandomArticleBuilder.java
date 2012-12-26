@@ -28,7 +28,7 @@ public class RandomArticleBuilder {
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(randomConfuseKeywordArray);
 		String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
-		String findSearchKeyword = randomBuzz +confuseKeyword + randomConfuseKeyword;
+		String findSearchKeyword = "\""+randomBuzz+"\"" +confuseKeyword + randomConfuseKeyword;
 		
 		int randomPageSize = 20 + RandomUtils.nextInt(50);
 		String result = SearchEngineUtil.sogouSearch(findSearchKeyword, randomPageSize,1);

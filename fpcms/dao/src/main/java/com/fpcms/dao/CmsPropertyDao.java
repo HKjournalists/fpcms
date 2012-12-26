@@ -30,9 +30,8 @@ public interface CmsPropertyDao {
 	
 	public CmsProperty getById(String propGroup, String propKey);
 	
-
 	public Page<CmsProperty> findPage(CmsPropertyQuery query);
 
-	public List<CmsProperty> findAll();	
+	public List<CmsProperty> findByGroup(String group);	
 	
 }

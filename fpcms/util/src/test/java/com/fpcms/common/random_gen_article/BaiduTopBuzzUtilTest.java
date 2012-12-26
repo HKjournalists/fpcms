@@ -23,5 +23,6 @@ public class BaiduTopBuzzUtilTest extends Assert{
 		}
 		long endCostTime = Profiler.getStep().getDuration();
 		assertTrue("cost:"+endCostTime,endCostTime < 100);
+		System.out.println("baiduBuzzs:"+set);
 	}
 }

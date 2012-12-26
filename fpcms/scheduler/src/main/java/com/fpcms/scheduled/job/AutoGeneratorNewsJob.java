@@ -33,16 +33,12 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 
 	public void execute() {
 		logger.info("started execute AutoGeneratorNewsJob");
-		int randonCmsContentNum = 1 + RandomUtils.nextInt(5);
-		Profiler.start("AutoGeneratorNewsJob.execute",randonCmsContentNum);
-		for(int i = 0; i < randonCmsContentNum; i++) {
-			try {
-				cmsContentService.genRandomCmsContent();
-			}catch(Exception e) {
-				logger.error("randon gen error",e);
-			}
+		Profiler.start("AutoGeneratorNewsJob.execute");
+		try {
+			cmsContentService.genRandomCmsContent();
+		}finally {
+			Profiler.release();
 		}
-		Profiler.release();
 		
 		logger.info(Profiler.dump());
 	}
@@ -63,7 +59,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 					logger.error("AutoGeneratorNewsJob error",e);
 				}
 			}
-		},0,24,TimeUnit.HOURS);
+		},0,5,TimeUnit.HOURS);
 		logger.info("scheduled AutoGeneratorNewsJob");
 	}
 	
