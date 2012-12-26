@@ -22,7 +22,7 @@
 			<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${item}.do">${item}</a> | 
 		</c:forEach>
 		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.nextPage}.do">下一页</a>
-		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.getTotalPages}.do">最后页</a>
+		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.totalPages}.do">最后页</a>
 </duowan:override>
 
 <%-- jsp模板继承,具体使用请查看: http://code.google.com/p/rapid-framework/wiki/rapid_jsp_extends --%>
