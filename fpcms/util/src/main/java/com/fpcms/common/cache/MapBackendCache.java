@@ -53,7 +53,6 @@ public class MapBackendCache implements Cache {
 			delete(key);
 			return null;
 		}else {
-			value.gmtCreate = System.currentTimeMillis();
 			return value.value;
 		}
 	}
