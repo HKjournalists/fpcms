@@ -94,7 +94,7 @@
 			</div>
 			<div class="border mt10">
 				<div class="subject_bg">
-					<div class="subject_title">热门新闻</div>
+					<div class="subject_title"><a href="${ctx}/channel/show/news.do">热门新闻</a></div>
 				</div>
 				<div class="m10">
 					<dl class="all_list">
