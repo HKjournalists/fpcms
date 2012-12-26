@@ -1,4 +1,4 @@
-package com.fpcms.scheduled.job.util;
+package com.fpcms.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

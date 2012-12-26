@@ -1,5 +1,8 @@
 package com.fpcms.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public interface Constants {
 
 	public static String ADMIN_LOGIN_USER = "ADMIN_LOGIN_USER";
@@ -25,4 +28,7 @@ public interface Constants {
 	 * XML tree的root id
 	 */
 	public static long TREE_ROOT_ID = 1;
+	
+	
+	public static Logger LOGGER_DUMP_PROFILER = LoggerFactory.getLogger("dump_profiler");
 }

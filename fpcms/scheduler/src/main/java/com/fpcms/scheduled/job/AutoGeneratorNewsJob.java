@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.duowan.common.util.Profiler;
-import com.fpcms.scheduled.job.util.SpringContext;
+import com.fpcms.common.util.SpringContext;
 import com.fpcms.service.CmsContentService;
 
 @Service
@@ -59,7 +59,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 					logger.error("AutoGeneratorNewsJob error",e);
 				}
 			}
-		},0,5,TimeUnit.HOURS);
+		},1,5 * 60,TimeUnit.MINUTES);
 		logger.info("scheduled AutoGeneratorNewsJob");
 	}
 	

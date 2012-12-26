@@ -22,7 +22,7 @@ public class KeywordUtil {
 		logger.info("sensitive_keyword:"+sensitiveKeywordSet);
 	}
 	
-	public static String DELIMITERS = " \t\n\r\f,.!?;:'\"()+=-_<>，。！？；：、＝＋－——／·＃—￥％—…—＊（）‘“”～｀《》@#$%^&*~`|\\";
+	public static String DELIMITERS = " \t\n\r\f,.!?;:'/\"\\()+=-_<>，。！？；：、＝＋－——／·＃—￥％—…—＊（）‘“”～｀《》@#$%^&*~`|\\";
 	public static String getPerfectKeyword(String content,String keyword) {
 		if(StringUtils.isBlank(content)) {
 			return null;
@@ -31,7 +31,7 @@ public class KeywordUtil {
 			return null;
 		}
 		
-		ArrayList<String> tokens = list(content);
+		ArrayList<String> tokens = toTokenizerList(content);
 		Collections.sort(tokens, new Comparator<String>() {
 			@Override
 			public int compare(String o1, String o2) {
@@ -47,7 +47,7 @@ public class KeywordUtil {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static ArrayList<String> list(String content) {
+	static ArrayList<String> toTokenizerList(String content) {
 		StringTokenizer tokenizer = new StringTokenizer(content,KeywordUtil.DELIMITERS);
 		ArrayList list = Collections.list(tokenizer);
 		return (ArrayList<String>)list;

@@ -96,19 +96,14 @@
 					if($.browser.chrome){
 						$('#forInsertHiddenDiv').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
 						$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
-						$('#hiddenDiv').height(height);
 					}else {
 						$('#hiddenNews').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
 						$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
-						$('#hiddenDiv').height(height);
 					}
+					$('#hiddenDiv').height(height);
 					$('#hiddenDiv').width(width);
 				};
-				if($.browser.chrome){
-					setTimeout(hiddenDivFun,100);
-				}else {
-					hiddenDivFun();
-				}
+				hiddenDivFun();
 				//alert(width+" top:"+offsetTop + " hiddenDiv:"+$('#hiddenDiv').offset().top+","+$('#hiddenDiv').offset().left);
 			});
 		</script>

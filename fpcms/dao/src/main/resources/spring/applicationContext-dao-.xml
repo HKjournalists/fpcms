@@ -17,5 +17,6 @@
 	<bean id="cmsContentDao" class="com.fpcms.dao.impl.CmsContentDaoImpl" parent="daoParent" />
 	<bean id="cmsPropertyDao" class="com.fpcms.dao.impl.CmsPropertyDaoImpl" parent="daoParent" />
 	<bean id="sysUserDao" class="com.fpcms.dao.impl.SysUserDaoImpl" parent="daoParent" />
+	<bean id="cmsSiteDao" class="com.fpcms.dao.impl.CmsSiteDaoImpl" parent="daoParent" />
 	
 </beans>

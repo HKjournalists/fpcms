@@ -3,6 +3,7 @@ package com.fpcms.common.util;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,6 +20,16 @@ public class KeywordUtilTest extends Assert{
 		
 		result = KeywordUtil.getPerfectKeyword("1234123,中国,中国人民银行,191811", null);
 		assertEquals(null,result);
+	}
+	
+	@Test
+	public void test_getPerfectKeyword() {
+		String str = KeywordUtil.getPerfectKeyword("com/2012/06/1老妇疑吃方便面中毒身亡/", "老妇");
+		System.out.println(str);
+		assertEquals("1老妇疑吃方便面中毒身亡",str);
+		
+		System.out.println(KeywordUtil.toTokenizerList("lq=末日走你"));
+		assertEquals("[lq, 末日走你]",KeywordUtil.toTokenizerList("lq=末日走你").toString());
 	}
 	
 	@Test

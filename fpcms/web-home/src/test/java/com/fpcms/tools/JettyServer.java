@@ -12,8 +12,9 @@ import com.fpcms.common.util.AppModeUtil;
 public class JettyServer {
 	
 	public static void main(String[] args) throws Exception {
-		System.getProperties().list(System.out);
-		
+//		System.getProperties().list(System.out);
+		System.setProperty("additionAppender", "stdout");
+		System.setProperty("DWENV", "dev");
 		AppModeUtil.setAppMode("dev");
 		Server server = buildNormalServer(8080, "/fpcms");
 		server.start();
