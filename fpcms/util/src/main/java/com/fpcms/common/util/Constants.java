@@ -48,4 +48,7 @@ public interface Constants {
 	 */
 	public static String DEV_PASSWORD_KEY = "4a3f3Ff2as4dio27LFsffguiDKJAuiD43ui2vmoOnq4O2N0hHu9J6K5kg6e45ui5K5qwe9823Ulkuiad";
 	public static String DEV_PASSWORD_VALUE = "4a3f3Ff2as4dio27LFsffguiDKJAuiD43ui2vmoOnq4O2N0hHu9J6K5kg6e45ui5K5qwe9823Ulkuiad";
+
+	public static String QUERY_STRING = "queryString";
+	
 }

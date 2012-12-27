@@ -24,11 +24,13 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.duowan.common.exception.MessageException;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.util.Constants;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsSiteQuery;
 import com.fpcms.service.CmsSiteService;
@@ -45,6 +47,7 @@ import com.fpcms.service.CmsSiteService;
 @Controller
 @RequestMapping("/admin/cmssite")
 public class CmsSiteController extends BaseController{
+	String queryString = "queryString";
 	
 	private CmsSiteService cmsSiteService;
 	
@@ -73,6 +76,7 @@ public class CmsSiteController extends BaseController{
 	/** 列表 */
 	@RequestMapping()
 	public String index(ModelMap model,CmsSiteQuery query,HttpServletRequest request) {
+		Flash.current().put(queryString, getRequest().getQueryString());
 		Page<CmsSite> page = this.cmsSiteService.findPage(query);
 		
 		model.addAllAttributes(toModelMap(page, query));
@@ -109,7 +113,7 @@ public class CmsSiteController extends BaseController{
 			return  "/admin/cmssite/add";
 		}
 		Flash.current().success(CREATED_SUCCESS); //存放在Flash中的数据,在下一次http请求中仍然可以读取数据,error()用于显示错误消息
-		return LIST_ACTION;
+		return LIST_ACTION+"?"+Flash.current().get(Constants.QUERY_STRING);
 	}
 	
 	/** 编辑 */
@@ -135,7 +139,7 @@ public class CmsSiteController extends BaseController{
 			return  "/admin/cmssite/edit";
 		}
 		Flash.current().success(UPDATE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?"+Flash.current().get(Constants.QUERY_STRING);
 	}
 	
 	/** 批量删除 */
@@ -143,7 +147,7 @@ public class CmsSiteController extends BaseController{
 	public String delete(ModelMap model,@RequestParam("siteDomain") String siteDomain) {
 		cmsSiteService.removeById(siteDomain);
 		Flash.current().success(DELETE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?"+Flash.current().get(Constants.QUERY_STRING);
 	}
 	
 }

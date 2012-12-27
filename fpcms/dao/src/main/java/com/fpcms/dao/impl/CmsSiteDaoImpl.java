@@ -16,6 +16,9 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 
 import com.duowan.common.util.page.Page;
+import com.fpcms.common.cache.Cache;
+import com.fpcms.common.cache.CacheManager;
+import com.fpcms.common.cache.CacheUtil.ValueCallback;
 import com.fpcms.common.dao.BaseSpringJdbcDao;
 import com.fpcms.dao.CmsSiteDao;
 import com.fpcms.model.CmsSite;
@@ -35,6 +38,7 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	
 	static final private String COLUMNS = "site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_site";
+	private Cache cache = CacheManager.createCache(1000);
 	
 	@Override
 	public Class<CmsSite> getEntityClass() {
@@ -51,6 +55,7 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	}
 	
 	public void insert(CmsSite entity) {
+		cache.clear();
 		entity.setDateCreated(new Date());
 		entity.setDateLastModified(new Date());
 		String sql = "insert into cms_site " 
@@ -67,6 +72,7 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	}
 	
 	public int update(CmsSite entity) {
+		cache.clear();
 		entity.setDateLastModified(new Date());
 		String sql = "update cms_site set "
 					+ " site_name=:siteName,site_desc=:siteDesc,city=:city,keyword=:keyword,remarks=:remarks,company=:company,contact_name=:contactName,mobile=:mobile,qq=:qq,email=:email,date_created=:dateCreated,date_last_modified=:dateLastModified,author=:author "
@@ -75,15 +81,20 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	}
 	
 	public int deleteById(String siteDomain) {
+		cache.clear();
 		String sql = "delete from cms_site where  site_domain = ? ";
 		return  getSimpleJdbcTemplate().update(sql,  siteDomain);
 	}
 
-	public CmsSite getById(String siteDomain) {
-		String sql = SELECT_FROM + " where  site_domain = ? ";
-		return (CmsSite)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),siteDomain));
+	public CmsSite getById(final String siteDomain) {
+		return cache.get(siteDomain, 3600 * 24, new ValueCallback<CmsSite>() {
+			@Override
+			public CmsSite create(String key) {
+				String sql = SELECT_FROM + " where  site_domain = ? ";
+				return (CmsSite)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),siteDomain));
+			}
+		});
 	}
-	
 
 	public Page<CmsSite> findPage(CmsSiteQuery query) {
 		

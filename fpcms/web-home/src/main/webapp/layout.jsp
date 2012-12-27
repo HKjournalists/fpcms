@@ -83,11 +83,24 @@
 
 				<div>
 					<dl class="class_list">
-						<c:forEach	items="${category}" var="item">
-							<dt>
-								<a><span>${item.channelName}</span></a>
-							</dt>
-						</c:forEach>
+						<dt>
+							<a><span>餐饮发票</span></a>
+						</dt>
+						<dt>
+							<a><span>广告费发票</span></a>
+						</dt>
+						<dt>
+							<a><span>建筑发票</span></a>
+						</dt>
+						<dt>
+							<a><span>租赁费发票</span></a>
+						</dt>
+						<dt>
+							<a><span>会议费发票</span></a>
+						</dt>
+						<dt>
+							<a><span>代开其他各类发票</span></a>
+						</dt>
 					</dl>
 				</div>
 

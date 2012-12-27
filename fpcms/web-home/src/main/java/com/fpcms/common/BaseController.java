@@ -12,6 +12,8 @@ import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.util.SpringMVCUtils;
 import com.fpcms.common.util.URLUtil;
+import com.fpcms.model.CmsSite;
+import com.fpcms.service.CmsSiteService;
 
 public class BaseController {
 	protected static Logger logger = LoggerFactory.getLogger(BaseController.class); 
@@ -19,15 +21,29 @@ public class BaseController {
 	public static String DELETE_SUCCESS = "DELETE_SUCCESS";
 	public static String CREATED_SUCCESS = "CREATED_SUCCESS";
 	
+	private CmsSiteService cmsSiteService;
+	
+	public void setCmsSiteService(CmsSiteService cmsSiteService) {
+		this.cmsSiteService = cmsSiteService;
+	}
+
 	protected ModelMap toModelMap(Page page, PageQuery query) {
 		return SpringMVCUtils.toModelMap(page, query);
 	}
 	
 	protected String getSite() {
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletRequest request = getRequest();
 		String url = request.getRequestURL().toString();
-		return URLUtil.getHostSite(url);
+		String site = URLUtil.getHostSite(url);
+		CmsSite cmsSite = cmsSiteService.getById(site);
+		if(cmsSite == null) {
+			return "localhost";
+		}
+		return site;
 	}
 
-	
+	protected HttpServletRequest getRequest() {
+		return ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+	}
+
 }
