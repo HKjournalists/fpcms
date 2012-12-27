@@ -81,6 +81,7 @@
 
 <div>
 	<div style="" id="hiddenNews" >
+		<h1><a href="${ctx}/channel/show/news.do" style="font-size: 30pt;">热门新闻</h1></h1>
 		<c:forEach items="${newsPage.itemList}" var="item" varStatus="index">
 			<b style="font-size: 15pt;"><a href="${ctx}/content/show/${item.id}.do" title="${item.title}">${index.index+1}:${item.title}</a></b>
 		</c:forEach>

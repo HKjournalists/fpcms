@@ -7,8 +7,8 @@
 
 <duowan:override name="content">
 	<form:form method="put" action="${ctx}/admin/cmschannel/update.do" modelAttribute="cmsChannel">
-		<input type="button" value="添加子节点" onclick="window.location='${ctx}/admin/cmschannel/add.do?parentId=${cmsChannel.id}' " />
-		<input type="button" value="删除" onclick="window.location='${ctx}/admin/cmschannel/delete.do?id=${cmsChannel.id}' " />
+		<input type="button" value="添加子节点" onclick="window.location='${ctx}/admin/cmschannel/add.do?parentId=${cmsChannel.id}&site=${cmsChannel.site}' " />
+		<input type="button" value="删除" onclick="window.location='${ctx}/admin/cmschannel/delete.do?id=${cmsChannel.id}&site=${cmsChannel.site}' " />
 		<input id="submitButton" name="submitButton" type="submit" value="保存" />
 		
 		<table class="formTable">

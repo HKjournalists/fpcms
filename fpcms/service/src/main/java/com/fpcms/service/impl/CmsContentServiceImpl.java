@@ -99,7 +99,8 @@ public class CmsContentServiceImpl implements CmsContentService {
 	 **/      
 	@Transactional(readOnly=true)
 	public Page<CmsContent> findPage(CmsContentQuery query) {
-	    Assert.notNull(query,"'query' must be not null");
+		Assert.notNull(query,"'query' must be not null");
+	    Assert.hasText(query.getSite(),"'query.site' must be not empty");
 		return cmsContentDao.findPage(query);
 	}
 	
@@ -134,8 +135,8 @@ public class CmsContentServiceImpl implements CmsContentService {
     }
 
 	@Override
-	public List<CmsContent> findByChannelCode(String channelCode) {
-		return cmsContentDao.findByChannelCode(channelCode);
+	public List<CmsContent> findByChannelCode(String site,String channelCode) {
+		return cmsContentDao.findByChannelCode(site,channelCode);
 	}
 
 	public void genRandomCmsContent() {
@@ -149,6 +150,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
 		cmsContent.setAuthor("admin_ramd");
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
+//		cmsContent.setSite(Constants.PROPERTY_DEFAULT_GROUP);
 		create(cmsContent);
 		log.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}

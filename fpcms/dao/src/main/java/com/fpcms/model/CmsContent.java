@@ -12,6 +12,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.fpcms.common.util.FreemarkerUtil;
 
@@ -41,7 +42,7 @@ public class CmsContent  implements java.io.Serializable{
     /**
      * 频道ID       db_column: channel_code 
      */ 	
-	@Length(max=50)
+	@Length(max=50) @NotBlank
 	private java.lang.String channelCode;
 	
     /**
@@ -59,13 +60,13 @@ public class CmsContent  implements java.io.Serializable{
     /**
      * 标题       db_column: title 
      */ 	
-	@Length(max=200)
+	@Length(max=200) @NotBlank
 	private java.lang.String title;
 	
     /**
      * 内容       db_column: content 
      */ 	
-	@Length(max=65535)
+	@Length(max=65535) @NotBlank
 	private java.lang.String content;
 	
     /**
@@ -89,7 +90,7 @@ public class CmsContent  implements java.io.Serializable{
     /**
      * 网站       db_column: site 
      */ 	
-	@Length(max=50)
+	@Length(max=50) @NotBlank
 	private java.lang.String site;
 	
 	

@@ -92,7 +92,9 @@
 				<th style="width:1px;"> </th>
 				
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
-				<th sortColumn="title" >ID</th>
+				<th sortColumn="id" >ID</th>
+				<th sortColumn="site" >网站域名</th>
+				<th sortColumn="channel_code" >频道</th>
 				<th sortColumn="title" >标题</th>
 				<th sortColumn="author" >作者</th>
 				<th sortColumn="date_last_modified" >更新时间</th>
@@ -108,6 +110,8 @@
 				<td>${page.paginator.startRow + status.index}</td>
 				
 				<td><c:out value='${item.id}'/>&nbsp;</td>
+				<td><c:out value='${item.site}'/>&nbsp;</td>
+				<td><c:out value='${item.channelCode}'/>&nbsp;</td>
 				<td><c:out value='${item.title}'/>&nbsp;</td>
 				<td><c:out value='${item.author}'/>&nbsp;</td>
 				<td><fmt:formatDate value='${item.dateLastModified}' pattern='yyyy-MM-dd'/>&nbsp;</td>

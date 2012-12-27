@@ -99,7 +99,7 @@ public class CmsContentController extends BaseController{
 	
 	/** 保存新增,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
 	@RequestMapping()
-	public String create(ModelMap model,CmsContent cmsContent,BindingResult errors) throws Exception {
+	public String create(ModelMap model,CmsContent cmsContent,BindingResult errors,HttpServletRequest request) throws Exception {
 		try {
 			cmsContentService.create(cmsContent);
 		}catch(ConstraintViolationException e) {
@@ -110,7 +110,7 @@ public class CmsContentController extends BaseController{
 			return  "/admin/cmscontent/add";
 		}
 		Flash.current().success(CREATED_SUCCESS); //存放在Flash中的数据,在下一次http请求中仍然可以读取数据,error()用于显示错误消息
-		return LIST_ACTION;
+		return LIST_ACTION+"?site="+cmsContent.getSite()+"&channelCode="+cmsContent.getChannelCode();
 	}
 	
 	/** 编辑 */
@@ -134,15 +134,16 @@ public class CmsContentController extends BaseController{
 			return  "/admin/cmscontent/edit";
 		}
 		Flash.current().success(UPDATE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?site="+cmsContent.getSite()+"&channelCode="+cmsContent.getChannelCode();
 	}
 	
 	/** 批量删除 */
 	@RequestMapping()
 	public String delete(ModelMap model,@RequestParam("id") long id) {
+		CmsContent cmsContent = cmsContentService.getById(id);
 		cmsContentService.removeById(id);
 		Flash.current().success(DELETE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?site="+cmsContent.getSite()+"&channelCode="+cmsContent.getChannelCode();
 	}
 	
 	@RequestMapping

@@ -29,14 +29,10 @@
 <body>
 
 <div class="urbangreymenu">
-	
-	  <h3 class="headerbar">内容管理</h3>
+	  <h3 class="headerbar">网站管理</h3>
 	  <ul>
-		<li><a href="${ctx}/admin/cmschannel/index.do" target="rightFrame">频道管理</a></li>
-		<li><a href="${ctx}/admin/cmschannel/manageContentList.jsp" target="rightFrame">文章管理</a></li>
 		<li><a href="${ctx}/admin/cmscontent/genRandomCmsContent.do?count=10" target="rightFrame">随机生成文章</a></li>
 		<li><a href="${ctx}/admin/cmsattachment/index.do" target="rightFrame">附件管理</a></li>
-		<li><a href="${ctx}/admin/cmsproperty/index.do" target="rightFrame">文章属性</a></li>
 		<li><a href="${ctx}/admin/cmssite/index.do?pageSize=100" target="rightFrame">网站管理</a></li>
 	  </ul>
 	  <h3 class="headerbar">系统管理</h3>
@@ -44,8 +40,6 @@
 		<li><a href="${ctx}/admin/sysuser/index.do" target="rightFrame">用户管理</a></li>
 		<li><a href="${ctx}/admin/system/systemProperties.do" target="rightFrame">系统属性</a></li>
 	  </ul>
-
-
 </div>
 
 </body>

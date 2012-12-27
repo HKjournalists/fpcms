@@ -48,7 +48,7 @@
 		</fieldset>
 		<div class="handleControl">
 			<input type="submit" class="stdButton" style="width:80px" value="查询" onclick="getReferenceForm(this).action='${ctx}/admin/cmsproperty/index.do'"/>
-			<input type="button" class="stdButton" style="width:80px" value="新增" onclick="window.location = '${ctx}/admin/cmsproperty/add.do'"/>
+			<input type="submit" class="stdButton" style="width:80px" value="新增" onclick="getReferenceForm(this).action='${ctx}/admin/cmsproperty/add.do'"/>
 		<div>
 	
 	</div>

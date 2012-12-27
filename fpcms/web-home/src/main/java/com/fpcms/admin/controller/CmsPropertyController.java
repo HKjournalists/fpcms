@@ -18,6 +18,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -73,6 +74,7 @@ public class CmsPropertyController extends BaseController{
 	/** 列表 */
 	@RequestMapping()
 	public String index(ModelMap model,CmsPropertyQuery query,HttpServletRequest request) {
+		Assert.hasText(query.getPropGroup(),"propGroup must be not emtpy");
 		Page<CmsProperty> page = this.cmsPropertyService.findPage(query);
 		
 		model.addAllAttributes(toModelMap(page, query));
@@ -107,7 +109,7 @@ public class CmsPropertyController extends BaseController{
 			return  "/admin/cmsproperty/add";
 		}
 		Flash.current().success(CREATED_SUCCESS); //存放在Flash中的数据,在下一次http请求中仍然可以读取数据,error()用于显示错误消息
-		return LIST_ACTION;
+		return LIST_ACTION+"?propGroup="+cmsProperty.getPropGroup();
 	}
 	
 	/** 编辑 */
@@ -131,7 +133,7 @@ public class CmsPropertyController extends BaseController{
 			return  "/admin/cmsproperty/edit";
 		}
 		Flash.current().success(UPDATE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?propGroup="+propGroup;
 	}
 	
 	/** 批量删除 */
@@ -139,7 +141,7 @@ public class CmsPropertyController extends BaseController{
 	public String delete(ModelMap model,@RequestParam("propGroup") String propGroup, @RequestParam("propKey") String propKey) {
 		cmsPropertyService.removeById(propGroup,propKey);
 		Flash.current().success(DELETE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?propGroup="+propGroup;
 	}
 	
 }

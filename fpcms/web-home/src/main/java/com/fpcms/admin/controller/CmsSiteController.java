@@ -101,8 +101,10 @@ public class CmsSiteController extends BaseController{
 			cmsSiteService.create(cmsSite);
 		}catch(ConstraintViolationException e) {
 			convert(e, errors);
+			logger.error("create error,cmsSite:"+cmsSite,e);
 			return  "/admin/cmssite/add";
 		}catch(MessageException e) {
+			logger.error("create error,cmsSite:"+cmsSite,e);
 			Flash.current().error(e.getMessage());
 			return  "/admin/cmssite/add";
 		}
@@ -125,9 +127,11 @@ public class CmsSiteController extends BaseController{
 			cmsSiteService.update(cmsSite);
 		}catch(ConstraintViolationException e) {
 			convert(e, errors);
+			logger.error("update error,cmsSite:"+cmsSite,e);
 			return  "/admin/cmssite/edit";
 		}catch(MessageException e) {
 			Flash.current().error(e.getMessage());
+			logger.error("update error,cmsSite:"+cmsSite,e);
 			return  "/admin/cmssite/edit";
 		}
 		Flash.current().success(UPDATE_SUCCESS);

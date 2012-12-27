@@ -13,7 +13,7 @@
 			<h1>${cmsContent.title}</h1>
 			${cmsContent.content}
 			<br />
-			<span>创建时间:<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyy-MM-dd"/> 当前时间:<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
+			<span>创建时间:<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyy-MM-dd"/></span>
 		</div>
 </duowan:override>
 

@@ -132,8 +132,8 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	}
 
 	@Override
-	public List<CmsContent> findByChannelCode(String channelCode) {
-		String sql = SELECT_FROM+" where channel_code = ? order by date_created desc";
-		return getSimpleJdbcTemplate().query(sql,getEntityRowMapper(),channelCode);
+	public List<CmsContent> findByChannelCode(String site,String channelCode) {
+		String sql = SELECT_FROM+" where site = ? and channel_code = ? order by date_created desc";
+		return getSimpleJdbcTemplate().query(sql,getEntityRowMapper(),site,channelCode);
 	}
 }

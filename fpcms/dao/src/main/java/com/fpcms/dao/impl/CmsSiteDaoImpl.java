@@ -8,6 +8,8 @@ package com.fpcms.dao.impl;
 
 import static com.duowan.common.util.ObjectUtils.isNotEmpty;
 
+import java.util.Date;
+
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -29,9 +31,9 @@ import com.fpcms.query.CmsSiteQuery;
 */
 public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	
-	RowMapper<CmsSite> entityRowMapper = new BeanPropertyRowMapper<CmsSite>(getEntityClass());
+	private RowMapper<CmsSite> entityRowMapper = new BeanPropertyRowMapper<CmsSite>(getEntityClass());
 	
-	static final private String COLUMNS = "site_domain,site_name,site_desc,site_city,site_keyword,remarks";
+	static final private String COLUMNS = "site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_site";
 	
 	@Override
@@ -49,22 +51,25 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	}
 	
 	public void insert(CmsSite entity) {
+		entity.setDateCreated(new Date());
+		entity.setDateLastModified(new Date());
 		String sql = "insert into cms_site " 
-			 + " (site_domain,site_name,site_desc,site_city,site_keyword,remarks) " 
+			 + " (site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author) " 
 			 + " values "
-			 + " (:siteDomain,:siteName,:siteDesc,:siteCity,:siteKeyword,:remarks)";
-		insertWithAssigned(entity,sql); //for sqlserver:identity and mysql:auto_increment
+			 + " (:siteDomain,:siteName,:siteDesc,:city,:keyword,:remarks,:company,:contactName,:mobile,:qq,:email,:dateCreated,:dateLastModified,:author)";
+//		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
 		
 		//其它主键生成策略
 		//insertWithOracleSequence(entity,"sequenceName",sql); //oracle sequence: 
 		//insertWithDB2Sequence(entity,"sequenceName",sql); //db2 sequence:
 		//insertWithUUID(entity,sql); //uuid
-		//insertWithAssigned(entity,sql); //手工分配
+		insertWithAssigned(entity,sql); //手工分配
 	}
 	
 	public int update(CmsSite entity) {
+		entity.setDateLastModified(new Date());
 		String sql = "update cms_site set "
-					+ " site_name=:siteName,site_desc=:siteDesc,site_city=:siteCity,site_keyword=:siteKeyword,remarks=:remarks "
+					+ " site_name=:siteName,site_desc=:siteDesc,city=:city,keyword=:keyword,remarks=:remarks,company=:company,contact_name=:contactName,mobile=:mobile,qq=:qq,email=:email,date_created=:dateCreated,date_last_modified=:dateLastModified,author=:author "
 					+ " where  site_domain = :siteDomain ";
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
 	}
@@ -84,22 +89,37 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 		
 		StringBuilder sql = new StringBuilder("select "+ COLUMNS + " from cms_site where 1=1 ");
 		if(isNotEmpty(query.getSiteDomain())) {
-            sql.append(" and site_domain = :siteDomain ");
+            sql.append(" and site_domain like concat('%',:siteDomain,'%') ");
         }
 		if(isNotEmpty(query.getSiteName())) {
-            sql.append(" and site_name = :siteName ");
+            sql.append(" and site_name like concat('%',:siteName,'%') ");
         }
 		if(isNotEmpty(query.getSiteDesc())) {
             sql.append(" and site_desc = :siteDesc ");
         }
-		if(isNotEmpty(query.getSiteCity())) {
-            sql.append(" and site_city = :siteCity ");
+		if(isNotEmpty(query.getCity())) {
+            sql.append(" and city = :city ");
         }
-		if(isNotEmpty(query.getSiteKeyword())) {
-            sql.append(" and site_keyword = :siteKeyword ");
+		if(isNotEmpty(query.getKeyword())) {
+            sql.append(" and keyword = :keyword ");
         }
 		if(isNotEmpty(query.getRemarks())) {
             sql.append(" and remarks = :remarks ");
+        }
+		if(isNotEmpty(query.getCompany())) {
+            sql.append(" and company = :company ");
+        }
+		if(isNotEmpty(query.getContactName())) {
+            sql.append(" and contact_name = :contactName ");
+        }
+		if(isNotEmpty(query.getMobile())) {
+            sql.append(" and mobile = :mobile ");
+        }
+		if(isNotEmpty(query.getQq())) {
+            sql.append(" and qq = :qq ");
+        }
+		if(isNotEmpty(query.getEmail())) {
+            sql.append(" and email = :email ");
         }
 		
         //sql.append(" order by :sortColumns ");

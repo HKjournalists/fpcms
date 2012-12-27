@@ -27,20 +27,30 @@ public class CmsSiteDataFactory {
 		
 	  	query.setSiteName(new String("1"));
 	  	query.setSiteDesc(new String("1"));
-	  	query.setSiteCity(new String("1"));
-	  	query.setSiteKeyword(new String("1"));
+	  	query.setCity(new String("1"));
+	  	query.setKeyword(new String("1"));
 	  	query.setRemarks(new String("1"));
+	  	query.setCompany(new String("1"));
+	  	query.setContactName(new String("1"));
+	  	query.setMobile(new String("1"));
+	  	query.setQq(new String("1"));
+	  	query.setEmail(new String("1"));
 		return query;
 	}
 	
 	public static CmsSite newCmsSite() {
 		CmsSite obj = new CmsSite();
-		obj.setSiteDomain("test_domain");
+		obj.setSiteDomain("1");
 	  	obj.setSiteName(new java.lang.String("1"));
 	  	obj.setSiteDesc(new java.lang.String("1"));
-	  	obj.setSiteCity(new java.lang.String("1"));
-	  	obj.setSiteKeyword(new java.lang.String("1"));
+	  	obj.setCity(new java.lang.String("1"));
+	  	obj.setKeyword(new java.lang.String("1"));
 	  	obj.setRemarks(new java.lang.String("1"));
+	  	obj.setCompany(new java.lang.String("1"));
+	  	obj.setContactName(new java.lang.String("1"));
+	  	obj.setMobile(new java.lang.String("1"));
+	  	obj.setQq(new java.lang.String("1"));
+	  	obj.setEmail(new java.lang.String("1"));
 		return obj;
 	}
 }

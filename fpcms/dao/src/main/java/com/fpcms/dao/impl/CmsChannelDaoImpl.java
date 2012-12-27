@@ -62,7 +62,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 			 + " (:id,:channelName,:channelCode,:channelDesc,:parentId,:dateLastModified,:author,:site,:level,:content,:link,:linkTarget,:keyword,:dateCreated)";
 		entity.setDateLastModified(new Date());
 		entity.setDateCreated(new Date());
-		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
+		insertWithAssigned(entity,sql); //for sqlserver:identity and mysql:auto_increment
 		
 		cache.clear();
 		//其它主键生成策略
@@ -78,22 +78,22 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 		
 		String sql = "update cms_channel set "
 					+ " channel_name=:channelName,channel_code=:channelCode,channel_desc=:channelDesc,parent_id=:parentId,date_last_modified=:dateLastModified,author=:author,site=:site,level=:level,content=:content,link=:link,link_target=:linkTarget,keyword=:keyword,date_created=:dateCreated "
-					+ " where  id = :id ";
+					+ " where  id = :id and site = :site";
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
 	}
 	
-	public int deleteById(long id) {
+	public int deleteById(String site,long id) {
 		cache.clear();
-		String sql = "delete from cms_channel where  id = ? ";
-		return  getSimpleJdbcTemplate().update(sql,  id);
+		String sql = "delete from cms_channel where  site = ? and id = ? ";
+		return  getSimpleJdbcTemplate().update(sql, site , id);
 	}
 
-	public CmsChannel getById(final long id) {
+	public CmsChannel getById(final String site,final long id) {
 		return cache.get("getById:"+id, 3600, new ValueCallback<CmsChannel>(){
 			@Override
 			public CmsChannel create(String key) {
-				String sql = SELECT_FROM + " where  id = ? ";
-				return (CmsChannel)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),id));
+				String sql = SELECT_FROM + " where site = ? and id = ? ";
+				return (CmsChannel)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
 			}
 		});
 	}
@@ -136,13 +136,24 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	}
 
 	@Override
-	public List<CmsChannel> findAll() {
-		return getSimpleJdbcTemplate().query(SELECT_FROM,getEntityRowMapper());
+	public List<CmsChannel> findBySite(String site) {
+		return getSimpleJdbcTemplate().query(SELECT_FROM + " where site = ?",getEntityRowMapper(),site);
 	}
 
 	@Override
-	public List<CmsChannel> findChildsByChannelId(long channelId) {
+	public List<CmsChannel> findChildsByChannelId(String site,long channelId) {
 		return getSimpleJdbcTemplate().query(SELECT_FROM + " where parent_id = ? order by level ",getEntityRowMapper(),channelId);
+	}
+
+	@Override
+	public long countBySite(String site) {
+		return getSimpleJdbcTemplate().queryForLong("select count(*) from cms_channel where site = ?", site);
+	}
+
+	@Override
+	public CmsChannel findBySite(String site, long parentChannelId) {
+		List<CmsChannel> list = getSimpleJdbcTemplate().query(SELECT_FROM + " where site = ? and parent_id = ? order by level ",getEntityRowMapper(),site,parentChannelId);
+		return DataAccessUtils.singleResult(list);
 	}
 
 

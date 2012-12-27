@@ -47,7 +47,7 @@ public interface CmsContentService {
 	 **/      
 	public Page<CmsContent> findPage(CmsContentQuery query);
 	
-    public List<CmsContent> findByChannelCode(String channelCode);
+    public List<CmsContent> findByChannelCode(String site,String channelCode);
     
     /**
      * 随机生成文章

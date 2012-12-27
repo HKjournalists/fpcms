@@ -14,6 +14,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 import com.duowan.common.util.tree.Node;
 import com.duowan.common.util.tree.NodeWrapper;
@@ -87,7 +88,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
     /**
      * 网站       db_column: site 
      */ 	
-	@Length(max=50)
+	@Length(max=50) @NotBlank
 	private java.lang.String site;
 
     /**

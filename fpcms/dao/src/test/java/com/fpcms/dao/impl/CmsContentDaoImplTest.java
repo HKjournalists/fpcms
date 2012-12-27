@@ -83,7 +83,7 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_findByChannelCode() {
-		dao.findByChannelCode("100");
+		assertNotNull(dao.findByChannelCode("localhost","news"));
 	}
 }
 

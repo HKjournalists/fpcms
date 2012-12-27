@@ -81,7 +81,7 @@ public class ChannelController extends BaseController{
 	/** 列表 */
 	@RequestMapping("/show/{channelCode}.do")
 	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("channelCode") String channelCode,HttpServletRequest request,HttpServletResponse response) {
-		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(channelCode);
+		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(getSite(),channelCode);
 		if(StringUtils.isBlank(cmsChannel.getContent())) {
 			return "forward:/channel/showContentList/"+channelCode+"/1.do";
 		}
@@ -97,13 +97,14 @@ public class ChannelController extends BaseController{
 	
 	@RequestMapping("/showContentList/{channelCode}/{page}.do")
 	public String showContentList(ModelMap model,CmsContentQuery query,HttpServletRequest request,@PathVariable("channelCode") String channelCode,@PathVariable("page") int page) {
-		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(channelCode);
+		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(getSite(),channelCode);
 		query.setPage(page);
 		if(query.getPageSize() < 10) {
 			query.setPageSize(10);
 		}
 		
 		query.setChannelCode(channelCode);
+		query.setSite(getSite());
 		Page<CmsContent> cmsContentPage = cmsContentService.findPage(query);
 		
 		model.put("cmsChannel", cmsChannel);

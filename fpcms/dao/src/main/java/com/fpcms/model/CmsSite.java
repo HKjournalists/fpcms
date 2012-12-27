@@ -9,7 +9,9 @@ package com.fpcms.model;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 
 /**
@@ -29,13 +31,13 @@ public class CmsSite  implements java.io.Serializable{
     /**
      * 网站域名       db_column: site_domain 
      */ 	
-	@Length(max=30)
+	@Length(max=30) @NotBlank
 	private java.lang.String siteDomain;
 	
     /**
      * 网站名称       db_column: site_name 
      */ 	
-	@Length(max=100)
+	@Length(max=100) @NotBlank
 	private java.lang.String siteName;
 	
     /**
@@ -45,16 +47,16 @@ public class CmsSite  implements java.io.Serializable{
 	private java.lang.String siteDesc;
 	
     /**
-     * 网站对应的城市       db_column: site_city 
+     * 网站对应的城市       db_column: city 
      */ 	
 	@Length(max=40)
-	private java.lang.String siteCity;
+	private java.lang.String city;
 	
     /**
-     * 网站关键词       db_column: site_keyword 
+     * 网站关键词       db_column: keyword 
      */ 	
 	@Length(max=120)
-	private java.lang.String siteKeyword;
+	private java.lang.String keyword;
 	
     /**
      * 备注       db_column: remarks 
@@ -62,6 +64,50 @@ public class CmsSite  implements java.io.Serializable{
 	@Length(max=100)
 	private java.lang.String remarks;
 	
+    /**
+     * 公司       db_column: company 
+     */ 	
+	@Length(max=50)
+	private java.lang.String company;
+	
+    /**
+     * 联系人       db_column: contact_name 
+     */ 	
+	@Length(max=50)
+	private java.lang.String contactName;
+	
+    /**
+     * 移动电话       db_column: mobile 
+     */ 	
+	@Length(max=20)
+	private java.lang.String mobile;
+	
+    /**
+     * QQ       db_column: qq 
+     */ 	
+	@Length(max=20)
+	private java.lang.String qq;
+	
+    /**
+     * 邮件       db_column: email 
+     */ 	
+	@Email @Length(max=20)
+	private java.lang.String email;
+	
+    /**
+     * 创建时间       db_column: date_created 
+     */ 	
+	
+	private java.util.Date dateCreated;
+	
+    /**
+     * 更新时间       db_column: date_last_modified 
+     */ 	
+	
+	private java.util.Date dateLastModified;
+	
+	@Length(max=50)
+	private java.lang.String author;
 	//columns END
 
 	public CmsSite(){
@@ -97,20 +143,20 @@ public class CmsSite  implements java.io.Serializable{
 		this.siteDesc = value;
 	}
 	
-	public java.lang.String getSiteCity() {
-		return this.siteCity;
+	public java.lang.String getCity() {
+		return this.city;
 	}
 	
-	public void setSiteCity(java.lang.String value) {
-		this.siteCity = value;
+	public void setCity(java.lang.String value) {
+		this.city = value;
 	}
 	
-	public java.lang.String getSiteKeyword() {
-		return this.siteKeyword;
+	public java.lang.String getKeyword() {
+		return this.keyword;
 	}
 	
-	public void setSiteKeyword(java.lang.String value) {
-		this.siteKeyword = value;
+	public void setKeyword(java.lang.String value) {
+		this.keyword = value;
 	}
 	
 	public java.lang.String getRemarks() {
@@ -121,6 +167,69 @@ public class CmsSite  implements java.io.Serializable{
 		this.remarks = value;
 	}
 	
+	public java.lang.String getCompany() {
+		return this.company;
+	}
+	
+	public void setCompany(java.lang.String value) {
+		this.company = value;
+	}
+	
+	public java.lang.String getContactName() {
+		return this.contactName;
+	}
+	
+	public void setContactName(java.lang.String value) {
+		this.contactName = value;
+	}
+	
+	public java.lang.String getMobile() {
+		return this.mobile;
+	}
+	
+	public void setMobile(java.lang.String value) {
+		this.mobile = value;
+	}
+	
+	public java.lang.String getQq() {
+		return this.qq;
+	}
+	
+	public void setQq(java.lang.String value) {
+		this.qq = value;
+	}
+	
+	public java.lang.String getEmail() {
+		return this.email;
+	}
+	
+	public void setEmail(java.lang.String value) {
+		this.email = value;
+	}
+	
+	public java.util.Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(java.util.Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public java.util.Date getDateLastModified() {
+		return dateLastModified;
+	}
+
+	public void setDateLastModified(java.util.Date dateLastModified) {
+		this.dateLastModified = dateLastModified;
+	}
+
+	public java.lang.String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(java.lang.String author) {
+		this.author = author;
+	}
 
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

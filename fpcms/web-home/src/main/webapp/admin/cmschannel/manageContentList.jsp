@@ -61,7 +61,7 @@
 		//tree.setImageArrays("minus", "", "", "", "minus.gif");
 		//tree.setStdImages("book.gif", "books_open.gif", "books_close.gif");
 		//tree.setXMLAutoLoading("../common/tree4.xml");
-		tree.loadXML("${ctx}/admin/cmschannel/treeXml.do",function() {
+		tree.loadXML("${ctx}/admin/cmschannel/treeXml.do?site=${param.site}",function() {
 			clickTree($.cookie('currentTreeId'));
 		});
 	

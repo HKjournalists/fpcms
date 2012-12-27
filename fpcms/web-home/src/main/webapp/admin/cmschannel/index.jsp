@@ -59,7 +59,7 @@
 		//tree.setImageArrays("minus", "", "", "", "minus.gif");
 		//tree.setStdImages("book.gif", "books_open.gif", "books_close.gif");
 		//tree.setXMLAutoLoading("../common/tree4.xml");
-		tree.loadXML("${ctx}/admin/cmschannel/treeXml.do",function() {
+		tree.loadXML("${ctx}/admin/cmschannel/treeXml.do?site=${site}",function() {
 			clickTree($.cookie('currentTreeId'));
 		});
 	
@@ -68,8 +68,8 @@
 			
 			var channelCode = tree.getUserData(id, "channelCode");
 			var site = tree.getUserData(id, "site");
-			document.getElementById('detailframe').src = '${ctx}/admin/cmschannel/edit.do?id='+id;
-			document.getElementById('channelContentIframe').src = '${ctx}/admin/cmscontent/index.do?channelCode='+channelCode+'&site='+site;
+			document.getElementById('detailframe').src = '${ctx}/admin/cmschannel/edit.do?id='+id+'&site=${site}';
+			document.getElementById('channelContentIframe').src = '${ctx}/admin/cmscontent/index.do?channelCode='+channelCode+'&site=${site}';
 			
 			$.cookie('currentTreeId',id, { expires: 1, });
 			

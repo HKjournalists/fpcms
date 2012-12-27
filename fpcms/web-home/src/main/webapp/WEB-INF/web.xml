@@ -162,11 +162,9 @@
 	</listener>
 
 	<!-- 使Spring支持request与session的scope,如:<bean id="loginAction" class="com.foo.LoginAction" scope="request"/> -->
-	<!-- 
 	<listener>
 	  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-	 -->
 
 	<!-- Spring 刷新Introspector防止内存泄露 -->
 	<listener>

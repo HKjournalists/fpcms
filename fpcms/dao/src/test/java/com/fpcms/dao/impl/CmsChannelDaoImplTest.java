@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.duowan.common.util.page.Page;
 import com.fpcms.CmsChannelDataFactory;
 import com.fpcms.common.base.BaseDaoTestCase;
+import com.fpcms.common.util.Constants;
 import com.fpcms.dao.CmsChannelDao;
+import com.fpcms.model.CmsChannel;
 import com.fpcms.query.CmsChannelQuery;
 
 
@@ -64,7 +66,9 @@ public class CmsChannelDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_insert() {
-		dao.insert(CmsChannelDataFactory.newCmsChannel());
+		CmsChannel channel = CmsChannelDataFactory.newCmsChannel();
+		channel.setId(System.currentTimeMillis());
+		dao.insert(channel);
 	}
 	
 	@Test
@@ -74,17 +78,27 @@ public class CmsChannelDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_delete() {
-		dao.deleteById(new java.lang.Long("1"));
+		dao.deleteById("localhost",new java.lang.Long("1"));
 	}
 	
 	@Test
 	public void test_getById() {
-		dao.getById(new java.lang.Long("1"));
+		dao.getById("localhost",new java.lang.Long("1"));
 	}
 	
 	@Test
 	public void test_findChildsByChannelId() {
-		assertFalse(dao.findChildsByChannelId(0).isEmpty());
+		assertFalse(dao.findChildsByChannelId("localhost",1).isEmpty());
+	}
+	
+	@Test
+	public void test_countBySite() {
+		dao.countBySite("localhost");
+	}
+	
+	@Test
+	public void test_findBySite_and_parentChannelId() {
+		assertNotNull(dao.findBySite("localhost", Constants.TREE_ROOT_PARENT_ID));
 	}
 }
 

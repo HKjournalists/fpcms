@@ -20,6 +20,7 @@ import javax.validation.ConstraintViolationException;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -76,16 +77,17 @@ public class CmsChannelController extends BaseController{
 	/** 列表 */
 	@RequestMapping()
 	public String index(ModelMap model,CmsChannelQuery query,HttpServletRequest request) {
-		Page<CmsChannel> page = this.cmsChannelService.findPage(query);
-		
-		model.addAllAttributes(toModelMap(page, query));
+//		Page<CmsChannel> page = this.cmsChannelService.findPage(query);
+//		model.addAllAttributes(toModelMap(page, query));
+		Assert.hasText(query.getSite(),"site parameter must be not empty");
+		model.addAttribute("site", query.getSite());
 		return "/admin/cmschannel/index";
 	}
 	
 	/** 显示 */
 	@RequestMapping()
-	public String show(ModelMap model,@RequestParam("id") long id) throws Exception {
-		CmsChannel cmsChannel = (CmsChannel)cmsChannelService.getById(id);
+	public String show(ModelMap model,String site,long id) throws Exception {
+		CmsChannel cmsChannel = (CmsChannel)cmsChannelService.getById(site,id);
 		model.addAttribute("cmsChannel",cmsChannel);
 		return "/admin/cmschannel/show";
 	}
@@ -110,20 +112,20 @@ public class CmsChannelController extends BaseController{
 			return  "/admin/cmschannel/add";
 		}
 		Flash.current().success(CREATED_SUCCESS); //存放在Flash中的数据,在下一次http请求中仍然可以读取数据,error()用于显示错误消息
-		return LIST_ACTION;
+		return LIST_ACTION+"?site="+cmsChannel.getSite();
 	}
 	
 	/** 编辑 */
 	@RequestMapping()
-	public String edit(ModelMap model,@RequestParam("id") long id) throws Exception {
-		CmsChannel cmsChannel = (CmsChannel)cmsChannelService.getById(id);
+	public String edit(ModelMap model,long id,String site) throws Exception {
+		CmsChannel cmsChannel = (CmsChannel)cmsChannelService.getById(site,id);
 		model.addAttribute("cmsChannel",cmsChannel);
 		return "/admin/cmschannel/edit";
 	}
 	
 	/** 保存更新,@Valid标注spirng在绑定对象时自动为我们验证对象属性并存放errors在BindingResult  */
 	@RequestMapping()
-	public String update(ModelMap model,@RequestParam("id") long id,CmsChannel cmsChannel,BindingResult errors) throws Exception {
+	public String update(ModelMap model,String site,long id,CmsChannel cmsChannel,BindingResult errors) throws Exception {
 		try {
 			cmsChannelService.update(cmsChannel);
 		}catch(ConstraintViolationException e) {
@@ -134,21 +136,27 @@ public class CmsChannelController extends BaseController{
 			return  "/admin/cmschannel/edit";
 		}
 		Flash.current().success(UPDATE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?site="+cmsChannel.getSite();
+	}
+	
+	@RequestMapping
+	public String manageContentList(String site) {
+		Assert.hasText(site,"site parameter must be not empty");
+		return "/admin/cmschannel/manageContentList";
 	}
 	
 	/** 批量删除 */
 	@RequestMapping()
-	public String delete(ModelMap model,@RequestParam("id") long id) {
-		cmsChannelService.removeById(id);
+	public String delete(ModelMap model,long id,String site) {
+		cmsChannelService.removeById(site,id);
 		Flash.current().success(DELETE_SUCCESS);
-		return LIST_ACTION;
+		return LIST_ACTION+"?site="+site;
 	}
 	
 	@RequestMapping
-	public void treeXml(HttpServletResponse response,ModelMap model) throws IOException {
+	public void treeXml(String site,HttpServletResponse response,ModelMap model) throws IOException {
 		response.setContentType("text/xml;charset=UTF-8");
-		String treeXml = cmsChannelService.createTreeXmlString(Constants.TREE_ROOT_ID);
+		String treeXml = cmsChannelService.createTreeXmlString(site);
 		response.getWriter().println(treeXml);
 	}
 	

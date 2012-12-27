@@ -29,11 +29,21 @@ public class CmsSiteQuery extends PageQuery implements Serializable {
 	/** 网站描述 */
 	private java.lang.String siteDesc;
 	/** 网站对应的城市 */
-	private java.lang.String siteCity;
+	private java.lang.String city;
 	/** 网站关键词 */
-	private java.lang.String siteKeyword;
+	private java.lang.String keyword;
 	/** 备注 */
 	private java.lang.String remarks;
+	/** 公司 */
+	private java.lang.String company;
+	/** 联系人 */
+	private java.lang.String contactName;
+	/** 移动电话 */
+	private java.lang.String mobile;
+	/** QQ */
+	private java.lang.String qq;
+	/** 邮件 */
+	private java.lang.String email;
 
 	public java.lang.String getSiteDomain() {
 		return this.siteDomain;
@@ -59,20 +69,20 @@ public class CmsSiteQuery extends PageQuery implements Serializable {
 		this.siteDesc = value;
 	}
 	
-	public java.lang.String getSiteCity() {
-		return this.siteCity;
+	public java.lang.String getCity() {
+		return this.city;
 	}
 	
-	public void setSiteCity(java.lang.String value) {
-		this.siteCity = value;
+	public void setCity(java.lang.String value) {
+		this.city = value;
 	}
 	
-	public java.lang.String getSiteKeyword() {
-		return this.siteKeyword;
+	public java.lang.String getKeyword() {
+		return this.keyword;
 	}
 	
-	public void setSiteKeyword(java.lang.String value) {
-		this.siteKeyword = value;
+	public void setKeyword(java.lang.String value) {
+		this.keyword = value;
 	}
 	
 	public java.lang.String getRemarks() {
@@ -82,6 +92,47 @@ public class CmsSiteQuery extends PageQuery implements Serializable {
 	public void setRemarks(java.lang.String value) {
 		this.remarks = value;
 	}
+	
+	public java.lang.String getCompany() {
+		return this.company;
+	}
+	
+	public void setCompany(java.lang.String value) {
+		this.company = value;
+	}
+	
+	public java.lang.String getContactName() {
+		return this.contactName;
+	}
+	
+	public void setContactName(java.lang.String value) {
+		this.contactName = value;
+	}
+	
+	public java.lang.String getMobile() {
+		return this.mobile;
+	}
+	
+	public void setMobile(java.lang.String value) {
+		this.mobile = value;
+	}
+	
+	public java.lang.String getQq() {
+		return this.qq;
+	}
+	
+	public void setQq(java.lang.String value) {
+		this.qq = value;
+	}
+	
+	public java.lang.String getEmail() {
+		return this.email;
+	}
+	
+	public void setEmail(java.lang.String value) {
+		this.email = value;
+	}
+	
 	
 
 	public String toString() {

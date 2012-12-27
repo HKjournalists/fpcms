@@ -40,7 +40,6 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 	public void postHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		log.info("请注意,在这里可以存放渲染视图时需要的的共享变量");
 		
 		if(modelAndView == null) {
 			return;

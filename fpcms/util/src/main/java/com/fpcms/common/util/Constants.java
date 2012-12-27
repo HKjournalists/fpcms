@@ -22,8 +22,12 @@ public interface Constants {
 		"http://top.sogou.com/hotword0.html",
 		};
 
-	public static String PROPERTY_DEFAULT_GROUP = "default";
+	public static String PROPERTY_DEFAULT_GROUP = "localhost";
 
+	/**
+	 * XML tree的root的父亲ID
+	 */
+	public static long TREE_ROOT_PARENT_ID = -1;
 	/**
 	 * XML tree的root id
 	 */

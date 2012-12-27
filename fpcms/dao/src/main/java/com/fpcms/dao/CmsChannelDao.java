@@ -26,14 +26,18 @@ public interface CmsChannelDao {
 	
 	public int update(CmsChannel entity);
 
-	public int deleteById(long id);
+	public int deleteById(String site,long id);
 	
-	public CmsChannel getById(long id);
+	public CmsChannel getById(String site,long id);
 	
 
 	public Page<CmsChannel> findPage(CmsChannelQuery query);
 
-	public List<CmsChannel> findAll();	
+	public List<CmsChannel> findBySite(String site);
 	
-	public List<CmsChannel> findChildsByChannelId(long channelId);
+	public List<CmsChannel> findChildsByChannelId(String site,long channelId);
+
+	public long countBySite(String site);
+	
+	public CmsChannel findBySite(String site,long parentChannelId);
 }

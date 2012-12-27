@@ -1,4 +1,4 @@
-<%@page import="com.fpcms.shared.model.*" %>
+<%@page import="com.fpcms.model.*" %>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -26,33 +26,56 @@
 		<fieldset>
 			<legend>搜索</legend>
 			<table>
-				<tr>	
-					
+				<tr>
+					<td class="tdLabel">网站域名</td>		
+					<td>
+						<input value="${query.siteDomain}" id="siteDomain" name="siteDomain" maxlength="60"  class=""/>
+					</td>	
 					<td class="tdLabel">网站名称</td>		
 					<td>
 						<input value="${query.siteName}" id="siteName" name="siteName" maxlength="100"  class=""/>
 					</td>
-					<td class="tdLabel">网站描述</td>		
-					<td>
-						<input value="${query.siteDesc}" id="siteDesc" name="siteDesc" maxlength="60"  class=""/>
-					</td>
+					
 					<td class="tdLabel">网站对应的城市</td>		
 					<td>
-						<input value="${query.siteCity}" id="siteCity" name="siteCity" maxlength="40"  class=""/>
+						<input value="${query.city}" id="city" name="city" maxlength="40"  class=""/>
 					</td>
 					<td class="tdLabel">网站关键词</td>		
 					<td>
-						<input value="${query.siteKeyword}" id="siteKeyword" name="siteKeyword" maxlength="120"  class=""/>
+						<input value="${query.keyword}" id="keyword" name="keyword" maxlength="120"  class=""/>
 					</td>
 				</tr>	
 				<tr>
-					<td class="tdLabel">网站域名</td>		
+					<td class="tdLabel">网站描述</td>		
 					<td>
-						<input value="${query.siteDomain}" id="siteDomain" name="siteDomain" maxlength="100"  class=""/>
+						<input value="${query.siteDesc}" id="siteDesc" name="siteDesc" maxlength="60"  class=""/>
 					</td>	
 					<td class="tdLabel">备注</td>		
 					<td>
 						<input value="${query.remarks}" id="remarks" name="remarks" maxlength="100"  class=""/>
+					</td>
+					<td class="tdLabel">公司</td>		
+					<td>
+						<input value="${query.company}" id="company" name="company" maxlength="50"  class=""/>
+					</td>
+					<td class="tdLabel">联系人</td>		
+					<td>
+						<input value="${query.contactName}" id="contactName" name="contactName" maxlength="50"  class=""/>
+					</td>
+					
+				</tr>	
+				<tr>	
+					<td class="tdLabel">QQ</td>		
+					<td>
+						<input value="${query.qq}" id="qq" name="qq" maxlength="20"  class=""/>
+					</td>
+					<td class="tdLabel">邮件</td>		
+					<td>
+						<input value="${query.email}" id="email" name="email" maxlength="20"  class="validate-email "/>
+					</td>
+					<td class="tdLabel">移动电话</td>		
+					<td>
+						<input value="${query.mobile}" id="mobile" name="mobile" maxlength="20"  class=""/>
 					</td>
 				</tr>	
 			</table>
@@ -80,9 +103,17 @@
 				<th sortColumn="site_domain" >网站域名</th>
 				<th sortColumn="site_name" >网站名称</th>
 				<th sortColumn="site_desc" >网站描述</th>
-				<th sortColumn="site_city" >网站对应的城市</th>
-				<th sortColumn="site_keyword" >网站关键词</th>
+				<th sortColumn="city" >网站对应的城市</th>
+				<th sortColumn="keyword" >网站关键词</th>
+				<!-- 
 				<th sortColumn="remarks" >备注</th>
+				<th sortColumn="company" >公司</th>
+				<th sortColumn="contact_name" >联系人</th>
+				<th sortColumn="mobile" >移动电话</th>
+				<th sortColumn="qq" >QQ</th>
+				<th sortColumn="email" >邮件</th>
+				<th sortColumn="channel_root_id" >频道根目录ID</th>
+				 -->
 	
 				<th>操作</th>
 			  </tr>
@@ -94,14 +125,23 @@
 			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}">
 				<td>${page.paginator.startRow + status.index}</td>
 				
-				<td><a href="${ctx}/admin/cmschannel/index.do?site=${item.siteDomain}" target="_blank">${item.siteDomain}</a>&nbsp;</td>
+				<td>${item.siteDomain}&nbsp;</td>
 				<td><c:out value='${item.siteName}'/>&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
-				<td><c:out value='${item.siteCity}'/>&nbsp;</td>
-				<td><c:out value='${item.siteKeyword}'/>&nbsp;</td>
+				<td><c:out value='${item.city}'/>&nbsp;</td>
+				<td><c:out value='${item.keyword}'/>&nbsp;</td>
+				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
+				<td><c:out value='${item.company}'/>&nbsp;</td>
+				<td><c:out value='${item.contactName}'/>&nbsp;</td>
+				<td><c:out value='${item.mobile}'/>&nbsp;</td>
+				<td><c:out value='${item.qq}'/>&nbsp;</td>
+				<td><c:out value='${item.email}'/>&nbsp;</td>
+				 -->
 				<td>
-					<a href="${ctx}/admin/cmssite/show.do?siteDomain=${item.siteDomain}">查看</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/cmschannel/index.do?site=${item.siteDomain}">管理频道</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/cmschannel/manageContentList.do?site=${item.siteDomain}">管理文章</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/cmsproperty/index.do?propGroup=${item.siteDomain}">网站属性</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/edit.do?siteDomain=${item.siteDomain}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/delete.do?siteDomain=${item.siteDomain}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
 				</td>

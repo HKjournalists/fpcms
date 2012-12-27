@@ -56,18 +56,18 @@ public class CmsChannelServiceImplTest extends BaseServiceTestCase{
 	
 	@Test
 	public void test_removeById() {
-		service.removeById(new java.lang.Long("1"));
+		service.removeById("localhost",new java.lang.Long("1"));
 		
-		verify(cmsChannelDao).deleteById(new java.lang.Long("1")); //验证执行了该语句
+		verify(cmsChannelDao).deleteById("localhost",new java.lang.Long("1")); //验证执行了该语句
 	}
 	
 	@Test
 	public void test_getById() {
-		when(cmsChannelDao.getById(new java.lang.Long("1"))).thenReturn(CmsChannelDataFactory.newCmsChannel()); // mock方法调用
+		when(cmsChannelDao.getById("localhost",new java.lang.Long("1"))).thenReturn(CmsChannelDataFactory.newCmsChannel()); // mock方法调用
 		
-		CmsChannel cmsChannel = service.getById(new java.lang.Long("1"));
+		CmsChannel cmsChannel = service.getById("localhost",new java.lang.Long("1"));
 		
-		verify(cmsChannelDao).getById(new java.lang.Long("1")); //验证执行了该语句
+		verify(cmsChannelDao).getById("localhost",new java.lang.Long("1")); //验证执行了该语句
 		assertNotNull(cmsChannel);
 	}
 	

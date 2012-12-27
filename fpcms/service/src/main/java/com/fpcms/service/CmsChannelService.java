@@ -38,12 +38,12 @@ public interface CmsChannelService {
 	/** 
 	 * 删除CmsChannel
 	 **/
-    public void removeById(long id);
+    public void removeById(String site,long id);
     
 	/** 
 	 * 根据ID得到CmsChannel
 	 **/    
-    public CmsChannel getById(long id);
+    public CmsChannel getById(String site,long id);
     
 	/** 
 	 * 分页查询: CmsChannel
@@ -51,21 +51,19 @@ public interface CmsChannelService {
 	public Page<CmsChannel> findPage(CmsChannelQuery query);
 	
     
-	public NodeWrapper<CmsChannel> createTree(long rootNodeId);
 	
-	
-	public String createTreeXmlString(long rootNodeId);
+	public String createTreeXmlString(String site);
 	
 	/**
 	 * 得到频道代码与频道ID的映射关系
 	 * 
 	 * @return Map<频道代码，频道ID>
 	 */
-	public Map<String, Long> getChannelMapping();
+	public Map<String, Long> getChannelMapping(String site);
 	
-	public List<CmsChannel> findChildsByChannelId(long channelId);
+	public List<CmsChannel> findChildsByChannelId(String site,long channelId);
 	
-	public List<CmsChannel> findChildsByChannelCode(String channelCode);
+	public List<CmsChannel> findChildsByChannelCode(String site,String channelCode);
 	
-	public CmsChannel findByChannelCode(String channelCode);
+	public CmsChannel findByChannelCode(String site,String channelCode);
 }

@@ -100,7 +100,7 @@
 					<dl class="all_list">
 						<c:forEach	items="${hot_news}" var="item">
 							<dt>
-								<a href="${ctx}/channel/show/${item.channelCode}.do" style="font-weight: bold;">${item.channelName}</a>
+								<a href="${ctx}/content/show/${item.id}.do" style="font-weight: bold;">${item.title}</a>
 							</dt>
 						</c:forEach>
 					</dl>
@@ -148,7 +148,7 @@
 		<div class="foot_menu">
 			<a href="/">网站首页</a> | 
 		</div>
-		<strong>${company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利<br />
+		<strong>${company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利 | 时间:<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/><br />
 	</div>
 	
 	

@@ -20,10 +20,12 @@ import org.springframework.util.Assert;
 
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.tree.NodeWrapper;
+import com.fpcms.common.util.Constants;
 import com.fpcms.dao.CmsChannelDao;
 import com.fpcms.model.CmsChannel;
 import com.fpcms.query.CmsChannelQuery;
 import com.fpcms.service.CmsChannelService;
+import com.fpcms.service.CmsSiteService;
 
 
 /**
@@ -42,6 +44,7 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	//
 	// 请删除无用的方法，代码生成器只是为你生成一个架子
 	//
+	private CmsSiteService cmsSiteService;
 	
 	private CmsChannelDao cmsChannelDao;
 	/**增加setXXXX()方法,spring就可以通过autowire自动设置对象属性,请注意大小写*/
@@ -56,6 +59,7 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	    Assert.notNull(cmsChannel,"'cmsChannel' must be not null");
 	    initDefaultValuesForCreate(cmsChannel);
 	    new CmsChannelChecker().checkCreateCmsChannel(cmsChannel);
+	    cmsChannel.setId(System.currentTimeMillis());
 	    cmsChannelDao.insert(cmsChannel);
 	    return cmsChannel;
 	}
@@ -73,15 +77,15 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	/** 
 	 * 删除CmsChannel
 	 **/
-    public void removeById(long id) {
-        cmsChannelDao.deleteById(id);
+    public void removeById(String site,long id) {
+        cmsChannelDao.deleteById(site,id);
     }
     
 	/** 
 	 * 根据ID得到CmsChannel
 	 **/    
-    public CmsChannel getById(long id) {
-        return cmsChannelDao.getById(id);
+    public CmsChannel getById(String site,long id) {
+        return cmsChannelDao.getById(site,id);
     }
     
 	/** 
@@ -123,22 +127,41 @@ public class CmsChannelServiceImpl implements CmsChannelService {
         }
     }
 
-	@Override
-	public NodeWrapper<CmsChannel> createTree(long rootNodeId) {
-		List<CmsChannel> list = cmsChannelDao.findAll();
+	public NodeWrapper<CmsChannel> createTree(String site,long rootNodeId) {
+		List<CmsChannel> list = cmsChannelDao.findBySite(site);
 		return CmsChannel.createTree(list, rootNodeId);
 	}
 	
 	
 	@Override
-	public String createTreeXmlString(long rootNodeId) {
-		 NodeWrapper<CmsChannel> root = createTree(rootNodeId);
-		 StringBuilder sb = new StringBuilder();
-		 sb.append("<?xml version='1.0' encoding='UTF-8'?>");
-		 sb.append("<tree id='0'>");
-		 appendNodeXml(root, sb);
-		 sb.append("</tree>");
-		 return sb.toString();
+	public String createTreeXmlString(String site) {
+		 long count = cmsChannelDao.countBySite(site);
+		 if(count <= 0) {
+			 createDefaultChannelForSite(site);
+		 }
+		 try {
+			 NodeWrapper<CmsChannel> root = createTree(site,Constants.TREE_ROOT_ID);
+			 StringBuilder sb = new StringBuilder();
+			 sb.append("<?xml version='1.0' encoding='UTF-8'?>");
+			 sb.append("<tree id='0'>");
+			 appendNodeXml(root, sb);
+			 sb.append("</tree>");
+			 return sb.toString();
+		 }catch(Exception e) {
+			 log.error("createTree error for site:"+site,e);
+			 return "";
+		 }
+	}
+
+	private void createDefaultChannelForSite(String site) {
+		CmsChannel cmsChannel = new CmsChannel();
+		cmsChannel.setId(Constants.TREE_ROOT_ID);
+		cmsChannel.setParentId(Constants.TREE_ROOT_PARENT_ID);
+		cmsChannel.setChannelCode("root");
+		cmsChannel.setChannelName("root");
+		cmsChannel.setChannelDesc("root");
+		cmsChannel.setSite(site);
+		cmsChannelDao.insert(cmsChannel);
 	}
 
 	private void appendNodeXml(NodeWrapper<CmsChannel> root, StringBuilder sb) {
@@ -152,8 +175,8 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	}
 
 	@Override
-	public Map<String, Long> getChannelMapping() {
-		List<CmsChannel> list = cmsChannelDao.findAll();
+	public Map<String, Long> getChannelMapping(String site) {
+		List<CmsChannel> list = cmsChannelDao.findBySite(site);
 		Map<String,Long> result = new HashMap<String,Long>();
 		for(CmsChannel item : list) {
 			result.put(item.getChannelCode(), item.getId());
@@ -161,24 +184,24 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 		return result;
 	}
 
-	public List<CmsChannel> findChildsByChannelId(long channelId) {
-		return cmsChannelDao.findChildsByChannelId(channelId);
+	public List<CmsChannel> findChildsByChannelId(String site,long channelId) {
+		return cmsChannelDao.findChildsByChannelId(site,channelId);
 	}
 	
-	public List<CmsChannel> findChildsByChannelCode(String channelCode) {
-		Long channelId = getChannelId(channelCode);
+	public List<CmsChannel> findChildsByChannelCode(String site,String channelCode) {
+		Long channelId = getChannelId(site,channelCode);
 		Assert.notNull(channelId,"not found channelId by channelCode:"+channelCode);
-		return cmsChannelDao.findChildsByChannelId(channelId);
+		return cmsChannelDao.findChildsByChannelId(site,channelId);
 	}
 
 	@Override
-	public CmsChannel findByChannelCode(String channelCode) {
-		long channelId = getChannelId(channelCode);
-		return cmsChannelDao.getById(channelId);
+	public CmsChannel findByChannelCode(String site,String channelCode) {
+		long channelId = getChannelId(site,channelCode);
+		return cmsChannelDao.getById(site,channelId);
 	}
 
-	private Long getChannelId(String channelCode) {
-		Long result =  getChannelMapping().get(channelCode);
+	private Long getChannelId(String site,String channelCode) {
+		Long result =  getChannelMapping(site).get(channelCode);
 		if(result == null) throw new IllegalArgumentException("not found channelId by channelCode:"+channelCode);
 		return result;
 	}
