@@ -29,8 +29,15 @@ public interface Constants {
 	 */
 	public static long TREE_ROOT_ID = 1;
 	
+	/**
+	 * 网络蜘蛛日志类
+	 */
+	public static Logger LOGGER_SPIDER = LoggerFactory.getLogger("spider");
 	
-	public static Logger LOGGER_DUMP_PROFILER = LoggerFactory.getLogger("dump_profiler");
+	/**
+	 * 性能类
+	 */
+	public static Logger LOGGER_DUMP_PROFILER = LoggerFactory.getLogger("dump-profiler");
 	
 	/**
 	 * 开发密码，用于在开发环境下采用的密码

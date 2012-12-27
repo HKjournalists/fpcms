@@ -133,6 +133,9 @@
 	<filter-mapping>
 		<filter-name>LoggerMDCFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 	 
 	<filter-mapping>
@@ -143,6 +146,9 @@
 	<filter-mapping>
 		<filter-name>StrSubstitutorFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>		
 	</filter-mapping>
 				
 	<!-- Log4J 配置 -->

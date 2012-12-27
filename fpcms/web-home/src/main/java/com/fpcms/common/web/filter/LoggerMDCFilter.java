@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.MDC;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.duowan.common.util.LogTraceUtils;
@@ -28,6 +30,7 @@ import com.fpcms.common.util.IpUtil;
  * @author badqiu
  */
 public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
+	private static Logger log = LoggerFactory.getLogger(LoggerMDCFilter.class);
     protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain chain)throws ServletException,IOException {
         try {
             //示例为一个固定的登陆用户,请直接修改代码
@@ -36,7 +39,8 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
             MDC.put("req.requestURI", StringUtils.defaultString(request.getRequestURI()));
             MDC.put("req.queryString", StringUtils.defaultString(request.getQueryString()));
             MDC.put("req.requestURIWithQueryString", request.getRequestURI() + (request.getQueryString() == null ? "" : "?"+request.getQueryString()));
-            MDC.put("req.remoteAddr", StringUtils.defaultString(IpUtil.getIpAddr(request)));
+            String clientIp = IpUtil.getIpAddr(request);
+			MDC.put("req.remoteAddr", StringUtils.defaultString(clientIp));
             
             Profiler.start(request.getServletPath());
             
@@ -45,6 +49,12 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
             LogTraceUtils.beginTrace();
             chain.doFilter(request, response);
             
+			String userAgent = request.getHeader("User-Agent");
+			if(StringUtils.isNotBlank(userAgent)) {
+				if(userAgent.contains("spider") || userAgent.contains("Googlebot")) {
+					log.info(clientIp+"\tspider:"+userAgent);
+				}
+			}
         }finally {
         	Profiler.release();
         	Constants.LOGGER_DUMP_PROFILER.info(Profiler.dump());
