@@ -61,7 +61,8 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 		model.put("now", new Date());
 		model.put("share_current_login_username", "badqiu");
 		model.put("ctx", request.getContextPath());
-		model.put("flash", Flash.current().getData());
+		Flash current = Flash.current();
+		model.put("flash", current == null ? new HashMap() : current.getData());
 		
 		//为freemarker,velocity提供<jsp:include page="/some/page.jsp"/>功能,使用${httpInclude.include("/servlet/header.do")};
 		model.put("httpInclude", new HttpInclude(request,response)); 
