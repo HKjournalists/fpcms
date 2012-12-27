@@ -4,6 +4,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 import com.fpcms.common.util.AppModeUtil;
+import com.fpcms.common.util.Constants;
 /**
  * 开发调试使用的 Jetty Server
  * @author badqiu
@@ -13,6 +14,7 @@ public class JettyServer {
 	
 	public static void main(String[] args) throws Exception {
 //		System.getProperties().list(System.out);
+		System.setProperty(Constants.DEV_PASSWORD_KEY, Constants.DEV_PASSWORD_VALUE);
 		System.setProperty("additionAppender", "stdout");
 		System.setProperty("DWENV", "dev");
 		AppModeUtil.setAppMode("dev");

@@ -1,4 +1,4 @@
-package com.fpcms.tools;
+package com.fpcms.common.util;
 
 //import java.io.UnsupportedEncodingException;
 //

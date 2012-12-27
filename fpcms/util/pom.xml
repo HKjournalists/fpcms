@@ -35,7 +35,12 @@
 		<groupId>com.duowan.common</groupId>
 		<artifactId>duowan-common-mvc</artifactId>
 	</dependency>
-			
+
+  	<dependency>
+		<groupId>net.sf.pinyin4j</groupId>
+		<artifactId>pinyin4j</artifactId>
+	</dependency>
+				
 	<!-- spring begin -->
 	<dependency>
 		<groupId>org.springframework</groupId>

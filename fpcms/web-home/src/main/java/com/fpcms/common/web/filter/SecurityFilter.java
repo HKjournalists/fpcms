@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.fpcms.common.util.AppModeUtil;
 import com.fpcms.common.util.Constants;
 
 public class SecurityFilter extends BaseIncludeExcludeFilter implements Filter{
@@ -28,6 +29,10 @@ public class SecurityFilter extends BaseIncludeExcludeFilter implements Filter{
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		if(AppModeUtil.hasDevPassword()) {
+			filterChain.doFilter(request, response);
+			return;
+		}
 		if(!isMatch(request, excludeSet)) {
 			String username = (String)request.getSession().getAttribute(Constants.ADMIN_LOGIN_USER);
 			if(StringUtils.isBlank(username)) {

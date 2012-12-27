@@ -94,7 +94,7 @@
 			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}">
 				<td>${page.paginator.startRow + status.index}</td>
 				
-				<td><c:out value='${item.siteDomain}'/>&nbsp;</td>
+				<td><a href="${ctx}/admin/cmschannel/index.do?site=${item.siteDomain}" target="_blank">${item.siteDomain}</a>&nbsp;</td>
 				<td><c:out value='${item.siteName}'/>&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.siteCity}'/>&nbsp;</td>

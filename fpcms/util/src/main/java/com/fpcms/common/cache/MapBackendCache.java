@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fpcms.common.cache.CacheUtil.ValueCallback;
+import com.fpcms.common.util.AppModeUtil;
 
 public class MapBackendCache implements Cache {
 	LRUMap map = null;
@@ -47,6 +48,9 @@ public class MapBackendCache implements Cache {
 	}
 
 	public Object get(String key) {
+		if(AppModeUtil.isDevAppMode()) {
+			return null;
+		}
 		Value value = (Value)map.get(key);
 		if(value == null) return null;
 		if(value.isExpiration()) {
@@ -78,6 +82,9 @@ public class MapBackendCache implements Cache {
 	}
 
 	public boolean set(String key, Object value, int expiration) {
+		if(AppModeUtil.isDevAppMode()) {
+			return true;
+		}
 		map.put(key, new Value(value,expiration));
 		return true;
 	}

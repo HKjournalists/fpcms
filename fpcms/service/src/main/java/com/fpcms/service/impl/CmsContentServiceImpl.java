@@ -156,10 +156,9 @@ public class CmsContentServiceImpl implements CmsContentService {
 	
 	private String getAttachKeyword() {
 		if(RandomUtil.randomTrue(25)) {
-			return "";
+			return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
 		}
-		return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
+		return "";
 	}
-
 
 }

@@ -31,7 +31,8 @@ public class RandomArticleBuilder {
 		String findSearchKeyword = "\""+randomBuzz+"\"" +confuseKeyword + randomConfuseKeyword;
 		
 		int randomPageSize = 20 + RandomUtils.nextInt(50);
-		String result = SearchEngineUtil.sogouSearch(findSearchKeyword, randomPageSize,1);
+		int randomPageNumber = 1 + RandomUtils.nextInt(5);
+		String result = SearchEngineUtil.sogouSearch(findSearchKeyword, randomPageSize,randomPageNumber);
 		
 		String transferedArticle = new ArticleContentProcesser(randomBuzz,insertKeyword).buildArticle(result);
 		RandomArticle article = new RandomArticle(randomBuzz,randomConfuseKeyword,findSearchKeyword,transferedArticle);

@@ -6,6 +6,10 @@ public class AppModeUtil {
 		return "dev".equals(System.getProperty("appMode"));
 	}
 	
+	public static boolean hasDevPassword() {
+		return Constants.DEV_PASSWORD_VALUE.equals(System.getProperty(Constants.DEV_PASSWORD_KEY));
+	}
+	
 	public static void setAppMode(String mode) {
 		System.setProperty("appMode", mode);
 		System.out.println("executed setAppMode:"+mode);

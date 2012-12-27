@@ -16,6 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.duowan.common.util.LogTraceUtils;
 import com.duowan.common.util.Profiler;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.IpUtil;
 
 /**
  * 存放在MDC中的数据，log4j可以直接引用并作为日志信息打印出来.
@@ -35,7 +36,7 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
             MDC.put("req.requestURI", StringUtils.defaultString(request.getRequestURI()));
             MDC.put("req.queryString", StringUtils.defaultString(request.getQueryString()));
             MDC.put("req.requestURIWithQueryString", request.getRequestURI() + (request.getQueryString() == null ? "" : "?"+request.getQueryString()));
-            MDC.put("req.remoteAddr", StringUtils.defaultString(request.getRemoteAddr()));
+            MDC.put("req.remoteAddr", StringUtils.defaultString(IpUtil.getIpAddr(request)));
             
             Profiler.start(request.getServletPath());
             
@@ -43,6 +44,7 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
             // LogTraceUtils完成的功能是: MDC.put("traceId",StringUtils.remove(UUID.randomUUID().toString(),"-"))
             LogTraceUtils.beginTrace();
             chain.doFilter(request, response);
+            
         }finally {
         	Profiler.release();
         	Constants.LOGGER_DUMP_PROFILER.info(Profiler.dump());

@@ -9,3 +9,5 @@
 9. cache增加 后台thread 清理数据,需要考虑多个Cache的问题，只有一个CacheManager清理数据
 10. 修改:linux US.en => CN.zh
 11. 网站接入监控宝
+12. 增加全国发票查询业务
+13. 首页可配置
