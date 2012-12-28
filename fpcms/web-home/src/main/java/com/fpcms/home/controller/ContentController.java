@@ -7,6 +7,7 @@
 
 package com.fpcms.home.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -71,10 +72,16 @@ public class ContentController extends BaseController{
 	public void init(ModelMap model) {
 	}
 	
-	/** 列表 */
+	/**
+	 * 显示内容
+	 */
 	@RequestMapping("/show/{contentId}.do")
-	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("contentId") long contentId,HttpServletRequest request,HttpServletResponse response) {
+	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("contentId") long contentId,HttpServletRequest request,HttpServletResponse response) throws IOException {
 		CmsContent cmsContent = cmsContentService.getById(contentId);
+		if(cmsContent == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
 		model.put("cmsContent", cmsContent);
 		
 		if(WebUtil.isNotModified(request, response, cmsContent.getDateLastModified())) {

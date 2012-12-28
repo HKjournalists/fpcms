@@ -8,13 +8,14 @@
 8. 优化jvm参数: -server,及垃圾收集
 9. cache增加 后台thread 清理数据,需要考虑多个Cache的问题，只有一个CacheManager清理数据
 10. 修改:linux US.en => CN.zh
-11. 网站接入监控宝
+#11. 网站接入监控宝
 12. 增加全国发票查询业务
 13. 首页可配置
 14. 生成sitemap
 15. 向百度提交ping rss,通过站长工具提交？
 16. 通过crontab定时通过百度访问网站,机器人要设置User-Agent
 17. cms_content 展现的查询时间要有限制，避免查询全部数据。
-18. 创建默认channels
-19. 
+18. 创建默认channels: news,nav,hot_news
+19. 加入IK 中文分词
+
 

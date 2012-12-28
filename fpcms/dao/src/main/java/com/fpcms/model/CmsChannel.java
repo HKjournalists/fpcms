@@ -19,6 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.duowan.common.util.tree.Node;
 import com.duowan.common.util.tree.NodeWrapper;
 import com.duowan.common.util.tree.TreeCreator;
+import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.FreemarkerUtil;
 
 
@@ -29,7 +30,7 @@ import com.fpcms.common.util.FreemarkerUtil;
  * @version 1.0
  * @since 1.0
  */
-public class CmsChannel  implements Node<Long>,java.io.Serializable{
+public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	//date formats
@@ -121,8 +122,32 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
 	private String keyword;
 	
 	//columns END
+	
+	public static CmsChannel ROOT =  new CmsChannel(Constants.TREE_ROOT_PARENT_ID,Constants.TREE_ROOT_ID,"root","root");
+	public static CmsChannel NAV =  ROOT.newSubChannel(10,"nav","导航条");
+	public static CmsChannel[] NAV_SUB_CHANNELS =  {
+		NAV.newSubChannel(1010,"aboutus","关于我们"),
+		NAV.newSubChannel(1020,"projects","开票项目"),
+		NAV.newSubChannel(1030,"news","新闻中心"),
+		NAV.newSubChannel(1040,"contact","联系方式"),
+	};
 
 	public CmsChannel(){
+	}
+	
+	public CmsChannel(long id, String channelCode, String channelName) {
+		super();
+		this.id = id;
+		this.channelCode = channelCode;
+		this.channelName = channelName;
+	}
+	
+	public CmsChannel(long parentId,long id, String channelCode, String channelName) {
+		super();
+		this.parentId = this.parentId;
+		this.id = id;
+		this.channelCode = channelCode;
+		this.channelName = channelName;
 	}
 
 	public CmsChannel(
@@ -243,6 +268,26 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
 		this.dateCreated = dateCreated;
 	}
 
+	public CmsChannel newSubChannel() {
+		CmsChannel result = new CmsChannel();
+		result.setParentId(this.getId());
+		result.setSite(site);
+		return result;
+	}
+	
+	public CmsChannel newSubChannel(String channelCode,String channelName) {
+		CmsChannel result = newSubChannel();
+		result.setChannelCode(channelCode);
+		result.setChannelName(channelName);
+		return result;
+	}
+	
+	public CmsChannel newSubChannel(long channelId,String channelCode,String channelName) {
+		CmsChannel result = newSubChannel(channelCode,channelName);
+		result.setId(channelId);
+		return result;
+	}
+	
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
@@ -273,5 +318,20 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable{
 		return creator.createTree(nodes, rootNodeId);
 	}
 	
+	
+	public CmsChannel clone(String site){
+		CmsChannel result = clone();
+		result.setSite(site);
+		return result;
+	}
+	
+	@Override
+	public CmsChannel clone()  {
+		try {
+			return (CmsChannel)super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new RuntimeException("CloneNotSupportedException",e);
+		}
+	}
 }
 

@@ -24,14 +24,17 @@ public interface Constants {
 
 	public static String PROPERTY_DEFAULT_GROUP = "localhost";
 
+	// =============== 频道ID START  ==================
 	/**
-	 * XML tree的root的父亲ID
+	 * 频道 tree的root的父亲ID
 	 */
 	public static long TREE_ROOT_PARENT_ID = -1;
 	/**
-	 * XML tree的root id
+	 * 频道 tree的root id
 	 */
 	public static long TREE_ROOT_ID = 1;
+	// =============== 频道ID END  ==================
+	
 	
 	/**
 	 * 网络蜘蛛日志类

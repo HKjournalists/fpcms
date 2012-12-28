@@ -137,7 +137,7 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	public String createTreeXmlString(String site) {
 		 long count = cmsChannelDao.countBySite(site);
 		 if(count <= 0) {
-			 createDefaultChannelForSite(site);
+			 new DefaultChannelCreator(site).createDefaultChannels();
 		 }
 		 try {
 			 NodeWrapper<CmsChannel> root = createTree(site,Constants.TREE_ROOT_ID);
@@ -153,15 +153,37 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 		 }
 	}
 
-	private void createDefaultChannelForSite(String site) {
-		CmsChannel cmsChannel = new CmsChannel();
-		cmsChannel.setId(Constants.TREE_ROOT_ID);
-		cmsChannel.setParentId(Constants.TREE_ROOT_PARENT_ID);
-		cmsChannel.setChannelCode("root");
-		cmsChannel.setChannelName("root");
-		cmsChannel.setChannelDesc("root");
-		cmsChannel.setSite(site);
-		cmsChannelDao.insert(cmsChannel);
+	public class DefaultChannelCreator {
+		private String site;
+		
+		public DefaultChannelCreator(String site) {
+			super();
+			this.site = site;
+		}
+
+		public void createDefaultChannels() {
+			CmsChannel root = CmsChannel.ROOT.clone();
+			root.setSite(site);
+			createSubChannels(root);
+		}
+	
+		private void createSubChannels(CmsChannel root) {
+			CmsChannel nav = CmsChannel.NAV.clone(root.getSite());
+			for(CmsChannel item : CmsChannel.NAV_SUB_CHANNELS) {
+				CmsChannel navSub = item.clone(root.getSite());
+			}
+		}
+
+		private CmsChannel createRootChannel() {
+			CmsChannel cmsChannel = new CmsChannel();
+			cmsChannel.setId(Constants.TREE_ROOT_ID);
+			cmsChannel.setParentId(Constants.TREE_ROOT_PARENT_ID);
+			cmsChannel.setChannelCode("root");
+			cmsChannel.setChannelName("root");
+			cmsChannel.setChannelDesc("root");
+			cmsChannel.setSite(site);
+			return cmsChannel;
+		}
 	}
 
 	private void appendNodeXml(NodeWrapper<CmsChannel> root, StringBuilder sb) {

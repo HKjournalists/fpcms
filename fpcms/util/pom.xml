@@ -40,6 +40,10 @@
 		<groupId>net.sf.pinyin4j</groupId>
 		<artifactId>pinyin4j</artifactId>
 	</dependency>
+	<dependency>
+	  <groupId>com.google.IKAnalyzer</groupId>
+	  <artifactId>IKAnalyzer</artifactId>
+	</dependency>
 				
 	<!-- spring begin -->
 	<dependency>

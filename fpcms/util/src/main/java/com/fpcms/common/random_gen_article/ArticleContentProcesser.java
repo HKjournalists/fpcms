@@ -1,6 +1,8 @@
 package com.fpcms.common.random_gen_article;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -8,6 +10,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.util.Assert;
 
+import com.fpcms.common.util.ChineseSegmenterUtil;
+import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
@@ -39,10 +43,24 @@ public class ArticleContentProcesser {
 		Set<String> tokens = getValidTokens(content);
 		insertKeyWords(tokens);
 		
+		filterByChineseSegment(tokens);
+		
 		KeywordUtil.filterSensitiveKeyword(tokens);
 		
 //		return toString(tokens);
 		return NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
+	}
+
+	private void filterByChineseSegment(Set<String> tokens) {
+		Map<String,Integer> tokenCountMap = ChineseSegmenterUtil.segmenteForTokenCount(StringUtils.join(tokens,","));
+		List<TokenCount> tokenCountList =ChineseSegmenterUtil.toSortedTokenCountList(tokenCountMap);
+		for(int i =0; i < tokenCountList.size(); i++){
+			TokenCount tokenCount = tokenCountList.get(i);
+			if(tokenCount.getCount() >= 3) {
+				System.out.print(tokenCount+"  ");
+			}
+		}
+		System.out.println();
 	}
 
 	private String toString(Set<String> tokens) {
@@ -62,7 +80,7 @@ public class ArticleContentProcesser {
 				result.append("</h3>");
 			}
 			if(pCount % 30 == 29) {
-				result.append("</p>");
+				result.append("</p>\n");
 			}
 			pCount++;
 		}
@@ -133,6 +151,9 @@ public class ArticleContentProcesser {
 			return false;
 		}
 		if(token.matches("\\d+")) {
+			return false;
+		}
+		if(token.contains("搜狗")) {
 			return false;
 		}
 		
