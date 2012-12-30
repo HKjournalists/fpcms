@@ -31,7 +31,7 @@
 <div class="urbangreymenu">
 	  <h3 class="headerbar">网站管理</h3>
 	  <ul>
-		<li><a href="${ctx}/admin/cmscontent/genRandomCmsContent.do?count=10" target="rightFrame">随机生成文章</a></li>
+		<li><a href="${ctx}/admin/cmscontent/genRandomCmsContent.do?count=5" target="rightFrame">随机生成文章</a></li>
 		<li><a href="${ctx}/admin/cmsattachment/index.do" target="rightFrame">附件管理</a></li>
 		<li><a href="${ctx}/admin/cmssite/index.do?pageSize=100" target="rightFrame">网站管理</a></li>
 	  </ul>

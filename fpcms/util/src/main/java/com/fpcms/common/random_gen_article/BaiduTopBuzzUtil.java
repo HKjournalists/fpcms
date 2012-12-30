@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.duowan.common.util.Profiler;
-import com.fpcms.common.cache.CacheUtil;
+import com.fpcms.common.cache.Cache;
+import com.fpcms.common.cache.CacheManager;
+import com.fpcms.common.cache.ValueCallback;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.NetUtil;
 import com.fpcms.common.util.RegexUtil;
@@ -21,20 +23,20 @@ public class BaiduTopBuzzUtil {
 	static Logger logger = LoggerFactory.getLogger(BaiduTopBuzzUtil.class);
 
 	static String CACHE_KEYWORD_BUZZS = "KEYWORD_BUZZS";
+	static Cache cache = CacheManager.createCache(Constants.BAIDU_BUZZ_URLS.length+1);
 	public static Set<String> getBaiduBuzzs() {
-		Set set = (Set)CacheUtil.get(CACHE_KEYWORD_BUZZS);
-		if(set == null) {
-			set =  getBaiduBuzzs0();
-			CacheUtil.set(CACHE_KEYWORD_BUZZS, set, 3600 * 6);
-		}
-		return set;
+		return getBaiduBuzzs0();
 	}
 
 	private static Set<String> getBaiduBuzzs0() {
 		Set<String> result = new HashSet<String>();
 		for(String url : Constants.BAIDU_BUZZ_URLS) {
 			try {
-				Set<String> keywords = findBaiduBuzzs(url);
+				Set<String> keywords = cache.get(url, 3600 * 6,new ValueCallback<Set<String>>() {
+					public Set<String> create(String key) {
+						return findBaiduBuzzs(key);
+					}
+				});
 				result.addAll(keywords);
 			}catch(Exception e) {
 				logger.error("read url for buzz error:"+url,e);

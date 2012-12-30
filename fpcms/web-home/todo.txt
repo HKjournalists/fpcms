@@ -15,7 +15,11 @@
 15. 向百度提交ping rss,通过站长工具提交？
 16. 通过crontab定时通过百度访问网站,机器人要设置User-Agent
 17. cms_content 展现的查询时间要有限制，避免查询全部数据。
-18. 创建默认channels: news,nav,hot_news
+#18. 创建默认channels: home,news,nav,aboutus,projects,contact
 19. 加入IK 中文分词
-
+#20. site如果没有设置,则应该不能访问: Page_Not_Found
+21. 接入51客服
+22. 前台与后台war分开
+22. 长尾关键词优化: "发票","增值税","税控","地税","国税","税务","发票税","纳税","纳税人","税法","税收"
+#23. 不存在的网站返回: 403 Forbidden
 

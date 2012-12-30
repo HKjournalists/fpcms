@@ -19,7 +19,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import com.duowan.common.util.page.Page;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
-import com.fpcms.common.cache.CacheUtil.ValueCallback;
+import com.fpcms.common.cache.ValueCallback;
 import com.fpcms.common.dao.BaseSpringJdbcDao;
 import com.fpcms.dao.CmsChannelDao;
 import com.fpcms.model.CmsChannel;
@@ -89,7 +89,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	}
 
 	public CmsChannel getById(final String site,final long id) {
-		return cache.get("getById:"+id, 3600, new ValueCallback<CmsChannel>(){
+		return cache.get("getById:"+site+"-"+id, 3600, new ValueCallback<CmsChannel>(){
 			@Override
 			public CmsChannel create(String key) {
 				String sql = SELECT_FROM + " where site = ? and id = ? ";
@@ -142,19 +142,12 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 
 	@Override
 	public List<CmsChannel> findChildsByChannelId(String site,long channelId) {
-		return getSimpleJdbcTemplate().query(SELECT_FROM + " where parent_id = ? order by level ",getEntityRowMapper(),channelId);
+		return getSimpleJdbcTemplate().query(SELECT_FROM + " where site = ? and parent_id = ? order by level ",getEntityRowMapper(),site,channelId);
 	}
 
 	@Override
 	public long countBySite(String site) {
 		return getSimpleJdbcTemplate().queryForLong("select count(*) from cms_channel where site = ?", site);
 	}
-
-	@Override
-	public CmsChannel findBySite(String site, long parentChannelId) {
-		List<CmsChannel> list = getSimpleJdbcTemplate().query(SELECT_FROM + " where site = ? and parent_id = ? order by level ",getEntityRowMapper(),site,parentChannelId);
-		return DataAccessUtils.singleResult(list);
-	}
-
 
 }

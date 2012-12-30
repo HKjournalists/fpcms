@@ -36,7 +36,6 @@ import com.fpcms.service.CmsSiteService;
  * @since 1.0
  */
 @Service("cmsChannelService")
-@Transactional
 public class CmsChannelServiceImpl implements CmsChannelService {
 
 	protected static final Logger log = LoggerFactory.getLogger(CmsChannelServiceImpl.class);
@@ -158,32 +157,26 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 		
 		public DefaultChannelCreator(String site) {
 			super();
+			Assert.hasText(site,"site must be not empty");
 			this.site = site;
 		}
 
 		public void createDefaultChannels() {
-			CmsChannel root = CmsChannel.ROOT.clone();
-			root.setSite(site);
-			createSubChannels(root);
-		}
-	
-		private void createSubChannels(CmsChannel root) {
-			CmsChannel nav = CmsChannel.NAV.clone(root.getSite());
+			newChannel(CmsChannel.ROOT);
+			newChannel(CmsChannel.HOME);
+			newChannel(CmsChannel.NEWS);
+			newChannel(CmsChannel.NAV);
 			for(CmsChannel item : CmsChannel.NAV_SUB_CHANNELS) {
-				CmsChannel navSub = item.clone(root.getSite());
+				newChannel(item);
 			}
 		}
-
-		private CmsChannel createRootChannel() {
-			CmsChannel cmsChannel = new CmsChannel();
-			cmsChannel.setId(Constants.TREE_ROOT_ID);
-			cmsChannel.setParentId(Constants.TREE_ROOT_PARENT_ID);
-			cmsChannel.setChannelCode("root");
-			cmsChannel.setChannelName("root");
-			cmsChannel.setChannelDesc("root");
-			cmsChannel.setSite(site);
-			return cmsChannel;
+	
+		private CmsChannel newChannel(CmsChannel template) {
+			CmsChannel target = template.clone(site);
+			cmsChannelDao.insert(target);
+			return target;
 		}
+
 	}
 
 	private void appendNodeXml(NodeWrapper<CmsChannel> root, StringBuilder sb) {

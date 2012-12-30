@@ -2,12 +2,12 @@
 
 <html>
 <head>
-	<title>403 Error</title>
+	<title>403 Forbidden</title>
 </head>
 
 <body>
 <div>
-	403 No Permission.
+	403 Forbidden
 </div>
 </body>
 </html>

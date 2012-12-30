@@ -24,9 +24,9 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.CmsSiteUtil;
 import com.fpcms.common.util.StrSubstitutorUtil;
-import com.fpcms.service.CmsPropertyService;
+import com.fpcms.service.CmsSiteService;
 
 public class StrSubstitutorFilter extends OncePerRequestFilter implements Filter {
 
@@ -44,14 +44,27 @@ public class StrSubstitutorFilter extends OncePerRequestFilter implements Filter
 		}
 	}
 
+	private Map<String, String> getSiteProperties(HttpServletRequest request) {
+		WebApplicationContext wac = WebApplicationContextUtils
+				.getRequiredWebApplicationContext(getServletContext());
+		CmsSiteService cmsSiteService = wac
+				.getBean(CmsSiteService.class);
+		String site = CmsSiteUtil.getSite(request,cmsSiteService);
+		if(StringUtils.hasText(site)) {
+			return cmsSiteService.getSiteProperties(site);
+		}
+		return new HashMap<String,String>(0);
+	}
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
 		if (isInclude(request) && isNotExclude(request)) {
+			
 			FreemarkerServletResponseWrapper respWrapper = new FreemarkerServletResponseWrapper(
-					response);
+					response,getSiteProperties(request));
 			filterChain.doFilter(request, respWrapper);
 			respWrapper.flushBuffer();
 		} else {
@@ -89,10 +102,11 @@ public class StrSubstitutorFilter extends OncePerRequestFilter implements Filter
 		private ServletOutputStream outputStream;
 		private ByteArrayOutputStream cacheOutput = new ByteArrayOutputStream(
 				1024 * 24);
-
-		FreemarkerServletResponseWrapper(HttpServletResponse resp)
+		private Map<String,String> variables = new HashMap();
+		FreemarkerServletResponseWrapper(HttpServletResponse resp,Map variables)
 				throws IOException {
 			super(resp);
+			this.variables = variables;
 		}
 
 		public void flushBuffer() throws IOException {
@@ -112,19 +126,11 @@ public class StrSubstitutorFilter extends OncePerRequestFilter implements Filter
 			final Map map = new HashMap();
 			map.putAll(System.getProperties());
 			map.put("env", System.getenv());
-			map.putAll(getAllCmsProperty());
+			map.putAll(variables);
 			return map;
 		}
 
-		private Map<String, String> getAllCmsProperty() {
-			WebApplicationContext wac = WebApplicationContextUtils
-					.getRequiredWebApplicationContext(getServletContext());
-			CmsPropertyService cmdPropertyService = wac
-					.getBean(CmsPropertyService.class);
-			Map<String, String> appProperties = cmdPropertyService
-					.findByGroup(Constants.PROPERTY_DEFAULT_GROUP);
-			return appProperties;
-		}
+
 
 		public ServletOutputStream getOutputStream() throws IOException {
 			if (cacheOutput == null) {

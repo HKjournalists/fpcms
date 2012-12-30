@@ -164,12 +164,6 @@
 		<strong>${company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利 | 时间:<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/><br />
 	</div>
 	
-	
-	<script type="text/javascript" id="bdshare_js" data="type=slide&img=2"></script>
-	<script type="text/javascript" id="bdshell_js"></script>
-	<script type="text/javascript">
-		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
-	</script>
 	<script  type="text/javascript">
 		var chatLink = "<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes'><img src='${ctx}/images/online_chat.gif'/><br/><img src='${ctx}/images/qq.png'/></a><br/>";
 		var chatLink2 = "客服1<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>客服2<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>客服3<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>";

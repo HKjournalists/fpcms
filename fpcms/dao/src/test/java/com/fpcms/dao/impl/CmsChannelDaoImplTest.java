@@ -96,9 +96,5 @@ public class CmsChannelDaoImplTest extends BaseDaoTestCase{
 		dao.countBySite("localhost");
 	}
 	
-	@Test
-	public void test_findBySite_and_parentChannelId() {
-		assertNotNull(dao.findBySite("localhost", Constants.TREE_ROOT_PARENT_ID));
-	}
 }
 

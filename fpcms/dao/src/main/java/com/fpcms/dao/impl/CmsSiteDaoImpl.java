@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import com.duowan.common.util.page.Page;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
-import com.fpcms.common.cache.CacheUtil.ValueCallback;
+import com.fpcms.common.cache.ValueCallback;
 import com.fpcms.common.dao.BaseSpringJdbcDao;
 import com.fpcms.dao.CmsSiteDao;
 import com.fpcms.model.CmsSite;

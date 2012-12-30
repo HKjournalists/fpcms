@@ -6,6 +6,8 @@
 
 package com.fpcms.service;
 
+import java.util.Map;
+
 import com.duowan.common.util.page.Page;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsSiteQuery;
@@ -45,5 +47,10 @@ public interface CmsSiteService {
 	 **/      
 	public Page<CmsSite> findPage(CmsSiteQuery query);
 	
+	/**
+	 * 得到站点属性
+	 * @return
+	 */
+	public Map<String,String> getSiteProperties(String site);
     
 }

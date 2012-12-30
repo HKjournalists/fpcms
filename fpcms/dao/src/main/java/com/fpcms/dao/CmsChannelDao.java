@@ -39,5 +39,4 @@ public interface CmsChannelDao {
 
 	public long countBySite(String site);
 	
-	public CmsChannel findBySite(String site,long parentChannelId);
 }

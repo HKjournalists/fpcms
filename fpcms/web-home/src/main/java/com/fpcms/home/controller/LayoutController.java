@@ -21,10 +21,7 @@ public class LayoutController extends BaseController{
 	
 	@RequestMapping
 	public String layout(ModelMap model) throws Exception {
-		model.putAll(cmsPropertyService.findByGroup(Constants.PROPERTY_DEFAULT_GROUP));
-		
 		model.put("nav", cmsChannelService.findChildsByChannelCode(getSite(),"nav"));
-		model.put("category", cmsChannelService.findChildsByChannelCode(getSite(),"category"));
 		return "/layout";
 	}
 	

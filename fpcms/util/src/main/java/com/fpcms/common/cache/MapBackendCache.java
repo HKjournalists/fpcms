@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.fpcms.common.cache.CacheUtil.ValueCallback;
 import com.fpcms.common.util.AppModeUtil;
 
 public class MapBackendCache implements Cache {

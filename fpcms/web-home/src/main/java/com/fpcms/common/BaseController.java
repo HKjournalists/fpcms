@@ -10,9 +10,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
+import com.fpcms.common.util.CmsSiteUtil;
 import com.fpcms.common.util.SpringMVCUtils;
-import com.fpcms.common.util.URLUtil;
-import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsSiteService;
 
 public class BaseController {
@@ -32,14 +31,7 @@ public class BaseController {
 	}
 	
 	protected String getSite() {
-		HttpServletRequest request = getRequest();
-		String url = request.getRequestURL().toString();
-		String site = URLUtil.getHostSite(url);
-		CmsSite cmsSite = cmsSiteService.getById(site);
-		if(cmsSite == null) {
-			return "localhost";
-		}
-		return site;
+		return CmsSiteUtil.getSite(getRequest(),cmsSiteService);
 	}
 
 	protected HttpServletRequest getRequest() {

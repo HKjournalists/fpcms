@@ -2,8 +2,6 @@ package com.fpcms.common.cache;
 
 import java.util.Map;
 
-import com.fpcms.common.cache.CacheUtil.ValueCallback;
-
 /**
  * A cache interface
  * 

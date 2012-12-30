@@ -1,6 +1,5 @@
 package com.fpcms.common.springmvc.interceptor;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -16,8 +16,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.duowan.common.web.httpinclude.HttpInclude;
 import com.duowan.common.web.scope.Flash;
-import com.fpcms.common.util.Constants;
-import com.fpcms.service.CmsPropertyService;
+import com.fpcms.common.util.CmsSiteUtil;
+import com.fpcms.service.CmsSiteService;
 
 /**
  * 拦截器,用于存放渲染视图时需要的的共享变量
@@ -29,11 +29,11 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 	
 	//系统启动并初始化一次的变量
 	private Map<String,Object> globalRenderVariables = new HashMap<String,Object>();
-	private CmsPropertyService cmsPropertyService;
+	private CmsSiteService cmsSiteService;
 	
 	
-	public void setCmsPropertyService(CmsPropertyService cmsPropertyService) {
-		this.cmsPropertyService = cmsPropertyService;
+	public void setCmsSiteService(CmsSiteService cmsSiteService) {
+		this.cmsSiteService = cmsSiteService;
 	}
 
 	@Override
@@ -55,8 +55,6 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 	protected Map<String,Object> perRequest(HttpServletRequest request,HttpServletResponse response) {
 		HashMap<String,Object> model = new HashMap<String,Object>();
 		
-		String requestHost = getRequestHost(request);
-		model.put("requestHost", requestHost);
 		model.put("now", new Date());
 		model.put("share_current_login_username", "badqiu");
 		model.put("ctx", request.getContextPath());
@@ -66,19 +64,12 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 		//为freemarker,velocity提供<jsp:include page="/some/page.jsp"/>功能,使用${httpInclude.include("/servlet/header.do")};
 		model.put("httpInclude", new HttpInclude(request,response)); 
 		
-		Map<String,String> properties = cmsPropertyService.findByGroup(Constants.PROPERTY_DEFAULT_GROUP);
-		model.putAll(properties);
-		return model;
-	}
-
-	private static String getRequestHost(HttpServletRequest request) {
-		String requestURL = request.getRequestURL().toString();
-		try {
-			return new URL(requestURL).getHost();
-		} catch (Exception e) {
-			log.error("getRequestHost() error,url:"+requestURL,e);
-			return null;
+		String site = CmsSiteUtil.getSite(request, cmsSiteService);
+		if(StringUtils.isNotBlank(site)) {
+			Map<String,String> properties = cmsSiteService.getSiteProperties(site);
+			model.putAll(properties);
 		}
+		return model;
 	}
 
 	//用于初始化 sharedRenderVariables, 全局共享变量请尽量用global前缀
