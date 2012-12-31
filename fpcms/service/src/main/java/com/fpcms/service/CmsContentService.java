@@ -43,6 +43,16 @@ public interface CmsContentService {
     public CmsContent getById(long id);
     
 	/** 
+	 * 根据ID得到上一条记录
+	 **/    
+    public CmsContent getPreCmsContent(String site,long id);
+
+	/** 
+	 * 根据ID得到下一条记录
+	 **/    
+    public CmsContent getNextCmsContent(String site,long id);
+    
+	/** 
 	 * 分页查询: CmsContent
 	 **/      
 	public Page<CmsContent> findPage(CmsContentQuery query);

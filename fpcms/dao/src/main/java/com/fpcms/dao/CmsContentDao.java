@@ -33,6 +33,10 @@ public interface CmsContentDao {
 
 	public Page<CmsContent> findPage(CmsContentQuery query);
 
-	public List<CmsContent> findByChannelCode(String site,String channelCode);	
+	public List<CmsContent> findByChannelCode(String site,String channelCode);
+
+	public CmsContent getNextCmsContent(String site,long id);
+
+	public CmsContent getPreCmsContent(String site,long id);	
 	
 }

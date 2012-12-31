@@ -8,6 +8,7 @@ package com.fpcms.dao.impl;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.duowan.common.util.page.Page;
 import com.fpcms.CmsContentDataFactory;
 import com.fpcms.common.base.BaseDaoTestCase;
 import com.fpcms.dao.CmsContentDao;
+import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsContentQuery;
 
 
@@ -85,5 +87,20 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 	public void test_findByChannelCode() {
 		assertNotNull(dao.findByChannelCode("localhost","news"));
 	}
+	
+	@Test
+	public void test_getNextCmsContent() {
+		CmsContent nextCmsContent = dao.getNextCmsContent("localhost", 150);
+		assertNotNull(nextCmsContent);
+		assertTrue(nextCmsContent.getId() > 150);
+	}
+	
+	@Test
+	public void test_getPreCmsContent() {
+		CmsContent preCmsContent = dao.getPreCmsContent("localhost", 150);
+		assertNotNull(preCmsContent);
+		assertTrue(preCmsContent.getId() < 150);
+	}
+	
 }
 

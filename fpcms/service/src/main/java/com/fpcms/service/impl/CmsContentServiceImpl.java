@@ -150,7 +150,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
 		cmsContent.setAuthor("admin_ramd");
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
-//		cmsContent.setSite(Constants.PROPERTY_DEFAULT_GROUP);
+//		cmsContent.setSite(Constants.PROPERTY_DEFAULT_GROUP); FIXME setSite()
 		create(cmsContent);
 		log.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}
@@ -161,6 +161,16 @@ public class CmsContentServiceImpl implements CmsContentService {
 			return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
 		}
 		return "";
+	}
+
+	@Override
+	public CmsContent getNextCmsContent(String site,long id) {
+		return cmsContentDao.getNextCmsContent(site,id);
+	}
+
+	@Override
+	public CmsContent getPreCmsContent(String site,long id) {
+		return cmsContentDao.getPreCmsContent(site,id);
 	}
 
 }

@@ -30,7 +30,7 @@
 			频道代码:
 		</td>		
 		<td>
-		<form:input path="channelCode" id="channelCode" cssClass="" maxlength="50" />
+		<form:input path="channelCode" id="channelCode" cssClass="" maxlength="50" size="80"/>
 		<font color='red'><form:errors path="channelCode"/></font>
 		</td>
 	</tr>	
@@ -40,7 +40,7 @@
 			频道名称:
 		</td>		
 		<td>
-		<form:input path="channelName" id="channelName" cssClass="" maxlength="50" />
+		<form:input path="channelName" id="channelName" cssClass="" maxlength="50" size="80"/>
 		<font color='red'><form:errors path="channelName"/></font>
 		</td>
 	</tr>	
@@ -50,7 +50,7 @@
 			频道描述:
 		</td>		
 		<td>
-		<form:input path="channelDesc" id="channelDesc" cssClass="" maxlength="50" />
+		<form:input path="channelDesc" id="channelDesc" cssClass="" maxlength="50" size="80"/>
 		<font color='red'><form:errors path="channelDesc"/></font>
 		</td>
 	</tr>	
@@ -60,7 +60,7 @@
 			父亲ID:
 		</td>		
 		<td>
-		<form:input path="parentId" id="parentId" cssClass="validate-integer " maxlength="19" />
+		<form:input path="parentId" id="parentId" cssClass="validate-integer " maxlength="19" size="80"/>
 		<font color='red'><form:errors path="parentId"/></font>
 		</td>
 	</tr>	
@@ -70,7 +70,7 @@
 			等级:
 		</td>		
 		<td>
-		<form:input path="level" id="level" cssClass="" maxlength="50" />
+		<form:input path="level" id="level" cssClass="" maxlength="50" size="80"/>
 		<font color='red'><form:errors path="level"/></font>
 		</td>
 	</tr>	
@@ -80,7 +80,7 @@
 			网站:
 		</td>		
 		<td>
-		<form:input path="site" id="site" cssClass="" maxlength="50" />
+		<form:input path="site" id="site" cssClass="" maxlength="50" size="80"/>
 		<font color='red'><form:errors path="site"/></font>
 		</td>
 	</tr>	
@@ -90,7 +90,7 @@
 			更新时间:
 		</td>		
 		<td>
-		<input value='<fmt:formatDate value="${cmsChannel.dateLastModified}" pattern="yyyy-MM-dd"/>' onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="dateLastModified" name="dateLastModified"  maxlength="0" class="" />
+		<input value='<fmt:formatDate value="${cmsChannel.dateLastModified}" pattern="yyyy-MM-dd"/>' onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="dateLastModified" name="dateLastModified"  maxlength="0" class="" size="80" />
 		<font color='red'><form:errors path="dateLastModified"/></font>
 		</td>
 	</tr>	
@@ -100,7 +100,7 @@
 			创建时间:
 		</td>		
 		<td>
-		<input value='<fmt:formatDate value="${cmsChannel.dateCreated}" pattern="yyyy-MM-dd"/>' onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="dateCreated" name="dateCreated"  maxlength="0" class="" />
+		<input value='<fmt:formatDate value="${cmsChannel.dateCreated}" pattern="yyyy-MM-dd"/>' onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="dateCreated" name="dateCreated"  maxlength="0" class="" size="80"/>
 		<font color='red'><form:errors path="dateCreated"/></font>
 		</td>
 	</tr>
@@ -110,7 +110,7 @@
 			作者:
 		</td>		
 		<td>
-		<form:input path="author" id="author" cssClass="" maxlength="50" />
+		<form:input path="author" id="author" cssClass="" maxlength="50" size="80"/>
 		<font color='red'><form:errors path="author"/></font>
 		</td>
 	</tr>	
@@ -120,7 +120,7 @@
 			关键字:
 		</td>		
 		<td>
-		<form:input path="keyword" id="keyword" cssClass="" maxlength="50" />
+		<form:input path="keyword" id="keyword" cssClass="" maxlength="50" size="80"/>
 		<font color='red'><form:errors path="keyword"/></font>
 		</td>
 	</tr>

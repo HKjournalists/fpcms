@@ -136,4 +136,17 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		String sql = SELECT_FROM+" where site = ? and channel_code = ? order by date_created desc";
 		return getSimpleJdbcTemplate().query(sql,getEntityRowMapper(),site,channelCode);
 	}
+
+	@Override
+	public CmsContent getNextCmsContent(String site,long id) {
+		String sql = SELECT_FROM+" where site = ? and id > ? limit 1";
+		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
+	}
+
+	@Override
+	public CmsContent getPreCmsContent(String site,long id) {
+		String sql = SELECT_FROM+" where site = ? and id < ? limit 1";
+		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
+	}
+	
 }

@@ -83,6 +83,8 @@ public class ContentController extends BaseController{
 			return null;
 		}
 		model.put("cmsContent", cmsContent);
+		model.put("nextCmsContent", cmsContentService.getNextCmsContent(cmsContent.getSite(),contentId));
+		model.put("preCmsContent", cmsContentService.getPreCmsContent(cmsContent.getSite(),contentId));
 		
 		if(WebUtil.isNotModified(request, response, cmsContent.getDateLastModified())) {
 			return null;
