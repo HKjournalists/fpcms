@@ -9,6 +9,7 @@ package com.fpcms.dao.impl;
 import static com.duowan.common.util.ObjectUtils.isNotEmpty;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -137,4 +138,10 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 		
 		return pageQuery(sql.toString(),query,getEntityRowMapper());				
 	}
+
+	@Override
+	public List<CmsSite> findAll() {
+		return getSimpleJdbcTemplate().query(SELECT_FROM,getEntityRowMapper());
+	}
+	
 }

@@ -25,9 +25,11 @@ import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
+import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsPropertyService;
+import com.fpcms.service.CmsSiteService;
 
 
 /**
@@ -44,7 +46,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 	protected static final Logger log = LoggerFactory.getLogger(CmsContentServiceImpl.class);
 	
 	private CmsPropertyService cmsPropertyService;
-	
+	private CmsSiteService cmsSiteService;
 	//
 	// 请删除无用的方法，代码生成器只是为你生成一个架子
 	//
@@ -57,6 +59,10 @@ public class CmsContentServiceImpl implements CmsContentService {
 	
 	public void setCmsPropertyService(CmsPropertyService cmsPropertyService) {
 		this.cmsPropertyService = cmsPropertyService;
+	}
+	
+	public void setCmsSiteService(CmsSiteService cmsSiteService) {
+		this.cmsSiteService = cmsSiteService;
 	}
 
 	/** 
@@ -140,6 +146,17 @@ public class CmsContentServiceImpl implements CmsContentService {
 	}
 
 	public void genRandomCmsContent() {
+		List<CmsSite> siteList = cmsSiteService.findAll();
+		for(CmsSite cmsSite : siteList) {
+			try {
+				genSiteRandomCmsContent(cmsSite.getSiteDomain());
+			}catch(Exception e) {
+				log.error("error genSiteRandomCmsContent for site:"+cmsSite.getSiteDomain(),e);
+			}
+		}
+	}
+
+	private void genSiteRandomCmsContent(String site) {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
 		RandomArticle article = builder.buildRandomArticle(null);
 		
@@ -150,7 +167,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
 		cmsContent.setAuthor("admin_ramd");
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
-//		cmsContent.setSite(Constants.PROPERTY_DEFAULT_GROUP); FIXME setSite()
+		cmsContent.setSite(site);
 		create(cmsContent);
 		log.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}

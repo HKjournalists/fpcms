@@ -9,6 +9,7 @@ package com.fpcms.service.impl;
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -156,6 +157,11 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 //		result.put("email", StringUtils.defaultIfBlank(cmsSite.getEmail(),props.get("email")));
 		
 		return result;
+	}
+
+	@Override
+	public List<CmsSite> findAll() {
+		return cmsSiteDao.findAll();
 	}
 	
 

@@ -139,13 +139,13 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 
 	@Override
 	public CmsContent getNextCmsContent(String site,long id) {
-		String sql = SELECT_FROM+" where site = ? and id > ? limit 1";
+		String sql = SELECT_FROM+" where site = ? and id > ? order by id asc limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
 	}
 
 	@Override
 	public CmsContent getPreCmsContent(String site,long id) {
-		String sql = SELECT_FROM+" where site = ? and id < ? limit 1";
+		String sql = SELECT_FROM+" where site = ? and id < ? order by id desc limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
 	}
 	

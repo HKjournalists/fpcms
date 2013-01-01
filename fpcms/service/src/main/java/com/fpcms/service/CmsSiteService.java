@@ -6,6 +6,7 @@
 
 package com.fpcms.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.duowan.common.util.page.Page;
@@ -52,5 +53,7 @@ public interface CmsSiteService {
 	 * @return
 	 */
 	public Map<String,String> getSiteProperties(String site);
+
+	public List<CmsSite> findAll();
     
 }

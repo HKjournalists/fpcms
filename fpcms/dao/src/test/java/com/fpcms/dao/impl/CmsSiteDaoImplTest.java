@@ -81,6 +81,9 @@ public class CmsSiteDaoImplTest extends BaseDaoTestCase{
 		dao.getById(new java.lang.String("1"));
 	}
 	
-	
+	@Test
+	public void test_findAll() {
+		dao.findAll();
+	}
 }
 

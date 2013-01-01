@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -103,6 +104,8 @@ public class ChannelController extends BaseController{
 			query.setPageSize(10);
 		}
 		
+		query.setDateCreatedBegin(DateUtils.addDays(new Date(), -45));
+		query.setDateCreatedEnd(new Date());
 		query.setChannelCode(channelCode);
 		query.setSite(getSite());
 		Page<CmsContent> cmsContentPage = cmsContentService.findPage(query);

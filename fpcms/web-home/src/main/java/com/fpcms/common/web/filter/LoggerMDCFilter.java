@@ -49,18 +49,22 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
             LogTraceUtils.beginTrace();
             chain.doFilter(request, response);
             
-			String userAgent = request.getHeader("User-Agent");
-			if(StringUtils.isNotBlank(userAgent)) {
-				if(userAgent.contains("spider") || userAgent.contains("Googlebot")) {
-					log.info(clientIp+"\tspider:"+userAgent);
-				}
-			}
+			logSpiderUserAgent(request, clientIp);
         }finally {
         	Profiler.release();
         	Constants.LOGGER_DUMP_PROFILER.info(Profiler.dump());
             clearMDC();
         }
     }
+
+	private void logSpiderUserAgent(HttpServletRequest request, String clientIp) {
+		String userAgent = request.getHeader("User-Agent");
+		if(StringUtils.isNotBlank(userAgent)) {
+			if(userAgent.toLowerCase().contains("spider") || userAgent.toLowerCase().contains("Googlebot")) {
+				log.info(clientIp+"\tspider:"+userAgent+"\t"+request.getRequestURI());
+			}
+		}
+	}
 
     private static void clearMDC() {
         Map map = MDC.getContext();

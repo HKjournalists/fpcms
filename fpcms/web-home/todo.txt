@@ -14,7 +14,7 @@
 14. 生成sitemap
 15. 向百度提交ping rss,通过站长工具提交？
 16. 通过crontab定时通过百度访问网站,机器人要设置User-Agent
-17. cms_content 展现的查询时间要有限制，避免查询全部数据。
+#17. cms_content 展现的查询时间要有限制，避免查询全部数据。
 #18. 创建默认channels: home,news,nav,aboutus,projects,contact
 19. 加入IK 中文分词
 21. 接入51客服

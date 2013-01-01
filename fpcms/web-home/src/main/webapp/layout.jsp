@@ -76,49 +76,6 @@
 	<div class="width mt10">
 		<div id="page_left">
 			<duowan:block name="page_left">
-			<div class="border">
-				<div class="subject_bg">
-					<div class="subject_title">发票分类</div>
-				</div>
-
-				<div>
-					<dl class="class_list">
-						<dt>
-							<a><span>餐饮发票</span></a>
-						</dt>
-						<dt>
-							<a><span>广告费发票</span></a>
-						</dt>
-						<dt>
-							<a><span>建筑发票</span></a>
-						</dt>
-						<dt>
-							<a><span>租赁费发票</span></a>
-						</dt>
-						<dt>
-							<a><span>会议费发票</span></a>
-						</dt>
-						<dt>
-							<a><span>代开其他各类发票</span></a>
-						</dt>
-					</dl>
-				</div>
-
-			</div>
-			<div class="border mt10">
-				<div class="subject_bg">
-					<div class="subject_title"><a href="${ctx}/channel/show/news.do">热门新闻</a></div>
-				</div>
-				<div class="m10">
-					<dl class="all_list">
-						<c:forEach	items="${hot_news}" var="item">
-							<dt>
-								<a href="${ctx}/content/show/${item.id}.do" style="font-weight: bold;">${item.title}</a>
-							</dt>
-						</c:forEach>
-					</dl>
-				</div>
-			</div>
 			<div class="border mt10" style="font-size: 15pt">
 				<div class="subject_bg">
 					<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
