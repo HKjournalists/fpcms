@@ -49,7 +49,7 @@ public interface Constants {
 	/**
 	 * 开发密码，用于在开发环境下采用的密码
 	 */
-	public static String DEV_PASSWORD_KEY = "4a3f3Ff2as4dio27LFsffguiDKJAuiD43ui2vmoOnq4O2N0hHu9J6K5kg6e45ui5K5qwe9823Ulkuiad";
+	public static String DEV_PASSWORD_KEY = "devModePassword";
 	public static String DEV_PASSWORD_VALUE = "4a3f3Ff2as4dio27LFsffguiDKJAuiD43ui2vmoOnq4O2N0hHu9J6K5kg6e45ui5K5qwe9823Ulkuiad";
 
 	public static String QUERY_STRING = "queryString";
