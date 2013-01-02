@@ -46,9 +46,22 @@ public class RandomArticleBuilder {
 		String transferedArticle = new ArticleContentProcesser(randomBuzz,insertKeyword).buildArticle(result);
 		RandomArticle article = new RandomArticle(randomBuzz,randomConfuseKeyword,finalSearchKeyword,transferedArticle);
 		
-		String perfectKeyword = KeywordUtil.getPerfectKeyword(result,article.getKeyword());
+		String perfectKeyword = getPerfectKeyword(transferedArticle, article);
 		article.setPerfectKeyword(StringUtils.defaultString(perfectKeyword,article.getKeyword()));
 		return article;
+	}
+
+	private String getPerfectKeyword(String transferedArticle, RandomArticle article) {
+		String perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,article.getKeyword());
+		if(StringUtils.isBlank(perfectKeyword)) {
+			for(String faipiao : Constants.FAIPIAO_KEYWORDS) {
+				perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,faipiao);
+				if(StringUtils.isNotBlank(perfectKeyword)) {
+					return perfectKeyword;
+				}
+			}
+		}
+		return perfectKeyword;
 	}
 	
 }
