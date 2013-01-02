@@ -146,6 +146,7 @@
 <duowan:override name="foot">
 		<script type="text/javascript">
 			$('.news_anchor').click(function() {
+				location='http://www.baidu.com/s?wd='+this.title+" "+'${keyword}';
 				return false;
 			});
 		</script>
