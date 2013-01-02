@@ -1,1 +1,5 @@
-contact
+<div align="left">
+	<b>联系人:</b> ${contactName} <br />
+<b>电话:</b>&nbsp;&nbsp;&nbsp;${mobile} <br />
+<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${qq}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a> 
+</div>

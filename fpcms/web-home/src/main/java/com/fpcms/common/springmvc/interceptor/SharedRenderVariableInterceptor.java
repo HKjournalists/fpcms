@@ -17,6 +17,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.duowan.common.web.httpinclude.HttpInclude;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.util.CmsSiteUtil;
+import com.fpcms.common.util.URLUtil;
 import com.fpcms.service.CmsSiteService;
 
 /**
@@ -57,6 +58,7 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 		
 		model.put("now", new Date());
 		model.put("share_current_login_username", "badqiu");
+		model.put("requestHost", URLUtil.getHostSite(request.getRequestURL().toString())); // for wpa.qq.com
 		model.put("ctx", request.getContextPath());
 		Flash current = Flash.current();
 		model.put("flash", current == null ? new HashMap() : current.getData());

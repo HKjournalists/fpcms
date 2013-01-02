@@ -57,7 +57,7 @@ public class CityUtil {
 			String province = map.get("province");
 			String cityPinyin = map.get("cityPinyin");
 			String provincePinyin = map.get("provincePinyin");
-			City cityObj = new City(rank,gdp,province,city,provincePinyin,cityPinyin);
+			City cityObj = new City(rank,(int)gdp,province,city,provincePinyin,cityPinyin);
 			cityList.add(cityObj);
 		}
 		return cityList;
@@ -130,7 +130,7 @@ public class CityUtil {
 	
 	public static class City{
 		int rank;
-		float gdp;
+		int gdp;
 		String province;
 		String city;
 		String cityPinyin;
@@ -138,7 +138,7 @@ public class CityUtil {
 		public City(){
 		}
 		
-		public City(int rank, float gdp, String province, String city,
+		public City(int rank, int gdp, String province, String city,
 				String provincePinyin,String cityPinyin) {
 			super();
 			this.rank = rank;
@@ -155,10 +155,10 @@ public class CityUtil {
 		public void setRank(int rank) {
 			this.rank = rank;
 		}
-		public float getGdp() {
+		public int getGdp() {
 			return gdp;
 		}
-		public void setGdp(float gdp) {
+		public void setGdp(int gdp) {
 			this.gdp = gdp;
 		}
 		public String getProvince() {
