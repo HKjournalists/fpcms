@@ -160,10 +160,11 @@ public class CmsContentServiceImpl implements CmsContentService {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
 		RandomArticle article = builder.buildRandomArticle(null);
 		
-		String keyword = getAttachKeyword();
+//		String attachKeyword = getAttachKeyword();
 		CmsContent cmsContent = new CmsContent();
 		cmsContent.setContent(article.getContent());
-		String title = keyword + article.getPerfectKeyword();
+//		String title = attachKeyword + article.getPerfectKeyword();
+		String title = article.getPerfectKeyword();
 		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
 		cmsContent.setAuthor("admin_ramd");
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
@@ -173,12 +174,12 @@ public class CmsContentServiceImpl implements CmsContentService {
 	}
 	
 	
-	private String getAttachKeyword() {
-		if(RandomUtil.randomTrue(25)) {
-			return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
-		}
-		return "";
-	}
+//	private String getAttachKeyword() {
+//		if(RandomUtil.randomTrue(25)) {
+//			return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
+//		}
+//		return "";
+//	}
 
 	@Override
 	public CmsContent getNextCmsContent(String site,long id) {
