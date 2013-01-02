@@ -16,6 +16,8 @@
 			<div class="list_jj">${ fn:substring(item.content,0,45)}</div>
 			<div class="list_other">标签:${item.tags} 作者：<span>${item.author }</span> 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd"/></span></div>
 		</c:forEach>
+		
+		<!-- page slider START -->
 		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/1.do">第一页</a> | 
 		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.prePage}.do">上一页</a> | 
 		<c:forEach items="${page.paginator.slider}" var="item">
@@ -23,6 +25,8 @@
 		</c:forEach>
 		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.nextPage}.do">下一页</a>
 		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.totalPages}.do">最后页</a>
+		<!-- page slider END -->
+		
 </duowan:override>
 
 <%-- jsp模板继承,具体使用请查看: http://code.google.com/p/rapid-framework/wiki/rapid_jsp_extends --%>

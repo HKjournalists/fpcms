@@ -80,11 +80,24 @@
 			${home.content}
 		</div>
 	</div>
+
+	<div class="subject_bg">
+		<div class="subject_title">热门新闻</div>
+	</div>
+	<div>
+		<div class="neirong">
+			<c:forEach items="${newsPage.itemList}" var="item">
+				<h1 class="list_title"><a href="${ctx}/content/show/${item.id}.do" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></h1>
+				<div class="list_jj">${ fn:substring(item.content,0,45)}</div>
+				<div class="list_other">标签:${item.tags} 作者：<span>${item.author }</span> 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd"/></span></div>
+			</c:forEach>
+		</div>
+	</div>
 	
 	<div class="subject_bg">
 		<div class="subject_title" style="">产品中心</div>
 	</div>
-	<div >
+	<div>
 		<div class="neirong">
 			<div style="float: left;">
 				<img src="${ctx}/images/faipiao/1335531700.jpg" />
@@ -126,10 +139,19 @@
 			
 		</div>
 	</div>
+
 				
 </duowan:override>
 
 <duowan:override name="foot">
+		<script type="text/javascript">
+			$('.news_anchor').click(function() {
+				return false;
+			});
+		</script>
+</duowan:override>
+
+<duowan:override name="not_exist_foot">
 
 <div>
 	<div style="" id="hiddenNews" >
