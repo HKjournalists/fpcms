@@ -1,9 +1,11 @@
 # See http://www.robotstxt.org/wc/norobots.html for documentation on how to use the robots.txt file
 User-agent: *
 Disallow: /admin/
+Disallow: /img/
 Disallow: /images/
-Disallow: /js/
 Disallow: /styles/
+Disallow: /css/
+Disallow: /js/
 Disallow: /widgets/
 Disallow: /WEB-INF/
 Disallow: /META-INF/

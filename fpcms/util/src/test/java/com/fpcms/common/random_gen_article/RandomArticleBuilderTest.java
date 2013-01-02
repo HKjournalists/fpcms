@@ -10,7 +10,7 @@ public class RandomArticleBuilderTest extends Assert{
 		RandomArticleBuilder builder = new RandomArticleBuilder();
 		RandomArticle a = builder.buildRandomArticle("中文");
 		assertTrue("a.getContent().length() > 400 is false,length"+a.getContent().length()+" content:"+a.getContent(),a.getContent().length() > 400);
-		System.out.println(a.getPerfectKeyword()+" -------- "+a.getContent());
+		System.out.println(a.getPerfectKeyword()+" -------- size:"+a.getContent()+" " +a.getContent());
 	}
 	
 	@Test

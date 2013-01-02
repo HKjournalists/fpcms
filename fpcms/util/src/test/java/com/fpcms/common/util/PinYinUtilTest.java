@@ -1,5 +1,20 @@
 package com.fpcms.common.util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.junit.Assert;
+import org.junit.Test;
+import org.springframework.util.ResourceUtils;
+
 //import java.io.File;
 //import java.io.FileNotFoundException;
 //import java.io.FileReader;
@@ -20,22 +35,22 @@ package com.fpcms.common.util;
 //import com.fpcms.service.CmsSiteService;
 
 public class PinYinUtilTest {
-//	
-//	@Test
-//	public void test() throws Exception {
-//		Set<String> citys = getAllCitys();
-//		
-//		Map pinyinMap = new HashMap();
-//		Map cityMap = new HashMap();
-//		for(String city : citys) {
-//			String firstSpell = PinyinUtil.cn2FirstSpell(city);
-//			pinyinMap.put(firstSpell, city);
-//			cityMap.put(city, firstSpell);
-//			System.out.println(firstSpell+" ==> " + city);
-//		}
-//		Assert.assertEquals(cityMap.toString(),pinyinMap.size() , cityMap.size());
-//	}
-//	
+	
+	@Test
+	public void test() throws Exception {
+		Set<String> citys = getAllCitys();
+		
+		Map pinyinMap = new HashMap();
+		Map cityMap = new HashMap();
+		for(String city : citys) {
+			String firstSpell = PinyinUtil.cn2FirstSpell(city);
+			pinyinMap.put(firstSpell, city);
+			cityMap.put(city, firstSpell);
+			System.out.println(firstSpell+" ==> " + city);
+		}
+		Assert.assertEquals(cityMap.toString(),pinyinMap.size() , cityMap.size());
+	}
+	
 //	@Test 
 //	public void test_create_site_by_city_list() throws FileNotFoundException, IOException {
 //		CmsSiteService service = SpringContext.getBean(CmsSiteService.class);
@@ -66,20 +81,20 @@ public class PinYinUtilTest {
 //		cmsSite.setRemarks(null);
 //		return cmsSite;
 //	}
-//
-//	private Set<String> getAllCitys() throws FileNotFoundException, IOException {
-//		File file = ResourceUtils.getFile("classpath:city.txt");
-//		FileReader reader = new FileReader(file);
-//		Set<String> citys = new LinkedHashSet<String>();
-//		for(String line : IOUtils.readLines(reader)) {
-//			String[] array = line.split("\\s+");
-//			for(String city : array) {
-//				if(StringUtils.isNotBlank(city)) {
-//					citys.add(city);
-//				}
-//			}
-//		}
-//		reader.close();
-//		return citys;
-//	}
+
+	private Set<String> getAllCitys() throws FileNotFoundException, IOException {
+		File file = ResourceUtils.getFile("classpath:city.txt");
+		FileReader reader = new FileReader(file);
+		Set<String> citys = new LinkedHashSet<String>();
+		for(String line : IOUtils.readLines(reader)) {
+			String[] array = line.split("\\s+");
+			for(String city : array) {
+				if(StringUtils.isNotBlank(city)) {
+					citys.add(city);
+				}
+			}
+		}
+		reader.close();
+		return citys;
+	}
 }

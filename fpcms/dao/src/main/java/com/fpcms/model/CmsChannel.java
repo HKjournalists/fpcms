@@ -19,6 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.duowan.common.util.tree.Node;
 import com.duowan.common.util.tree.NodeWrapper;
 import com.duowan.common.util.tree.TreeCreator;
+import com.fpcms.common.util.ClasspathUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.FreemarkerUtil;
 
@@ -125,12 +126,12 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	
 	public static CmsChannel ROOT =  new CmsChannel(Constants.TREE_ROOT_PARENT_ID,Constants.TREE_ROOT_ID,"root","root");
 	public static CmsChannel NAV =  ROOT.newSubChannel(10,"nav","导航条");
-	public static CmsChannel HOME =  ROOT.newSubChannel(20,"home","首页");
+	public static CmsChannel HOME =  ROOT.newSubChannel(20,"home","首页").setContent(ClasspathUtil.getStringResouce("cms_channel_template/home", "UTF-8"));
 	public static CmsChannel NEWS = ROOT.newSubChannel(30,"news","新闻中心");
 	public static CmsChannel[] NAV_SUB_CHANNELS =  {
-		NAV.newSubChannel(1010,"aboutus","关于我们"),
-		NAV.newSubChannel(1020,"projects","开票项目"),
-		NAV.newSubChannel(1040,"contact","联系方式"),
+		NAV.newSubChannel(1010,"aboutus","关于我们").setContent(ClasspathUtil.getStringResouce("cms_channel_template/aboutus", "UTF-8")),
+		NAV.newSubChannel(1020,"projects","开票项目").setContent(ClasspathUtil.getStringResouce("cms_channel_template/projects", "UTF-8")),
+		NAV.newSubChannel(1040,"contact","联系方式").setContent(ClasspathUtil.getStringResouce("cms_channel_template/contact", "UTF-8")),
 	};
 
 	public CmsChannel(){
@@ -233,8 +234,9 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 		return content;
 	}
 
-	public void setContent(String content) {
+	public CmsChannel setContent(String content) {
 		this.content = content;
+		return this;
 	}
 
 	public String getLink() {

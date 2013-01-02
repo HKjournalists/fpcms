@@ -61,7 +61,7 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
 		String userAgent = request.getHeader("User-Agent");
 		if(StringUtils.isNotBlank(userAgent)) {
 			if(userAgent.toLowerCase().contains("spider") || userAgent.toLowerCase().contains("googlebot")) {
-				Constants.LOGGER_SPIDER.info(clientIp+"\tspider:"+userAgent+"\t"+request.getRequestURI());
+				Constants.LOGGER_SPIDER.info(request.getRequestURI()+"\t"+clientIp+"\tspider:"+userAgent+"\t");
 			}
 		}
 	}
