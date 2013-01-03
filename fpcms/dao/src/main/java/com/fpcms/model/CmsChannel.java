@@ -313,7 +313,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	@Override
 	public int compareTo(Object o) {
 		CmsChannel other = (CmsChannel)o;
-		return new Long(getLevel()).compareTo(other.getLevel());
+		return - (new Long(getLevel()).compareTo(other.getLevel()));
 	}
 	
 	public static NodeWrapper<CmsChannel> createTree(List<CmsChannel> nodes,long rootNodeId) {

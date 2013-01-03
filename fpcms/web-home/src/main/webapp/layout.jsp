@@ -36,14 +36,6 @@
 		</div>
 		<div id="top_other">
 			<b><a href="javascript:addFavorite('${company}-代开发票');">加入收藏夹</a></b>
-			<dl>
-				<dt>
-					<input id="searchKeyword" name="searchKeyword" type="text" class="input" value="请输入关键字" onfocus="if (value =='请输入关键字'){value =''}" onblur="if (value ==''){value='请输入关键字'}" />
-				</dt>
-				<dt>
-					<input type="button" class="bnt" value="搜 索" onclick="location='http://www.baidu.com/s?wd=site:'+location.host+' '+document.getElementById('searchKeyword').value" />
-				</dt>
-			</dl>
 		</div>
 		</div>
 	</div>

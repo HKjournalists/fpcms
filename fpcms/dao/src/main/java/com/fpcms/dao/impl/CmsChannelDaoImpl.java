@@ -142,7 +142,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 
 	@Override
 	public List<CmsChannel> findChildsByChannelId(String site,long channelId) {
-		return getSimpleJdbcTemplate().query(SELECT_FROM + " where site = ? and parent_id = ? order by level ",getEntityRowMapper(),site,channelId);
+		return getSimpleJdbcTemplate().query(SELECT_FROM + " where site = ? and parent_id = ? order by level desc",getEntityRowMapper(),site,channelId);
 	}
 
 	@Override
