@@ -1,5 +1,8 @@
 package com.fpcms.common.random_gen_article;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +14,10 @@ import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.util.Assert;
 
 import com.fpcms.common.util.ChineseSegmenterUtil;
-import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
 
 /**
  * 对文件进行:过滤,替换,分段落,增加<h1>标题等操作,然后生成随机文章. 
@@ -54,9 +57,35 @@ public class ArticleContentProcesser {
 	private void filterByChineseSegment(Set<String> tokens) {
 		Map<String,Integer> tokenCountMap = ChineseSegmenterUtil.segmenteForTokenCount(StringUtils.join(tokens,","));
 		List<TokenCount> tokenCountList =ChineseSegmenterUtil.toSortedTokenCountList(tokenCountMap);
+		System.out.print("TokenCount:");
 		for(int i =0; i < tokenCountList.size(); i++){
 			TokenCount tokenCount = tokenCountList.get(i);
 			if(tokenCount.getCount() >= 3) {
+				System.out.print(tokenCount+"  ");
+			}
+		}
+		
+		List<TokenCount> sortedTokenLengthList = new ArrayList<TokenCount>(tokenCountList);
+		Collections.sort(sortedTokenLengthList,new Comparator<TokenCount>() {
+			@Override
+			public int compare(TokenCount o1, TokenCount o2) {
+				int len1 = o1.getToken().length();
+				int len2 = o2.getToken().length();
+				if(len1 == len2) {
+					return 0;
+				}
+				if(len1 > len2) {
+					return 1;
+				}else {
+					return -1;
+				}
+			}
+			
+		});
+		System.out.print("TokenLength:");
+		for(int i =0; i < sortedTokenLengthList.size(); i++){
+			TokenCount tokenCount = tokenCountList.get(i);
+			if(tokenCount.getToken().length() >= 4) {
 				System.out.print(tokenCount+"  ");
 			}
 		}

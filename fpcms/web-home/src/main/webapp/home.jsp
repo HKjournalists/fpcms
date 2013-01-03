@@ -3,8 +3,8 @@
 <%@ include file="/commons/taglibs.jsp" %>
 
 <duowan:override name="head">
-	<title>${keyword},${company}</title>
-	<meta name="keywords" content="最值得信赖:${keyword}" />
+	<title>最值得信赖:${keyword}</title>
+	<meta name="keywords" content="${keyword}" />
 	<meta name="description" content="${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}开发票，代开发票资格的专业税务开票公司,可开材料费发票|住宿费发票|餐饮费发票|酒店发票|广告费发票|等各类发票" />
 	<style type="text/css">
 		a.subject_title :hover{text-decoration:none;color:#FFF;!important}	

@@ -27,4 +27,9 @@
 26. 将发票分类等敏感词通过js输出,避免搜索引擎的敏感词过滤
 27. jquery tab
 28. jquery弹出窗口问候是否需要聊天: https://github.com/malsup/blockui/
+29. 增加网站预览链接
+30. 后台管理网站,增加是否显示是否被百度,google收录
+31. 首页关键词是否考虑删除:公司名称
+32. 删除重复的"title" cms_content
+33. 记录关键词列表
 
