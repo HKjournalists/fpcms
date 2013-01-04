@@ -39,7 +39,7 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	
 	static final private String COLUMNS = "site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_site";
-	private Cache cache = CacheManager.createCache(1000);
+	private Cache cache = CacheManager.createCache(CmsSiteDaoImpl.class,1000);
 	
 	@Override
 	public Class<CmsSite> getEntityClass() {

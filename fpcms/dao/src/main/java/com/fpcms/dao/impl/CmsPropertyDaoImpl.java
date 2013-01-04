@@ -39,7 +39,7 @@ public class CmsPropertyDaoImpl extends BaseSpringJdbcDao implements CmsProperty
 	static final private String COLUMNS = "prop_group,prop_key,prop_value,ramarks";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_property";
 	
-	Cache cache = CacheManager.createCache(1000);
+	Cache cache = CacheManager.createCache(CmsPropertyDaoImpl.class,1000);
 	
 	@Override
 	public Class<CmsProperty> getEntityClass() {

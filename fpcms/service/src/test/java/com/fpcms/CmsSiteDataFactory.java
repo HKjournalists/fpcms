@@ -35,7 +35,7 @@ public class CmsSiteDataFactory {
 	
 	public static CmsSite newCmsSite() {
 		CmsSite obj = new CmsSite();
-		
+		obj.setSiteDomain("1");
 	  	obj.setSiteName(new java.lang.String("1"));
 	  	obj.setSiteDesc(new java.lang.String("1"));
 	  	obj.setCity(new java.lang.String("1"));

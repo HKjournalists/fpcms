@@ -48,7 +48,7 @@ public class PinYinUtilTest {
 			cityMap.put(city, firstSpell);
 			System.out.println(firstSpell+" ==> " + city);
 		}
-		Assert.assertEquals(cityMap.toString(),pinyinMap.size() , cityMap.size());
+		Assert.assertTrue(cityMap.toString(),pinyinMap.size()<cityMap.size());
 	}
 	
 //	@Test 
@@ -83,16 +83,13 @@ public class PinYinUtilTest {
 //	}
 
 	private Set<String> getAllCitys() throws FileNotFoundException, IOException {
-		File file = ResourceUtils.getFile("classpath:city.txt");
+		File file = ResourceUtils.getFile("classpath:city_gdp_top300.txt");
 		FileReader reader = new FileReader(file);
 		Set<String> citys = new LinkedHashSet<String>();
 		for(String line : IOUtils.readLines(reader)) {
 			String[] array = line.split("\\s+");
-			for(String city : array) {
-				if(StringUtils.isNotBlank(city)) {
-					citys.add(city);
-				}
-			}
+			citys.add(array[2]);
+			citys.add(array[3]);
 		}
 		reader.close();
 		return citys;

@@ -23,7 +23,7 @@ public class BaiduTopBuzzUtil {
 	static Logger logger = LoggerFactory.getLogger(BaiduTopBuzzUtil.class);
 
 	static String CACHE_KEYWORD_BUZZS = "KEYWORD_BUZZS";
-	static Cache cache = CacheManager.createCache(Constants.BAIDU_BUZZ_URLS.length+1);
+	static Cache cache = CacheManager.createCache(BaiduTopBuzzUtil.class,Constants.BAIDU_BUZZ_URLS.length+1);
 	public static Set<String> getBaiduBuzzs() {
 		return getBaiduBuzzs0();
 	}

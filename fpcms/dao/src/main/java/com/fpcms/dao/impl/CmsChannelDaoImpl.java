@@ -40,7 +40,7 @@ public class CmsChannelDaoImpl extends BaseSpringJdbcDao implements CmsChannelDa
 	static final private String COLUMNS = "id,channel_name,channel_code,channel_desc,parent_id,date_last_modified,author,site,level,content,link,link_target,keyword,date_created";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_channel";
 	
-	private Cache cache = CacheManager.createCache(100);
+	private Cache cache = CacheManager.createCache(CmsChannelDaoImpl.class,100);
 	@Override
 	public Class<CmsChannel> getEntityClass() {
 		return CmsChannel.class;
