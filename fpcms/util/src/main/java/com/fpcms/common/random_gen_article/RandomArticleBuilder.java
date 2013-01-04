@@ -21,7 +21,7 @@ import com.fpcms.common.util.SearchEngineUtil;
  */
 public class RandomArticleBuilder {
 	
-	private String confuseKeyword = " 发票 ";
+	private String confuseKeyword = " 发票  ";
 	private String[] randomConfuseKeywordArray = Constants.FAIPIAO_KEYWORDS;
 	
 	public RandomArticle buildRandomArticle(String city) {
@@ -31,7 +31,7 @@ public class RandomArticleBuilder {
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(randomConfuseKeywordArray);
 		String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
-		String finalSearchKeyword = "\""+randomBuzz+"\"" +confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
+		String finalSearchKeyword = randomBuzz + confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
 		
 		RandomArticle article = buildBySearchKeyword(city,
 				randomConfuseKeyword, randomBuzz, finalSearchKeyword);
@@ -49,7 +49,7 @@ public class RandomArticleBuilder {
 	
 
 	String randomMonth() {
-		Date startMonth = DateConvertUtils.parse("2005-01", "yyyy-MM");
+		Date startMonth = DateConvertUtils.parse("2008-01", "yyyy-MM");
 		Date now = new Date();
 		int maxMonth = (int)((now.getTime() - startMonth.getTime())/1000.0/3600/24/30);
 		Date result = DateUtils.addMonths(startMonth, RandomUtils.nextInt(maxMonth));

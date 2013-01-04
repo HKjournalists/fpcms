@@ -17,11 +17,13 @@ public interface Constants {
 	
 	public static String[] BAIDU_BUZZ_URLS = {
 		"http://top.baidu.com/buzz.php?p=weekhotspot",
-		"http://top.baidu.com/buzz.php?p=top10",
-		"http://top.baidu.com/buzz?b=342",
-		"http://top.baidu.com/buzz?b=344",
-		"http://top.baidu.com/buzz.php?b=291",
+		"http://top.baidu.com/buzz.php?p=top10",//实时热点
+		"http://top.baidu.com/buzz?b=342", //社会民生
+		"http://top.baidu.com/buzz?b=344", //娱乐八卦
+//		"http://top.baidu.com/buzz.php?b=291", //美食
 		"http://top.sogou.com/hotword0.html",
+		"http://top.soso.com/index.php?type=realtime", // 实时热点
+		"http://top.soso.com/index.php?type=sevenday", // 本周热点
 		};
 
 	public static String PROPERTY_DEFAULT_GROUP = "localhost";

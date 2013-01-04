@@ -8,11 +8,10 @@ package com.fpcms.service.impl;
 
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,6 @@ import com.duowan.common.util.page.Page;
 import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
 import com.fpcms.common.util.Constants;
-import com.fpcms.common.util.RandomUtil;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
@@ -137,6 +135,12 @@ public class CmsContentServiceImpl implements CmsContentService {
         	// Bean Validator检查,属性检查失败将抛异常
             validateWithException(cmsContent);
             
+            Date start = DateUtils.addDays(new Date(),-60);
+            int countByTitle = cmsContentDao.countByTitle(start,new Date(),cmsContent.getTitle());
+            if(countByTitle > 0) {
+            	throw new IllegalStateException("already exist same title:"+cmsContent.getTitle()+" CmsContent");
+            }
+            
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
     }
@@ -161,6 +165,8 @@ public class CmsContentServiceImpl implements CmsContentService {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
 		
 		RandomArticle article = builder.buildRandomArticle(city);
+		Assert.hasText(article.getPerfectKeyword(),"article.getPerfectKeyword() must be not emtpy,final search keyword:"+article.getFinalSearchKeyword());
+		Assert.isTrue(article.getContent().length() > 500,"article.getContent().length > 500 must be true,final search keyword:"+article.getFinalSearchKeyword());
 		
 //		String attachKeyword = getAttachKeyword();
 		CmsContent cmsContent = new CmsContent();

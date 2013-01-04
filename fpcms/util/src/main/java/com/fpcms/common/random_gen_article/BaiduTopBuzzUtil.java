@@ -51,7 +51,8 @@ public class BaiduTopBuzzUtil {
 			String topKeyword =  NetUtil.httpGet(url);
 			String[] keywordRegex = {
 					"(?s)<a class=\"list-title\" target=\"_blank\" href=\"./detail.{1,80}>(\\W+)</a>", // baidu
-					"(?s)<a title=..{1,70}. href=..{1,120}. target=._blank.>(\\W+)</a></li>" // sougou
+					"(?s)<a title=..{1,70}. href=..{1,120}. target=._blank.>(\\W+)</a></li>", // sougou
+					"(?s)<a href=\".*?\" title=\"\\W+\" onclick=\".*?\" target=\"_blank\">(\\W+)</a>"
 			};
 			for(String pattern : keywordRegex) {
 				Set<String> keyword = RegexUtil.findAllByRegexGroup(topKeyword, pattern, 1);
