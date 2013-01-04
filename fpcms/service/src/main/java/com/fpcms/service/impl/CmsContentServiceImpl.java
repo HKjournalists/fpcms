@@ -11,6 +11,7 @@ import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithExce
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -149,16 +150,17 @@ public class CmsContentServiceImpl implements CmsContentService {
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		for(CmsSite cmsSite : siteList) {
 			try {
-				genSiteRandomCmsContent(cmsSite.getSiteDomain());
+				genSiteRandomCmsContent(cmsSite.getSiteDomain(),cmsSite.getCity());
 			}catch(Exception e) {
-				log.error("error genSiteRandomCmsContent for site:"+cmsSite.getSiteDomain(),e);
+				log.error("error genSiteRandomCmsContent for site:"+cmsSite.getSiteDomain()+" cmsSite:"+cmsSite,e);
 			}
 		}
 	}
 
-	private void genSiteRandomCmsContent(String site) {
+	private void genSiteRandomCmsContent(String site,String city) {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
-		RandomArticle article = builder.buildRandomArticle(null);
+		
+		RandomArticle article = builder.buildRandomArticle(city);
 		
 //		String attachKeyword = getAttachKeyword();
 		CmsContent cmsContent = new CmsContent();
@@ -172,8 +174,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		create(cmsContent);
 		log.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}
-	
-	
+
 //	private String getAttachKeyword() {
 //		if(RandomUtil.randomTrue(25)) {
 //			return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);

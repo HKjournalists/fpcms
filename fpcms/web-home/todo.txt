@@ -20,7 +20,10 @@
 21. 接入51客服
 22. 前台与后台war分开
 22. 长尾关键词优化: "发票","增值税","税控","地税","国税","税务","发票税","纳税","纳税人","税法","税收"
-	求购唐山市税务发票
+	求购唐山市税务发票,
+	发票查询,发票真伪查询	,发票抬头,增值税发票,发票抽奖
+	国税发票查询,发票真伪查询系统,住宿发票
+	
 #23. 不存在的网站site返回: 403 Forbidden
 #24. 建立合理的内链: 文章显示:上一篇,下一篇
 25. 一定阶段随机生成"发票"相关的文章
@@ -32,4 +35,11 @@
 31. 首页关键词是否考虑删除:公司名称
 32. 删除重复的"title" cms_content
 33. 记录关键词列表
+
+delete from cms_content where title in (
+select title from (
+select title,count(*) cnt from cms_content group by title having cnt >=2
+) t
+)
+
 

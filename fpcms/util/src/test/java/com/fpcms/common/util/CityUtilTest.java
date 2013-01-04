@@ -22,7 +22,9 @@ public class CityUtilTest extends Assert{
 	public void test_print_getProvinceList() throws IOException {
 		for(City city: CityUtil.getCityList()) {
 			String cityDesc = "rank:"+city.getRank()+" gdp:"+city.getGdp()+" "+city.getProvince();
-			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword) VALUES ('"+city.getCityPinyin()+".aaafaipiao.com', '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+city.getCity()+"开发票,"+city.getCity()+"代开发票');");
+			String keyword = "发票"+city.getCity()+","+city.getCity()+"发票,"+city.getCity()+"开发票,"+city.getCity()+"代开发票,"+city.getCity()+"发票查询";
+			
+			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword) VALUES ('"+city.getCityPinyin()+".aaafaipiao.com', '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+keyword+"');");
 		}
 	}
 }
