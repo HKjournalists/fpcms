@@ -148,5 +148,11 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		String sql = SELECT_FROM+" where site = ? and id < ? order by id desc limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
 	}
+
+	@Override
+	public int countByTitle(Date start, Date end, String title) {
+		String sql = "select count(*) from cms_content where date_created between ? and ? and title = ?";
+		return getSimpleJdbcTemplate().queryForInt(sql, start,end,title);
+	}
 	
 }

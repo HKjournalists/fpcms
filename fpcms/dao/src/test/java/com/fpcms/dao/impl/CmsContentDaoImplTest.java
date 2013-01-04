@@ -10,8 +10,10 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -102,5 +104,15 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 		assertTrue(preCmsContent.getId() < 150);
 	}
 	
+
+	@Test
+	public void test_countByTitle() {
+		test_insert();
+		int result = dao.countByTitle(DateUtils.addDays(new Date(),-20), new Date(), CmsContentDataFactory.newCmsContent().getTitle());
+		assertTrue(result == 1);
+		
+		result = dao.countByTitle(DateUtils.addDays(new Date(),-20), new Date(), "not exist title 1111111111111xcsdf");
+		assertTrue(result == 0);
+	}
 }
 

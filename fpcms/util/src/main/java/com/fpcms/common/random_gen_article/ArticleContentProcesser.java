@@ -129,10 +129,6 @@ public class ArticleContentProcesser {
 		return false;
 	}
 
-	String[] replaseToken = {"物品","建筑","广告","教育","商品","房屋","商业"};
-
-
-
 	private void insertKeyWords(Set<String> tokens) {
 		if(StringUtils.isNotBlank(insertKeyword)) {
 			tokens.add(insertKeyword);

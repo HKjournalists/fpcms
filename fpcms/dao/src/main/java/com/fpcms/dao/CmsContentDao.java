@@ -6,6 +6,7 @@
 
 package com.fpcms.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.duowan.common.util.page.Page;
@@ -37,6 +38,8 @@ public interface CmsContentDao {
 
 	public CmsContent getNextCmsContent(String site,long id);
 
-	public CmsContent getPreCmsContent(String site,long id);	
+	public CmsContent getPreCmsContent(String site,long id);
+
+	public int countByTitle(Date start, Date end, String title);	
 	
 }
