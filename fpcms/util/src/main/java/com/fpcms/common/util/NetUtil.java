@@ -1,7 +1,9 @@
 package com.fpcms.common.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -61,18 +63,26 @@ public class NetUtil {
 		method.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1");
 		method.setRequestHeader("Accept-Language", "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3");
 		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 //		method.setRequestHeader("Accept-Encoding", "gzip, deflate");
 		try {
 			client.executeMethod(method);
+			String charset = getCharset(method);
 			InputStream is = method.getResponseBodyAsStream();
-			String result = IOUtils.toString(is,"GBK");
-			return result;
+			return IOUtils.toString(is,charset);
 		} catch (Exception e) {
 			throw new RuntimeException("读取url=[" + finalUrl + "]数据异常",e); 
 		} finally {
 			method.releaseConnection();
 		}
+	}
+
+
+	private static String getCharset(GetMethod method) throws IOException {
+		String charset = RegexUtil.findByRegexGroup(method.getResponseBodyAsString(), "(?s)<meta.*?charset\\s*=\\s*([\\w-]+)", 1);
+		if(StringUtils.hasText(charset)) {
+			return charset;
+		}
+		return method.getResponseCharSet();
 	}
 
 
