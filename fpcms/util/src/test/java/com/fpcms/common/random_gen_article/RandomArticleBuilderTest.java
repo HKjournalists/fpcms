@@ -21,6 +21,13 @@ public class RandomArticleBuilderTest extends Assert{
 		assertTrue("a.getContent().length() > 400 is false,length"+a.getContent().length()+" content:"+a.getContent(),a.getContent().length() > 400);
 		System.out.println(a.getPerfectKeyword()+" -------- "+a.getContent());
 	}
-	
+	@Test
+	public void test_random_month() {
+		RandomArticleBuilder b = new RandomArticleBuilder();
+		for(int i = 0; i < 1000; i++) {
+			String str = b.randomMonth();
+			System.out.println(str);
+		}
+	}
 	
 }

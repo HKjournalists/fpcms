@@ -1,11 +1,14 @@
 package com.fpcms.common.random_gen_article;
 
+import java.util.Date;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.util.Assert;
 
+import com.duowan.common.util.DateConvertUtils;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
@@ -28,12 +31,20 @@ public class RandomArticleBuilder {
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(randomConfuseKeywordArray);
 		String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
-		String finalSearchKeyword = "\""+randomBuzz+"\"" +confuseKeyword + randomConfuseKeyword;
+		String finalSearchKeyword = "\""+randomBuzz+"\"" +confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
 		
 		RandomArticle article = buildBySearchKeyword(insertKeyword,
 				randomConfuseKeyword, randomBuzz, finalSearchKeyword);
 		
 		return article;
+	}
+
+	String randomMonth() {
+		Date startMonth = DateConvertUtils.parse("2005-01", "yyyy-MM");
+		Date now = new Date();
+		int maxMonth = (int)((now.getTime() - startMonth.getTime())/1000.0/3600/24/30);
+		Date result = DateUtils.addMonths(startMonth, RandomUtils.nextInt(maxMonth));
+		return DateConvertUtils.format(result, "yyyy-MM");
 	}
 
 	RandomArticle buildBySearchKeyword(String insertKeyword,
