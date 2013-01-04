@@ -33,3 +33,9 @@
 32. 删除重复的"title" cms_content
 33. 记录关键词列表
 
+34. 删除重复文章
+delete from cms_content where title in (
+select t.title from (
+(select title,count(*) cnt from cms_content group by title having cnt>=2 order by cnt desc) t
+));
+
