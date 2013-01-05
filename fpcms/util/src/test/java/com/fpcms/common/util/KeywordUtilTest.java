@@ -2,14 +2,51 @@ package com.fpcms.common.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.fpcms.common.random_gen_article.ArticleContentProcesser;
+
 public class KeywordUtilTest extends Assert{
 
+	@Test
+	public void test2() {
+		String result = NetUtil.httpGet("http://news.qq.com");
+		ArrayList<String> tokenizerList = KeywordUtil.toTokenizerList(result);
+		String tokens = StringUtils.join(tokenizerList,",");
+		Set<String> tokenSet = new ArticleContentProcesser("","").getValidTokens(tokens);
+		System.out.println("valid tokens:"+tokenSet);
+		
+		Map<String,Integer> keywords = ChineseSegmenterUtil.segmenteForTokenCount(StringUtils.join(tokenSet, ","),true);
+		System.out.println("segmenteForTokenCount:"+keywords);
+		Set<String> lengthKeywords = new LinkedHashSet();
+		for(String keyword : keywords.keySet()) {
+			if(keyword.length() > 3) {
+				lengthKeywords.add(keyword);
+			}
+		}
+		System.out.println("lengthKeywords:"+lengthKeywords);
+	}
+	
+	@Test
+	public void print() {
+		for(int i = 0; i < 256; i++) {
+			System.out.println(i+"="+(char)i);
+		}
+		System.out.println("--------------------------------");
+		char c = '！';
+		for(int i = c; i < c+256; i++) {
+			System.out.println(i+"="+(char)i);
+		}
+		
+	}
+	
 	@Test
 	public void test() {
 		String result = KeywordUtil.getPerfectKeyword("1234123,中国,中国人民银行,191811", "中国");

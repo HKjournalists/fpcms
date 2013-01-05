@@ -22,7 +22,7 @@ public class KeywordUtil {
 		logger.info("sensitive_keyword:"+sensitiveKeywordSet);
 	}
 	
-	public static String DELIMITERS = " \t\n\r\f,.!?;:'/\"\\()+=-_<>，。！？；：、＝＋－——／·＃—￥％—…—＊（）‘“”～｀《》@#$%^&*~`|\\";
+	public static String DELIMITERS = " \t\n\r\f,.!?;:'/\"\\()+=-_<>，。！？；：、＝＋－——／·＃—￥％—…—＊（）‘“”～｀《》@#$%^&*~`|\\【】";
 	public static String getPerfectKeyword(String content,String keyword) {
 		if(StringUtils.isBlank(content)) {
 			return null;
