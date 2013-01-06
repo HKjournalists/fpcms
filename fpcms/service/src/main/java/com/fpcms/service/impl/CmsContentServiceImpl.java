@@ -168,10 +168,8 @@ public class CmsContentServiceImpl implements CmsContentService {
 		Assert.hasText(article.getPerfectKeyword(),"article.getPerfectKeyword() must be not emtpy,final search keyword:"+article.getFinalSearchKeyword());
 		Assert.isTrue(article.getContent().length() > 500,"article.getContent().length > 500 must be true,final search keyword:"+article.getFinalSearchKeyword());
 		
-//		String attachKeyword = getAttachKeyword();
 		CmsContent cmsContent = new CmsContent();
 		cmsContent.setContent(article.getContent());
-//		String title = attachKeyword + article.getPerfectKeyword();
 		String title = article.getPerfectKeyword();
 		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
 		cmsContent.setAuthor("admin_ramd");
@@ -180,13 +178,6 @@ public class CmsContentServiceImpl implements CmsContentService {
 		create(cmsContent);
 		log.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}
-
-//	private String getAttachKeyword() {
-//		if(RandomUtil.randomTrue(25)) {
-//			return RandomUtil.randomSelect(Constants.ATTACH_KEYWORD);
-//		}
-//		return "";
-//	}
 
 	@Override
 	public CmsContent getNextCmsContent(String site,long id) {

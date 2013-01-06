@@ -24,7 +24,7 @@ public class CityUtilTest extends Assert{
 			String cityDesc = "rank:"+city.getRank()+" gdp:"+city.getGdp()+" "+city.getProvince();
 			String keyword = "发票"+city.getCity()+","+city.getCity()+"发票,"+city.getCity()+"开发票,"+city.getCity()+"代开发票,"+city.getCity()+"发票查询";
 			
-			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword) VALUES ('"+city.getCityPinyin()+".aaafaipiao.com', '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+keyword+"');");
+			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword) VALUES ('"+city.getCityPinyin()+".aaafaipiao.com', '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+keyword+"') on duplicate key update site_domain=values(site_domain),site_name=values(site_name),site_desc=values(site_desc),city=values(city),keyword=values(keyword);");
 		}
 	}
 }

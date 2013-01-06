@@ -143,13 +143,13 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
 	}
 
-	@Override
+	@Override // 
 	public CmsContent getPreCmsContent(String site,long id) {
 		String sql = SELECT_FROM+" where site = ? and id < ? order by id desc limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
 	}
 
-	@Override
+	@Override // 己调优 
 	public int countByTitle(Date start, Date end, String title) {
 		String sql = "select count(*) from cms_content where date_created between ? and ? and title = ?";
 		return getSimpleJdbcTemplate().queryForInt(sql, start,end,title);
