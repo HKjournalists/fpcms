@@ -43,7 +43,7 @@
 #32. 删除重复的"title" cms_content
 33. 记录关键词列表
 34. 将aboutus放在首页
-35. 关键词5%-8%,并且加颜色,加粗,加斜体,下划线
+35. 关键词2%-8%(5-6个),并且加颜色,加粗,加斜体,下划线
 
 #34. 删除重复文章
 delete from cms_content where title in (
