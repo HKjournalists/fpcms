@@ -34,7 +34,9 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
     protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain chain)throws ServletException,IOException {
         try {
             //示例为一个固定的登陆用户,请直接修改代码
-            MDC.put("loginUserId", "demo-loginUsername");
+        	if(isSpider(request)) {
+        		MDC.put("loginUserId", "spider");
+        	}
             
             MDC.put("req.requestURI", StringUtils.defaultString(request.getRequestURI()));
             MDC.put("req.queryString", StringUtils.defaultString(request.getQueryString()));
@@ -58,12 +60,15 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
     }
 
 	private void logSpiderUserAgent(HttpServletRequest request, String clientIp) {
-		String userAgent = request.getHeader("User-Agent");
-		if(StringUtils.isNotBlank(userAgent)) {
-			if(userAgent.toLowerCase().contains("spider") || userAgent.toLowerCase().contains("googlebot")) {
-				Constants.LOGGER_SPIDER.info(request.getRequestURL()+"\t"+clientIp+"\tspider:"+userAgent+"\t");
-			}
+		if(isSpider(request)) {
+			String userAgent = request.getHeader("User-Agent");
+			Constants.LOGGER_SPIDER.info(request.getRequestURL()+"\t"+clientIp+"\tspider:"+userAgent+"\t");
 		}
+	}
+
+	private static boolean isSpider(HttpServletRequest request) {
+		String userAgent = request.getHeader("User-Agent");
+		return StringUtils.isNotBlank(userAgent) && (userAgent.toLowerCase().contains("spider") || userAgent.toLowerCase().contains("bot"));
 	}
 
     private static void clearMDC() {
