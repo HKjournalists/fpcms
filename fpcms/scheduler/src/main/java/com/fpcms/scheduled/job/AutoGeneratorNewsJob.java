@@ -1,16 +1,17 @@
 package com.fpcms.scheduled.job;
 
+import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.duowan.common.util.DateConvertUtils;
 import com.duowan.common.util.Profiler;
 import com.fpcms.common.util.SpringContext;
 import com.fpcms.service.CmsContentService;
@@ -54,6 +55,12 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 			@Override
 			public void run() {
 				try {
+					int IGNORE_HOUR = 7;
+					if(new Date().getHours() <= IGNORE_HOUR) {
+						logger.info("ignore execute AutoGeneratorNewsJob by hours < "+IGNORE_HOUR);
+						return;
+					}
+					
 					execute();
 				}catch(Exception e) {
 					logger.error("AutoGeneratorNewsJob error",e);
@@ -65,8 +72,10 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 	
 	//FIXME 线程会卡住，因为线程池的问题
 	public static void main(String[] args) {
-		AutoGeneratorNewsJob job = SpringContext.getBean(AutoGeneratorNewsJob.class);
-		job.execute();
+		System.out.println(new Date().getHours());
+		System.out.println(DateConvertUtils.parse("2012-10-10 22:10:10", "yyyy-MM-dd HH:mm:ss").getHours());
+//		AutoGeneratorNewsJob job = SpringContext.getBean(AutoGeneratorNewsJob.class);
+//		job.execute();
 	}
 
 }
