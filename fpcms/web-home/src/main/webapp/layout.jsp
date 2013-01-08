@@ -7,9 +7,6 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	
 	<duowan:block name="head">
-	<title>公司执照-${keyword}</title>
-	<meta name="keywords" content="${keyword}" />
-	<meta name="description" content="${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}开发票，代开发票资格的专业税务开票公司" />
 	</duowan:block>
 	
 	<link href="${ctx}/styles/kaipiao.css" rel="stylesheet" type="text/css" />
@@ -25,7 +22,7 @@
 					<div>
 						<div style="height:15px;"></div>
 						<div style="float: left;width: 510px;">
-							<div><span style="font-size: 30pt;font-weight: 900;">${company}</span></div>
+							<div><span style="font-size: 30pt;font-weight: 900;">${city}${company}</span></div>
 						</div>
 						<div  style="float: left;display: block; width: 400px;">
 							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:${qq} <font color=red>电话</font>:${mobile }</font>
