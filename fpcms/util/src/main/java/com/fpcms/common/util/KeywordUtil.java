@@ -47,7 +47,7 @@ public class KeywordUtil {
 	}
 	
 	@SuppressWarnings("unchecked")
-	static ArrayList<String> toTokenizerList(String content) {
+	public static ArrayList<String> toTokenizerList(String content) {
 		StringTokenizer tokenizer = new StringTokenizer(content,KeywordUtil.DELIMITERS);
 		ArrayList list = Collections.list(tokenizer);
 		return (ArrayList<String>)list;

@@ -63,25 +63,14 @@ public class RandomArticleBuilder {
 		int randomPageNumber = 1 + RandomUtils.nextInt(5);
 		String result = SearchEngineUtil.sogouSearch(finalSearchKeyword, randomPageSize,randomPageNumber);
 		
-		String transferedArticle = new ArticleContentProcesser(randomBuzz,getRandomInsertKeyword(city)).buildArticle(result);
+		ArticleContentProcesser articleContentProcesser = new ArticleContentProcesser(randomBuzz,getRandomInsertKeyword(city),randomBuzz);
+		articleContentProcesser.buildArticle(result);
+		String transferedArticle = articleContentProcesser.getArticle();
 		RandomArticle article = new RandomArticle(randomBuzz,randomConfuseKeyword,finalSearchKeyword,transferedArticle);
-		
-		String perfectKeyword = getPerfectKeyword(transferedArticle, article);
-		article.setPerfectKeyword(StringUtils.defaultString(perfectKeyword,article.getKeyword()));
+		article.setPerfectKeyword(StringUtils.defaultString(articleContentProcesser.getPerfectKeyword(),article.getKeyword()));
 		return article;
 	}
 
-	private String getPerfectKeyword(String transferedArticle, RandomArticle article) {
-		String perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,article.getKeyword());
-		if(StringUtils.isBlank(perfectKeyword)) {
-			for(String faipiao : Constants.FAIPIAO_KEYWORDS) {
-				perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,faipiao);
-				if(StringUtils.isNotBlank(perfectKeyword)) {
-					return perfectKeyword;
-				}
-			}
-		}
-		return perfectKeyword;
-	}
+
 	
 }

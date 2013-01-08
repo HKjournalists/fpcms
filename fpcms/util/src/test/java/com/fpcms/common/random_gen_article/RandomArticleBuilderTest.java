@@ -1,8 +1,17 @@
 package com.fpcms.common.random_gen_article;
 
-import org.apache.shiro.util.StringUtils;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.fpcms.common.util.ChineseSegmenterUtil;
+import com.fpcms.common.util.KeywordUtil;
+import com.fpcms.common.util.NetUtil;
 
 public class RandomArticleBuilderTest extends Assert{
 
@@ -16,17 +25,41 @@ public class RandomArticleBuilderTest extends Assert{
 	}
 	
 	@Test
+	public void test2_getValidTokens() {
+		String result = NetUtil.httpGet("http://news.qq.com");
+		ArrayList<String> tokenizerList = KeywordUtil.toTokenizerList(result);
+		String tokens = StringUtils.join(tokenizerList,",");
+		Set<String> tokenSet = new ArticleContentProcesser("","","").getValidTokens(tokens);
+		System.out.println("valid tokens:"+tokenSet);
+		assertTrue(tokenSet.size() > 10);
+		
+		Map<String,Integer> keywords = ChineseSegmenterUtil.segmenteForTokenCount(StringUtils.join(tokenSet, ","),true);
+		System.out.println("segmenteForTokenCount:"+keywords);
+		Set<String> lengthKeywords = new LinkedHashSet();
+		for(String keyword : keywords.keySet()) {
+			if(keyword.length() > 3) {
+				lengthKeywords.add(keyword);
+			}
+		}
+		assertTrue(lengthKeywords.size() > 10);
+		System.out.println("lengthKeywords:"+lengthKeywords);
+	}
+	
+	@Test
 	public void test_chinese_segment() {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
 		String finalSearchKeyword = "推病妻下河致死";
 		RandomArticle a = builder.buildBySearchKeyword("唐山开发票", "发票", finalSearchKeyword,finalSearchKeyword);
 		assertTrue("a.getContent().length() > 400 is false,length"+a.getContent().length()+" content:"+a.getContent(),a.getContent().length() > 400);
 		System.out.println(a.getPerfectKeyword()+" -------- "+a.getContent());
+		assertTrue(a.getContent().length() > 100);
 	}
+	
 	@Test
 	public void test_random_month() {
 		for(int i = 0; i < 1000; i++) {
 			String str = b.randomMonth();
+			assertTrue(str.matches("\\d{4}-\\d{2}"));
 			System.out.println(str);
 		}
 	}
@@ -36,7 +69,7 @@ public class RandomArticleBuilderTest extends Assert{
 		int count = 0;
 		for(int i = 0; i < 100; i++) {
 			String abc = b.getRandomInsertKeyword("浙江");
-			if(StringUtils.hasText(abc)) {
+			if(StringUtils.isNotBlank(abc)) {
 				count++;
 			}
 			System.out.println(abc);

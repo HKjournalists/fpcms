@@ -35,23 +35,38 @@ public class ArticleContentProcesser {
 	 */
 	private String insertKeyword;
 	
-	public ArticleContentProcesser(String strongKeyword,String insertKeyword) {
+	private String perfectKeyword;
+	private String keyword;
+	private String article;
+	
+	public ArticleContentProcesser(String strongKeyword,String insertKeyword,String keyword) {
 		super();
 		this.strongKeyword = strongKeyword;
 		this.insertKeyword = insertKeyword;
+		this.keyword = keyword;
+	}
+
+	public String getPerfectKeyword() {
+		return perfectKeyword;
+	}
+	
+	public String getArticle() {
+		return article;
 	}
 
 	private long pCount = 0;
-	public String buildArticle(String content) {
+	public void buildArticle(String content) {
 		Set<String> tokens = getValidTokens(content);
-		insertKeyWords(tokens);
 		
 		filterByChineseSegment(tokens);
 		
 		KeywordUtil.filterSensitiveKeyword(tokens);
 		
+		perfectKeyword = getPerfectKeyword(StringUtils.join(tokens,","), keyword);
+		
+		insertKeyWords(tokens);
 //		return toString(tokens);
-		return NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
+		article = NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
 	}
 
 	private void filterByChineseSegment(Set<String> tokens) {
@@ -155,7 +170,7 @@ public class ArticleContentProcesser {
 		return RandomUtil.randomSelect(symbols);
 	}
 
-	public Set<String> getValidTokens(String string) {
+	Set<String> getValidTokens(String string) {
 		Set<String> tokens = new HashSet<String>();
 		StringTokenizer tokenizer = new StringTokenizer(string,KeywordUtil.DELIMITERS);
 		while(tokenizer.hasMoreElements()) {
@@ -193,6 +208,19 @@ public class ArticleContentProcesser {
 		}
 		
 		return true;
+	}
+	
+	private String getPerfectKeyword(String transferedArticle, String keyword) {
+		String perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,keyword);
+		if(StringUtils.isBlank(perfectKeyword)) {
+			for(String faipiao : Constants.FAIPIAO_KEYWORDS) {
+				perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,faipiao);
+				if(StringUtils.isNotBlank(perfectKeyword)) {
+					return perfectKeyword;
+				}
+			}
+		}
+		return perfectKeyword;
 	}
 	
 }
