@@ -22,7 +22,7 @@
 					<div>
 						<div style="height:15px;"></div>
 						<div style="float: left;width: 510px;">
-							<div><span style="font-size: 30pt;font-weight: 900;">${city}${company}</span></div>
+							<div><span style="font-size: 30pt;font-weight: 900;">${company}</span></div>
 						</div>
 						<div  style="float: left;display: block; width: 400px;">
 							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:${qq} <font color=red>电话</font>:${mobile }</font>
