@@ -18,7 +18,7 @@
 		<div id="top_logo">
 			<div style="width: 600px">
 				<div style="height: 100px;">
-					<div style="float: left;width: 90px;" ><img src="${ctx}/images/logo_left.jpg"></img></div>
+					<div style="float: left;width: 90px;" ><img src="${ctx}/images/logo_left.jpg" alt="${keyword}"></img></div>
 					<div>
 						<div style="height:15px;"></div>
 						<div style="float: left;width: 510px;">
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<div id="top_other">
-			<b><a href="javascript:addFavorite('${company}-代开发票');">加入收藏夹</a></b>
+			<b><a href="javascript:addFavorite('${company}-代开发票','${keyword}');">加入收藏夹</a></b>
 		</div>
 		</div>
 	</div>
@@ -59,7 +59,7 @@
 	</div>
 	
 	<div id="banner">
-		<img src="${ctx}/images/banner_03.jpg" alt="" />
+		<img src="${ctx}/images/banner_03.jpg" alt="${keyword}"  />
 	</div>
 
 	<div class="width mt10">
