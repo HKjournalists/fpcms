@@ -57,3 +57,8 @@ select t.title from (
 38. 增加采集图片，以减少跳出率, 网址: http://www.22mm.cc/
 39. 增加友链模块,增加友链随机插入文章
 40. SEO减少文章大小
+
+41.文书域名迁移
+http://www.pc51.com/
+账号haofapiao.com
+密码admin123789
