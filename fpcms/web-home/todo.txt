@@ -59,6 +59,7 @@ select t.title from (
 40. SEO减少文章大小
 
 41.文书域名迁移
+42. 搜索老文章： 2004年的文章，用于SEO
 http://www.pc51.com/
 账号haofapiao.com
 密码admin123789
