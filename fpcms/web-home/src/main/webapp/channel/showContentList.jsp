@@ -3,7 +3,7 @@
 <%@ include file="/commons/taglibs.jsp" %>
 
 <duowan:override name="head">
-	<title>${cmsChannel.channelName} - ${keyword} </title>
+	<title>${cmsChannel.channelName} - 第${page.paginator.page}页 - ${keyword} </title>
 </duowan:override>
 
 <duowan:override name="subTitle">
