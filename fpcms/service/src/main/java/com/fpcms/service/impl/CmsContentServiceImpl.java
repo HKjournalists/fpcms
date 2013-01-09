@@ -176,7 +176,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
 		cmsContent.setSite(site);
 		create(cmsContent);
-		log.info("generate random news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
+		log.info("generate_random_news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}
 
 	@Override
