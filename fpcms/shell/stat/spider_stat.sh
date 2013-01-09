@@ -7,7 +7,7 @@ function spider_stat() {
 	echo ""
 	echo ""
 	echo "----------- $spider Visit stat -----------"
-	cat /data/log/fpcms/spider.log | grep ${spider} | awk '{print $4}' | sort | uniq
+	cat /data/log/fpcms/spider.log | grep ${spider} | awk '{print $4}' | sort | uniq -c
 }
 
 spider_stat Baidu
