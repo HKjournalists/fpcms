@@ -7,9 +7,6 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	
 	<duowan:block name="head">
-	<title>公司执照-${keyword}</title>
-	<meta name="keywords" content="${keyword}" />
-	<meta name="description" content="${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}开发票，代开发票资格的专业税务开票公司" />
 	</duowan:block>
 	
 	<link href="${ctx}/styles/kaipiao.css" rel="stylesheet" type="text/css" />
