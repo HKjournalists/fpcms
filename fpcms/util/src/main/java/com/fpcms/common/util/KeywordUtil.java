@@ -53,7 +53,10 @@ public class KeywordUtil {
 		return (ArrayList<String>)list;
 	}
 	
-	
+	/**
+	 * 过滤敏感词
+	 * @param list
+	 */
 	public static void filterSensitiveKeyword(Collection<String> list) {
 		List<String> removeItems = new ArrayList<String>();
 		for(String str : list) {

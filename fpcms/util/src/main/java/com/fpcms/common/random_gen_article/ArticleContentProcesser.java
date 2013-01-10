@@ -58,13 +58,16 @@ public class ArticleContentProcesser {
 	public void buildArticle(String content) {
 		Set<String> tokens = getValidTokens(content);
 		
-		filterByChineseSegment(tokens);
+//		filterByChineseSegment(tokens);
 		
 		KeywordUtil.filterSensitiveKeyword(tokens);
 		
 		perfectKeyword = getPerfectKeyword(StringUtils.join(tokens,","), keyword);
 		
 		insertKeyWords(tokens);
+		for(int i = 2005; i < 2013; i++) {
+			tokens.add(i+""+keyword);
+		}
 //		return toString(tokens);
 		article = NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
 	}

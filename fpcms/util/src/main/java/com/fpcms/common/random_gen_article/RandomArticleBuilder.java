@@ -31,7 +31,8 @@ public class RandomArticleBuilder {
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(randomConfuseKeywordArray);
 		String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
-		String finalSearchKeyword = randomBuzz + confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
+		String finalSearchKeyword = randomBuzz + " " + randomConfuseKeyword  + " " + city;
+//		String finalSearchKeyword = randomBuzz + confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
 		
 		RandomArticle article = buildBySearchKeyword(city,
 				randomConfuseKeyword, randomBuzz, finalSearchKeyword);
