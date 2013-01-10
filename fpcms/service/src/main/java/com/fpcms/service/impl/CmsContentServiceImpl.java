@@ -147,7 +147,7 @@ public class CmsContentServiceImpl implements CmsContentService {
         }
     }
 
-	public void genRandomCmsContent() {
+	public synchronized void genRandomCmsContent() {
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		for(CmsSite cmsSite : siteList) {
 			try {
