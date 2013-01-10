@@ -9,14 +9,18 @@ package com.fpcms.dao.impl;
 import static com.duowan.common.util.ObjectUtils.isNotEmpty;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.util.Assert;
 
+import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.dao.BaseSpringJdbcDao;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
@@ -132,12 +136,6 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	}
 
 	@Override
-	public List<CmsContent> findByChannelCode(String site,String channelCode) {
-		String sql = SELECT_FROM+" where site = ? and channel_code = ? order by date_created desc";
-		return getSimpleJdbcTemplate().query(sql,getEntityRowMapper(),site,channelCode);
-	}
-
-	@Override
 	public CmsContent getNextCmsContent(String site,long id) {
 		String sql = SELECT_FROM+" where site = ? and id > ? order by id asc limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
@@ -153,6 +151,24 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	public int countByTitle(Date start, Date end, String title) {
 		String sql = "select count(*) from cms_content where date_created between ? and ? and title = ?";
 		return getSimpleJdbcTemplate().queryForInt(sql, start,end,title);
+	}
+
+	@Override
+	public Page<CmsContent> findPage(PageQuery pageQuery, String site,
+			String channelCode, DateRange createdRange) {
+		Assert.hasText(site,"site must be not empty");
+		Assert.hasText(channelCode,"channelCode must be not empty");
+		Assert.notNull(createdRange,"createdRange must be not null");
+		Assert.notNull(createdRange.getStartDate(),"createdRange.getStartDate() must be not null");
+		Assert.notNull(createdRange.getEndDate(),"createdRange.getEndDate() must be not null");
+		
+		String sql = SELECT_FROM +" where site=:site and channel_code = :channelCode and date_created between :dateCreatedBegin and :dateCreatedEnd  ";
+		Map param = new HashMap();
+		param.put("site", site);
+		param.put("channelCode", channelCode);
+		param.put("dateCreatedBegin", createdRange.getStartDate());
+		param.put("dateCreatedEnd", createdRange.getEndDate());
+		return pageQuery(sql.toString(),param,pageQuery.getPageSize(),pageQuery.getPage(),getEntityRowMapper());
 	}
 	
 }

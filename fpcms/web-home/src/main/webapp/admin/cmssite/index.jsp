@@ -125,7 +125,7 @@
 			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}">
 				<td>${page.paginator.startRow + status.index}</td>
 				
-				<td><a href="http://${item.siteDomain}${ctx}" title="预览">${item.siteDomain}</a>&nbsp;</td>
+				<td><a href="http://${item.siteDomain}${ctx}" title="预览" target="_blank">${item.siteDomain}</a>&nbsp;</td>
 				<td><c:out value='${item.siteName}'/>&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.city}'/>&nbsp;</td>

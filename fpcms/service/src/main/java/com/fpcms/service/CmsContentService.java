@@ -6,9 +6,9 @@
 
 package com.fpcms.service;
 
-import java.util.List;
-
+import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsContentQuery;
 
@@ -57,8 +57,8 @@ public interface CmsContentService {
 	 **/      
 	public Page<CmsContent> findPage(CmsContentQuery query);
 	
-    public List<CmsContent> findByChannelCode(String site,String channelCode);
-    
+	
+	public Page<CmsContent> findPage(PageQuery pageQuery,String site,String channelCode,DateRange createdRange);
     /**
      * 随机生成文章
      */

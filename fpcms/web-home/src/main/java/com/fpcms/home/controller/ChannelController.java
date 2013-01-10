@@ -25,8 +25,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.WebUtil;
 import com.fpcms.model.CmsChannel;
 import com.fpcms.model.CmsContent;
@@ -104,11 +107,8 @@ public class ChannelController extends BaseController{
 			query.setPageSize(10);
 		}
 		
-		query.setDateCreatedBegin(DateUtils.addDays(new Date(), -45));
-		query.setDateCreatedEnd(new Date());
-		query.setChannelCode(channelCode);
-		query.setSite(getSite());
-		Page<CmsContent> cmsContentPage = cmsContentService.findPage(query);
+		DateRange dateRange = new DateRange(DateUtils.addDays(new Date(),-45),new Date());
+		Page<CmsContent> cmsContentPage = cmsContentService.findPage(new PageQuery(20),getSite(),channelCode,dateRange);
 		
 		model.put("cmsChannel", cmsChannel);
 		model.put("page", cmsContentPage);

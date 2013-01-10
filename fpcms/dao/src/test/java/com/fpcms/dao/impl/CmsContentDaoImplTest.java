@@ -8,6 +8,7 @@ package com.fpcms.dao.impl;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -19,7 +20,9 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.CmsContentDataFactory;
 import com.fpcms.common.base.BaseDaoTestCase;
 import com.fpcms.dao.CmsContentDao;
@@ -86,11 +89,6 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 	}
 	
 	@Test
-	public void test_findByChannelCode() {
-		assertNotNull(dao.findByChannelCode("localhost","news"));
-	}
-	
-	@Test
 	public void test_getNextCmsContent() {
 		CmsContent nextCmsContent = dao.getNextCmsContent("localhost", 150);
 		assertNotNull(nextCmsContent);
@@ -104,7 +102,15 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 		assertTrue(preCmsContent.getId() < 150);
 	}
 	
-
+	@Test
+	public void test_findPage2() {
+		Date endDate = new Date();
+		Date startDate = DateUtils.addDays(endDate, -30);
+		Page<CmsContent> page = dao.findPage(new PageQuery(1, 20), "localhost", "news", new DateRange(startDate, endDate));
+		assertNotNull(page);
+		assertFalse(page.getItemList().isEmpty());
+	}
+	
 	@Test
 	public void test_countByTitle() {
 		test_insert();

@@ -9,7 +9,9 @@ package com.fpcms.dao;
 import java.util.Date;
 import java.util.List;
 
+import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsContentQuery;
 
@@ -31,15 +33,14 @@ public interface CmsContentDao {
 	
 	public CmsContent getById(long id);
 	
-
 	public Page<CmsContent> findPage(CmsContentQuery query);
-
-	public List<CmsContent> findByChannelCode(String site,String channelCode);
 
 	public CmsContent getNextCmsContent(String site,long id);
 
 	public CmsContent getPreCmsContent(String site,long id);
 
-	public int countByTitle(Date start, Date end, String title);	
+	public int countByTitle(Date start, Date end, String title);
+
+	public Page<CmsContent> findPage(PageQuery pageQuery, String site,String channelCode, DateRange createdRange);	
 	
 }

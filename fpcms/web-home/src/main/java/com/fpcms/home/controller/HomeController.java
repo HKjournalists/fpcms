@@ -1,10 +1,15 @@
 package com.fpcms.home.controller;
 
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.duowan.common.util.DateRange;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.BaseController;
 import com.fpcms.common.util.Constants;
 import com.fpcms.query.CmsContentQuery;
@@ -28,18 +33,10 @@ public class HomeController extends BaseController{
 	@RequestMapping()
 	public String home(ModelMap model) throws Exception {
 		model.put("home", cmsChannelService.findByChannelCode(getSite(),"home"));
-		model.put("newsPage", cmsContentService.findPage(newNewsQuery()));
-		model.put("news", cmsContentService.findByChannelCode(getSite(),Constants.CHANNED_CODE_NEWS));
+		
+		DateRange dateRange = new DateRange(DateUtils.addDays(new Date(),-20),new Date());
+		model.put("newsPage", cmsContentService.findPage(new PageQuery(20),getSite(),Constants.CHANNED_CODE_NEWS,dateRange));
 		return "/home";
-	}
-
-
-	private CmsContentQuery newNewsQuery() {
-		CmsContentQuery newsQuery = new CmsContentQuery();
-		newsQuery.setPageSize(20);
-		newsQuery.setChannelCode(Constants.CHANNED_CODE_NEWS);
-		newsQuery.setSite(getSite());
-		return newsQuery;
 	}
 	
 }

@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
 import com.fpcms.common.util.Constants;
@@ -145,11 +147,6 @@ public class CmsContentServiceImpl implements CmsContentService {
         }
     }
 
-	@Override
-	public List<CmsContent> findByChannelCode(String site,String channelCode) {
-		return cmsContentDao.findByChannelCode(site,channelCode);
-	}
-
 	public void genRandomCmsContent() {
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		for(CmsSite cmsSite : siteList) {
@@ -187,6 +184,11 @@ public class CmsContentServiceImpl implements CmsContentService {
 	@Override
 	public CmsContent getPreCmsContent(String site,long id) {
 		return cmsContentDao.getPreCmsContent(site,id);
+	}
+
+	@Override
+	public Page<CmsContent> findPage(PageQuery pageQuery, String site,String channelCode, DateRange createdRange) {
+		return cmsContentDao.findPage(pageQuery, site,channelCode,createdRange);
 	}
 
 }
