@@ -106,7 +106,10 @@ public abstract class BaseSpringJdbcDao extends JdbcDaoSupport {
 	}
 	
 	private int queryTotalItems(String querySql,Map paramMap) {
-		String removedOrderByQuery = "select count(*) from ( " + SqlRemoveUtils.removeOrders(querySql) + " ) as c ";//FIXME 未处理group by的 select count(*) from (subquery)
+		//FIXME 未处理group by的 select count(*) from (subquery)
+		//FIXME 性能需要提升,没有group by的情况下，不要采用子查询
+//		String removedOrderByQuery = "select count(*) from ( " + SqlRemoveUtils.removeOrders(querySql) + " ) as c ";
+		String removedOrderByQuery = "select count(*) " + SqlRemoveUtils.removeSelect(SqlRemoveUtils.removeOrders(querySql));
 		return getNamedParameterJdbcTemplate().queryForInt(removedOrderByQuery,new MapSqlParameterSource((Map)paramMap));
 	}
 	
