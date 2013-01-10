@@ -130,7 +130,7 @@
 				<td><c:out value='${item.siteName}'/>&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.city}'/>&nbsp;</td>
-				<td><c:out value='${item.keyword}'/>&nbsp;</td>
+				<td><a href="http://www.baidu.com/s?wd=${item.keyword}">${item.keyword}</a></td>
 				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
 				<td><c:out value='${item.company}'/>&nbsp;</td>

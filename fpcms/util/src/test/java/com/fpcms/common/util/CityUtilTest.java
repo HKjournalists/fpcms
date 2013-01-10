@@ -18,6 +18,13 @@ public class CityUtilTest extends Assert{
 	}
 	
 	@Test
+	public void test_link() throws IOException {
+		for(City city : CityUtil.getCityList()) {
+			System.out.println("作者:<a href='http://"+city.getCityPinyin()+".aaafaipiao.com'>陈"+city.getCity()+"</a>");
+		}
+	}
+	
+	@Test
 	public void test_get_city_full_pinyin() throws IOException {
 		for(City city : CityUtil.getCityList()) {
 			String str = city.getCity() + "=fp" +PinyinUtil.cn2Spell(city.getCity());
