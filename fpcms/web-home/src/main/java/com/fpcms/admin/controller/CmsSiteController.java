@@ -11,6 +11,7 @@ import static com.duowan.common.util.ValidationErrorsUtils.convert;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.duowan.common.exception.MessageException;
 import com.duowan.common.util.page.Page;
@@ -50,7 +50,6 @@ public class CmsSiteController extends BaseController{
 	String queryString = "queryString";
 	
 	private CmsSiteService cmsSiteService;
-	
 	private final String LIST_ACTION = "redirect:/admin/cmssite/index.do";
 	
 	/** 
@@ -60,6 +59,7 @@ public class CmsSiteController extends BaseController{
 		this.cmsSiteService = service;
 	}
 	
+
 	/** binder用于bean属性的设置 */
 	@InitBinder  
 	public void initBinder(WebDataBinder binder) {  
@@ -148,6 +148,15 @@ public class CmsSiteController extends BaseController{
 		cmsSiteService.removeById(siteDomain);
 		Flash.current().success(DELETE_SUCCESS);
 		return LIST_ACTION+"?"+Flash.current().get(Constants.QUERY_STRING);
+	}
+	
+	
+	@RequestMapping
+	public String initAllSiteDefaultChannels(ModelMap model) {
+		List<CmsSite> siteList = cmsSiteService.initAllSiteDefaultChannels();
+		model.put("siteList", siteList);
+		Flash.current().success("初始化所有网站频道成功");
+		return "/admin/cmssite/initAllSiteDefaultChannels";
 	}
 	
 }

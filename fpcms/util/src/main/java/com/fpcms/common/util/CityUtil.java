@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.duowan.common.util.ArrayUtils;
 
@@ -86,6 +87,8 @@ public class CityUtil {
 			List<String> lines = IOUtils.readLines(input, "UTF-8");
 			List<Map> result = new ArrayList();
 			for(String line : lines) {
+				if(StringUtils.isBlank(line)) continue;
+				
 				String[] array = line.split("[\\s　]+");
 				Map<String,String> map = ArrayUtils.toMap(array, "rank","gdp","province","city");
 				map.put("province", map.get("province").replaceAll("\\d", ""));

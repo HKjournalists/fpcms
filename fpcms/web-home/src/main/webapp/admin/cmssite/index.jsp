@@ -83,6 +83,7 @@
 		<div class="handleControl">
 			<input type="submit" class="stdButton" style="width:80px" value="查询" onclick="getReferenceForm(this).action='${ctx}/admin/cmssite/index.do'"/>
 			<input type="button" class="stdButton" style="width:80px" value="新增" onclick="window.location = '${ctx}/admin/cmssite/add.do'"/>
+			<a href="${ctx}/admin/cmssite/initAllSiteDefaultChannels.do">初始化所有网站频道</a>
 		<div>
 	
 	</div>
@@ -103,7 +104,7 @@
 				<th sortColumn="site_domain" >网站域名</th>
 				<th sortColumn="site_name" >网站名称</th>
 				<th sortColumn="site_desc" >网站描述</th>
-				<th sortColumn="city" >网站对应的城市</th>
+				<th sortColumn="city" >城市</th>
 				<th sortColumn="keyword" >网站关键词</th>
 				<!-- 
 				<th sortColumn="remarks" >备注</th>

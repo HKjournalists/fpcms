@@ -61,6 +61,12 @@ public interface CmsChannelService {
 	 */
 	public Map<String, Long> getChannelMapping(String site);
 	
+	/**
+	 * 创建默认频道,如果需要
+	 * @param site
+	 */
+	public boolean createDefaultChannelsIfRequired(String site);
+	
 	public List<CmsChannel> findChildsByChannelId(String site,long channelId);
 	
 	public List<CmsChannel> findChildsByChannelCode(String site,String channelCode);

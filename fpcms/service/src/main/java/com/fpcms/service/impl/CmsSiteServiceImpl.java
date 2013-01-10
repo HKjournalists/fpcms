@@ -8,6 +8,7 @@ package com.fpcms.service.impl;
 
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import com.fpcms.common.util.MapUtil;
 import com.fpcms.dao.CmsSiteDao;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsSiteQuery;
+import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsPropertyService;
 import com.fpcms.service.CmsSiteService;
 
@@ -45,9 +47,9 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	//
 	// 请删除无用的方法，代码生成器只是为你生成一个架子
 	//
-	
 	private CmsSiteDao cmsSiteDao;
 	private CmsPropertyService cmsPropertyService;
+	private CmsChannelService cmsChannelService;
 	/**增加setXXXX()方法,spring就可以通过autowire自动设置对象属性,请注意大小写*/
 	public void setCmsSiteDao(CmsSiteDao dao) {
 		this.cmsSiteDao = dao;
@@ -57,7 +59,9 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		this.cmsPropertyService = cmsPropertyService;
 	}
 
-
+	public void setCmsChannelService(CmsChannelService cmsChannelService) {
+		this.cmsChannelService = cmsChannelService;
+	}
 
 	/** 
 	 * 创建CmsSite
@@ -162,6 +166,17 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	@Override
 	public List<CmsSite> findAll() {
 		return cmsSiteDao.findAll();
+	}
+	
+	@Override
+	public List<CmsSite> initAllSiteDefaultChannels() {
+		List<CmsSite> list = new ArrayList<CmsSite>();
+		for(CmsSite site : cmsSiteDao.findAll()) {
+			if(cmsChannelService.createDefaultChannelsIfRequired(site.getSiteDomain())) {
+				list.add(site);
+			}
+		}
+		return list;
 	}
 	
 

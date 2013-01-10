@@ -11,6 +11,13 @@ import com.fpcms.common.util.CityUtil.City;
 public class CityUtilTest extends Assert{
 
 	@Test
+	public void test_normal_city_list() throws IOException {
+		for(City city : CityUtil.getCityList()) {
+			System.out.println(city.getRank()+"\t"+city.getGdp()+"\t"+city.getProvince()+"\t"+city.getCity());
+		}
+	}
+	
+	@Test
 	public void test_get_city_full_pinyin() throws IOException {
 		for(City city : CityUtil.getCityList()) {
 			String str = city.getCity() + "=fp" +PinyinUtil.cn2Spell(city.getCity());
