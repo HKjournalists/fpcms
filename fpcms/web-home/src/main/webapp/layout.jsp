@@ -65,18 +65,6 @@
 	<div class="width mt10">
 		<div id="page_left">
 			<duowan:block name="page_left">
-			<div class="border mt10" style="font-size: 15pt">
-				<div class="subject_bg">
-					<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
-				</div>
-				<div class="m10 " >
-					<div align="left" >
-					<b>联系人:</b> ${contactName} <br/>
-					<b>电话:</b>&nbsp;&nbsp;&nbsp;${mobile} <br/>
-					<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${qq}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
-					</div>
-				</div>
-			</div>
 			</duowan:block>
 		</div>
 
