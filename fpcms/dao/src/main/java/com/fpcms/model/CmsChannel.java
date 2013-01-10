@@ -129,9 +129,9 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	public static CmsChannel HOME =  ROOT.newSubChannel(20,"home","首页").setContent(ClasspathUtil.getStringResouce("cms_channel_template/home", "UTF-8"));
 	public static CmsChannel NEWS = ROOT.newSubChannel(30,"news","新闻中心");
 	public static CmsChannel[] NAV_SUB_CHANNELS =  {
+		NAV.newSubChannel(1040,"contact","联系方式").setContent(ClasspathUtil.getStringResouce("cms_channel_template/contact", "UTF-8")),
 		NAV.newSubChannel(1010,"aboutus","关于我们").setContent(ClasspathUtil.getStringResouce("cms_channel_template/aboutus", "UTF-8")),
 		NAV.newSubChannel(1020,"projects","开票项目").setContent(ClasspathUtil.getStringResouce("cms_channel_template/projects", "UTF-8")),
-		NAV.newSubChannel(1040,"contact","联系方式").setContent(ClasspathUtil.getStringResouce("cms_channel_template/contact", "UTF-8")),
 	};
 
 	public CmsChannel(){
