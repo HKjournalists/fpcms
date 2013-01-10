@@ -65,8 +65,8 @@ public class ArticleContentProcesser {
 		perfectKeyword = getPerfectKeyword(StringUtils.join(tokens,","), keyword);
 		
 		insertKeyWords(tokens);
-		for(int i = 2005; i < 2013; i++) {
-			tokens.add(i+""+keyword);
+		for(int i = 2010; i < 2013; i++) {
+			tokens.add("最好"+keyword);
 		}
 //		return toString(tokens);
 		article = NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
