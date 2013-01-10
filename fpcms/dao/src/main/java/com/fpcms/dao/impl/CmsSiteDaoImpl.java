@@ -134,7 +134,7 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
             sql.append(" and email = :email ");
         }
 		
-        //sql.append(" order by :sortColumns ");
+        sql.append(" order by date_created desc ");
 		
 		return pageQuery(sql.toString(),query,getEntityRowMapper());				
 	}
