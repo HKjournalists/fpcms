@@ -75,3 +75,8 @@ http://www.pc51.com/
 其次：
 
 佛山  东莞   黑龙江   甘肃   内蒙古  北京
+
+
+update cms_channel set level = 0 where channel_code = 'contact'; 
+update cms_channel set level = 50 where channel_code = 'projects'; 
+update cms_channel set level = 100 where channel_code = 'aboutus'; 
