@@ -8,6 +8,8 @@ function spider_stat() {
 	echo ""
 	echo "----------- $spider Visit stat -----------"
 	cat /data/log/fpcms/spider.log | grep ${spider} | awk '{print $4}' | sort | uniq -c
+        cat /data/log/fpcms/spider.log* | grep ${spider} | awk '{a[$1]=a[$1]+1} END {for(item in a) print item" "a[item] }' | sort
+
 }
 
 spider_stat Baidu
