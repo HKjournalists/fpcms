@@ -82,6 +82,10 @@ http://www.pc51.com/
 佛山  东莞   黑龙江   甘肃   内蒙古  北京
 
 
+我们公司的网站优化包括网站内部结构调整、网站外链和网站更新收录，网站的内部结构包括网站的标题、
+关键字和描述、关键字密度、导航、url地址、网站图片、alt标签、
+网站页脚次导航，网站的更新也是很重要的一方面，包括更新的频率、内容的质量，最后是网站的导入链接、外链建设。
+
 update cms_channel set level = 0 where channel_code = 'contact'; 
 update cms_channel set level = 50 where channel_code = 'projects'; 
 update cms_channel set level = 100 where channel_code = 'aboutus'; 

@@ -107,8 +107,8 @@
 				<th sortColumn="site_name" >网站名称</th>
 				<th sortColumn="site_desc" >网站描述</th>
 				<th sortColumn="city" >城市</th>
-				<th sortColumn="record_baidu" >百度site记录数</th>
-				<th sortColumn="rank_baidu" >百度关键字排名</th>
+				<th sortColumn="record_baidu" title="百度" >site记录数</th>
+				<th sortColumn="rank_baidu" title="百度" >关键字排名</th>
 				<th sortColumn="keyword" >网站关键词</th>
 				<!-- 
 				<th sortColumn="remarks" >备注</th>

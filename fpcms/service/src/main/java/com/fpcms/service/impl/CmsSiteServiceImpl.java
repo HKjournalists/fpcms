@@ -190,13 +190,6 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 				site.setRecordBaidu(recordBaidu);
 				update(site);
 			}
-			
-			int keywordRank = SearchEngineUtil.baiduKeywordRank(site.getKeyword(), site.getSiteDomain());
-			if(keywordRank > 0) {
-				updatedSiteList.add(site);
-				site.setRankBaidu(keywordRank);
-				update(site);
-			}
 		}
 		return updatedSiteList;
 	}
