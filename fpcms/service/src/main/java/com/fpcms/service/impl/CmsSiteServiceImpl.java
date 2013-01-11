@@ -201,7 +201,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		return updatedSiteList;
 	}
 	
-	public List<CmsSite> updateSearchEngineKeywordMaxRank() {
+	public synchronized List<CmsSite> updateSearchEngineKeywordMaxRank() {
 		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
 		for(CmsSite site :findAll()) {
 			String[] keywords = StringUtils.tokenizeToStringArray(site.getKeyword(), ",_| ");

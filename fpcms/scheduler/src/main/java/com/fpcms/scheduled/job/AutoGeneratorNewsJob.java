@@ -66,7 +66,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 					logger.error("AutoGeneratorNewsJob error",e);
 				}
 			}
-		},1,3 * 60,TimeUnit.MINUTES);
+		},30,3 * 60,TimeUnit.MINUTES);
 		logger.info("scheduled AutoGeneratorNewsJob");
 	}
 	
