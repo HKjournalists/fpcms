@@ -54,7 +54,7 @@ public class SearchEngineUtil {
 			String siteContent = content.substring(0,siteIndex);
 			int tableIndex = siteContent.lastIndexOf("<table ");
 //			int tableIndex = siteContent.lastIndexOf("<table cellpadding=\"0\" cellspacing=\"0\" class=\"result\" ");
-			return siteContent.substring(tableIndex);
+			return tableIndex >= 0 ? siteContent.substring(tableIndex) : null;
 		}
 		return null;
 	}
