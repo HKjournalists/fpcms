@@ -211,6 +211,9 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 					if(rank > maxRank) {
 						maxRank = rank;
 					}
+					if(rank > 0) {
+						log.info("rank_baidu:"+rank+" site:"+site.getSiteDomain());
+					}
 				}
 				
 				if(maxRank > 0) {
