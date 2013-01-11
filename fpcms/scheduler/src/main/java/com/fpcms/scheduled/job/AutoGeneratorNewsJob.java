@@ -50,7 +50,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 //		Assert.notNull(scheduledExecutorService,"scheduledExecutorService must be not null");
 		Assert.notNull(cmsContentService,"cmsContentService must be not null");
 		
-		scheduledExecutorService = Executors.newScheduledThreadPool(5);
+		scheduledExecutorService = Executors.newScheduledThreadPool(2);
 		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
@@ -67,7 +67,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 				}
 			}
 		},30,3 * 60,TimeUnit.MINUTES);
-		logger.info("scheduled AutoGeneratorNewsJob");
+		logger.info("scheduled "+AutoGeneratorNewsJob.class.getSimpleName());
 	}
 	
 	//FIXME 线程会卡住，因为线程池的问题

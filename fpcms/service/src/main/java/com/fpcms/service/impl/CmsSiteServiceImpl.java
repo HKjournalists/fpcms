@@ -182,6 +182,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	}
 	
 	public List<CmsSite> updateSearchEngineRecord() {
+		log.info("START updateSearchEngineRecord");
 		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
 		for(CmsSite site :findAll()) {
 			try {
@@ -199,6 +200,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	}
 	
 	public synchronized List<CmsSite> updateSearchEngineKeywordMaxRank() {
+		log.info("START updateSearchEngineKeywordMaxRank");
 		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
 		for(CmsSite site :findAll()) {
 			try{
