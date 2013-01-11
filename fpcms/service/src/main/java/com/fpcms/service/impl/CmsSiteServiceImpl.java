@@ -184,11 +184,15 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	public List<CmsSite> updateSearchEngineRecord() {
 		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
 		for(CmsSite site :findAll()) {
-			int recordBaidu = SearchEngineUtil.baiduSiteCount(site.getSiteDomain());
-			if(recordBaidu > 0) {
-				updatedSiteList.add(site);
-				site.setRecordBaidu(recordBaidu);
-				update(site);
+			try {
+				int recordBaidu = SearchEngineUtil.baiduSiteCount(site.getSiteDomain());
+				if(recordBaidu > 0) {
+					updatedSiteList.add(site);
+					site.setRecordBaidu(recordBaidu);
+					update(site);
+				}
+			}catch(Exception e) {
+				log.error("error updateSearchEngineRecord on :"+site.getSiteDomain(),e);
 			}
 		}
 		return updatedSiteList;
@@ -197,21 +201,24 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	public synchronized List<CmsSite> updateSearchEngineKeywordMaxRank() {
 		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
 		for(CmsSite site :findAll()) {
-			String[] keywords = StringUtils.tokenizeToStringArray(site.getKeyword(), ",_| ");
-			int maxRank = 0;
-			for(String keyword : keywords) {
-				int rank = SearchEngineUtil.baiduKeywordRank(keyword, site.getSiteDomain());
-				if(rank > maxRank) {
-					maxRank = rank;
+			try{
+				String[] keywords = StringUtils.tokenizeToStringArray(site.getKeyword(), ",_| ");
+				int maxRank = 0;
+				for(String keyword : keywords) {
+					int rank = SearchEngineUtil.baiduKeywordRank(keyword, site.getSiteDomain());
+					if(rank > maxRank) {
+						maxRank = rank;
+					}
 				}
+				
+				if(maxRank > 0) {
+					updatedSiteList.add(site);
+					site.setRankBaidu(maxRank);
+					update(site);
+				}
+			}catch(Exception e) {
+				log.error("error updateSearchEngineKeywordMaxRank on :"+site.getSiteDomain(),e);
 			}
-			
-			if(maxRank > 0) {
-				updatedSiteList.add(site);
-				site.setRankBaidu(maxRank);
-				update(site);
-			}
-			
 		}
 		return updatedSiteList;
 	}
