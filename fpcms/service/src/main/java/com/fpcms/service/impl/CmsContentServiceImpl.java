@@ -138,7 +138,7 @@ public class CmsContentServiceImpl implements CmsContentService {
         	// Bean Validator检查,属性检查失败将抛异常
             validateWithException(cmsContent);
             
-            Date start = DateUtils.addDays(new Date(),-60);
+            Date start = DateUtils.addDays(new Date(),-360);
             int countByTitle = cmsContentDao.countByTitle(start,new Date(),cmsContent.getTitle());
             if(countByTitle > 0) {
             	throw new IllegalStateException("already exist same title:"+cmsContent.getTitle()+" CmsContent");
@@ -148,7 +148,7 @@ public class CmsContentServiceImpl implements CmsContentService {
         }
     }
 
-	public void genRandomCmsContent() {
+	public synchronized void genRandomCmsContent() {
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		for(CmsSite cmsSite : siteList) {
 			try {

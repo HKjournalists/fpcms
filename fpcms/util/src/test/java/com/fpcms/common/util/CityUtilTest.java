@@ -11,6 +11,20 @@ import com.fpcms.common.util.CityUtil.City;
 public class CityUtilTest extends Assert{
 
 	@Test
+	public void test_normal_city_list() throws IOException {
+		for(City city : CityUtil.getCityList()) {
+			System.out.println(city.getRank()+"\t"+city.getGdp()+"\t"+city.getProvince()+"\t"+city.getCity());
+		}
+	}
+	
+	@Test
+	public void test_link() throws IOException {
+		for(City city : CityUtil.getCityList()) {
+			System.out.println("作者:<a href='http://"+city.getCityPinyin()+".aaafaipiao.com'>陈"+city.getCity()+"</a>");
+		}
+	}
+	
+	@Test
 	public void test_get_city_full_pinyin() throws IOException {
 		for(City city : CityUtil.getCityList()) {
 			String str = city.getCity() + "=fp" +PinyinUtil.cn2Spell(city.getCity());
@@ -33,7 +47,8 @@ public class CityUtilTest extends Assert{
 	public void test_print_getProvinceList() throws IOException {
 		for(City city: CityUtil.getCityList()) {
 			String cityDesc = "rank:"+city.getRank()+" gdp:"+city.getGdp()+" "+city.getProvince();
-			String keyword = "发票"+city.getCity()+","+city.getCity()+"发票,"+city.getCity()+"代开发票,"+city.getCity()+"开发票,"+city.getCity()+"发票查询";
+//			String keyword = "发票"+city.getCity()+","+city.getCity()+"发票,"+city.getCity()+"代开发票,"+city.getCity()+"开发票,"+city.getCity()+"发票查询";
+			String keyword = city.getCity()+"发票,"+city.getCity()+"代开发票,"+city.getCity()+"开发票";
 			
 			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword) VALUES ('"+city.getCityPinyin()+".aaafaipiao.com', '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+keyword+"') on duplicate key update site_domain=values(site_domain),site_name=values(site_name),site_desc=values(site_desc),city=values(city),keyword=values(keyword);");
 		}

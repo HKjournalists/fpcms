@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.duowan.common.util.ArrayUtils;
 
@@ -86,6 +87,8 @@ public class CityUtil {
 			List<String> lines = IOUtils.readLines(input, "UTF-8");
 			List<Map> result = new ArrayList();
 			for(String line : lines) {
+				if(StringUtils.isBlank(line)) continue;
+				
 				String[] array = line.split("[\\s　]+");
 				Map<String,String> map = ArrayUtils.toMap(array, "rank","gdp","province","city");
 				map.put("province", map.get("province").replaceAll("\\d", ""));
@@ -185,6 +188,33 @@ public class CityUtil {
 		public void setProvincePinyin(String provincePinyin) {
 			this.provincePinyin = provincePinyin;
 		}
+		
+		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((city == null) ? 0 : city.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			City other = (City) obj;
+			if (city == null) {
+				if (other.city != null)
+					return false;
+			} else if (!city.equals(other.city))
+				return false;
+			return true;
+		}
+
 		@Override
 		public String toString() {
 			return "City [rank=" + rank + ", gdp=" + gdp + ", city=" + city

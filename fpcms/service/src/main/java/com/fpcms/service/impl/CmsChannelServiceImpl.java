@@ -134,10 +134,7 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 	
 	@Override
 	public String createTreeXmlString(String site) {
-		 long count = cmsChannelDao.countBySite(site);
-		 if(count <= 0) {
-			 new DefaultChannelCreator(site).createDefaultChannels();
-		 }
+		 createDefaultChannelsIfRequired(site);
 		 try {
 			 NodeWrapper<CmsChannel> root = createTree(site,Constants.TREE_ROOT_ID);
 			 StringBuilder sb = new StringBuilder();
@@ -150,6 +147,15 @@ public class CmsChannelServiceImpl implements CmsChannelService {
 			 log.error("createTree error for site:"+site,e);
 			 return "";
 		 }
+	}
+
+	public boolean createDefaultChannelsIfRequired(String site) {
+		long count = cmsChannelDao.countBySite(site);
+		if (count <= 0) {
+			new DefaultChannelCreator(site).createDefaultChannels();
+			return true;
+		}
+		return false;
 	}
 
 	public class DefaultChannelCreator {

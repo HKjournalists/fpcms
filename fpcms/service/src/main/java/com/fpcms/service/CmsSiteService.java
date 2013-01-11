@@ -56,4 +56,9 @@ public interface CmsSiteService {
 
 	public List<CmsSite> findAll();
     
+	/**
+	 * 初始化所有网站的频道,返回实始化成功的频道
+	 * @return
+	 */
+	public List<CmsSite> initAllSiteDefaultChannels();
 }

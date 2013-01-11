@@ -162,7 +162,7 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		Assert.notNull(createdRange.getStartDate(),"createdRange.getStartDate() must be not null");
 		Assert.notNull(createdRange.getEndDate(),"createdRange.getEndDate() must be not null");
 		
-		String sql = SELECT_FROM +" where site=:site and channel_code = :channelCode and date_created between :dateCreatedBegin and :dateCreatedEnd  ";
+		String sql = SELECT_FROM +" where site=:site and channel_code = :channelCode and date_created between :dateCreatedBegin and :dateCreatedEnd order by date_created desc ";
 		Map param = new HashMap();
 		param.put("site", site);
 		param.put("channelCode", channelCode);
