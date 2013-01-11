@@ -39,7 +39,7 @@ public class SearchEngineUtil {
 		if(siteRecord == null) {
 			return 0;
 		}
-		String rank = RegexUtil.findByRegexGroup(siteRecord, "class=\"result\" id=\"(11)\"", 1);
+		String rank = RegexUtil.findByRegexGroup(siteRecord, "class=\"result\" id=\"(\\d+)\"", 1);
 		if(rank == null) {
 			return 0;
 		}
@@ -49,9 +49,12 @@ public class SearchEngineUtil {
 	private static String getBaiduSiteContentByRegex(String keyword, String site) {
 		String url = "http://www.baidu.com/s";
 		String content = NetUtil.httpGet(url,"wd="+keyword+"&rn=100");
-		if(content.contains(site)) {
-			String siteRecord = RegexUtil.findByRegexGroup(content, "(?ims)<table.*?>(.*?"+site+".*?)</table>", 1);
-			return siteRecord;
+		int siteIndex = content.indexOf(site);
+		if(siteIndex >= 0) {
+			String siteContent = content.substring(0,siteIndex);
+			int tableIndex = siteContent.lastIndexOf("<table ");
+//			int tableIndex = siteContent.lastIndexOf("<table cellpadding=\"0\" cellspacing=\"0\" class=\"result\" ");
+			return siteContent.substring(tableIndex);
 		}
 		return null;
 	}

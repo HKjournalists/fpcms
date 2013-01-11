@@ -8,11 +8,13 @@ public class SearchEngineUtilTest extends Assert{
 
 	@Test
 	public void test_baiduKeywordRank() {
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 1; i++) {
 			int rank = SearchEngineUtil.baiduKeywordRank("唐山代开发票", "www.aaafaipiao.com");
 			assertTrue(rank > 0);
+			assertEquals(rank,11);
 			System.out.println(rank);
 		}
+		
 		int rank = SearchEngineUtil.baiduKeywordRank("安徽开发票", "www.aaafaipiao.com");
 		assertTrue(rank <= 0);
 		
