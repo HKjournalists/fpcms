@@ -204,21 +204,11 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
 		for(CmsSite site :findAll()) {
 			try{
-				String[] keywords = StringUtils.tokenizeToStringArray(site.getKeyword(), ",_| ");
-				int maxRank = 0;
-				for(String keyword : keywords) {
-					int rank = SearchEngineUtil.baiduKeywordRank(keyword, site.getSiteDomain());
-					if(rank > maxRank) {
-						maxRank = rank;
-					}
-					if(rank > 0) {
-						log.info("rank_baidu:"+rank+" site:"+site.getSiteDomain());
-					}
-				}
+				int min = getMaxRank(site);
 				
-				if(maxRank > 0) {
+				if(min > 0) {
 					updatedSiteList.add(site);
-					site.setRankBaidu(maxRank);
+					site.setRankBaidu(min);
 					update(site);
 				}
 			}catch(Exception e) {
@@ -226,6 +216,21 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 			}
 		}
 		return updatedSiteList;
+	}
+
+	int getMaxRank(CmsSite site) {
+		String[] keywords = StringUtils.tokenizeToStringArray(site.getKeyword(), ",_| ");
+		int min = Integer.MAX_VALUE;
+		for(String keyword : keywords) {
+			int rank = SearchEngineUtil.baiduKeywordRank(keyword, site.getSiteDomain());
+			if(rank > 0 && rank < min) {
+				min = rank;
+			}
+			if(rank > 0) {
+				log.info("rank_baidu:"+rank+" site:"+site.getSiteDomain());
+			}
+		}
+		return min == Integer.MAX_VALUE ? 0 : min;
 	}
 
 }

@@ -8,6 +8,7 @@
 package com.fpcms.service.impl;
 
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,7 +20,6 @@ import com.fpcms.CmsSiteDataFactory;
 import com.fpcms.common.base.BaseServiceTestCase;
 import com.fpcms.dao.CmsSiteDao;
 import com.fpcms.model.CmsSite;
-import com.fpcms.service.impl.CmsSiteServiceImpl;
 
 
 /**
@@ -72,6 +72,15 @@ public class CmsSiteServiceImplTest extends BaseServiceTestCase{
 		assertNotNull(cmsSite);
 	}
 	
+	
+	@Test
+	public void test_getMaxRank() {
+		CmsSite cmsSite = new CmsSite();
+		cmsSite.setSiteDomain("www.aaafaipiao.com");
+		cmsSite.setKeyword("唐山开发票,唐山代开发票,唐山发票");
+		int rank = service.getMaxRank(cmsSite);
+		assertEquals(rank,11);
+	}
 	
 }
 
