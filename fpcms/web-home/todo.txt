@@ -59,6 +59,7 @@ select t.title from (
 40. SEO减少文章大小
 41. 搜索的关键词每个site可以自定义，并且采用 Groovy动态构建
 42. 采用rsync备份
+43. 应用页面cache
 
 41.文书域名迁移
 42. 搜索老文章： 2004年的文章，用于SEO

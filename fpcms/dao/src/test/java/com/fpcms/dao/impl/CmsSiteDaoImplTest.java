@@ -20,6 +20,7 @@ import com.duowan.common.util.page.Page;
 import com.fpcms.CmsSiteDataFactory;
 import com.fpcms.common.base.BaseDaoTestCase;
 import com.fpcms.dao.CmsSiteDao;
+import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsSiteQuery;
 
 
@@ -63,7 +64,10 @@ public class CmsSiteDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_insert() {
-		dao.insert(CmsSiteDataFactory.newCmsSite());
+		CmsSite cmsSite = CmsSiteDataFactory.newCmsSite();
+		dao.insert(cmsSite);
+		
+		assertEquals(dao.getById(cmsSite.getSiteDomain()),cmsSite);
 	}
 	
 	@Test

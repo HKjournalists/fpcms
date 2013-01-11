@@ -51,6 +51,9 @@ public class CmsSiteDataFactory {
 	  	obj.setMobile(new java.lang.String("1"));
 	  	obj.setQq(new java.lang.String("1"));
 	  	obj.setEmail(new java.lang.String("1"));
+	  	obj.setRecord360(1);
+	  	obj.setRecordBaidu(1);
+	  	obj.setRecordGoogle(1);
 		return obj;
 	}
 }

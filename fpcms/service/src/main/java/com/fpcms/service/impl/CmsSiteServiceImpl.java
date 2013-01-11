@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import com.duowan.common.beanutils.BeanUtils;
 import com.duowan.common.util.page.Page;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.MapUtil;
+import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.dao.CmsSiteDao;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsSiteQuery;
@@ -179,5 +181,46 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		return list;
 	}
 	
+	public List<CmsSite> updateSearchEngineRecord() {
+		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
+		for(CmsSite site :findAll()) {
+			int recordBaidu = SearchEngineUtil.baiduSiteCount(site.getSiteDomain());
+			if(recordBaidu > 0) {
+				updatedSiteList.add(site);
+				site.setRecordBaidu(recordBaidu);
+				update(site);
+			}
+			
+			int keywordRank = SearchEngineUtil.baiduKeywordRank(site.getKeyword(), site.getSiteDomain());
+			if(keywordRank > 0) {
+				updatedSiteList.add(site);
+				site.setRankBaidu(keywordRank);
+				update(site);
+			}
+		}
+		return updatedSiteList;
+	}
+	
+	public List<CmsSite> updateSearchEngineKeywordMaxRank() {
+		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
+		for(CmsSite site :findAll()) {
+			String[] keywords = StringUtils.tokenizeToStringArray(site.getKeyword(), ",_| ");
+			int maxRank = 0;
+			for(String keyword : keywords) {
+				int rank = SearchEngineUtil.baiduKeywordRank(keyword, site.getSiteDomain());
+				if(rank > maxRank) {
+					maxRank = rank;
+				}
+			}
+			
+			if(maxRank > 0) {
+				updatedSiteList.add(site);
+				site.setRankBaidu(maxRank);
+				update(site);
+			}
+			
+		}
+		return updatedSiteList;
+	}
 
 }

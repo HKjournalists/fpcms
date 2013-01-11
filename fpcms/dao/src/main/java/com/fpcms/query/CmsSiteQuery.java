@@ -45,6 +45,8 @@ public class CmsSiteQuery extends PageQuery implements Serializable {
 	/** 邮件 */
 	private java.lang.String email;
 
+	private String sortColumns;
+	
 	public java.lang.String getSiteDomain() {
 		return this.siteDomain;
 	}
@@ -133,7 +135,13 @@ public class CmsSiteQuery extends PageQuery implements Serializable {
 		this.email = value;
 	}
 	
-	
+	public String getSortColumns() {
+		return sortColumns;
+	}
+
+	public void setSortColumns(String sortColumns) {
+		this.sortColumns = sortColumns;
+	}
 
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

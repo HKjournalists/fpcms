@@ -159,5 +159,18 @@ public class CmsSiteController extends BaseController{
 		return "/admin/cmssite/initAllSiteDefaultChannels";
 	}
 	
+	@RequestMapping
+	public String updateSearchEngineRecord() {
+		List<CmsSite> updateSuccess = cmsSiteService.updateSearchEngineRecord();
+		Flash.current().success(updateSuccess.size()+"个网站有更新site记录");
+		return "/commons/messages";
+	}
+	
+	@RequestMapping
+	public String updateSearchEngineKeywordMaxRank() {
+		List<CmsSite> updateSuccess = cmsSiteService.updateSearchEngineKeywordMaxRank();
+		Flash.current().success(updateSuccess.size()+"个网站有更新搜索引擎排名");
+		return "/commons/messages";
+	}
 }
 

@@ -84,6 +84,8 @@
 			<input type="submit" class="stdButton" style="width:80px" value="查询" onclick="getReferenceForm(this).action='${ctx}/admin/cmssite/index.do'"/>
 			<input type="button" class="stdButton" style="width:80px" value="新增" onclick="window.location = '${ctx}/admin/cmssite/add.do'"/>
 			<a href="${ctx}/admin/cmssite/initAllSiteDefaultChannels.do">初始化所有网站频道</a>
+			<a href="${ctx}/admin/cmssite/updateSearchEngineRecord.do">更新百度site记录</a>
+			<a href="${ctx}/admin/cmssite/updateSearchEngineKeywordMaxRank.do">更新百度关键字最高排名</a>
 		<div>
 	
 	</div>
@@ -105,6 +107,8 @@
 				<th sortColumn="site_name" >网站名称</th>
 				<th sortColumn="site_desc" >网站描述</th>
 				<th sortColumn="city" >城市</th>
+				<th sortColumn="record_baidu" >百度site记录数</th>
+				<th sortColumn="rank_baidu" >百度关键字排名</th>
 				<th sortColumn="keyword" >网站关键词</th>
 				<!-- 
 				<th sortColumn="remarks" >备注</th>
@@ -130,6 +134,8 @@
 				<td><c:out value='${item.siteName}'/>&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.city}'/>&nbsp;</td>
+				<td><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></td>
+				<td><font color="${item.rankBaidu <=0 ? 'red' : ''}">${item.rankBaidu}</font></td>
 				<td><a href="http://www.baidu.com/s?wd=${item.keyword}">${item.keyword}</a></td>
 				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>

@@ -61,4 +61,17 @@ public interface CmsSiteService {
 	 * @return
 	 */
 	public List<CmsSite> initAllSiteDefaultChannels();
+
+	/**
+	 * 更新搜索引擎site:搜索的记录数
+	 * @return 有更新的记录
+	 */
+	public List<CmsSite> updateSearchEngineRecord();
+
+	/**
+	 * 更新搜索引擎关键字最高排名
+	 * @return 有更新的记录
+	 */
+	public List<CmsSite> updateSearchEngineKeywordMaxRank();
+	
 }

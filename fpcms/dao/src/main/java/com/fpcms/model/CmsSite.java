@@ -121,6 +121,18 @@ public class CmsSite  implements java.io.Serializable{
 	 * 百度收录数
 	 */
 	private int recordBaidu;
+	/**
+	 * 360关键词排名
+	 */
+	private int rank360;
+	/**
+	 * google关键词排名
+	 */
+	private int rankGoogle;
+	/**
+	 * 百度关键词排名
+	 */
+	private int rankBaidu;
 	
 	public CmsSite(){
 	}
@@ -241,6 +253,54 @@ public class CmsSite  implements java.io.Serializable{
 
 	public void setAuthor(java.lang.String author) {
 		this.author = author;
+	}
+	
+	public int getRecord360() {
+		return record360;
+	}
+
+	public void setRecord360(int record360) {
+		this.record360 = record360;
+	}
+
+	public int getRecordGoogle() {
+		return recordGoogle;
+	}
+
+	public void setRecordGoogle(int recordGoogle) {
+		this.recordGoogle = recordGoogle;
+	}
+
+	public int getRecordBaidu() {
+		return recordBaidu;
+	}
+
+	public void setRecordBaidu(int recordBaidu) {
+		this.recordBaidu = recordBaidu;
+	}
+
+	public int getRank360() {
+		return rank360;
+	}
+
+	public void setRank360(int rank360) {
+		this.rank360 = rank360;
+	}
+
+	public int getRankGoogle() {
+		return rankGoogle;
+	}
+
+	public void setRankGoogle(int rankGoogle) {
+		this.rankGoogle = rankGoogle;
+	}
+
+	public int getRankBaidu() {
+		return rankBaidu;
+	}
+
+	public void setRankBaidu(int rankBaidu) {
+		this.rankBaidu = rankBaidu;
 	}
 
 	public String toString() {
