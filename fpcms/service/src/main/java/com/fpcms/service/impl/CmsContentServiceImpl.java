@@ -11,6 +11,7 @@ import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithExce
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,7 +169,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		CmsContent cmsContent = new CmsContent();
 		cmsContent.setContent(article.getContent());
 		String title = article.getPerfectKeyword();
-		cmsContent.setTitle(title); //TODO 网站:关键字要附加进去
+		cmsContent.setTitle(StringUtils.trim(title)); //TODO 网站:关键字要附加进去
 		cmsContent.setAuthor("admin_ramd");
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
 		cmsContent.setSite(site);

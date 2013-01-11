@@ -109,7 +109,19 @@ public class CmsSite  implements java.io.Serializable{
 	@Length(max=50)
 	private java.lang.String author;
 	//columns END
-
+	/**
+	 * 360收录数
+	 */
+	private int record360;
+	/**
+	 * google收录数
+	 */	
+	private int recordGoogle;
+	/**
+	 * 百度收录数
+	 */
+	private int recordBaidu;
+	
 	public CmsSite(){
 	}
 
