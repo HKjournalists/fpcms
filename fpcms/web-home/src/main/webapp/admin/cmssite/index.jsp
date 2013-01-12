@@ -136,7 +136,7 @@
 				<td><c:out value='${item.city}'/>&nbsp;</td>
 				<td><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></td>
 				<td><font color="${item.rankBaidu <=0 ? 'red' : ''}">${item.rankBaidu}</font></td>
-				<td><a href="http://www.baidu.com/s?wd=${item.keyword}">${item.keyword}</a></td>
+				<td><a href="http://www.baidu.com/s?wd=${item.keyword}" target="_blank">${item.keyword}</a></td>
 				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
 				<td><c:out value='${item.company}'/>&nbsp;</td>
@@ -146,9 +146,10 @@
 				<td><c:out value='${item.email}'/>&nbsp;</td>
 				 -->
 				<td>
-					<a href="${ctx}/admin/cmschannel/index.do?site=${item.siteDomain}">管理频道</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/cmschannel/index.do?site=${item.siteDomain}" target="_blank">管理频道</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmschannel/manageContentList.do?site=${item.siteDomain}">管理文章</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmsproperty/index.do?propGroup=${item.siteDomain}">网站属性</a>&nbsp;&nbsp;
+					<a href="http://seo.chinaz.com/?host=${item.siteDomain}" target="_blank">SEO综合</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/edit.do?siteDomain=${item.siteDomain}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/delete.do?siteDomain=${item.siteDomain}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
 				</td>
