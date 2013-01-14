@@ -51,6 +51,7 @@ select t.title from (
 (select title,count(*) cnt from cms_content group by title having cnt>=2 order by cnt desc) t
 ));
 
+36: 一个子页面一个关键词:如深圳发票查询 http://sz.aaafaipiao.com/content/show/1086.do
 35. cms_content性能优化及压力测试
 36. 购买IP,购买域名
 37. 增加内容评论功能
