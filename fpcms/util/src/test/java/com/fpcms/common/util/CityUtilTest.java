@@ -20,7 +20,7 @@ public class CityUtilTest extends Assert{
 	@Test
 	public void test_link() throws IOException {
 		for(City city : CityUtil.getCityList()) {
-			System.out.println("作者:<a href='http://"+city.getCityPinyin()+".aaafaipiao.com'>陈"+city.getCity()+"</a>");
+			System.out.println("<a href='http://"+city.getCityPinyin()+".aaafaipiao.com'>"+city.getCity()+"代开发票</a>");
 		}
 	}
 	

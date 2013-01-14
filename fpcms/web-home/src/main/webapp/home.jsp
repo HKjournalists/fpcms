@@ -1,3 +1,4 @@
+<%@page import="com.fpcms.common.util.Constants"%>
 <%@page import="com.fpcms.model.*" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/commons/taglibs.jsp" %>
@@ -91,6 +92,16 @@
 				
 				<div class="list_other">标签:${item.tags} 作者：<span>${item.author }</span> 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd"/></span></div>
 			</c:forEach>
+			
+			<!-- page slider START -->
+			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/1.do">第一页</a> | 
+			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.prePage}.do">上一页</a> | 
+			<c:forEach items="${newsPage.paginator.slider}" var="item">
+				<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${item}.do">${item}</a> | 
+			</c:forEach>
+			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.nextPage}.do">下一页</a>
+			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.totalPages}.do">最后页</a>
+			<!-- page slider END -->
 		</div>
 	</div>
 	

@@ -38,12 +38,12 @@
 27. jquery tab
 28. jquery弹出窗口问候是否需要聊天: https://github.com/malsup/blockui/
 #29. 增加网站预览链接
-30. 后台管理网站,增加是否显示是否被百度,google收录
+#30. 后台管理网站,增加是否显示是否被百度,google收录
 #31. 首页关键词是否考虑删除:公司名称
 #32. 删除重复的"title" cms_content
 33. 记录关键词列表
-34. 将aboutus放在首页
-35. 关键词2%-8%(5-6个),并且加颜色,加粗,加斜体,下划线
+#34. 将aboutus放在首页
+#35. 关键词2%-8%(5-6个),并且加颜色,加粗,加斜体,下划线
 
 #34. 删除重复文章
 delete from cms_content where title in (
@@ -52,7 +52,7 @@ select t.title from (
 ));
 
 #35. cms_content性能优化及压力测试
-36. 购买IP,购买域名
+#36. 购买IP,购买域名
 37. 增加内容评论功能
 38. 增加采集图片，以减少跳出率, 网址: http://www.22mm.cc/, 图片采集采用 
 	<img src="/proxy/img.do?url=http://www.xxx.com/some_image.gif" rel="nofollow"/>  
@@ -64,7 +64,7 @@ select t.title from (
 42. 采用rsync备份
 43. 应用页面cache
 
-41.文书域名迁移
+# 41.文书域名迁移
 42. 搜索老文章： 2004年的文章，用于SEO
 43. 原创度过高也是有问题的
 # 44. 保护好自己的QQ,手机号
