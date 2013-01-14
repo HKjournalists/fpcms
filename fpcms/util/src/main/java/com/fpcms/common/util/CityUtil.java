@@ -33,6 +33,8 @@ public class CityUtil {
 	public static synchronized LinkedHashMap<String,String> getProvincePinyinMap() throws IOException{
 		LinkedHashMap<String,String> map = new LinkedHashMap<String,String>();
 		for(City city : getCityList()) {
+			if(StringUtils.isBlank(city.getProvince())) continue;
+			
 			map.put(city.getProvince(), city.getProvincePinyin());
 		}
 		return map;
@@ -67,6 +69,9 @@ public class CityUtil {
 	private static void regCityPinyin(List<Map> rows) {
 		for(Map map : rows) {
 			String city = (String)map.get("city");
+			if(StringUtils.isBlank(city)) {
+				continue;
+			}
 			String cityPinyin = getPinyinCode(city);
 			map.put("cityPinyin", cityPinyin);
 		}
@@ -75,6 +80,9 @@ public class CityUtil {
 	private static void regProvincePinyin(List<Map> rows) {
 		for(Map map : rows) {
 			String province = (String)map.get("province");
+			if(StringUtils.isBlank(province)) {
+				continue;
+			}
 			String provincePinyin = getPinyinCode(province);
 			map.put("provincePinyin", provincePinyin);
 		}
@@ -88,12 +96,27 @@ public class CityUtil {
 			List<Map> result = new ArrayList();
 			for(String line : lines) {
 				if(StringUtils.isBlank(line)) continue;
+				line = line.trim();
+				if(StringUtils.startsWith(line, "#")) continue;
 				
-				String[] array = line.split("[\\s　]+");
-				Map<String,String> map = ArrayUtils.toMap(array, "rank","gdp","province","city");
-				map.put("province", map.get("province").replaceAll("\\d", ""));
-				map.put("city", map.get("city").replaceAll("\\d", ""));
-				result.add(map);
+				if(line.contains(",")) {
+					//解析只有城市列表的数据
+					for(String city : line.split("[\\s,，]")) {
+						Map<String,String> map = new HashMap<String,String>();
+						map.put("rank", "99999");
+						map.put("gdp", "0");
+						map.put("province", "");
+						map.put("city", city);
+						result.add(map);
+					}
+				}else {
+					// rank gdp province city四列数据
+					String[] array = line.split("[\\s　]+");
+					Map<String,String> map = ArrayUtils.toMap(array, "rank","gdp","province","city");
+					map.put("province", map.get("province").replaceAll("\\d", ""));
+					map.put("city", map.get("city").replaceAll("\\d", ""));
+					result.add(map);
+				}
 			}
 			return result;
 		}finally {
