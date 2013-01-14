@@ -100,15 +100,11 @@ public class ChannelController extends BaseController{
 	}
 	
 	@RequestMapping("/showContentList/{channelCode}/{page}.do")
-	public String showContentList(ModelMap model,CmsContentQuery query,HttpServletRequest request,@PathVariable("channelCode") String channelCode,@PathVariable("page") int page) {
+	public String showContentList(ModelMap model,HttpServletRequest request,@PathVariable("channelCode") String channelCode,@PathVariable("page") int page) {
 		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(getSite(),channelCode);
-		query.setPage(page);
-		if(query.getPageSize() < 10) {
-			query.setPageSize(10);
-		}
 		
 		DateRange dateRange = new DateRange(DateUtils.addDays(new Date(),-45),new Date());
-		Page<CmsContent> cmsContentPage = cmsContentService.findPage(new PageQuery(20),getSite(),channelCode,dateRange);
+		Page<CmsContent> cmsContentPage = cmsContentService.findPage(new PageQuery(page,20),getSite(),channelCode,dateRange);
 		
 		model.put("cmsChannel", cmsChannel);
 		model.put("page", cmsContentPage);

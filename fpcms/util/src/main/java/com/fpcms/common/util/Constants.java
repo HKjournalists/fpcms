@@ -10,8 +10,8 @@ public interface Constants {
 	public static String CHANNED_CODE_NEWS = "news";
 	
 	public static String[] FAIPIAO_KEYWORDS = {"发票","增值税","税控","地税","国税","税务","发票税","纳税","纳税人","税法","税收",
-		"发票查询","发票真伪查询"	,"发票抬头","增值税发票","发票抽奖",
-		"国税发票查询","发票真伪查询系统","住宿发票"};
+		"发票抬头","增值税发票","发票抽奖",
+		"住宿发票"};
 	
 //	public static String[] ATTACH_KEYWORD = {"最权威","最好"};
 	
