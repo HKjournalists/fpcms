@@ -87,7 +87,7 @@ public class ChannelController extends BaseController{
 	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("channelCode") String channelCode,HttpServletRequest request,HttpServletResponse response) {
 		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(getSite(),channelCode);
 		if(StringUtils.isBlank(cmsChannel.getContent())) {
-			return "forward:/channel/showContentList/"+channelCode+"/1.do";
+			return "redirect:/channel/showContentList/"+channelCode+"/1.do";
 		}
 		
 		model.put("cmsChannel", cmsChannel);

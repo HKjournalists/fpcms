@@ -12,8 +12,9 @@ function spider_stat() {
 
 }
 
-spider_stat Baidu
+
 spider_stat Google
+spider_stat Baidu
 
 echo ""
 echo ""

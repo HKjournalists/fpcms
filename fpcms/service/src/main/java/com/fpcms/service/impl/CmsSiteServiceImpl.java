@@ -41,7 +41,6 @@ import com.fpcms.service.CmsSiteService;
  * @since 1.0
  */
 @Service("cmsSiteService")
-@Transactional
 public class CmsSiteServiceImpl implements CmsSiteService {
 
 	protected static final Logger log = LoggerFactory.getLogger(CmsSiteServiceImpl.class);
@@ -154,14 +153,6 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		MapUtil.mergeWithDefaultMap(result,siteProps);
 		MapUtil.mergeWithDefaultMap(result,localhostProps);
 		
-//		result.put("city", StringUtils.defaultIfBlank(cmsSite.getCity(),props.get("city")));
-//		result.put("keyword", StringUtils.defaultIfBlank(cmsSite.getKeyword(),props.get("keyword")));
-//		result.put("company", StringUtils.defaultIfBlank(cmsSite.getCompany(),props.get("company")));
-//		result.put("contactName", StringUtils.defaultIfBlank(cmsSite.getContactName(),props.get("contactName")));
-//		result.put("mobile", StringUtils.defaultIfBlank(cmsSite.getMobile(),props.get("mobile")));
-//		result.put("qq", StringUtils.defaultIfBlank(cmsSite.getQq(),props.get("qq")));
-//		result.put("email", StringUtils.defaultIfBlank(cmsSite.getEmail(),props.get("email")));
-		
 		return result;
 	}
 
@@ -187,7 +178,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		for(CmsSite site :findAll()) {
 			try {
 				int recordBaidu = SearchEngineUtil.baiduSiteCount(site.getSiteDomain());
-				if(recordBaidu > 0) {
+				if(recordBaidu != site.getRecordBaidu()) {
 					updatedSiteList.add(site);
 					site.setRecordBaidu(recordBaidu);
 					update(site);
@@ -206,7 +197,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 			try{
 				int min = getMaxRank(site);
 				
-				if(min > 0) {
+				if(min != site.getRankBaidu()) {
 					updatedSiteList.add(site);
 					site.setRankBaidu(min);
 					update(site);
