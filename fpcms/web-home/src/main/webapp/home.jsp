@@ -157,8 +157,8 @@
 <duowan:override name="foot">
 		<script type="text/javascript">
 			$('.news_anchor').click(function() {
-				var url = 'http://www.baidu.com/s?wd='+this.title+" "+'${keyword}';
-				window.open(url);
+				//var url = 'http://www.baidu.com/s?wd='+this.title+" "+'${keyword}';
+				//window.open(url);
 				//location=url;
 				return false;
 			});
