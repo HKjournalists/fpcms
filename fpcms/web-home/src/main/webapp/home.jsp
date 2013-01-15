@@ -88,7 +88,7 @@
 		<div class="neirong">
 			<c:forEach items="${newsPage.itemList}" var="item" varStatus="i">
 				<h1 class="list_title"><a href="${ctx}/content/show/${item.id}.do" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></h1>
-				<div class="list_jj">${ fn:substring(item.content,0,45)} <c:if test="${i.index % 3 == 1}"><b>${keyword}</b></c:if>  </div>
+				<div class="list_jj">${ fn:substring(item.content,0,45)} <c:if test="${i.index % 6 == 1}"><b>${keyword}</b></c:if>  </div>
 				
 				<div class="list_other">标签:${item.tags} 作者：<span>${item.author }</span> 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd"/></span></div>
 			</c:forEach>
