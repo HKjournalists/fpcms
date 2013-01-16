@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /etc/profile
+
 day=`date +%Y-%m-%d`
 mv /data/log/nginx/access.log /data/log/nginx/access.log.${day}
 mv /data/log/nginx/error.log /data/log/nginx/error.log.${day}
