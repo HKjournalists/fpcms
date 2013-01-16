@@ -144,12 +144,11 @@
 			if('true' == closedKefuDialog) {
 				return;
 			}
+			$.cookie('closedKefuDialog', 'true', { expires: 7, path: '/' });
 			
 			var answer = confirm('是否通过QQ客服咨询"代开发票"相关事项?');
 			if (answer){
 				open("http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes");
-			}else {
-				$.cookie('closedKefuDialog', 'true', { expires: 7, path: '/' });
 			}
 		}
 

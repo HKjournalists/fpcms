@@ -29,7 +29,7 @@ public class RandomArticleBuilderTest extends Assert{
 		String result = NetUtil.httpGet("http://news.qq.com");
 		ArrayList<String> tokenizerList = KeywordUtil.toTokenizerList(result);
 		String tokens = StringUtils.join(tokenizerList,",");
-		Set<String> tokenSet = new ArticleContentProcesser("","","").getValidTokens(tokens);
+		Set<String> tokenSet = new ArticleContentProcesser("","").getValidTokens(tokens);
 		System.out.println("valid tokens:"+tokenSet);
 		assertTrue(tokenSet.size() > 10);
 		
@@ -63,17 +63,5 @@ public class RandomArticleBuilderTest extends Assert{
 			System.out.println(str);
 		}
 	}
-	
-	@Test
-	public void test_getRandomInsertKeyword() {
-		int count = 0;
-		for(int i = 0; i < 100; i++) {
-			String abc = b.getRandomInsertKeyword("浙江");
-			if(StringUtils.isNotBlank(abc)) {
-				count++;
-			}
-			System.out.println(abc);
-		}
-		assertTrue(count > 34);
-	}
+
 }

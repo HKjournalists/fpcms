@@ -40,14 +40,6 @@ public class RandomArticleBuilder {
 		return article;
 	}
 	
-	String getRandomInsertKeyword(String city) {
-		Assert.hasText(city,"city must be not empty");
-		if(RandomUtil.randomTrue(40)) {
-			return city + RandomUtil.randomSelect(Constants.FAIPIAO_KEYWORDS);
-		}
-		return null;
-	}
-	
 
 	String randomMonth() {
 		Date startMonth = DateConvertUtils.parse("2008-01", "yyyy-MM");
@@ -64,7 +56,7 @@ public class RandomArticleBuilder {
 		int randomPageNumber = 1 + RandomUtils.nextInt(5);
 		String result = SearchEngineUtil.sogouSearch(finalSearchKeyword, randomPageSize,randomPageNumber);
 		
-		ArticleContentProcesser articleContentProcesser = new ArticleContentProcesser(randomBuzz,getRandomInsertKeyword(city),randomBuzz);
+		ArticleContentProcesser articleContentProcesser = new ArticleContentProcesser(randomBuzz,randomBuzz);
 		articleContentProcesser.buildArticle(result);
 		String transferedArticle = articleContentProcesser.getArticle();
 		RandomArticle article = new RandomArticle(randomBuzz,randomConfuseKeyword,finalSearchKeyword,transferedArticle);
