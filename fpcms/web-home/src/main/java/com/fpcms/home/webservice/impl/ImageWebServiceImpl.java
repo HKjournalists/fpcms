@@ -2,6 +2,7 @@ package com.fpcms.home.webservice.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -22,7 +23,7 @@ public class ImageWebServiceImpl implements ImageWebService{
 			
 			lines = StringHelper.removeEmptyLines(lines);
 			
-			return lines.toArray(new String[lines.size()]);
+			return new LinkedHashSet<String>(lines).toArray(new String[lines.size()]);
 		}finally {
 			IOUtils.closeQuietly(inputStream);
 		}
