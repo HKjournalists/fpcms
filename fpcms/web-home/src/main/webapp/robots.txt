@@ -11,4 +11,4 @@ Disallow: /WEB-INF/
 Disallow: /META-INF/
 Disallow: /rpc/
 Disallow: /proxy/
-Disallow: /proxy/*
+
