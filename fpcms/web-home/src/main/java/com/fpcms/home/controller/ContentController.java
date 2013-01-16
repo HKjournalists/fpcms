@@ -93,7 +93,5 @@ public class ContentController extends BaseController{
 		return "/content/show";
 	}
 
-	
-
 }
 

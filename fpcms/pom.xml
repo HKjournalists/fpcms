@@ -64,7 +64,12 @@
 		<artifactId>duowan-common-test</artifactId>
 	  	<version>1.0</version>        
 	</dependency>	
-		
+	<dependency>
+			<groupId>com.duowan.common</groupId>
+			<artifactId>duowan-common-rpc</artifactId>
+			<version>1.0.9</version>
+	</dependency>
+
   	<!-- rapid generator begn -->
 	<dependency>
 	  <groupId>com.googlecode.rapid-framework</groupId>

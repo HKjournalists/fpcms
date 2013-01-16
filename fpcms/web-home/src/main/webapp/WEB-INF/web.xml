@@ -191,6 +191,16 @@
 	    <servlet-name>springmvc</servlet-name>
 	    <url-pattern>*.xml</url-pattern>
 	</servlet-mapping>	
+
+	<servlet>
+	    <servlet-name>rpc</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>rpc</servlet-name>
+	    <url-pattern>/rpc/*</url-pattern>
+	</servlet-mapping>
 				
 </web-app>
 
