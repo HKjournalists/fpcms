@@ -114,7 +114,6 @@
 	<script type="text/javascript" src="${ctx}/js/application.js"></script>
 	<script type="text/javascript" src="${ctx}/js/topad.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script type="text/javascript" src="${ctx}/js/jquery.simplemodal-1.4.3.js"></script>
 	<script type="text/javascript" src="${ctx}/js/jquery.cookie.js"></script>
 
 	<div class="width" id="foot">
@@ -126,30 +125,52 @@
 		<strong>${company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利 | 时间:<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/><br />
 	</div>
 	
-	<div id="kefuDialog" style="width:600px;display: none;">
-		<p></p>
-		<button id="btn-custom1">QQ客服沟通</button>
-		<button id="btn-custom2" onclick="$('#kefuDialog').close()">关闭</button>
+	<div id="kefuDialog" style="display: none;">
+		<div style="width:400px;height:157px; display:block; background-color: rgb(204,242,255);">
+		<img alt="客服:${keyword}" src="${ctx}/images/kefu.jpg"/>
+		
+		<div style="float: right; margin-top: 70px; margin-right: 30px">
+		<b>咨询代开发票相关业务</b>
+		<br/>
+		<br/>
+		<br/>
+		<button id="btn-custom1" onclick="openQQChat()">QQ客服沟通</button>
+		<button id="btn-custom2" onclick="closeKefuDialog()">关闭</button>
+		</div>
+		</div>
 	</div>
-
+	
+	<div id="kefuContainer"></div>
 	<script  type="text/javascript">
 		var chatLink = "<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes'><img src='${ctx}/images/online_chat.gif'/><br/><img src='${ctx}/images/qq.png'/></a><br/>";
 		var chatLink2 = "客服1<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>客服2<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>客服3<a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><a href='http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=网站&amp;menu=yes'><img src='http://wpa.qq.com/pa?p=2:${qq}:41' border='0'/></a><br/>";
 		generateLeftRightAD(chatLink,chatLink2);
-
+		
+		function closeKefuDialog() {
+			$("#_kefuDialogDiv").hide();
+			$.cookie('closedKefuDialog', 'true', { expires: 7, path: '/' });
+		}
+		function openQQChat() {
+			closeKefuDialog();
+			window.open("http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes");
+		}
 		function openKefuDialog() {
-			// simplemodal for see: http://www.ericmmartin.com/projects/simplemodal/
-			//$("#kefuDialog").modal(); 
+
+			var content = generateKefuDialog($('#kefuDialog').html());
+			$("#kefuContainer").append(content);
+			
 			var closedKefuDialog = $.cookie('closedKefuDialog');
 			if('true' == closedKefuDialog) {
 				return;
 			}
-			$.cookie('closedKefuDialog', 'true', { expires: 7, path: '/' });
+
 			
+			/*
 			var answer = confirm('是否通过QQ客服咨询"代开发票"相关事项?');
 			if (answer){
 				open("http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes");
 			}
+			*/
 		}
 
 		setTimeout(openKefuDialog,3000);
