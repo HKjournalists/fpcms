@@ -24,7 +24,7 @@ public class ImageCrawlerMain {
 		 * which are found in these pages
 		 */
 //		controller.addSeed("http://www.aaafaipiao.com");
-//		controller.addSeed("http://www.22mm.cc");
+		controller.addSeed("http://www.22mm.cc");
 		controller.addSeed("http://www.22mm.cc/mm/qingliang/ggiejhb_ljgijd.html");
 
 		ImageCrawler.configure(new String[]{"http://www.22mm.cc","http://qlimg1.meimei22.com"}, crawlStorageFolder);

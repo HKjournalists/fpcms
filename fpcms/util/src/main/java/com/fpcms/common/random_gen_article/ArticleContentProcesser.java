@@ -30,19 +30,14 @@ public class ArticleContentProcesser {
 	 * 需要加强的keyword
 	 */
 	private String strongKeyword;
-	/**
-	 * 需要插入在文档中的keyword
-	 */
-	private String insertKeyword;
 	
 	private String perfectKeyword;
 	private String keyword;
 	private String article;
 	
-	public ArticleContentProcesser(String strongKeyword,String insertKeyword,String keyword) {
+	public ArticleContentProcesser(String strongKeyword,String keyword) {
 		super();
 		this.strongKeyword = strongKeyword;
-		this.insertKeyword = insertKeyword;
 		this.keyword = keyword;
 	}
 
@@ -62,14 +57,8 @@ public class ArticleContentProcesser {
 		
 		KeywordUtil.filterSensitiveKeyword(tokens);
 		
-		perfectKeyword = getPerfectKeyword(StringUtils.join(tokens,","), keyword);
-		
-		insertKeyWords(tokens);
-		for(int i = 2010; i < 2013; i++) {
-			tokens.add("最好"+keyword);
-		}
-//		return toString(tokens);
 		article = NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
+		perfectKeyword = getPerfectKeyword(article, keyword);
 	}
 
 	private void filterByChineseSegment(Set<String> tokens) {
@@ -147,12 +136,6 @@ public class ArticleContentProcesser {
 		return false;
 	}
 
-	private void insertKeyWords(Set<String> tokens) {
-		if(StringUtils.isNotBlank(insertKeyword)) {
-			tokens.add(insertKeyword);
-			tokens.add(insertKeyword+"2");
-		}
-	}
 	
 	String[] a = {"啊","呀","嗯","啦","哪","吧"};
 	String[] question = {"吗"};
