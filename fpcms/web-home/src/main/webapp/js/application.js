@@ -70,11 +70,15 @@ function addFavorite(title) {
  * 保护联系方式的js
  * 
  */
-function tmplWithSiteProperty(stringTemplate, callbackFunc) {
-	var request = $.ajax({url:"/fpcms/rpc/PropertyWebService/getSiteProperty?site=localhost",dataType : "json"});
+function tmplWithSiteProperty(stringTemplate, servletContentPath,site) {
+	var request = $.ajax({url:servletContentPath+"/rpc/PropertyWebService/getSiteProperty?site="+site,dataType : "json"});
 	request.done(function(response) { 
 		var data = response.result;
 		var resultString = tmpl(stringTemplate,data);
-		callbackFunc(resultString);
+		
+		$("#"+stringTemplate).empty();
+		$("#"+stringTemplate).append(resultString);
+		$("#"+stringTemplate).show();
+		//callbackFunc(resultString);
 	});
 }

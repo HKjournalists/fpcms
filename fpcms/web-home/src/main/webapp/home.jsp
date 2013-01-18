@@ -64,7 +64,6 @@
 	<div class="subject_bg">
 		<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
 	</div>
-	<div id="home_contact"></div>
 	<div class="m10 " id="template_home_contact" style="display: none">
 		<div align="left" >
 		<b>联系人:</b> {%= o.contactName %} <br/>
@@ -73,9 +72,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-	tmplWithSiteProperty("template_home_contact",function(result) {
-		$("#home_contact").append(result);
-	});
+	tmplWithSiteProperty("template_home_contact","${ctx}","${requestHost}");
 	</script>
 </div>
 </duowan:override>

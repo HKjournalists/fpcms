@@ -38,9 +38,7 @@
 						<div style="float: left;width: 510px;">
 							<div><span style="font-size: 30pt;font-weight: 900;">${company}</span></div>
 						</div>
-						<div  style="float: left;display: block; width: 400px;" id="layout_top_contact" >
-						</div>
-						<div  id="template_layout_top_contact" style="display:none">
+						<div  id="template_layout_top_contact" style="float: left;display: block; width: 400px;display:none">
 							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:{%= o.qq %} <font color=red>电话</font>:{%= o.mobile %}</font>
 						</div>
 					</div>
@@ -85,11 +83,11 @@
 					<div class="subject_bg">
 						<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
 					</div>
-					<div class="m10 " >
+					<div class="m10 " style="display:none" id="template_contact_layout">
 						<div align="left" >
-						<b>联系人:</b> ${contactName} <br/>
-						<b>电话:</b>&nbsp;&nbsp;&nbsp;${mobile} <br/>
-						<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${qq}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
+						<b>联系人:</b> {%= o.contactName %} <br/>
+						<b>电话:</b>&nbsp;&nbsp;&nbsp;{%= o.mobile %} <br/>
+						<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%= o.qq %}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
 						</div>
 					</div>
 				</div>
@@ -179,9 +177,8 @@
 		setTimeout(openKefuDialog,3000);
 	</script>
 	<script type="text/javascript">
-		tmplWithSiteProperty("template_layout_top_contact",function(result) {
-			$("#layout_top_contact").append(result);
-		});
+		tmplWithSiteProperty("template_contact_layout","${ctx}","${requestHost}");
+		tmplWithSiteProperty("template_layout_top_contact","${ctx}","${requestHost}");
 	</script>
 	
 	${websiteStatCode}
