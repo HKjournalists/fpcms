@@ -6,9 +6,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	
-	<%// FIXME 所有页面禁止快照  %>
-	<c:if test="${requestHost == 'www.aaafaipiao.com'}">
-	</c:if>
 	<meta name="robots" content="noarchive">
 	
 	<duowan:block name="head">
@@ -38,7 +35,7 @@
 						<div style="float: left;width: 510px;">
 							<div><span style="font-size: 30pt;font-weight: 900;">${company}</span></div>
 						</div>
-						<div  id="template_layout_top_contact" style="float: left;display: block; width: 400px;display:none">
+						<div  id="template_layout_top_contact" style="float: left;display: block; width: 400px;">
 							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:{%= o.qq %} <font color=red>电话</font>:{%= o.mobile %}</font>
 						</div>
 					</div>
@@ -83,7 +80,7 @@
 					<div class="subject_bg">
 						<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
 					</div>
-					<div class="m10 " style="display:none" id="template_contact_layout">
+					<div class="m10 " id="template_contact_layout">
 						<div align="left" >
 						<b>联系人:</b> {%= o.contactName %} <br/>
 						<b>电话:</b>&nbsp;&nbsp;&nbsp;{%= o.mobile %} <br/>
