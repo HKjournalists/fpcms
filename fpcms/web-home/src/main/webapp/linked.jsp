@@ -4,6 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<meta name="robots" content="noarchive">
+	<title>${city}介绍</title>
 </head>
 <body>
 <div style="width: 800px">
