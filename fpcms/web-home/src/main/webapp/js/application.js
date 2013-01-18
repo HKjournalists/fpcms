@@ -71,7 +71,7 @@ function addFavorite(title) {
  * 
  */
 function tmplWithSiteProperty(stringTemplate, servletContentPath,site) {
-	var request = $.ajax({url:servletContentPath+"/rpc/PropertyWebService/getSiteProperty?site="+site,dataType : "json"});
+	var request = $.ajax({url:servletContentPath+"/rpc/SiteWebService/getSiteProperties?site="+site,dataType : "json"});
 	request.done(function(response) { 
 		var data = response.result;
 		var resultString = tmpl(stringTemplate,data);
