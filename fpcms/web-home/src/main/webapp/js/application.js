@@ -71,8 +71,7 @@ function addFavorite(title) {
  * 
  */
 function tmplWithSiteProperty(stringTemplate, servletContentPath,site) {
-	var request = $.ajax({url:servletContentPath+"/rpc/SiteWebService/getSiteProperties?site="+site,dataType : "json"});
-	request.done(function(response) { 
+	var callback = function(response) { 
 		var data = response.result;
 		var resultString = tmpl(stringTemplate,data);
 		
@@ -80,5 +79,7 @@ function tmplWithSiteProperty(stringTemplate, servletContentPath,site) {
 		$("#"+stringTemplate).append(resultString);
 		$("#"+stringTemplate).show();
 		//callbackFunc(resultString);
-	});
+	}
+	var request = $.ajax({url:servletContentPath+"/rpc/SiteWebService/getSiteProperties?site="+site,dataType : "json"});
+	request.done(callback);
 }
