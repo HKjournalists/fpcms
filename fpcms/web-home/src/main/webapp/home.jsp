@@ -10,6 +10,10 @@
 	<style type="text/css">
 		a.subject_title :hover{text-decoration:none;color:#FFF;!important}	
 	</style>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="${ctx}/js/application.js"></script>
+	<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>
 </duowan:override>
 
 <duowan:override name="page_left">
@@ -60,20 +64,17 @@
 	<div class="subject_bg">
 		<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
 	</div>
-	<div class="m10 " id="home_contact_template">
+	<div id="home_contact"></div>
+	<div class="m10 " id="template_home_contact" style="display: none">
 		<div align="left" >
-		<b>联系人:</b> ${contactName} <br/>
-		<b>电话:</b>&nbsp;&nbsp;&nbsp;${mobile} <br/>
-		<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${qq}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
+		<b>联系人:</b> {%= o.contactName %} <br/>
+		<b>电话:</b>&nbsp;&nbsp;&nbsp;{%= o.mobile %} <br/>
+		<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%= o.qq %}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
 		</div>
 	</div>
-	
-	<script type="text/javascript" src="${ctx}/js/application.js"></script>
-	<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>
-	<script type="text/javascript" src="${ctx}/js/jquery.js"></script>
 	<script type="text/javascript">
-	tmplWithSiteProperty("home_contact_template",function(result) {
-		alert(result);
+	tmplWithSiteProperty("template_home_contact",function(result) {
+		$("#home_contact").append(result);
 	});
 	</script>
 </div>

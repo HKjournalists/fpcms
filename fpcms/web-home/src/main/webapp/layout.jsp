@@ -38,8 +38,10 @@
 						<div style="float: left;width: 510px;">
 							<div><span style="font-size: 30pt;font-weight: 900;">${company}</span></div>
 						</div>
-						<div  style="float: left;display: block; width: 400px;">
-							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:${qq} <font color=red>电话</font>:${mobile }</font>
+						<div  style="float: left;display: block; width: 400px;" id="layout_top_contact" >
+						</div>
+						<div  id="template_layout_top_contact" style="display:none">
+							<font style="font-size: 15pt;font-weight: 900; margin-left: 5px;"><font color=red>QQ</font>:{%= o.qq %} <font color=red>电话</font>:{%= o.mobile %}</font>
 						</div>
 					</div>
 				</div>
@@ -115,6 +117,7 @@
 	<script type="text/javascript" src="${ctx}/js/topad.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>
 
 	<div class="width" id="foot">
 		<duowan:block name="foot">
@@ -174,6 +177,11 @@
 		}
 
 		setTimeout(openKefuDialog,3000);
+	</script>
+	<script type="text/javascript">
+		tmplWithSiteProperty("template_layout_top_contact",function(result) {
+			$("#layout_top_contact").append(result);
+		});
 	</script>
 	
 	${websiteStatCode}
