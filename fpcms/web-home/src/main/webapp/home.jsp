@@ -6,7 +6,7 @@
 <duowan:override name="head">
 	<title>${fn:replace(keyword,',','_')}-最值得信赖</title>
 	<meta name="keywords" content="${keyword}" />
-	<meta name="description" content="${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}开发票，代开${city}发票资格的专业税务开票公司.${keyword},可开${city}材料费发票|住宿费发票|${city}餐饮费发票|${city}酒店发票|广告费发票|等各类发票" />
+	<meta name="description" content="${city}${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}代开发票，代开${city}发票资格的专业税务开票公司,可开${city}材料费发票|住宿费发票|${city}餐饮费发票|${city}酒店发票|广告费发票|等各类${city}开发票项目" />
 	<style type="text/css">
 		a.subject_title :hover{text-decoration:none;color:#FFF;!important}	
 	</style>
@@ -95,7 +95,7 @@
 		<div class="neirong">
 			<c:forEach items="${newsPage.itemList}" var="item" varStatus="i">
 				<h1 class="list_title"><a href="${ctx}/content/show/${item.id}.do" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></h1>
-				<div class="list_jj">${ fn:substring(item.content,0,45)} <c:if test="${i.index % 6 == 1}"><b>${keyword}</b></c:if>  </div>
+				<div class="list_jj">${ fn:substring(item.content,0,45)}  </div>
 				
 				<div class="list_other">标签:${item.tags} 作者：<span>${item.author }</span> 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd"/></span></div>
 			</c:forEach>

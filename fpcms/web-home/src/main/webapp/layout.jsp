@@ -32,7 +32,7 @@
 		<div id="top_logo">
 			<div style="width: 600px">
 				<div style="height: 100px;">
-					<div style="float: left;width: 90px;" ><img src="${ctx}/images/logo_left.jpg" alt="${keyword}"></img></div>
+					<div style="float: left;width: 90px;" ><img src="${ctx}/images/logo_left.jpg" ></img></div>
 					<div>
 						<div style="height:15px;"></div>
 						<div style="float: left;width: 510px;">
@@ -73,7 +73,7 @@
 	</div>
 	
 	<div id="banner">
-		<img src="${ctx}/images/banner_03.jpg" alt="${keyword}"  />
+		<img src="${ctx}/images/banner_03.jpg"   />
 	</div>
 
 	<div class="width mt10">
@@ -128,7 +128,7 @@
 	
 	<div id="kefuDialog" style="display: none;">
 		<div style="width:400px;height:157px; display:block; background-color: rgb(204,242,255);">
-		<img alt="客服:${keyword}" src="${ctx}/images/kefu.jpg"/>
+		<img src="${ctx}/images/kefu.jpg"/>
 		
 		<div style="float: right; margin-top: 70px; margin-right: 30px">
 		<b>咨询代开发票相关业务</b>
