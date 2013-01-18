@@ -49,6 +49,10 @@ function getReferenceForm(elm) {
 	return null;
 }
 
+/**
+ * 添加URL进网页收藏夹
+ * @param title
+ */
 function addFavorite(title) {
    var url = location.protocol + "//" +location.host;
    if (document.all)
@@ -59,4 +63,21 @@ function addFavorite(title) {
    {
       window.sidebar.addPanel(title, url, "");
    }
+}
+
+
+/**
+ * 保护联系方式的js
+ * 
+ */
+function tmplWithSiteProperty(stringTemplate, callbackFunc) {
+	var request = $.ajax({
+		url : "/fpcms/rpc/PropertyWebService/getSiteProperty?site=localhost",
+		dataType : "json"
+	});
+	request.done(function(response) {
+		var data = response.result;
+		var resultString = tmpl(stringTemplate,data);
+		callbackFunc(resultString);
+	});
 }

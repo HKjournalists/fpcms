@@ -60,13 +60,22 @@
 	<div class="subject_bg">
 		<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
 	</div>
-	<div class="m10 " >
+	<div class="m10 " id="home_contact_template">
 		<div align="left" >
 		<b>联系人:</b> ${contactName} <br/>
 		<b>电话:</b>&nbsp;&nbsp;&nbsp;${mobile} <br/>
 		<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${qq}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
 		</div>
 	</div>
+	
+	<script type="text/javascript" src="${ctx}/js/application.js"></script>
+	<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>
+	<script type="text/javascript" src="${ctx}/js/jquery.js"></script>
+	<script type="text/javascript">
+	tmplWithSiteProperty("home_contact_template",function(result) {
+		alert(result);
+	});
+	</script>
 </div>
 </duowan:override>
 

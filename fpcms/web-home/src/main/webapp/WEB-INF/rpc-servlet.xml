@@ -14,6 +14,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
 	default-autowire="byName">
 
+	<bean id="propertyWebService" class="com.fpcms.home.webservice.impl.PropertyWebServiceImpl" />
 	<bean id="imageWebService" class="com.fpcms.home.webservice.impl.ImageWebServiceImpl" />
 
 	<!-- 服务发布 -->
@@ -22,4 +23,9 @@
 		<property name="service" ref="imageWebService" />
 	</bean>
 
+	<bean class="com.duowan.common.rpc.server.RPCServiceExporter">
+		<property name="serviceInterface" value="com.fpcms.home.webservice.PropertyWebService" />
+		<property name="service" ref="propertyWebService" />
+	</bean>
+	
 </beans>
