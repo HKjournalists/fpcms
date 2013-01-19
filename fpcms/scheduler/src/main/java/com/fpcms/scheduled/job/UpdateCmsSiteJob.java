@@ -43,12 +43,13 @@ public class UpdateCmsSiteJob implements InitializingBean{
 			@Override
 			public void run() {
 				try {
-					int RUN_HOUR = 7;
-					if(new Date().getHours() == RUN_HOUR) {
+					int curHour = new Date().getHours();
+					boolean isRunHour = curHour == 7 || curHour == 11 || curHour == 6;
+					if(isRunHour) {
 						cmsSiteService.updateSearchEngineKeywordMaxRank();
 						cmsSiteService.updateSearchEngineRecord();
 					}else {
-						logger.info("ignore execute UpdateCmsSiteJob by hours != "+RUN_HOUR);
+						logger.info("ignore execute UpdateCmsSiteJob is not runHour:"+curHour);
 					}
 				}catch(Exception e) {
 					logger.error("UpdateCmsSiteJob error",e);
