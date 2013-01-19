@@ -44,7 +44,7 @@ public class UpdateCmsSiteJob implements InitializingBean{
 			public void run() {
 				try {
 					int curHour = new Date().getHours();
-					boolean isRunHour = curHour == 7 || curHour == 11 || curHour == 6;
+					boolean isRunHour = curHour == 7 || curHour == 11 || curHour == 18;
 					if(isRunHour) {
 						cmsSiteService.updateSearchEngineKeywordMaxRank();
 						cmsSiteService.updateSearchEngineRecord();
