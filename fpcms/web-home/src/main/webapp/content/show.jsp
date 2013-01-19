@@ -26,7 +26,7 @@
 			request.done(function(response) { 
 		    	//alert("done() "+response.result);
 		    	globalImgUrls = response.result;
-		    	showImgsFunc(2);		    	
+		    	setTimeout(function() {showImgsFunc(2)},1000);		    	
 		    });
 			
 			var globalLastImgIndex = 0;
