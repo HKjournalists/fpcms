@@ -25,21 +25,28 @@
 			var request = $.ajax({url:"${ctx}/rpc/ImageWebService/getFemailImageList",dataType:"json"});
 			request.done(function(response) { 
 		    	//alert("done() "+response.result);
-		    	globalImgUrls = response.result;		    	
+		    	globalImgUrls = response.result;
+		    	showImgsFunc(2);		    	
 		    });
 			
 			var globalLastImgIndex = 0;
+			var showImgsFunc = function(showCount) {
+				if(globalImgUrls) {
+					for(i = 0; i < showCount; i++) {
+						if(globalLastImgIndex > globalImgUrls.length) {
+							globalLastImgIndex = 0;
+						}
+			    		var url = globalImgUrls[globalLastImgIndex++];
+						$('#imgContainer').append('<img src="${ctx}/proxy/redirect.do?url='+url+'"/>');							
+			    	}
+				}
+			}
+			
 			$(window).scroll(function () {
 				var top = $(document).scrollTop() + $(window).height();
 				if(isScrollDown(top)){
-					if(top + 900 > $(document).height() && globalImgUrls) {
-						for(i = 0; i < 2; i++) {
-							if(globalLastImgIndex > globalImgUrls.length) {
-								globalLastImgIndex = 0;
-							}
-				    		var url = globalImgUrls[globalLastImgIndex++];
-							$('#imgContainer').append('<img src="${ctx}/proxy/redirect.do?url='+url+'"/>');							
-				    	}
+					if(top + 900 > $(document).height() ) {
+						showImgsFunc(2);
 					}
 				}
 			});
