@@ -112,6 +112,10 @@
 			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.nextPage}.do">下一页</a>
 			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.totalPages}.do">最后页</a>
 			<!-- page slider END -->
+			
+			<p>
+			${company}<span>${city}代开发票</span>是你最好的朋友.<span>${city}开发票</span>可以进行验证.${city}发票公司常伴你左右,请保留联系方式.需要时随时可以找到<span>${city}代开发票</span>.
+			</p>
 		</div>
 	</div>
 	
