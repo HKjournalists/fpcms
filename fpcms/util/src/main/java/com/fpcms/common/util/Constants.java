@@ -13,9 +13,7 @@ public interface Constants {
 		"发票抬头","增值税发票","发票抽奖",
 		"住宿发票","会计","财务","税务师","评估师","会计师","出纳","建账","做账","减免税",
 		"营业税","增值税","消费税"," 企业所得税 ","个人所得税 ","税收优惠 ","关税","金融","会计报表","审计",
-		"房产税","契税"};
-	
-//	public static String[] ATTACH_KEYWORD = {"最权威","最好"};
+		"房产税","契税","印花税","城建税","车船税","定额发票"};
 	
 	public static String[] BAIDU_BUZZ_URLS = {
 		"http://top.baidu.com/buzz.php?p=weekhotspot",
