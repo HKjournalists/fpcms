@@ -29,7 +29,7 @@ public class RandomArticleBuilderTest extends Assert{
 		String result = NetUtil.httpGet("http://news.qq.com");
 		ArrayList<String> tokenizerList = KeywordUtil.toTokenizerList(result);
 		String tokens = StringUtils.join(tokenizerList,",");
-		Set<String> tokenSet = new ArticleContentProcesser("","").getValidTokens(tokens);
+		Set<String> tokenSet = new ArticleContentProcesser("").getValidTokens(tokens);
 		System.out.println("valid tokens:"+tokenSet);
 		assertTrue(tokenSet.size() > 10);
 		

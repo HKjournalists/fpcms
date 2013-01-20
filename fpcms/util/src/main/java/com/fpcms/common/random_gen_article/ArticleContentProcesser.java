@@ -26,18 +26,13 @@ import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
  *
  */
 public class ArticleContentProcesser {
-	/**
-	 * 需要加强的keyword
-	 */
-	private String strongKeyword;
 	
 	private String perfectKeyword;
 	private String keyword;
 	private String article;
 	
-	public ArticleContentProcesser(String strongKeyword,String keyword) {
+	public ArticleContentProcesser(String keyword) {
 		super();
-		this.strongKeyword = strongKeyword;
 		this.keyword = keyword;
 	}
 
@@ -127,10 +122,10 @@ public class ArticleContentProcesser {
 		Assert.notNull(token,"token must be not null");
 		for(String strong : Constants.FAIPIAO_KEYWORDS) {
 			if(token.indexOf(strong) >= 0) {
-				return true && RandomUtils.nextInt(2) % 2 == 0;
+				return RandomUtil.randomTrue(40);
 			}
 		}
-		if(token.contains(strongKeyword)) {
+		if(token.contains(keyword)) {
 			return true;
 		}
 		return false;

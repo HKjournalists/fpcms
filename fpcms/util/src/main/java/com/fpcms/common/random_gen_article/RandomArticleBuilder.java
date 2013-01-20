@@ -21,15 +21,14 @@ import com.fpcms.common.util.SearchEngineUtil;
  */
 public class RandomArticleBuilder {
 	
-	private String confuseKeyword = " 发票  ";
-	private String[] randomConfuseKeywordArray = Constants.FAIPIAO_KEYWORDS;
+//	private String[] randomConfuseKeywordArray = Constants.FAIPIAO_KEYWORDS;
 	
 	public RandomArticle buildRandomArticle(String city) {
 		Set<String> baiduBuzzs = BaiduTopBuzzUtil.getBaiduBuzzs();
 		Assert.isTrue(!baiduBuzzs.isEmpty()," baiduBuzzs must be not empty");
 		KeywordUtil.filterSensitiveKeyword(baiduBuzzs);
 		
-		String randomConfuseKeyword = RandomUtil.randomSelect(randomConfuseKeywordArray);
+		String randomConfuseKeyword = RandomUtil.randomSelect(Constants.FAIPIAO_KEYWORDS);
 		String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
 		String finalSearchKeyword = randomBuzz + " " + randomConfuseKeyword  + " " + city + " " + randomMonth();
 //		String finalSearchKeyword = randomBuzz + confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
@@ -61,7 +60,7 @@ public class RandomArticleBuilder {
 		int randomPageNumber = 1 + RandomUtils.nextInt(5);
 		String result = SearchEngineUtil.sogouSearch(finalSearchKeyword, randomPageSize,randomPageNumber);
 		
-		ArticleContentProcesser articleContentProcesser = new ArticleContentProcesser(randomBuzz,randomBuzz);
+		ArticleContentProcesser articleContentProcesser = new ArticleContentProcesser(randomBuzz);
 		articleContentProcesser.buildArticle(result);
 		String transferedArticle = articleContentProcesser.getArticle();
 		RandomArticle article = new RandomArticle(randomBuzz,randomConfuseKeyword,finalSearchKeyword,transferedArticle);

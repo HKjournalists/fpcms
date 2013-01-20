@@ -5,7 +5,7 @@ import org.junit.Test;
 
 
 public class ArticleContentProcesserTest extends Assert{
-	ArticleContentProcesser gen = new ArticleContentProcesser("中国","好人");
+	ArticleContentProcesser gen = new ArticleContentProcesser("好人");
 	@Test
 	public void test() {
 		String input = "中国人民中国人民中国人民中国人民,好发票好发票好发票好发票好发票,929282,浙江浙江浙江浙江浙江";
