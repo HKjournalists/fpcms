@@ -5,7 +5,7 @@
 <duowan:override name="head">
 	<title>${cmsContent.title}</title>
 	<meta name="keywords" content="${cmsContent.title}" />
-	<meta name="description" content="${fn:substring(item.content,0,80)}" /> 
+	<meta name="description" content="${cmsContent.title},${fn:substring(cmsContent.content,0,80)}" /> 
 </duowan:override>
 
 <duowan:override name="content">
