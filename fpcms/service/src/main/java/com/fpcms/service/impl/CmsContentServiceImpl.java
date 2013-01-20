@@ -130,19 +130,23 @@ public class CmsContentServiceImpl implements CmsContentService {
     
         /**可以在此检查只有创建才需要的特殊检查 */
         public void checkCreateCmsContent(CmsContent cmsContent) {
+        	
             checkCmsContent(cmsContent);
-        }
-        
-        /** 检查到有错误请直接抛异常，不要使用 return errorCode的方式 */
-        public void checkCmsContent(CmsContent cmsContent) {
-        	// Bean Validator检查,属性检查失败将抛异常
-            validateWithException(cmsContent);
             
             Date start = DateUtils.addDays(new Date(),-360);
             int countByTitle = cmsContentDao.countByTitle(start,new Date(),cmsContent.getTitle());
             if(countByTitle > 0) {
             	throw new IllegalStateException("already exist same title:"+cmsContent.getTitle()+" CmsContent");
             }
+            
+        }
+        
+        /** 检查到有错误请直接抛异常，不要使用 return errorCode的方式 */
+        public void checkCmsContent(CmsContent cmsContent) {
+        	// Bean Validator检查,属性检查失败将抛异常
+            validateWithException(cmsContent);
+            int contentLength = cmsContent.getContent().length();
+			Assert.isTrue(contentLength > 400,"cmsContent:"+cmsContent.getTitle()+" length > 400 false,cur length:"+contentLength);
             
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
