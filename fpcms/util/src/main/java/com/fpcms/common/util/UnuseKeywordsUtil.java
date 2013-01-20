@@ -14,13 +14,13 @@ import org.apache.commons.io.IOUtils;
  */
 public class UnuseKeywordsUtil {
 	
-	private static Set unuseKeywords = null;
+	private static Set<String> unuseKeywords = null;
 	
 	public static String getRandomUnuseKeyword() {
-		return RandomUtil.randomSelect(getUnuseKeywords());
+		return (String)RandomUtil.randomSelect(getUnuseKeywords());
 	}
 	
-	public static synchronized Set getUnuseKeywords() {
+	public static synchronized Set<String> getUnuseKeywords() {
 		if(unuseKeywords == null) {
 			unuseKeywords = load();
 		}
