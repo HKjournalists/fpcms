@@ -17,7 +17,7 @@ public class RandomUtil {
 		return random < percent;
 	}
 	
-	public static <T> T randomSelect(T[] array) {
+	public static <T> T randomSelect(T... array) {
 		if(array == null) return null;
 		return array[Math.abs(RandomUtils.nextInt(array.length))];
 	}

@@ -103,6 +103,8 @@ http://www.pc51.com/
 关键字和描述、关键字密度、导航、url地址、网站图片、alt标签、
 网站页脚次导航，网站的更新也是很重要的一方面，包括更新的频率、内容的质量，最后是网站的导入链接、外链建设。
 
+长尾关键字查询: http://tool.chinaz.com/baidu/words.aspx
+
 update cms_channel set level = 0 where channel_code = 'contact'; 
 update cms_channel set level = 50 where channel_code = 'projects'; 
 update cms_channel set level = 100 where channel_code = 'aboutus'; 
