@@ -13,6 +13,7 @@ import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.util.SearchEngineUtil;
+import com.fpcms.common.util.UnuseKeywordsUtil;
 
 /**
  * 生成一个随机文章
@@ -24,19 +25,29 @@ public class RandomArticleBuilder {
 //	private String[] randomConfuseKeywordArray = Constants.FAIPIAO_KEYWORDS;
 	
 	public RandomArticle buildRandomArticle(String city) {
-		Set<String> baiduBuzzs = BaiduTopBuzzUtil.getBaiduBuzzs();
-		Assert.isTrue(!baiduBuzzs.isEmpty()," baiduBuzzs must be not empty");
-		KeywordUtil.filterSensitiveKeyword(baiduBuzzs);
+		String keyword = getRandomMainKeyword();
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(Constants.FAIPIAO_KEYWORDS);
-		String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
-		String finalSearchKeyword = randomBuzz + " " + randomConfuseKeyword  + " " + city + " " + randomMonth();
+		String finalSearchKeyword = keyword + " " + randomConfuseKeyword  + " " + city ; // " " + randomMonth();
 //		String finalSearchKeyword = randomBuzz + confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
 		
 		RandomArticle article = buildBySearchKeyword(city,
-				randomConfuseKeyword, randomBuzz, finalSearchKeyword);
+				randomConfuseKeyword, keyword, finalSearchKeyword);
 		
 		return article;
+	}
+
+
+	static String getRandomMainKeyword() {
+		if(RandomUtil.randomTrue(50)) {
+			Set<String> baiduBuzzs = BaiduTopBuzzUtil.getBaiduBuzzs();
+			Assert.isTrue(!baiduBuzzs.isEmpty()," baiduBuzzs must be not empty");
+			KeywordUtil.filterSensitiveKeyword(baiduBuzzs);
+			String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
+			return randomBuzz;
+		}else {
+			return UnuseKeywordsUtil.getRandomUnuseKeyword();
+		}
 	}
 	
 
@@ -53,17 +64,17 @@ public class RandomArticleBuilder {
 	}
 
 	RandomArticle buildBySearchKeyword(String city,
-			String randomConfuseKeyword, String randomBuzz,
+			String randomConfuseKeyword, String keyword,
 			String finalSearchKeyword) {
 //		int randomPageSize = 20 + RandomUtils.nextInt(50);
 		int randomPageSize = 20 + 15;
 		int randomPageNumber = 1 + RandomUtils.nextInt(5);
 		String result = SearchEngineUtil.sogouSearch(finalSearchKeyword, randomPageSize,randomPageNumber);
 		
-		ArticleContentProcesser articleContentProcesser = new ArticleContentProcesser(randomBuzz);
+		ArticleContentProcesser articleContentProcesser = new ArticleContentProcesser(keyword);
 		articleContentProcesser.buildArticle(result);
 		String transferedArticle = articleContentProcesser.getArticle();
-		RandomArticle article = new RandomArticle(randomBuzz,randomConfuseKeyword,finalSearchKeyword,transferedArticle);
+		RandomArticle article = new RandomArticle(keyword,randomConfuseKeyword,finalSearchKeyword,transferedArticle);
 		article.setPerfectKeyword(StringUtils.defaultString(articleContentProcesser.getPerfectKeyword(),article.getKeyword()));
 		return article;
 	}

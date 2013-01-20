@@ -16,6 +16,17 @@ import com.fpcms.common.util.NetUtil;
 public class RandomArticleBuilderTest extends Assert{
 
 	RandomArticleBuilder b = new RandomArticleBuilder();
+	
+	@Test
+	public void test_getRandomMainKeyword() {
+		RandomArticleBuilder builder = new RandomArticleBuilder();
+		for(int i = 0; i < 100; i++) {
+			String randomMainKeyword = builder.getRandomMainKeyword();
+			assertFalse(randomMainKeyword.isEmpty());
+			assertTrue(randomMainKeyword.length() >= 2);
+		};
+	}
+	
 	@Test
 	public void test() {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
