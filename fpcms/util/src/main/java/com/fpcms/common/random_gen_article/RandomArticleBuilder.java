@@ -52,7 +52,8 @@ public class RandomArticleBuilder {
 	RandomArticle buildBySearchKeyword(String city,
 			String randomConfuseKeyword, String randomBuzz,
 			String finalSearchKeyword) {
-		int randomPageSize = 20 + RandomUtils.nextInt(50);
+//		int randomPageSize = 20 + RandomUtils.nextInt(50);
+		int randomPageSize = 20 + 15;
 		int randomPageNumber = 1 + RandomUtils.nextInt(5);
 		String result = SearchEngineUtil.sogouSearch(finalSearchKeyword, randomPageSize,randomPageNumber);
 		
