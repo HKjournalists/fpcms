@@ -59,7 +59,10 @@ public class RandomArticleBuilderTest extends Assert{
 	public void test_random_month() {
 		for(int i = 0; i < 1000; i++) {
 			String str = b.randomMonth();
-			assertTrue(str.matches("\\d{4}-\\d{2}"));
+			if(str.isEmpty()) {
+				continue;
+			}
+			assertTrue(str.matches("\\d{4}年\\d{1,2}月"));
 			System.out.println(str);
 		}
 	}

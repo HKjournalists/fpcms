@@ -50,7 +50,7 @@ public class RandomArticleBuilder {
 		Date now = new Date();
 		int maxMonth = (int)((now.getTime() - startMonth.getTime())/1000.0/3600/24/30);
 		Date result = DateUtils.addMonths(startMonth, RandomUtils.nextInt(maxMonth));
-		return DateConvertUtils.format(result, "yyyy-MM");
+		return DateConvertUtils.format(result, "yyyy年M月");
 	}
 
 	RandomArticle buildBySearchKeyword(String city,
