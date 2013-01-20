@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fpcms.common.BaseController;
-import com.fpcms.common.util.WebUtil;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsChannelQuery;
 import com.fpcms.service.CmsChannelService;
@@ -82,13 +81,16 @@ public class ContentController extends BaseController{
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;
 		}
+		if(!cmsContent.getSite().equals(getSite())) {
+			String location = "http://"+cmsContent.getSite()+"/content/show/"+contentId+".do";
+			response.addHeader("Location", location);
+			response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+			return null;
+		}
+		
 		model.put("cmsContent", cmsContent);
 		model.put("nextCmsContent", cmsContentService.getNextCmsContent(cmsContent.getSite(),contentId));
 		model.put("preCmsContent", cmsContentService.getPreCmsContent(cmsContent.getSite(),contentId));
-		
-		if(WebUtil.isNotModified(request, response, cmsContent.getDateLastModified())) {
-			return null;
-		}
 		
 		return "/content/show";
 	}

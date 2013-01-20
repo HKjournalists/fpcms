@@ -92,10 +92,6 @@ public class ChannelController extends BaseController{
 		
 		model.put("cmsChannel", cmsChannel);
 		
-		if(WebUtil.isNotModified(request, response, cmsChannel.getDateLastModified())) {
-			return null;
-		}
-		
 		return "/channel/show";
 	}
 	
