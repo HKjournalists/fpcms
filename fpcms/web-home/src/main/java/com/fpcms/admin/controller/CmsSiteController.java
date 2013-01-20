@@ -10,6 +10,8 @@ package com.fpcms.admin.controller;
 import static com.duowan.common.util.ValidationErrorsUtils.convert;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -176,6 +178,18 @@ public class CmsSiteController extends BaseController{
 	@RequestMapping
 	public String showAllSiteLink(ModelMap model) {
 		List<CmsSite> cityList = cmsSiteService.findAll();
+		Collections.sort(cityList,new Comparator<CmsSite>() {
+			@Override
+			public int compare(CmsSite o1, CmsSite o2) {
+				if(o1.getRecordBaidu() > o2.getRecordBaidu()) {
+					return 1;
+				}else if(o1.getRecordBaidu() < o2.getRecordBaidu()) {
+					return -1;
+				}else {
+					return 0;
+				}
+			}
+		});
 		model.put("cityList", cityList);
 		return "/admin/cmssite/showAllSiteLink";
 	}
