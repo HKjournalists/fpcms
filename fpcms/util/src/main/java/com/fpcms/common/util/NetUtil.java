@@ -4,12 +4,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.params.HttpConnectionManagerParams;
+import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.util.StringUtils;
 import org.slf4j.Logger;
@@ -59,10 +66,12 @@ public class NetUtil {
 		logger.info("httpGet:"+finalUrl+" parameters:"+parameters);
 		GetMethod method = new GetMethod(finalUrl);
 		method.setFollowRedirects(true);
-		method.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1");
-		method.setRequestHeader("Accept-Language", "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3");
-		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-//		method.setRequestHeader("Accept-Encoding", "gzip, deflate");
+		
+		setHeaders(method);
+		return executeForString(finalUrl, method);
+	}
+
+	private static String executeForString(String finalUrl, HttpMethodBase method) {
 		try {
 			client.executeMethod(method);
 			String charset = getCharset(method);
@@ -76,7 +85,27 @@ public class NetUtil {
 	}
 
 
-	private static String getCharset(GetMethod method) throws IOException {
+	private static void setHeaders(HttpMethodBase method) {
+		method.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1");
+		method.setRequestHeader("Accept-Language", "zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3");
+		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+	}
+	
+	public static String httpPost(String url, Map<String,Object> parameters) {
+		logger.info("httpPost:"+url);
+		PostMethod method = new PostMethod(url);
+		method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8");  
+		setHeaders(method);
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		for(String key : parameters.keySet()) {
+			String value = String.valueOf(parameters.get(key));
+			params.add(new NameValuePair(key, value));
+		}
+		method.setRequestBody(params.toArray(new NameValuePair[params.size()]));
+		return executeForString(url,method);
+	}
+
+	private static String getCharset(HttpMethodBase method) throws IOException {
 		String charset = RegexUtil.findByRegexGroup(method.getResponseBodyAsString(), "(?s)<meta.*?charset\\s*=\\s*([\\w-]+)", 1);
 		if(StringUtils.hasText(charset)) {
 			return charset;

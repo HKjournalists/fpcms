@@ -54,6 +54,11 @@ public class NetUtilTest {
 	}
 	
 	@Test
+	public void test_httpPost() throws Exception {
+//		NetUtil.httpPost("", parameters)
+	}
+	
+	@Test
 	public void test_csdnLogin() throws Exception {
 		String username = "fpqqchao";
 		String password = "asdf@1234";

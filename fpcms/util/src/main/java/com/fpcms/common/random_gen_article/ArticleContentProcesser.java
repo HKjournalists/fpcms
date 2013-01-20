@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 
 import com.fpcms.common.util.ChineseSegmenterUtil;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
@@ -54,6 +55,7 @@ public class ArticleContentProcesser {
 		
 		article = NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
 		perfectKeyword = getPerfectKeyword(article, keyword);
+//		article = GoogleTranslateUtil.fromEnglish2Chinese(GoogleTranslateUtil.fromChinese2English(article));
 	}
 
 	private void filterByChineseSegment(Set<String> tokens) {

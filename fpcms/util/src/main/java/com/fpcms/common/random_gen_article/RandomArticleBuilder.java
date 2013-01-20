@@ -28,7 +28,7 @@ public class RandomArticleBuilder {
 		String keyword = getRandomMainKeyword();
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(Constants.FAIPIAO_KEYWORDS);
-		String finalSearchKeyword = keyword + " " + randomConfuseKeyword  + " " + city ; // " " + randomMonth();
+		String finalSearchKeyword = keyword + " " + randomConfuseKeyword  + " " + city  + randomMonth();
 //		String finalSearchKeyword = randomBuzz + confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
 		
 		RandomArticle article = buildBySearchKeyword(city,
