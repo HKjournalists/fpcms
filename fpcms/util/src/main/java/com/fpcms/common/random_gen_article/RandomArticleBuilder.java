@@ -42,6 +42,10 @@ public class RandomArticleBuilder {
 	
 
 	String randomMonth() {
+		if(RandomUtil.randomTrue(30)) {
+			return "";
+		}
+		
 		Date startMonth = DateConvertUtils.parse("2006-01", "yyyy-MM");
 		Date now = new Date();
 		int maxMonth = (int)((now.getTime() - startMonth.getTime())/1000.0/3600/24/30);
