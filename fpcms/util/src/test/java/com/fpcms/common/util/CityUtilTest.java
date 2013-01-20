@@ -53,7 +53,8 @@ public class CityUtilTest extends Assert{
 //			String mainDomain = ".fpshijiazhuang.com'";
 			String mainDomain = ".fpzhangsha.com'";
 //			String mainDomain = ".aaafaipiao.com'";
-			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword) VALUES ('"+city.getCityPinyin()+mainDomain+", '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+keyword+"') on duplicate key update site_domain=values(site_domain),site_name=values(site_name),site_desc=values(site_desc),city=values(city),keyword=values(keyword);");
+			String company = city.getCity().charAt(1)+"盛税务咨询公司";
+			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword,company) VALUES ('"+city.getCityPinyin()+mainDomain+", '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+keyword+"', '"+company+"') on duplicate key update site_domain=values(site_domain),site_name=values(site_name),site_desc=values(site_desc),city=values(city),keyword=values(keyword);");
 		}
 	}
 }

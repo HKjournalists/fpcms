@@ -31,7 +31,7 @@ public class RandomArticleBuilder {
 		
 		String randomConfuseKeyword = RandomUtil.randomSelect(randomConfuseKeywordArray);
 		String randomBuzz = RandomUtil.randomSelect(baiduBuzzs);
-		String finalSearchKeyword = randomBuzz + " " + randomConfuseKeyword  + " " + city;
+		String finalSearchKeyword = randomBuzz + " " + randomConfuseKeyword  + " " + city + " " + randomMonth();
 //		String finalSearchKeyword = randomBuzz + confuseKeyword + randomConfuseKeyword + " "+ randomMonth();
 		
 		RandomArticle article = buildBySearchKeyword(city,
@@ -42,11 +42,15 @@ public class RandomArticleBuilder {
 	
 
 	String randomMonth() {
-		Date startMonth = DateConvertUtils.parse("2008-01", "yyyy-MM");
+		if(RandomUtil.randomTrue(30)) {
+			return "";
+		}
+		
+		Date startMonth = DateConvertUtils.parse("2006-01", "yyyy-MM");
 		Date now = new Date();
 		int maxMonth = (int)((now.getTime() - startMonth.getTime())/1000.0/3600/24/30);
 		Date result = DateUtils.addMonths(startMonth, RandomUtils.nextInt(maxMonth));
-		return DateConvertUtils.format(result, "yyyy-MM");
+		return DateConvertUtils.format(result, "yyyy年M月");
 	}
 
 	RandomArticle buildBySearchKeyword(String city,

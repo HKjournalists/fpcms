@@ -158,9 +158,13 @@ public class CmsContentController extends BaseController{
 	@RequestMapping
 	public String genRandomCmsContentBySite(ModelMap model,int count,String site) {
 		for(int i = 0; i < count;i++) {
-			cmsContentService.genSiteRandomCmsContent(site);
+			try {
+				cmsContentService.genSiteRandomCmsContent(site);
+				Flash.current().success("生成"+i+"文章成功for site:"+site);
+			}catch(Exception e) {
+				logger.error("genRandomCmsContentBySite_error,"+e,e);
+			}
 		};
-		Flash.current().success("生成"+count+"文章成功for site:"+site);
 		return "/commons/messages";
 	}
 }
