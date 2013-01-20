@@ -172,5 +172,12 @@ public class CmsSiteController extends BaseController{
 		Flash.current().success(updateSuccess.size()+"个网站有更新搜索引擎排名");
 		return "/commons/messages";
 	}
+	
+	@RequestMapping
+	public String showAllSiteLink(ModelMap model) {
+		List<CmsSite> cityList = cmsSiteService.findAll();
+		model.put("cityList", cityList);
+		return "/admin/cmssite/showAllSiteLink";
+	}
 }
 

@@ -48,11 +48,11 @@ public class CityUtilTest extends Assert{
 		for(City city: CityUtil.getCityList()) {
 			String cityDesc = "rank:"+city.getRank()+" gdp:"+city.getGdp()+" "+city.getProvince();
 //			String keyword = "发票"+city.getCity()+","+city.getCity()+"发票,"+city.getCity()+"代开发票,"+city.getCity()+"开发票,"+city.getCity()+"发票查询";
-			String keyword = city.getCity()+"发票,"+city.getCity()+"代开发票,"+city.getCity()+"开发票";
+			String keyword = city.getCity()+"发票,"+city.getCity()+"代开发票,"+city.getCity()+"开发票,";
 			Thread.sleep(20);
 //			String mainDomain = ".fpshijiazhuang.com'";
-			String mainDomain = ".fpzhangsha.com'";
-//			String mainDomain = ".aaafaipiao.com'";
+//			String mainDomain = ".fpzhangsha.com'";
+			String mainDomain = ".aaafaipiao.com'";
 			String company = city.getCity().charAt(1)+"盛税务咨询公司";
 			System.out.println("INSERT INTO cms_site (site_domain,site_name,site_desc,city,keyword,company) VALUES ('"+city.getCityPinyin()+mainDomain+", '"+city.getCity()+"', '"+cityDesc+"', '"+city.getCity()+"', '"+keyword+"', '"+company+"') on duplicate key update site_domain=values(site_domain),site_name=values(site_name),site_desc=values(site_desc),city=values(city),keyword=values(keyword);");
 		}

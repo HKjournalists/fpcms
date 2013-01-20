@@ -86,6 +86,7 @@
 			<a href="${ctx}/admin/cmssite/initAllSiteDefaultChannels.do">初始化所有网站频道</a>
 			<a href="${ctx}/admin/cmssite/updateSearchEngineRecord.do">更新百度site记录</a>
 			<a href="${ctx}/admin/cmssite/updateSearchEngineKeywordMaxRank.do">更新百度关键字最高排名</a>
+			<a href="${ctx}/admin/cmssite/showAllSiteLink.do">显示所有关键字列表</a>
 		<div>
 	
 	</div>

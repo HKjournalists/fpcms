@@ -6,7 +6,7 @@
 <duowan:override name="head">
 	<title>${fn:replace(keyword,',','_')}-最值得信赖</title>
 	<meta name="keywords" content="${keyword}" />
-	<meta name="description" content="${city}${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}代开发票，代开${city}发票资格的专业税务开票公司,可开${city}材料费发票|住宿费发票|${city}餐饮费发票|${city}酒店发票|广告费发票|等各类${city}开发票项目" />
+	<meta name="description" content="${city}${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}代开发票，代开${city}发票资格的专业税务开票公司,可开${city}材料费发票|住宿费发票|${city}餐饮费发票|${city}酒店发票|广告费发票|等各类${city}|${city}增值税发票开发票项目" />
 	<style type="text/css">
 		a.subject_title :hover{text-decoration:none;color:#FFF;!important}	
 	</style>
