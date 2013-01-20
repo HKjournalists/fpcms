@@ -104,17 +104,17 @@
 				
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
 				<th sortColumn="site_domain" >网站域名</th>
-				<th sortColumn="site_name" >网站名称</th>
+<!--				<th sortColumn="site_name" >网站名称</th>-->
 				<th sortColumn="site_desc" >网站描述</th>
 				<th sortColumn="city" >城市</th>
 				<th sortColumn="record_baidu" title="百度" >site记录数</th>
 				<th sortColumn="rank_baidu" title="百度" >关键字排名</th>
 				<th sortColumn="keyword" >网站关键词</th>
+				<th sortColumn="mobile" >移动电话</th>
 				<!-- 
 				<th sortColumn="remarks" >备注</th>
 				<th sortColumn="company" >公司</th>
 				<th sortColumn="contact_name" >联系人</th>
-				<th sortColumn="mobile" >移动电话</th>
 				<th sortColumn="qq" >QQ</th>
 				<th sortColumn="email" >邮件</th>
 				<th sortColumn="channel_root_id" >频道根目录ID</th>
@@ -131,17 +131,17 @@
 				<td>${page.paginator.startRow + status.index}</td>
 				
 				<td><a href="http://${item.siteDomain}${ctx}" title="预览" target="_blank">${item.siteDomain}</a>&nbsp;</td>
-				<td><c:out value='${item.siteName}'/>&nbsp;</td>
+<!--				<td><c:out value='${item.siteName}'/>&nbsp;</td>-->
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.city}'/>&nbsp;</td>
 				<td><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></td>
 				<td><font color="${item.rankBaidu <=0 ? 'red' : ''}">${item.rankBaidu}</font></td>
 				<td><a href="http://www.baidu.com/s?wd=${item.keyword}" target="_blank">${item.keyword}</a></td>
+				<td><c:out value='${item.mobile}'/>&nbsp;</td>
 				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
 				<td><c:out value='${item.company}'/>&nbsp;</td>
 				<td><c:out value='${item.contactName}'/>&nbsp;</td>
-				<td><c:out value='${item.mobile}'/>&nbsp;</td>
 				<td><c:out value='${item.qq}'/>&nbsp;</td>
 				<td><c:out value='${item.email}'/>&nbsp;</td>
 				 -->
@@ -149,6 +149,7 @@
 					<a href="${ctx}/admin/cmschannel/index.do?site=${item.siteDomain}" target="_blank">管理频道</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmschannel/manageContentList.do?site=${item.siteDomain}">管理文章</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmsproperty/index.do?propGroup=${item.siteDomain}">网站属性</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/cmscontent/genRandomCmsContentBySite.do?site=${item.siteDomain}&count=5" target="_blank">随机生成文章</a>&nbsp;&nbsp;
 					<a href="http://seo.chinaz.com/?host=${item.siteDomain}" target="_blank">SEO综合</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/edit.do?siteDomain=${item.siteDomain}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/delete.do?siteDomain=${item.siteDomain}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>

@@ -151,7 +151,16 @@ public class CmsContentController extends BaseController{
 		for(int i = 0; i < count;i++) {
 			cmsContentService.genRandomCmsContent();
 		};
-		Flash.current().success("生成"+count+"文章成功");
+		Flash.current().success("为所有网站,生成"+count+"文章成功");
+		return "/commons/messages";
+	}
+	
+	@RequestMapping
+	public String genRandomCmsContentBySite(ModelMap model,int count,String site) {
+		for(int i = 0; i < count;i++) {
+			cmsContentService.genSiteRandomCmsContent(site);
+		};
+		Flash.current().success("生成"+count+"文章成功for site:"+site);
 		return "/commons/messages";
 	}
 }

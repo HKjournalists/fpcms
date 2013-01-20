@@ -159,6 +159,12 @@ public class CmsContentServiceImpl implements CmsContentService {
 		}
 	}
 
+	public void genSiteRandomCmsContent(String site) {
+		CmsSite cmsSite = cmsSiteService.getById(site);
+		Assert.notNull(cmsSite,"not found cmsSite by site:"+site);
+		genSiteRandomCmsContent(cmsSite.getSiteDomain(),cmsSite.getCity());
+	}
+	
 	private void genSiteRandomCmsContent(String site,String city) {
 		RandomArticleBuilder builder = new RandomArticleBuilder();
 		

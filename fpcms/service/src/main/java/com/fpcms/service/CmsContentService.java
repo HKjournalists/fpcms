@@ -63,4 +63,8 @@ public interface CmsContentService {
      * 随机生成文章
      */
     public void genRandomCmsContent();
+    /**
+     * 根据site随机生成文章
+     */
+    public void genSiteRandomCmsContent(String site);
 }
