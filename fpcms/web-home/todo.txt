@@ -70,6 +70,8 @@ select t.title from (
 
 45 增加Rich snippets  https://support.google.com/webmasters/bin/answer.py?hl=en&answer=99170
 
+日志统计通过nginx log: cat /data/log/nginx/access.log | grep Baidu | grep aaafaipiao.com | awk '{print $8}' | sort | uniq -c  
+
 # 41.文书域名迁移
 42. 搜索老文章： 2004年的文章，用于SEO
 43. 原创度过高也是有问题的

@@ -25,6 +25,9 @@
 	<div>
 		<dl class="class_list">
 			<dt>
+				<a><span>增值发票</span></a>
+			</dt>
+			<dt>
 				<a><span>餐饮发票</span></a>
 			</dt>
 			<dt>
