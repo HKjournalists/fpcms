@@ -60,9 +60,9 @@ public class ArticleContentProcesser {
 		article = NaipanArticleGeneratorUtil.transformArticle(toHtmlFormat(translatedTokens));
 		
 		perfectKeyword = getPerfectKeyword(article, keyword);
-		if(StringUtils.isBlank(perfectKeyword)) {
-			perfectKeyword = getPerfectKeyword(StringUtils.join(tokens,","), keyword);
-		}
+//		if(StringUtils.isBlank(perfectKeyword)) {
+//			perfectKeyword = getPerfectKeyword(StringUtils.join(tokens,","), keyword);
+//		}
 //		article = GoogleTranslateUtil.fromEnglish2Chinese(GoogleTranslateUtil.fromChinese2English(article));
 	}
 
