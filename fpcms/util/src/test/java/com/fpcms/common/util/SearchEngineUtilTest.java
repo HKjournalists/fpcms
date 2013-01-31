@@ -11,13 +11,18 @@ public class SearchEngineUtilTest extends Assert{
 		for(int i = 0; i < 1; i++) {
 			int rank = SearchEngineUtil.baiduKeywordRank("唐山代开发票", "www.aaafaipiao.com");
 			assertTrue(rank > 0);
-			assertEquals(rank,11);
 			System.out.println(rank);
 		}
 		
 		int rank = SearchEngineUtil.baiduKeywordRank("安徽开发票", "www.aaafaipiao.com");
 		assertTrue(rank <= 0);
 		
+	}
+
+	@Test
+	public void test_googleSearch() {
+		String string = SearchEngineUtil.googleSearch("中央银行",100,1);
+		System.out.println("googleSearch:"+string);
 	}
 	
 	@Test
@@ -53,6 +58,10 @@ public class SearchEngineUtilTest extends Assert{
 		int baiduRecentlySiteCount = SearchEngineUtil.baiduRecentlySiteCount("aaafaipiao.com");
 		System.out.println("baiduSiteCount:"+baiduRecentlySiteCount);
 		assertTrue(baiduRecentlySiteCount > 0);
+		
+		count = SearchEngineUtil.baiduSiteCount("news.163.com");
+		System.out.println("baiduSiteCount:"+count);
+		assertTrue(count > 1000000);
 	}
 	
 }

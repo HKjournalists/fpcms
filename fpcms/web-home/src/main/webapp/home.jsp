@@ -6,7 +6,7 @@
 <duowan:override name="head">
 	<title>${fn:replace(keyword,',','_')}-最值得信赖</title>
 	<meta name="keywords" content="${keyword}" />
-	<meta name="description" content="${city}${company}代理有限公司于2005年挂牌成立,是经政府批准的具有${city}代开发票，代开${city}发票资格的专业税务开票公司,可开${city}材料费发票|住宿费发票|${city}餐饮费发票|${city}酒店发票|广告费发票|等各类${city}|${city}增值税发票开发票项目" />
+	<meta name="description" content="${home.metaDescription}" />
 	<style type="text/css">
 		a.subject_title :hover{text-decoration:none;color:#FFF;!important}	
 	</style>
@@ -25,7 +25,7 @@
 	<div>
 		<dl class="class_list">
 			<dt>
-				<a><span>增值发票</span></a>
+				<a><span>增值专用发票</span></a>
 			</dt>
 			<dt>
 				<a><span>餐饮发票</span></a>
@@ -43,7 +43,7 @@
 				<a><span>会议费发票</span></a>
 			</dt>
 			<dt>
-				<a><span>代开其他各类发票</span></a>
+				<a><span>提供其他各类发票</span></a>
 			</dt>
 		</dl>
 	</div>
@@ -51,13 +51,13 @@
 </div>
 <div class="border mt10">
 	<div class="subject_bg">
-		<div class="subject_title"><a href="${ctx}/channel/show/news.do">热门新闻</a></div>
+		<div class="subject_title"><a href="${ctx}/news.do">热门新闻</a></div>
 	</div>
 	<div class="m10">
 		<dl class="all_list">
 			<c:forEach	items="${hot_news}" var="item">
 				<dt>
-					<a href="${ctx}/content/show/${item.id}.do" style="font-weight: bold;">${item.title}</a>
+					<a href="${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" style="font-weight: bold;">${item.title}</a>
 				</dt>
 			</c:forEach>
 		</dl>
@@ -78,6 +78,20 @@
 	tmplWithSiteProperty("template_home_contact","${ctx}","${requestHost}");
 	</script>
 </div>
+<div class="border ">
+	<div class="subject_bg">
+		<div class="subject_title">子站</div>
+	</div>
+	<div class="m10">
+		<dl class="all_list">
+			<c:forEach	items="${subSiteList}" var="item">
+				<dt>
+					<a href="http://${item.siteDomain}${ctx}">${fn:split(item.keyword,",")[0]}</a>
+				</dt>
+			</c:forEach>
+		</dl>
+	</div>
+</div>
 </duowan:override>
 
 			
@@ -97,25 +111,22 @@
 	<div>
 		<div class="neirong">
 			<c:forEach items="${newsPage.itemList}" var="item" varStatus="i">
-				<h1 class="list_title"><a href="${ctx}/content/show/${item.id}.do" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></h1>
-				<div class="list_jj">${ fn:substring(item.content,0,45)}  </div>
+				<div class="list_title"><a href="${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></div>
+				<div class="list_jj"><c:out value="${fn:substring(item.metaDescription,0,45)}"/>  </div>
 				
-				<div class="list_other">标签:${item.tags} 作者：<span>${item.author }</span> 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd"/></span></div>
+				<div class="list_other">标签:${item.tags} 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd HH:00:00"/></span></div>
 			</c:forEach>
 			
 			<!-- page slider START -->
-			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/1.do">第一页</a> | 
-			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.prePage}.do">上一页</a> | 
+			<a href="${ctx}/<%=Constants.CHANNED_CODE_NEWS%>/1.do">第一页</a> | 
+			<a href="${ctx}/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.prePage}.do">上一页</a> | 
 			<c:forEach items="${newsPage.paginator.slider}" var="item">
-				<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${item}.do">${item}</a> | 
+				<a href="${ctx}/<%=Constants.CHANNED_CODE_NEWS%>/${item}.do">${item}</a> | 
 			</c:forEach>
-			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.nextPage}.do">下一页</a>
-			<a href="${ctx}/channel/showContentList/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.totalPages}.do">最后页</a>
+			<a href="${ctx}/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.nextPage}.do">下一页</a>
+			<a href="${ctx}/<%=Constants.CHANNED_CODE_NEWS%>/${newsPage.paginator.totalPages}.do">最后页</a>
 			<!-- page slider END -->
 			
-			<p>
-			${company}<span>${city}代开发票</span>是你最好的朋友.<span>${city}开发票</span>可以进行验证.${city}发票公司常伴你左右,请保留联系方式.需要时随时可以找到<span>${city}代开发票</span>.
-			</p>
 		</div>
 	</div>
 	
@@ -153,15 +164,6 @@
 					商品发票
 				</font>
 			</div>
-			<!-- 
-			<div style="float: none;">
-				<img src="${ctx}/images/faipiao/1335531696.jpg" />
-				<font align="center">
-					服务业发票
-				</font>
-			</div>
-			 -->
-			
 		</div>
 	</div>
 
@@ -171,50 +173,10 @@
 <duowan:override name="foot">
 		<script type="text/javascript">
 			$('.news_anchor').click(function() {
-				//var url = 'http://www.baidu.com/s?wd='+this.title+" "+'${keyword}';
-				//window.open(url);
-				//location=url;
 				return false;
 			});
 		</script>
 </duowan:override>
-
-<duowan:override name="not_exist_foot">
-
-<div>
-	<div style="" id="hiddenNews" >
-		<h1><a href="${ctx}/channel/show/news.do" style="font-size: 18pt;"><b>热门新闻</b></h1>
-		<c:forEach items="${newsPage.itemList}" var="item" varStatus="index">
-			<b style="font-size: 15pt;"><a href="${ctx}/content/show/${item.id}.do" title="${item.title}">${index.index+1}:${item.title}</a></b>
-		</c:forEach>
-	</div>
-	<div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				var hiddenDivFun = function() {
-					var offsetTop = $('#hiddenNews').offset().top;
-					var offsetLeft = $('#hiddenNews').offset().left;
-					var width = $('#hiddenNews').width();
-					var height = $('#hiddenNews').height();
-					if($.browser.chrome){
-						$('#forInsertHiddenDiv').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
-						$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
-					}else {
-						$('#hiddenNews').append("<div style='position: absolute; background:#FFF; display: block; ' id='hiddenDiv' ondblclick=\"this.style.display='none'\" ></div>")
-						$('#hiddenDiv').offset({ top: offsetTop, left: offsetLeft });
-					}
-					$('#hiddenDiv').height(height);
-					$('#hiddenDiv').width(width);
-				};
-				hiddenDivFun();
-				//alert(width+" top:"+offsetTop + " hiddenDiv:"+$('#hiddenDiv').offset().top+","+$('#hiddenDiv').offset().left);
-			});
-		</script>
-	</div>
-</div>
-	
-</duowan:override>
-
 
 <%-- jsp模板继承,具体使用请查看: http://code.google.com/p/rapid-framework/wiki/rapid_jsp_extends --%>
 <jsp:include page="/layout.do"></jsp:include>

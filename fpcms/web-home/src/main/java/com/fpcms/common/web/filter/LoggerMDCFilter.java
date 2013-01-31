@@ -19,6 +19,7 @@ import com.duowan.common.util.LogTraceUtils;
 import com.duowan.common.util.Profiler;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.IpUtil;
+import com.fpcms.common.util.SpiderUtil;
 
 /**
  * 存放在MDC中的数据，log4j可以直接引用并作为日志信息打印出来.
@@ -34,11 +35,11 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
     protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response, FilterChain chain)throws ServletException,IOException {
         try {
             //示例为一个固定的登陆用户,请直接修改代码
-        	if(isSpider(request)) {
-        		MDC.put("loginUserId", "spider");
+        	if(SpiderUtil.isSpider(request)) {
+        		MDC.put("loginUserId",  SpiderUtil.getSpiderName(request.getHeader("User-Agent")));
         	}
             
-            MDC.put("req.requestURI", StringUtils.defaultString(request.getRequestURI()));
+            MDC.put("req.requestURI", StringUtils.defaultString(request.getRequestURL().toString()));
             MDC.put("req.queryString", StringUtils.defaultString(request.getQueryString()));
             MDC.put("req.requestURIWithQueryString", request.getRequestURI() + (request.getQueryString() == null ? "" : "?"+request.getQueryString()));
             String clientIp = IpUtil.getIpAddr(request);
@@ -60,16 +61,13 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
     }
 
 	private void logSpiderUserAgent(HttpServletRequest request, String clientIp) {
-		if(isSpider(request)) {
+		if(SpiderUtil.isSpider(request)) {
 			String userAgent = request.getHeader("User-Agent");
-			Constants.LOGGER_SPIDER.info(request.getRequestURL()+"\t"+clientIp+"\tspider:"+userAgent+"\t");
+			String spiderName = SpiderUtil.getSpiderName(userAgent);
+			Constants.LOGGER_SPIDER.info(request.getRequestURL()+"\t"+clientIp+"\t"+spiderName+"\t");
 		}
 	}
 
-	private static boolean isSpider(HttpServletRequest request) {
-		String userAgent = request.getHeader("User-Agent");
-		return StringUtils.isNotBlank(userAgent) && (userAgent.toLowerCase().contains("spider") || userAgent.toLowerCase().contains("bot"));
-	}
 
     private static void clearMDC() {
         Map map = MDC.getContext();

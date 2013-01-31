@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/commons/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<span id="forInsertHiddenDiv"></span>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
@@ -43,7 +42,7 @@
 			</div>
 		</div>
 		<div id="top_other">
-			<b><a href="javascript:addFavorite('${company}-代开发票','${keyword}');">加入收藏夹</a></b>
+			<b><a href="javascript:addFavorite('${company}-发票','${keyword}');">加入收藏夹</a></b>
 		</div>
 		</div>
 	</div>
@@ -59,7 +58,7 @@
 				
 				<c:forEach	items="${nav}" var="item">
 				<li>
-					<a href="${ctx}/channel/show/${item.channelCode}.do"><span>${item.channelName}</span></a>
+					<a href="${ctx}/${item.channelCode}.do"><span>${item.channelName}</span></a>
 				</li>
 				<li class="m"></li>
 				</c:forEach>
@@ -128,7 +127,7 @@
 		<img src="${ctx}/images/kefu.jpg"/>
 		
 		<div style="float: right; margin-top: 70px; margin-right: 30px">
-		<b>咨询代开发票相关业务</b>
+		<b>咨询购买<font color="red">发票</font>相关业务</b>
 		<br/>
 		<br/>
 		<br/>
@@ -162,13 +161,7 @@
 				return;
 			}
 
-			
-			/*
-			var answer = confirm('是否通过QQ客服咨询"代开发票"相关事项?');
-			if (answer){
-				open("http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes");
-			}
-			*/
+
 		}
 
 		setTimeout(openKefuDialog,3000);

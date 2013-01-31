@@ -8,13 +8,16 @@ package com.fpcms.model;
 
 import static com.duowan.common.util.DateFormats.DATE_FORMAT;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.fpcms.common.util.FreemarkerUtil;
+import com.fpcms.common.util.ChineseSegmenterUtil;
+import com.fpcms.common.util.KeywordUtil;
+import com.fpcms.common.util.StringHelper;
 
 
 /**
@@ -93,8 +96,9 @@ public class CmsContent  implements java.io.Serializable{
 	@Length(max=50) @NotBlank
 	private java.lang.String site;
 	
-	
 	private Long level;
+	
+	private String searchKeyword;
 	//columns END
 
 	public CmsContent(){
@@ -119,7 +123,7 @@ public class CmsContent  implements java.io.Serializable{
 	}
 	
 	public void setChannelCode(java.lang.String value) {
-		this.channelCode = value;
+		this.channelCode = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getTags() {
@@ -135,7 +139,7 @@ public class CmsContent  implements java.io.Serializable{
 	}
 	
 	public void setHeadTitle(java.lang.String value) {
-		this.headTitle = value;
+		this.headTitle = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getTitle() {
@@ -143,7 +147,18 @@ public class CmsContent  implements java.io.Serializable{
 	}
 	
 	public void setTitle(java.lang.String value) {
-		this.title = value;
+		this.title = StringUtils.trim(value);
+	}
+	
+	public String getKeyword() {
+		if(StringUtils.isBlank(title)) {
+			return null;
+		}
+		return StringUtils.join(ChineseSegmenterUtil.getMinLengthKeywords(title, 3, true),",");
+	}
+	
+	public String getMetaDescription() {
+		return StringHelper.getMetaDescription(getContent());
 	}
 	
 	public java.lang.String getContent() {
@@ -183,7 +198,7 @@ public class CmsContent  implements java.io.Serializable{
 	}
 	
 	public void setSite(java.lang.String value) {
-		this.site = value;
+		this.site = StringUtils.trim(value);
 	}
 	
 	public Long getLevel() {
@@ -192,6 +207,14 @@ public class CmsContent  implements java.io.Serializable{
 
 	public void setLevel(Long level) {
 		this.level = level;
+	}
+	
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
 	}
 
 	public String toString() {

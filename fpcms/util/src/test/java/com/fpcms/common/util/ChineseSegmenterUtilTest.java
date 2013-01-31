@@ -19,6 +19,17 @@ import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
 public class ChineseSegmenterUtilTest extends Assert {
 	
 	@Test
+	public void test_getMinLengthKeywords() {
+		List<String> keywords = ChineseSegmenterUtil.getMinLengthKeywords("中国人民银行是个好银行", 2, false);
+		assertEquals(keywords.toString(),"[人民, 国人, 中国人民银行, 中国人, 人民银行, 中国人民, 银行, 中国]");
+		
+		keywords = ChineseSegmenterUtil.getMinLengthKeywords("中国人民银行是个好银行", 2, true);
+		assertEquals(keywords.toString(),"[中国人民银行, 银行]");
+		
+		keywords = ChineseSegmenterUtil.getMinLengthKeywords("中国人民银行是个好银行", 1, true);
+		assertEquals(keywords.toString(),"[个, 中国人民银行, 是, 银行, 好]");
+	}
+	@Test
 	public void test_163_sina_qq_news() throws IOException {
 		String content = NetUtil.httpGet("http://news.163.com");
 		content += NetUtil.httpGet("http://news.sina.com.cn");

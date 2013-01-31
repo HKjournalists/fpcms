@@ -11,13 +11,13 @@ import static com.duowan.common.util.ValidationErrorsUtils.convert;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
+import org.apache.commons.beanutils.BeanComparator;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -79,6 +79,8 @@ public class CmsSiteController extends BaseController{
 	@RequestMapping()
 	public String index(ModelMap model,CmsSiteQuery query,HttpServletRequest request) {
 		Flash.current().put(queryString, getRequest().getQueryString());
+		query.setPageSize(Math.max(100, query.getPageSize()));
+		
 		Page<CmsSite> page = this.cmsSiteService.findPage(query);
 		
 		model.addAllAttributes(toModelMap(page, query));
@@ -176,20 +178,16 @@ public class CmsSiteController extends BaseController{
 	}
 	
 	@RequestMapping
+	public String updateHttpStatus() {
+		cmsSiteService.updateHttpStatus();
+		Flash.current().success("更新所有网站http状态成功");
+		return LIST_ACTION;
+	}
+	
+	@RequestMapping
 	public String showAllSiteLink(ModelMap model) {
 		List<CmsSite> cityList = cmsSiteService.findAll();
-		Collections.sort(cityList,new Comparator<CmsSite>() {
-			@Override
-			public int compare(CmsSite o1, CmsSite o2) {
-				if(o1.getRecordBaidu() > o2.getRecordBaidu()) {
-					return 1;
-				}else if(o1.getRecordBaidu() < o2.getRecordBaidu()) {
-					return -1;
-				}else {
-					return 0;
-				}
-			}
-		});
+		Collections.sort(cityList,new BeanComparator("recordBaidu"));
 		model.put("cityList", cityList);
 		return "/admin/cmssite/showAllSiteLink";
 	}

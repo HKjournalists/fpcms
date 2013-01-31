@@ -7,17 +7,19 @@
 
 package com.fpcms.service.impl;
 
-import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.fpcms.CmsSiteDataFactory;
 import com.fpcms.common.base.BaseServiceTestCase;
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.dao.CmsSiteDao;
 import com.fpcms.model.CmsSite;
 
@@ -72,15 +74,49 @@ public class CmsSiteServiceImplTest extends BaseServiceTestCase{
 		assertNotNull(cmsSite);
 	}
 	
+	@Test
+	public void test_updateSearchEngineKeywordMaxRank() {
+		List<CmsSite> returnList = getTestCmsSiteList();
+		when(cmsSiteDao.findAll()).thenReturn(returnList); // mock方法调用
+		
+		List<CmsSite> list = service.updateSearchEngineKeywordMaxRank();
+		assertEquals(list.get(0).getRankBaidu(),1);
+		
+		verify(cmsSiteDao).findAll(); //验证执行了该语句
+		verify(cmsSiteDao,atLeast(2)).update(any(CmsSite.class)); //验证执行了该语句
+	}
+
+	private List<CmsSite> getTestCmsSiteList() {
+		List<CmsSite> returnList = new ArrayList();
+		CmsSite cmsSite = CmsSiteDataFactory.newCmsSite();
+		cmsSite.setSiteDomain("news.163.com");
+		cmsSite.setKeyword("网易新闻");
+		cmsSite.setRecordBaidu(20);
+		cmsSite.setRankBaidu(20);
+		returnList.add(cmsSite);
+		
+		cmsSite = CmsSiteDataFactory.newCmsSite();
+		cmsSite.setSiteDomain("news.qq.com");
+		cmsSite.setKeyword("腾讯新闻");
+		cmsSite.setRecordBaidu(10);
+		cmsSite.setRankBaidu(10);
+		returnList.add(cmsSite);
+		
+		return returnList;
+	}
 	
 	@Test
-	public void test_getMaxRank() {
-		CmsSite cmsSite = new CmsSite();
-		cmsSite.setSiteDomain("www.aaafaipiao.com");
-		cmsSite.setKeyword("唐山开发票,唐山代开发票,唐山发票");
-		int rank = service.getMaxRank(cmsSite);
-		assertEquals(rank,11);
+	public void test_updateSearchEngineRecord() {
+		List<CmsSite> returnList = getTestCmsSiteList();
+		when(cmsSiteDao.findAll()).thenReturn(returnList); // mock方法调用
+		
+		List<CmsSite> list = service.updateSearchEngineRecord();
+		assertTrue(list.get(0).getRecordBaidu()> 100000);
+		
+		verify(cmsSiteDao).findAll(); //验证执行了该语句
+		verify(cmsSiteDao,atLeast(2)).update(any(CmsSite.class)); //验证执行了该语句
 	}
+	
 	
 }
 

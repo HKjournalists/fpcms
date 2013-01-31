@@ -35,12 +35,19 @@ public interface CmsContentDao {
 	
 	public Page<CmsContent> findPage(CmsContentQuery query);
 
-	public CmsContent getNextCmsContent(String site,long id);
+	public CmsContent getNextCmsContent(Date dateCreated,String site,long id);
 
-	public CmsContent getPreCmsContent(String site,long id);
+	public CmsContent getPreCmsContent(Date dateCreated,String site,long id);
 
 	public int countByTitle(Date start, Date end, String title);
 
-	public Page<CmsContent> findPage(PageQuery pageQuery, String site,String channelCode, DateRange createdRange);	
+	public int countBySearchKeyword(Date start, Date end, String searchKeyword);
+	
+	public Page<CmsContent> findPage(PageQuery pageQuery, String site,String channelCode, DateRange createdRange);
+
+	public CmsContent getById(Date dateCreated, long id);
+
+	public CmsContent findLastBySite(String site);
+
 	
 }

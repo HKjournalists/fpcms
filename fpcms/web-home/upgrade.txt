@@ -1,0 +1,3 @@
+v.20130121
+	1. cms_site增加三个字段: props,redirect_site,daily_gen_content_count;
+	

@@ -1,6 +1,7 @@
 package com.fpcms.common.random_gen_article;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -10,15 +11,14 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.util.Assert;
 
 import com.fpcms.common.util.ChineseSegmenterUtil;
+import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
-import com.fpcms.common.util.ChineseSegmenterUtil.TokenCount;
 
 /**
  * 对文件进行:过滤,替换,分段落,增加<h1>标题等操作,然后生成随机文章. 
@@ -47,14 +47,22 @@ public class ArticleContentProcesser {
 
 	private long pCount = 0;
 	public void buildArticle(String content) {
+		Assert.hasText(content,"content must be not empty");
 		Set<String> tokens = getValidTokens(content);
 		
 //		filterByChineseSegment(tokens);
 		
 		KeywordUtil.filterSensitiveKeyword(tokens);
 		
-		article = NaipanArticleGeneratorUtil.transformArticle(toString(tokens));
+		String translatedTokensString = GoogleTranslateUtil.fromEnglish2Chinese(GoogleTranslateUtil.fromChinese2English(StringUtils.join(tokens,",")));
+//		System.out.println("translatedTokensString:"+translatedTokensString);
+		Collection<String> translatedTokens = getValidTokens(translatedTokensString);
+		article = NaipanArticleGeneratorUtil.transformArticle(toHtmlFormat(translatedTokens));
+		
 		perfectKeyword = getPerfectKeyword(article, keyword);
+		if(StringUtils.isBlank(perfectKeyword)) {
+			perfectKeyword = getPerfectKeyword(StringUtils.join(tokens,","), keyword);
+		}
 //		article = GoogleTranslateUtil.fromEnglish2Chinese(GoogleTranslateUtil.fromChinese2English(article));
 	}
 
@@ -96,7 +104,8 @@ public class ArticleContentProcesser {
 		System.out.println();
 	}
 
-	private String toString(Set<String> tokens) {
+	
+	private String toHtmlFormat(Collection<String> tokens) {
 		StringBuilder result = new StringBuilder();
 		for(String token : tokens) {
 			if(pCount % 30 == 0) {
@@ -107,7 +116,7 @@ public class ArticleContentProcesser {
 				result.append("<h3>");
 			}
 			
-			result.append(token).append(getSymbol(token));
+			result.append(token).append(KeywordUtil.getSymbol(token));
 			
 			if(strongToken) {
 				result.append("</h3>");
@@ -120,7 +129,16 @@ public class ArticleContentProcesser {
 		return result.toString();
 	}
 	
+	int strongCount = 0;
 	private boolean isStrongToken(String token) {
+		if(isStrongToken0(token) && strongCount <= 5) {
+			strongCount++;
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean isStrongToken0(String token) {
 		Assert.notNull(token,"token must be not null");
 		for(String strong : Constants.FAIPIAO_KEYWORDS) {
 			if(token.indexOf(strong) >= 0) {
@@ -134,26 +152,10 @@ public class ArticleContentProcesser {
 	}
 
 	
-	String[] a = {"啊","呀","嗯","啦","哪","吧"};
-	String[] question = {"吗"};
-	String[] symbols = {",",".","!",";"};
-	private Object getSymbol(String token) {
-		
-		for(String item : a) {
-			if(token.endsWith(item)) {
-				return "!";
-			}
-		}
-		for(String item : question) {
-			if(token.endsWith(item)) {
-				return "?";
-			}
-		}
-		
-		return RandomUtil.randomSelect(symbols);
-	}
-
 	Set<String> getValidTokens(String string) {
+		string = removeSearchEngineEmphasizeHtmlTag(string);
+		
+		
 		Set<String> tokens = new HashSet<String>();
 		StringTokenizer tokenizer = new StringTokenizer(string,KeywordUtil.DELIMITERS);
 		while(tokenizer.hasMoreElements()) {
@@ -164,9 +166,26 @@ public class ArticleContentProcesser {
 		}
 		return tokens;
 	}
-
-	boolean isValidToken(String token) {
-		if(token.length() < 8) {
+	
+	/**
+	 * 删除搜索引擎对关键字的<em>关键字</em> 标记
+	 * @param string
+	 * @return
+	 */
+	private String removeSearchEngineEmphasizeHtmlTag(String string) {
+		//sogou
+		string = StringUtils.remove(string,"<em><!--red_beg-->");
+		string = StringUtils.remove(string,"<!--red_end--></em>");
+		
+		//google and baidu
+		string = StringUtils.remove(string,"<em>");
+		string = StringUtils.remove(string,"</em>");
+		return string;
+	}
+	
+	static String[] ignoreWords = {"搜狗","开","相关搜索","搜索","网页快照","类似结果"}; 
+	static boolean isValidToken(String token) {
+		if(token.length() <= 6) {
 			return false;
 		}
 		
@@ -176,8 +195,16 @@ public class ArticleContentProcesser {
 		if(token.matches("\\d+")) {
 			return false;
 		}
-		if(token.contains("搜狗")) {
+		if(token.matches("\\d{4}年\\d{1,2}月\\d{1,2}日")) {
 			return false;
+		}
+		if(token.matches("\\d{4}年\\d{1,2}月")) {
+			return false;
+		}
+		for(String ignoreWord : ignoreWords) {
+			if(token.contains(ignoreWord)) {
+				return false;
+			}
 		}
 		
 		for(int i = 0; i < token.length(); i++) {
@@ -195,15 +222,21 @@ public class ArticleContentProcesser {
 	
 	private String getPerfectKeyword(String transferedArticle, String keyword) {
 		String perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,keyword);
-		if(StringUtils.isBlank(perfectKeyword)) {
-			for(String faipiao : Constants.FAIPIAO_KEYWORDS) {
-				perfectKeyword = KeywordUtil.getPerfectKeyword(transferedArticle,faipiao);
-				if(StringUtils.isNotBlank(perfectKeyword)) {
-					return perfectKeyword;
-				}
-			}
-		}
 		return perfectKeyword;
+		
+//		String result = null;
+//		if(StringUtils.isBlank(result)) {
+//			for(String faipiao : Constants.FAIPIAO_KEYWORDS) {
+//				result = KeywordUtil.getPerfectKeyword(transferedArticle,faipiao);
+//				if(StringUtils.isNotBlank(result)) {
+//					if(result.matches(".*\\d{4}.*")) {
+//						continue;
+//					}
+//					return result;
+//				}
+//			}
+//		}
+//		return result;
 	}
 	
 }

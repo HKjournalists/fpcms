@@ -6,12 +6,15 @@
 
 package com.fpcms.model;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import com.fpcms.common.util.HttpStatusCheckUtil;
 
 
 /**
@@ -23,6 +26,8 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class CmsSite  implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
+	
+	
 	
 	//date formats
 	
@@ -133,6 +138,29 @@ public class CmsSite  implements java.io.Serializable{
 	 * 百度关键词排名
 	 */
 	private int rankBaidu;
+	/**
+	 * 重定向的site
+	 */
+	private String redirectSite;
+	
+	/**
+	 * 每日生成的文章数量
+	 */
+	private int dailyGenContentCount;
+	
+	/**
+	 * 扩展属性:key_value字段
+	 */
+	private String props;
+	/**
+	 * IP地址
+	 */
+	private String ip;
+	
+	/**
+	 * http状态
+	 */
+	private String httpStatus;
 	
 	public CmsSite(){
 	}
@@ -148,7 +176,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setSiteDomain(java.lang.String value) {
-		this.siteDomain = value;
+		this.siteDomain = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getSiteName() {
@@ -156,7 +184,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setSiteName(java.lang.String value) {
-		this.siteName = value;
+		this.siteName = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getSiteDesc() {
@@ -172,7 +200,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setCity(java.lang.String value) {
-		this.city = value;
+		this.city = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getKeyword() {
@@ -180,7 +208,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setKeyword(java.lang.String value) {
-		this.keyword = value;
+		this.keyword = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getRemarks() {
@@ -196,7 +224,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setCompany(java.lang.String value) {
-		this.company = value;
+		this.company = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getContactName() {
@@ -212,7 +240,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setMobile(java.lang.String value) {
-		this.mobile = value;
+		this.mobile = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getQq() {
@@ -220,7 +248,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setQq(java.lang.String value) {
-		this.qq = value;
+		this.qq = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getEmail() {
@@ -228,7 +256,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 	
 	public void setEmail(java.lang.String value) {
-		this.email = value;
+		this.email = StringUtils.trim(value);
 	}
 	
 	public java.util.Date getDateCreated() {
@@ -301,6 +329,50 @@ public class CmsSite  implements java.io.Serializable{
 
 	public void setRankBaidu(int rankBaidu) {
 		this.rankBaidu = rankBaidu;
+	}
+	
+	public String getRedirectSite() {
+		return redirectSite;
+	}
+
+	public void setRedirectSite(String redirectSite) {
+		this.redirectSite = StringUtils.trim(redirectSite);
+	}
+
+	public int getDailyGenContentCount() {
+		return dailyGenContentCount;
+	}
+
+	public void setDailyGenContentCount(int dailyGenContentCount) {
+		this.dailyGenContentCount = dailyGenContentCount;
+	}
+
+	public String getProps() {
+		return props;
+	}
+
+	public void setProps(String props) {
+		this.props = props;
+	}
+	
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getHttpStatus() {
+		return httpStatus;
+	}
+
+	public void setHttpStatus(String httpStatus) {
+		this.httpStatus = httpStatus;
+	}
+
+	public boolean isHttpSuccess() {
+		return HttpStatusCheckUtil.isHttpSuccess(httpStatus);
 	}
 
 	public String toString() {

@@ -30,12 +30,10 @@ public class UnuseKeywordsUtil {
 	public static Set<String> load() {
 		String resourceName = "/unuse_keywords.txt";
 		try {
-			Set unuseKeywords = new HashSet();
-			InputStream input = UnuseKeywordsUtil.class.getResourceAsStream(resourceName);
-			List<String> lines = IOUtils.readLines(input, "UTF-8");
-			KeywordUtil.filterSensitiveKeyword(lines);
-			unuseKeywords.addAll(lines);
-			return unuseKeywords;
+			Set unuseKeywordSet = KeywordUtil.readKeywords(resourceName);
+			KeywordUtil.filterSensitiveKeyword(unuseKeywordSet);
+			KeywordUtil.filterNonNameKeyword(unuseKeywordSet);
+			return unuseKeywordSet;
 		}catch(Exception e) {
 			throw new RuntimeException("error on getResourceAsStream:"+resourceName,e);
 		}

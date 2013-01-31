@@ -5,7 +5,7 @@
 <duowan:override name="head">
 	<title>${cmsContent.title}</title>
 	<meta name="keywords" content="${cmsContent.title}" />
-	<meta name="description" content="${cmsContent.title},${fn:substring(cmsContent.content,0,80)}" /> 
+	<meta name="description" content="${cmsContent.metaDescription}" /> 
 </duowan:override>
 
 <duowan:override name="content">
@@ -14,12 +14,18 @@
 			<h1>${cmsContent.title}</h1>
 			${cmsContent.content}
 			<br />
-			<span>创建时间:<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyy-MM-dd"/></span>
-			<div><h3>上一篇:<a href="${ctx}/content/show/${preCmsContent.id}.do">${preCmsContent.title}</a><br />下一篇:<a href="${ctx}/content/show/${nextCmsContent.id}.do">${nextCmsContent.title}</a></h3></div>
+			<span>创建时间:<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyy-MM-dd HH:mm"/></span>
+			<div>
+			<h3>
+			<c:if test="${preCmsContent != null}">上一篇:<a href="${ctx}/content/<fmt:formatDate value="${preCmsContent.dateCreated}" pattern="yyyyMMdd"/>/${preCmsContent.id}.do">${preCmsContent.title}</a><br /></c:if>
+			<c:if test="${nextCmsContent != null}">下一篇:<a href="${ctx}/content/<fmt:formatDate value="${nextCmsContent.dateCreated}" pattern="yyyyMMdd"/>/${nextCmsContent.id}.do">${nextCmsContent.title}</a></c:if>
+			</h3>
+			</div>
 		</div>
+		
+		<% /*
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script type="text/javascript">
-		
 		$(document).ready(function(){
 			var globalImgUrls;
 			var request = $.ajax({url:"${ctx}/rpc/ImageWebService/getFemailImageList",dataType:"json"});
@@ -68,6 +74,8 @@
 			}
 		}
 		</script>
+		*/ %>
+		
 </duowan:override>
 
 <%-- jsp模板继承,具体使用请查看: http://code.google.com/p/rapid-framework/wiki/rapid_jsp_extends --%>

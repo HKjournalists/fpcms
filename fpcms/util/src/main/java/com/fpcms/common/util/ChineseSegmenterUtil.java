@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
 
@@ -21,6 +22,28 @@ import org.wltea.analyzer.core.Lexeme;
  */
 public class ChineseSegmenterUtil {
 
+	/**
+	 * 将字符串进行关键字切分,并且返回最短长度为minKeywordLength的关键字列表
+	 * 
+	 */
+	public static List<String> getMinLengthKeywords(String str,int minKeywordLength,boolean useSmart) {
+		if(StringUtils.isBlank(str)) {
+			return Collections.EMPTY_LIST;
+		}
+		try {
+			Map<String,Integer> words = segmenteForTokenCount(new StringReader(str),useSmart);
+			List<String> result = new ArrayList();
+			for(String keyword : words.keySet()) {
+				if(StringUtils.isNotBlank(keyword) && keyword.length() >= minKeywordLength) {
+					result.add(keyword);
+				}
+			}
+			return result;
+		}catch(Exception e) {
+			throw new RuntimeException("cannot split keyword by str:"+str,e);
+		}
+	}
+	
 	/**
 	 * 解析得到每个词的次数，返回 Map<词,出现次数>
 	 * @param reader

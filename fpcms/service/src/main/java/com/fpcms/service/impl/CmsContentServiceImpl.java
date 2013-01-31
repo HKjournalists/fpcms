@@ -108,7 +108,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 	@Transactional(readOnly=true)
 	public Page<CmsContent> findPage(CmsContentQuery query) {
 		Assert.notNull(query,"'query' must be not null");
-	    Assert.hasText(query.getSite(),"'query.site' must be not empty");
+//	    Assert.hasText(query.getSite(),"'query.site' must be not empty");
 		return cmsContentDao.findPage(query);
 	}
 	
@@ -138,7 +138,10 @@ public class CmsContentServiceImpl implements CmsContentService {
             if(countByTitle > 0) {
             	throw new IllegalStateException("already exist same title:"+cmsContent.getTitle()+" CmsContent");
             }
-            
+            int countBySearchKeyword = cmsContentDao.countBySearchKeyword(start,new Date(),cmsContent.getSearchKeyword());
+            if(countBySearchKeyword > 0) {
+            	throw new IllegalStateException("already exist same searchKeyword:"+cmsContent.getSearchKeyword()+" CmsContent");
+            }
         }
         
         /** 检查到有错误请直接抛异常，不要使用 return errorCode的方式 */
@@ -155,10 +158,13 @@ public class CmsContentServiceImpl implements CmsContentService {
 	public synchronized void genRandomCmsContent() {
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		for(CmsSite cmsSite : siteList) {
-			try {
-				genSiteRandomCmsContent(cmsSite.getSiteDomain(),cmsSite.getCity());
-			}catch(Exception e) {
-				log.error("error genSiteRandomCmsContent for site:"+cmsSite.getSiteDomain()+" cmsSite:"+cmsSite,e);
+			for(int i = 0; i < 5; i++) {
+				try {
+					genSiteRandomCmsContent(cmsSite.getSiteDomain());
+					break;
+				}catch(Exception e) {
+					log.error("error genSiteRandomCmsContent for site:"+cmsSite.getSiteDomain()+" cmsSite:"+cmsSite,e);
+				}
 			}
 		}
 	}
@@ -166,6 +172,10 @@ public class CmsContentServiceImpl implements CmsContentService {
 	public void genSiteRandomCmsContent(String site) {
 		CmsSite cmsSite = cmsSiteService.getById(site);
 		Assert.notNull(cmsSite,"not found cmsSite by site:"+site);
+		if(StringUtils.isNotBlank(cmsSite.getRedirectSite())) {
+			log.info("ignore_genSiteRandomCmsContent for site:"+site+" by StringUtils.isNotBlank(cmsSite.getRedirectSite())");
+			return;
+		}
 		genSiteRandomCmsContent(cmsSite.getSiteDomain(),cmsSite.getCity());
 	}
 	
@@ -183,23 +193,34 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setAuthor("admin_ramd");
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
 		cmsContent.setSite(site);
+		cmsContent.setSearchKeyword(article.getKeyword());
 		create(cmsContent);
 		log.info("generate_random_news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}
 
 	@Override
-	public CmsContent getNextCmsContent(String site,long id) {
-		return cmsContentDao.getNextCmsContent(site,id);
+	public CmsContent getNextCmsContent(Date dateCreated,String site,long id) {
+		return cmsContentDao.getNextCmsContent(dateCreated,site,id);
 	}
 
 	@Override
-	public CmsContent getPreCmsContent(String site,long id) {
-		return cmsContentDao.getPreCmsContent(site,id);
+	public CmsContent getPreCmsContent(Date dateCreated,String site,long id) {
+		return cmsContentDao.getPreCmsContent(dateCreated,site,id);
 	}
 
 	@Override
 	public Page<CmsContent> findPage(PageQuery pageQuery, String site,String channelCode, DateRange createdRange) {
 		return cmsContentDao.findPage(pageQuery, site,channelCode,createdRange);
+	}
+
+	@Override
+	public CmsContent getById(Date dateCreated, long id) {
+		return cmsContentDao.getById(dateCreated,id);
+	}
+
+	@Override
+	public CmsContent findLastBySite(String site) {
+		return cmsContentDao.findLastBySite(site);
 	}
 
 }

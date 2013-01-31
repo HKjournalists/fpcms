@@ -12,19 +12,19 @@
 
 <duowan:override name="content">
 		<c:forEach items="${page.itemList}" var="item">
-			<h1 class="list_title"><a href="${ctx}/content/show/${item.id}.do" title="${item.title}" style="font-weight:bold;">${item.title}</a></h1>
-			<div class="list_jj">${ fn:substring(item.content,50,100)}</div>
-			<div class="list_other">标签:${item.tags} 作者：<span>${item.author }</span> 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd"/></span></div>
+			<div class="list_title"><a href="${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" title="${item.title}" style="font-weight:bold;">${item.title}</a></div>
+			<div class="list_jj">${ fn:substring(item.metaDescription,50,100)}</div>
+			<div class="list_other">标签:${item.tags} 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd HH:00:00"/></span></div>
 		</c:forEach>
 		
 		<!-- page slider START -->
-		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/1.do">第一页</a> | 
-		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.prePage}.do">上一页</a> | 
+		<a href="${ctx}/${cmsChannel.channelCode}/1.do">第一页</a> | 
+		<a href="${ctx}/${cmsChannel.channelCode}/${page.paginator.prePage}.do">上一页</a> | 
 		<c:forEach items="${page.paginator.slider}" var="item">
-			<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${item}.do">${item}</a> | 
+			<a href="${ctx}/${cmsChannel.channelCode}/${item}.do">${item}</a> | 
 		</c:forEach>
-		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.nextPage}.do">下一页</a>
-		<a href="${ctx}/channel/showContentList/${cmsChannel.channelCode}/${page.paginator.totalPages}.do">最后页</a>
+		<a href="${ctx}/${cmsChannel.channelCode}/${page.paginator.nextPage}.do">下一页</a>
+		<a href="${ctx}/${cmsChannel.channelCode}/${page.paginator.totalPages}.do">最后页</a>
 		<!-- page slider END -->
 		
 </duowan:override>

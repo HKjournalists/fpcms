@@ -8,6 +8,7 @@ package com.fpcms.dao.impl;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -88,6 +89,12 @@ public class CmsSiteDaoImplTest extends BaseDaoTestCase{
 	@Test
 	public void test_findAll() {
 		dao.findAll();
+	}
+	
+	@Test
+	public void test_findSubDomain() {
+		List<CmsSite> list = dao.findSubSites("aaafaipiao.com");
+		assertFalse(list.isEmpty());
 	}
 }
 

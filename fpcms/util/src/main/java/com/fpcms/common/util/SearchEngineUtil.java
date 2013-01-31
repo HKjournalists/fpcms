@@ -20,6 +20,34 @@ public class SearchEngineUtil {
 			Profiler.release();
 		}
 	}
+
+	public static String googleSearch(String keywords, int pageSize,int pageNumber) {
+		Profiler.enter("SearchEngineUtil.googleSearch");
+		try {
+			int start = (pageNumber - 1) * pageSize;
+			String result = NetUtil.httpGet("https://www.google.com.hk/search",String.format("hl=zh-CN&start=%s&num=%s&q=%s",start,pageSize,keywords));
+			if(isInvalidSearchResult(result)) {
+				throw new RuntimeException("googleSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageSize);
+			}
+			return result;
+		}finally {
+			Profiler.release();
+		}
+	}
+
+	public static String baiduSearch(String keywords, int pageSize,int pageNumber) {
+		Profiler.enter("SearchEngineUtil.googleSearch");
+		try {
+			int start = (pageNumber - 1) * pageSize;
+			String result = NetUtil.httpGet("http://www.baidu.com/s",String.format("pn=%s&rn=%s&wd=%s",start,pageSize,keywords));
+			if(isInvalidSearchResult(result)) {
+				throw new RuntimeException("googleSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageSize);
+			}
+			return result;
+		}finally {
+			Profiler.release();
+		}
+	}
 	
 	public static String sogouSearch(String keywords, int pageSize,int pageNumber) {
 		Profiler.enter("SearchEngineUtil.sogouSearch");
@@ -66,9 +94,9 @@ public class SearchEngineUtil {
 
 	private static int baiduSiteCount0(String url) {
 		String content = NetUtil.httpGet(url);
-		String num = RegexUtil.findByRegexGroup(content, "找到相关结果数(\\d+)个", 1);
+		String num = RegexUtil.findByRegexGroup(content, "找到相关结果数([\\d,]+)个", 1);
 		if(StringUtils.isNotBlank(num)) {
-			return Integer.parseInt(num);
+			return Integer.parseInt(num.replace(",", ""));
 		}
 		return 0;
 	}

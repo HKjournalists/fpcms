@@ -61,6 +61,8 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 		model.put("requestHost", URLUtil.getHostSite(request.getRequestURL().toString())); // for wpa.qq.com
 		model.put("ctx", request.getContextPath());
 		Flash current = Flash.current();
+		model.put("uptime", getUptime() );
+		
 		model.put("flash", current == null ? new HashMap() : current.getData());
 		
 		//为freemarker,velocity提供<jsp:include page="/some/page.jsp"/>功能,使用${httpInclude.include("/servlet/header.do")};
@@ -74,10 +76,14 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 		return model;
 	}
 
+	private static long systemStartupTime = System.currentTimeMillis();
+	private static double getUptime() {
+		return (System.currentTimeMillis() - systemStartupTime) / 1000.0 / 3600 / 24;
+	}
+
 	//用于初始化 sharedRenderVariables, 全局共享变量请尽量用global前缀
 	private void initSharedRenderVariables() {
-		globalRenderVariables.put("global_system_start_time", new Date());
-		
+		globalRenderVariables.put("systemStartupTime", new Date(systemStartupTime) );
 		//也可以存放一些共享的工具类,以便视图使用,如StringUtils
 		
 	}

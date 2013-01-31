@@ -51,6 +51,7 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 		Assert.notNull(cmsContentService,"cmsContentService must be not null");
 		
 		scheduledExecutorService = Executors.newScheduledThreadPool(2);
+		int period = 6 * 60;
 		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
@@ -60,13 +61,12 @@ public class AutoGeneratorNewsJob implements InitializingBean{
 						logger.info("ignore execute AutoGeneratorNewsJob by hours < "+IGNORE_HOUR);
 						return;
 					}
-					
 					execute();
 				}catch(Exception e) {
 					logger.error("AutoGeneratorNewsJob error",e);
 				}
 			}
-		},30,3 * 60,TimeUnit.MINUTES);
+		},30,period,TimeUnit.MINUTES);
 		logger.info("scheduled "+AutoGeneratorNewsJob.class.getSimpleName());
 	}
 	

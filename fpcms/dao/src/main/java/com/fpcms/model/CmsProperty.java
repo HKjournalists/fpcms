@@ -6,6 +6,7 @@
 
 package com.fpcms.model;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -68,7 +69,7 @@ public class CmsProperty  implements java.io.Serializable{
 	}
 	
 	public void setPropGroup(java.lang.String value) {
-		this.propGroup = value;
+		this.propGroup = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getPropKey() {
@@ -76,7 +77,7 @@ public class CmsProperty  implements java.io.Serializable{
 	}
 	
 	public void setPropKey(java.lang.String value) {
-		this.propKey = value;
+		this.propKey = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getPropValue() {
@@ -84,7 +85,7 @@ public class CmsProperty  implements java.io.Serializable{
 	}
 	
 	public void setPropValue(java.lang.String value) {
-		this.propValue = value;
+		this.propValue = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getRamarks() {

@@ -8,6 +8,7 @@ package com.fpcms.model;
 
 import javax.validation.constraints.Max;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -82,7 +83,7 @@ public class SysUser  implements java.io.Serializable{
 	}
 	
 	public void setUsername(java.lang.String value) {
-		this.username = value;
+		this.username = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getPassword() {

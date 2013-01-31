@@ -6,7 +6,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class WebUtil {
+	
+	/**
+	 * 通过301 header永久重定向
+	 * @param response
+	 * @param location
+	 */
+	public static void send301Redirect(HttpServletResponse response, String location) {
+		response.addHeader("Location", location);
+		response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+	}
 
+	
 	/**
 	 * 根据lastModified时间，判断有没有修改
 	 * @param request

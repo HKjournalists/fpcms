@@ -8,9 +8,9 @@ function spider_stat() {
 	echo ""
 	echo ""
 	echo "----------- $spider : $site Visit stat -----------"
-	cat /data/log/fpcms/spider.log | grep ${spider} | grep $site | awk '{print $4}' | sort | uniq -c
-        cat /data/log/fpcms/spider.log* | grep ${spider} | grep $site | awk '{a[$1]=a[$1]+1} END {for(item in a) print item" "a[item] }' | sort
-
+	cd /data/log/fpcms
+	cat spider.log | grep ${spider} | grep $site | awk '{print $4}' | sort | uniq -c
+        cat spider.log* | grep ${spider} | grep $site | awk '{a[$1]=a[$1]+1} END {for(item in a) print item" "a[item] }' | sort
 }
 
 
@@ -25,6 +25,8 @@ spider_stat Baidu haofapiao.com
 spider_stat Baidu aaafaipiao.com
 
 echo ""
+cat /data/log/fpcms/spider.log | awk '{print $6}' | sort | uniq -c
+
 echo ""
 echo "/data/log/fpcms/spider.log"
 tail -n 30 /data/log/fpcms/spider.log

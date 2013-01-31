@@ -25,7 +25,7 @@ public class KeywordUtilTest extends Assert{
 	}
 	
 	@Test
-	public void test() {
+	public void test_getPerfectKeyword1() {
 		String result = KeywordUtil.getPerfectKeyword("1234123,中国,中国人民银行,191811", "中国");
 		assertEquals("中国人民银行",result);
 		
@@ -57,5 +57,18 @@ public class KeywordUtilTest extends Assert{
 		List<String> list = new ArrayList(Arrays.asList("乳交","xxxx"));
 		KeywordUtil.filterSensitiveKeyword(list);
 		assertEquals("[xxxx]",list.toString());
+	}
+	
+	@Test
+	public void test_getMaxRank() {
+		int rank = KeywordUtil.getMaxRank("唐山开发票,唐山代开发票,唐山发票","www.aaafaipiao.com");
+		assertTrue(rank > 0);
+	}
+	
+	@Test
+	public void test_isNameKeyword() {
+		assertTrue(KeywordUtil.isNameKeyword("中国"));
+		assertFalse(KeywordUtil.isNameKeyword("中国的"));
+		assertFalse(KeywordUtil.isNameKeyword("我的"));
 	}
 }

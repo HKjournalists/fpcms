@@ -167,5 +167,19 @@ public class CmsContentController extends BaseController{
 		};
 		return "/commons/messages";
 	}
+	
+	/**
+	 * 列表出来的数据用于发外部链接
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping
+	public String listForExternalLinks(ModelMap model,CmsContentQuery query) {
+		query.setPageSize(Math.max(100, query.getPageSize()));
+		Page<CmsContent> page = cmsContentService.findPage(query);
+		model.put("page", page);
+		return "/admin/cmscontent/listForExternalLinks";
+	}
+	
 }
 
