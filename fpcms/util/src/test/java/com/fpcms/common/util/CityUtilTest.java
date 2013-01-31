@@ -48,7 +48,7 @@ public class CityUtilTest extends Assert{
 		for(City city: CityUtil.getCityList()) {
 			String cityDesc = "rank:"+city.getRank()+" gdp:"+city.getGdp()+" "+city.getProvince();
 //			String keyword = "发票"+city.getCity()+","+city.getCity()+"发票,"+city.getCity()+"代开发票,"+city.getCity()+"开发票,"+city.getCity()+"发票查询";
-			String keyword = String.format("%1$s发票,%1$s代开发票,%1$s开发票,代开%1$s发票,开%1$s发票",city.getCity());
+			String keyword = String.format("%1$s发票,%1$s代开发票,%1$s开发票,开%1$s发票",city.getCity());
 			Thread.sleep(20);
 //			String mainDomain = ".fpshijiazhuang.com'";
 //			String mainDomain = ".fpzhangsha.com'";
