@@ -50,7 +50,7 @@
 			频道描述:
 		</td>		
 		<td>
-		<form:input path="channelDesc" id="channelDesc" cssClass="" maxlength="50" size="80"/>
+		<form:input path="channelDesc" id="channelDesc" cssClass="" maxlength="200" size="200"/>
 		<font color='red'><form:errors path="channelDesc"/></font>
 		</td>
 	</tr>	

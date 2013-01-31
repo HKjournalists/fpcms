@@ -38,7 +38,7 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	
 	private RowMapper<CmsSite> entityRowMapper = new BeanPropertyRowMapper<CmsSite>(getEntityClass());
 	
-	static final private String COLUMNS = "site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author,record_baidu,record_360,record_google,rank_baidu,rank_360,rank_google";
+	static final private String COLUMNS = "site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author,record_baidu,record_360,record_google,rank_baidu,rank_360,rank_google,redirect_site,daily_gen_content_count,props,ip,http_status";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_site";
 	private Cache cache = CacheManager.createCache(CmsSiteDaoImpl.class,1000);
 	
@@ -61,9 +61,9 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 		entity.setDateCreated(new Date());
 		entity.setDateLastModified(new Date());
 		String sql = "insert into cms_site " 
-			 + " (site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author,record_baidu,record_360,record_google,rank_baidu,rank_360,rank_google) " 
+			 + " (site_domain,site_name,site_desc,city,keyword,remarks,company,contact_name,mobile,qq,email,date_created,date_last_modified,author,record_baidu,record_360,record_google,rank_baidu,rank_360,rank_google,redirect_site,daily_gen_content_count,props,ip,http_status) " 
 			 + " values "
-			 + " (:siteDomain,:siteName,:siteDesc,:city,:keyword,:remarks,:company,:contactName,:mobile,:qq,:email,:dateCreated,:dateLastModified,:author,:recordBaidu,:record360,:recordGoogle,:rankBaidu,:rank360,:rankGoogle)";
+			 + " (:siteDomain,:siteName,:siteDesc,:city,:keyword,:remarks,:company,:contactName,:mobile,:qq,:email,:dateCreated,:dateLastModified,:author,:recordBaidu,:record360,:recordGoogle,:rankBaidu,:rank360,:rankGoogle,:redirectSite,:dailyGenContentCount,:props,:ip,:httpStatus)";
 //		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
 		
 		//其它主键生成策略
@@ -77,7 +77,7 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 		cache.clear();
 		entity.setDateLastModified(new Date());
 		String sql = "update cms_site set "
-					+ " site_name=:siteName,site_desc=:siteDesc,city=:city,keyword=:keyword,remarks=:remarks,company=:company,contact_name=:contactName,mobile=:mobile,qq=:qq,email=:email,date_created=:dateCreated,date_last_modified=:dateLastModified,author=:author,record_baidu=:recordBaidu,record_360=:record360,record_google=:recordGoogle,rank_baidu=:rankBaidu,rank_360=:rank360,rank_google=:rankGoogle "
+					+ " site_name=:siteName,site_desc=:siteDesc,city=:city,keyword=:keyword,remarks=:remarks,company=:company,contact_name=:contactName,mobile=:mobile,qq=:qq,email=:email,date_created=:dateCreated,date_last_modified=:dateLastModified,author=:author,record_baidu=:recordBaidu,record_360=:record360,record_google=:recordGoogle,rank_baidu=:rankBaidu,rank_360=:rank360,rank_google=:rankGoogle,redirect_site=:redirectSite,daily_gen_content_count=:dailyGenContentCount,props=:props,ip=:ip,http_status=:httpStatus "
 					+ " where  site_domain = :siteDomain ";
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
 	}
@@ -145,6 +145,12 @@ public class CmsSiteDaoImpl extends BaseSpringJdbcDao implements CmsSiteDao{
 	@Override
 	public List<CmsSite> findAll() {
 		return getSimpleJdbcTemplate().query(SELECT_FROM,getEntityRowMapper());
+	}
+
+	@Override
+	public List<CmsSite> findSubSites(String domain) {
+		String sql = SELECT_FROM + " where site_domain like concat('%',?)";
+		return getSimpleJdbcTemplate().query(sql,getEntityRowMapper(),domain);
 	}
 	
 }

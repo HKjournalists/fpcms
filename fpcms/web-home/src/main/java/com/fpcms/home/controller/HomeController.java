@@ -1,6 +1,7 @@
 package com.fpcms.home.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.util.CmsSiteUtil;
 import com.fpcms.common.util.Constants;
-import com.fpcms.query.CmsContentQuery;
+import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsPropertyService;
+import com.fpcms.service.CmsSiteService;
 
 @Controller
 public class HomeController extends BaseController{
@@ -28,7 +31,8 @@ public class HomeController extends BaseController{
 	@Autowired(required=true)
 	private CmsPropertyService cmsPropertyService;
 	
-	
+	@Autowired(required=true)
+	private CmsSiteService cmsSiteService;
 	/** 显示 */
 	@RequestMapping()
 	public String home(ModelMap model) throws Exception {
@@ -36,6 +40,9 @@ public class HomeController extends BaseController{
 		
 		DateRange dateRange = new DateRange(DateUtils.addDays(new Date(),-20),new Date());
 		model.put("newsPage", cmsContentService.findPage(new PageQuery(20),getSite(),Constants.CHANNED_CODE_NEWS,dateRange));
+		
+		List<CmsSite> subSiteList = cmsSiteService.findSubSites(CmsSiteUtil.getDomain(getSite()));
+		model.put("subSiteList", subSiteList);
 		return "/home";
 	}
 	

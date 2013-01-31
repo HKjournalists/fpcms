@@ -27,6 +27,10 @@ public class ArticleContentProcesserTest extends Assert{
 		assertFalse(gen.isValidToken("13128348282"));
 		assertFalse(gen.isValidToken("中国13128348282中国中国中国中国"));
 		assertFalse(gen.isValidToken("中国13128348282中国中国中国中国中国中国中国"));
+		
+		assertFalse(gen.isValidToken("2012年1月"));
+		assertFalse(gen.isValidToken("2012年1月5日"));
+		assertFalse(gen.isValidToken("2012年10月5日"));
 	}
 	
 }

@@ -74,4 +74,10 @@ public interface CmsSiteService {
 	 */
 	public List<CmsSite> updateSearchEngineKeywordMaxRank();
 	
+	/**
+	 * 更新http状态 
+	 */
+	public void updateHttpStatus();
+
+	public List<CmsSite> findSubSites(String domain);
 }

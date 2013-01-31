@@ -233,7 +233,8 @@ div#menu li.back .left {
 .hot_list span{float:right;}
 .hot_list div{color:#999;line-height:18px;}
 .hot_list div img{max-width:120px;}
-.all_list{margin:0;padding:0;background:url(images/kaipiao/kaipiao.gif) -86px 6px no-repeat;}
+.all_list{margin:0;padding:0;}
+/* .all_list{margin:0;padding:0;background:url(images/kaipiao/kaipiao.gif) -86px 6px no-repeat;} */
 .all_list dt{line-height:25px;padding-left:20px;}
 .all_list b a{color:#36A831;}
 .all_list b a:hover{color:#f30;}

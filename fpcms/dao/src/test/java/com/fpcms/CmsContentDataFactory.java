@@ -53,6 +53,7 @@ public class CmsContentDataFactory {
 	  	obj.setDateCreated(new java.util.Date(System.currentTimeMillis()));
 	  	obj.setDateLastModified(new java.util.Date(System.currentTimeMillis()));
 	  	obj.setSite(new java.lang.String("1"));
+	  	obj.setSearchKeyword("1");
 		return obj;
 	}
 }

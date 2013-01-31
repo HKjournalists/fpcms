@@ -24,6 +24,8 @@ mkdir -p ${appDir}/shell
 echo "==============================*** update source file ***======================================="
 cd ${gitDir}
 git pull
+cd ${srcDir}
+svn up
 
 #build
 echo "==============================*** build project ***======================================="

@@ -66,6 +66,12 @@
 		</init-param>
 	</filter>
 
+	<!-- 永久重定向 Filter -->
+	<filter>
+		<filter-name>RedirectLocation301Filter</filter-name>
+		<filter-class>com.fpcms.common.web.filter.RedirectLocation301Filter</filter-class>
+	</filter>
+	
 	<!-- FlashScope filter,在Flash中存储的数据,在下一次http请求中也可以继续引用,使用方法为Flash.current().error("存在错误"); -->
 	<filter>
 		<filter-name>FlashFilter</filter-name>
@@ -106,6 +112,8 @@
 			<param-name>includes</param-name>
 			<param-value>
 			/home.do
+			/*.do
+			/content/*.do
 			/channel/show/*.do
 			/content/show/*.do
 			</param-value>
@@ -116,6 +124,11 @@
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>RedirectLocation301Filter</filter-name>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 
 	<filter-mapping>
@@ -156,6 +169,8 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>		
 	</filter-mapping>
+	
+	
 				
 	<!-- Log4J 配置 -->
 	<listener> 

@@ -48,7 +48,6 @@ import com.fpcms.service.CmsContentService;
  *
  */
 @Controller
-@RequestMapping("/channel")
 public class ChannelController extends BaseController{
 	
 	private CmsChannelService cmsChannelService;
@@ -81,13 +80,15 @@ public class ChannelController extends BaseController{
 	@ModelAttribute
 	public void init(ModelMap model) {
 	}
-	
+
 	/** 列表 */
-	@RequestMapping("/show/{channelCode}.do")
+	@RequestMapping("/{channelCode}.do")
 	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("channelCode") String channelCode,HttpServletRequest request,HttpServletResponse response) {
 		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(getSite(),channelCode);
 		if(StringUtils.isBlank(cmsChannel.getContent())) {
-			return "redirect:/channel/showContentList/"+channelCode+"/1.do";
+//			String location = request.getContextPath() + "/channel/showContentList/"+channelCode+"/1.do";
+//			WebUtil.send301Redirect(response,location);
+			return "forward:/"+channelCode+"/1.do";
 		}
 		
 		model.put("cmsChannel", cmsChannel);
@@ -95,7 +96,15 @@ public class ChannelController extends BaseController{
 		return "/channel/show";
 	}
 	
-	@RequestMapping("/showContentList/{channelCode}/{page}.do")
+	/** 列表 */
+	@RequestMapping("/channel/show/{channelCode}.do")
+	@Deprecated
+	public void showDeprecated(ModelMap model,CmsChannelQuery query,@PathVariable("channelCode") String channelCode,HttpServletRequest request,HttpServletResponse response) {
+		String location = request.getContextPath() + "/"+channelCode+".do";
+		WebUtil.send301Redirect(response,location);
+	}
+
+	@RequestMapping("/{channelCode}/{page}.do")
 	public String showContentList(ModelMap model,HttpServletRequest request,@PathVariable("channelCode") String channelCode,@PathVariable("page") int page) {
 		CmsChannel cmsChannel = cmsChannelService.findByChannelCode(getSite(),channelCode);
 		
@@ -105,6 +114,13 @@ public class ChannelController extends BaseController{
 		model.put("cmsChannel", cmsChannel);
 		model.put("page", cmsContentPage);
 		return "/channel/showContentList";
+	}
+	
+	@RequestMapping("/channel/showContentList/{channelCode}/{page}.do")
+	@Deprecated
+	public void showContentListDeprecated(ModelMap model,HttpServletRequest request,@PathVariable("channelCode") String channelCode,@PathVariable("page") int page,HttpServletResponse response) {
+		String location = request.getContextPath() + "/"+channelCode+"/"+page+".do";
+		WebUtil.send301Redirect(response,location);
 	}
 	
 }

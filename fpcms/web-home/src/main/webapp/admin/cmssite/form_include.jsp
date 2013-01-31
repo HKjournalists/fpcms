@@ -112,7 +112,38 @@
 		<font color='red'><form:errors path="email"/></font>
 		</td>
 	</tr>	
+
+	<tr>	
+		<td class="tdLabel">
+			重定向site:
+		</td>		
+		<td>
+		<form:input path="redirectSite" id="redirectSite" maxlength="20"  size="60"/>
+		<font color='red'><form:errors path="redirectSite"/></font>
+		</td>
+	</tr>
 	
+	
+	<tr>	
+		<td class="tdLabel">
+			每日生成的文章数量:
+		</td>		
+		<td>
+		<form:input path="dailyGenContentCount" id="dailyGenContentCount" maxlength="20"  size="60"/>
+		<font color='red'><form:errors path="dailyGenContentCount"/></font>
+		</td>
+	</tr>
+	
+	<tr>	
+		<td class="tdLabel">
+			扩展属性:key_value字段
+		</td>		
+		<td>
+		<form:textarea path="props" id="props"  rows="20" cols="60"/>
+		<font color='red'><form:errors path="props"/></font>
+		</td>
+	</tr>
+		
 	<tr>	
 		<td class="tdLabel">
 			作者:

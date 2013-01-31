@@ -9,11 +9,13 @@ package com.fpcms.service.impl;
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.shiro.util.StringUtils;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ReverseComparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ import org.springframework.util.Assert;
 import com.duowan.common.beanutils.BeanUtils;
 import com.duowan.common.util.page.Page;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.HttpStatusCheckUtil;
+import com.fpcms.common.util.IpUtil;
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.MapUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.dao.CmsSiteDao;
@@ -72,6 +77,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	    initDefaultValuesForCreate(cmsSite);
 	    new CmsSiteChecker().checkCreateCmsSite(cmsSite);
 	    cmsSiteDao.insert(cmsSite);
+	    cmsChannelService.createDefaultChannelsIfRequired(cmsSite.getSiteDomain());
 	    return cmsSite;
 	}
 	
@@ -172,10 +178,25 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		return list;
 	}
 	
+	@Override
+	public void updateHttpStatus(){
+		List<CmsSite> list = findAll();
+		Collections.sort(list,new ReverseComparator(new BeanComparator("recordBaidu")));
+		for(CmsSite site : list) {
+			String status = HttpStatusCheckUtil.getHttpStatus(site.getSiteDomain());
+			site.setHttpStatus(status);
+			site.setIp(IpUtil.getIp(site.getSiteDomain()));
+			update(site);
+		}
+	}
+	
 	public List<CmsSite> updateSearchEngineRecord() {
 		log.info("START updateSearchEngineRecord");
 		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
-		for(CmsSite site :findAll()) {
+		List<CmsSite> list = findAll();
+		Collections.sort(list,new ReverseComparator(new BeanComparator("recordBaidu")));
+		
+		for(CmsSite site : list) {
 			try {
 				int recordBaidu = SearchEngineUtil.baiduSiteCount(site.getSiteDomain());
 				if(recordBaidu != site.getRecordBaidu()) {
@@ -191,37 +212,38 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	}
 	
 	public synchronized List<CmsSite> updateSearchEngineKeywordMaxRank() {
-		log.info("START updateSearchEngineKeywordMaxRank");
-		List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
-		for(CmsSite site :findAll()) {
-			try{
-				int min = getMaxRank(site);
-				
-				if(min != site.getRankBaidu()) {
-					updatedSiteList.add(site);
-					site.setRankBaidu(min);
-					update(site);
+		return new UpdateSearchEngineKeywordMaxRank().updateSearchEngineKeywordMaxRank();
+	}
+	
+	public class UpdateSearchEngineKeywordMaxRank {
+		public synchronized List<CmsSite> updateSearchEngineKeywordMaxRank() {
+			log.info("START updateSearchEngineKeywordMaxRank");
+			List<CmsSite> updatedSiteList = new ArrayList<CmsSite>();
+			
+			List<CmsSite> list = findAll();
+			Collections.sort(list,new ReverseComparator(new BeanComparator("rankBaidu")));
+			
+			for(CmsSite site :list) {
+				try{
+					int min = KeywordUtil.getMaxRank(site.getKeyword(),site.getSiteDomain());
+					
+					if(min != site.getRankBaidu()) {
+						updatedSiteList.add(site);
+						site.setRankBaidu(min);
+						update(site);
+					}
+				}catch(Exception e) {
+					log.error("error updateSearchEngineKeywordMaxRank on :"+site.getSiteDomain(),e);
 				}
-			}catch(Exception e) {
-				log.error("error updateSearchEngineKeywordMaxRank on :"+site.getSiteDomain(),e);
 			}
+			return updatedSiteList;
 		}
-		return updatedSiteList;
+
 	}
 
-	int getMaxRank(CmsSite site) {
-		String[] keywords = StringUtils.tokenizeToStringArray(site.getKeyword(), ",_| ");
-		int min = Integer.MAX_VALUE;
-		for(String keyword : keywords) {
-			int rank = SearchEngineUtil.baiduKeywordRank(keyword, site.getSiteDomain());
-			if(rank > 0 && rank < min) {
-				min = rank;
-			}
-			if(rank > 0) {
-				log.info("rank_baidu:"+rank+" site:"+site.getSiteDomain());
-			}
-		}
-		return min == Integer.MAX_VALUE ? 0 : min;
+	@Override
+	public List<CmsSite> findSubSites(String domain) {
+		return cmsSiteDao.findSubSites(domain);
 	}
-
+	
 }

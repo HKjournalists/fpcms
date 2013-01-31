@@ -6,6 +6,8 @@
 
 package com.fpcms.service;
 
+import java.util.Date;
+
 import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
@@ -41,16 +43,21 @@ public interface CmsContentService {
 	 * 根据ID得到CmsContent
 	 **/    
     public CmsContent getById(long id);
+
+    /** 
+	 * 根据ID得到CmsContent
+	 **/    
+    public CmsContent getById(Date dateCreated,long id);
     
 	/** 
 	 * 根据ID得到上一条记录
 	 **/    
-    public CmsContent getPreCmsContent(String site,long id);
+    public CmsContent getPreCmsContent(Date dateCreated,String site,long id);
 
 	/** 
 	 * 根据ID得到下一条记录
 	 **/    
-    public CmsContent getNextCmsContent(String site,long id);
+    public CmsContent getNextCmsContent(Date dateCreated,String site,long id);
     
 	/** 
 	 * 分页查询: CmsContent
@@ -67,4 +74,6 @@ public interface CmsContentService {
      * 根据site随机生成文章
      */
     public void genSiteRandomCmsContent(String site);
+
+	public CmsContent findLastBySite(String site);
 }

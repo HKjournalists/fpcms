@@ -33,6 +33,8 @@ public interface CmsSiteDao {
 
 	public Page<CmsSite> findPage(CmsSiteQuery query);
 
-	public List<CmsSite> findAll();	
+	public List<CmsSite> findAll();
+
+	public List<CmsSite> findSubSites(String domain);	
 	
 }

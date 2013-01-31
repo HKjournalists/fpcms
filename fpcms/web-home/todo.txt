@@ -35,13 +35,13 @@
 #24. 建立合理的内链: 文章显示:上一篇,下一篇
 #25. 一定阶段随机生成"发票"相关的文章
 #26. 将发票分类等敏感词通过js输出,避免搜索引擎的敏感词过滤
-27. jquery tab
+--27. jquery tab
 # 28. jquery弹出窗口问候是否需要聊天: https://github.com/malsup/blockui/
 #29. 增加网站预览链接
 #30. 后台管理网站,增加是否显示是否被百度,google收录
 #31. 首页关键词是否考虑删除:公司名称
 #32. 删除重复的"title" cms_content
-33. 记录关键词列表,已经搜索的关键词将不再搜索
+#33. 记录关键词列表,已经搜索的关键词将不再搜索
 #34. 将aboutus放在首页
 #35. 关键词2%-8%(5-6个),并且加颜色,加粗,加斜体,下划线
 
@@ -54,48 +54,51 @@ select t.title from (
 #35. cms_content性能优化及压力测试
 #36. 购买IP,购买域名
 37. 增加内容评论功能
-38. 增加采集图片，以减少跳出率, 网址: http://www.22mm.cc/, 图片采集采用 
+# 38. 增加采集图片，以减少跳出率, 网址: http://www.22mm.cc/, 图片采集采用 
 	<img src="/proxy/img.do?url=http://www.xxx.com/some_image.gif" rel="nofollow"/>  
 	1. 服务端redirect的方式赚流量,清空referrer
 	2. 通过rebots.txt禁止  /proxy访问
 39. 增加友链模块,增加友链随机插入文章
-40. SEO减少文章大小
+#40. SEO减少文章大小
 41. 搜索的关键词每个site可以自定义，并且采用 Groovy动态构建
 42. 采用rsync备份
-43. 应用页面cache
+#43. 应用页面cache
 44. 通过RobotsFilter保护robots.txt资源
 45. 保护公司名称
+#46. 保护QQ号码
+47. www-data运行java程序
+# 48. 禁止root登陆ssh,并且配合需要private key登陆
 
-客服对话框: http://www.dns001.com/
+# 客服对话框: http://www.dns001.com/
 
-45 增加Rich snippets  https://support.google.com/webmasters/bin/answer.py?hl=en&answer=99170
 
 日志统计通过nginx log: cat /data/log/nginx/access.log | grep Baidu | grep aaafaipiao.com | awk '{print $8}' | sort | uniq -c  
 
 # 41.文书域名迁移
-42. 搜索老文章： 2004年的文章，用于SEO
-43. 原创度过高也是有问题的
-44. 支持site重定向至主域
+-- 42. 搜索老文章： 2004年的文章，用于SEO
+# 43. 原创度过高也是有问题的
+# 44. 支持site重定向至主域
 45. 支持site配置是否自动生成文章
+46. 每一个site都配置不同的网站模板 layout
 
 # 44. 保护好自己的QQ,手机号
 # 45. 禁止百度快照 http://bbs.phpcms.cn/thread-284832-1-1.html
 46. 后台进程独立
+47. 引入网站权限管理机制
+	每个用户能够独立管理自己的域名,文章,内容
+48. 增加chat_we_are_here.png的客服提示效果	
+49. QQ可以使用WebChat,避免要打开QQ客户端(但存在问题,对方不会加你QQ)
 http://www.pc51.com/
 账号haofapiao.com
 密码admin123789
 
 热门的地区：
-
 广州 上海 苏州 南京  济南  合肥  重庆  成都  厦门 
-
 福州  深圳  长沙  杭州  青岛  
-
-苏州税务
+苏州
 
 
 其次：
-
 佛山  东莞   黑龙江   甘肃   内蒙古  北京
 
 
@@ -108,3 +111,48 @@ http://www.pc51.com/
 update cms_channel set level = 0 where channel_code = 'contact'; 
 update cms_channel set level = 50 where channel_code = 'projects'; 
 update cms_channel set level = 100 where channel_code = 'aboutus'; 
+
+/ ********************************************* /
+	搞个用户服务中心: 让用户自己注册帐户,然后每月填想要的发票
+	1. 接入QQ开放平台,让用户自己注册通过QQ登陆
+/ ********************************************* /
+关键字出现个数: 3-5个是极限
+
+/ ********************************************* /
+	对于新站,3个关键词堆砌是极限
+/ ********************************************* /
+# 50. 支持 metaDescription生成,摘要要求无英文,无html,全中文字符
+
+超级外链工具:
+http://tool.lusongsong.com/
+
+-- 更新收录为0的站点的首页(home)内容
+update `cms_channel` set content = ''
+where channel_code='home'  and site in (select site_domain from cms_site where rank_baidu=0);
+
+
+您的文章当中包含了敏感关键词'作弊'，属于有关部门规定的有害信息，为了保护您和ITeye网站的安全，我们建议您不要发表这篇文章，有关部门一旦认为你的文章是有害信息，会要求我们提供你的IP地址
+
+# 深圳报关公司,深圳报关,深圳报关代理,深圳报关行,深圳进出口报关,深圳出口报关,深圳进口报关,深圳盐田报关行，深圳蛇口报关行，深圳文锦渡报关港，深圳皇岗报关行，代办产地证，代办熏蒸消毒证，代理出口报关，代理进口报关，ATA报关，退税报关，深圳买单报关
+文书: 商检报关 #出口报关 #提供产地证 #代收外汇 #产地证CO
+
+
+
+
+安全修改:
+CNZZ统计,DNSPOD,博客IP,域名注册
+
+
+
+QQ: 151468883  Q龄9年 
+QQ: 471450064  7年
+QQ: 152039296  9年
+
+
+新闻采集:
+http://www.rfi.fr/ 法国新闻
+http://stackoverflow.com 美国问答
+http://www.asahi.com/culture 日本朝日新闻
+http://indiatoday.intoday.in/ 今日印度
+
+

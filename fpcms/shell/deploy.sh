@@ -2,7 +2,7 @@
 
 source /etc/profile
 pidfile=/tmp/jetty.pid
-cmd="mvn jetty:run"
+cmd="mvn jetty:run -Djetty.port=29999 -Duser.country=CN -Duser.language=zh"
 run_user=www-data
 
 cd /data/src/fpcms/fpcms/web-home

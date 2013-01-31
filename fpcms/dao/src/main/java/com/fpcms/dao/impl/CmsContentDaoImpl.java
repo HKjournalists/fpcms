@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,7 +39,7 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	
 	private RowMapper<CmsContent> entityRowMapper = new BeanPropertyRowMapper<CmsContent>(getEntityClass());
 	
-	static final private String COLUMNS = "id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level";
+	static final private String COLUMNS = "id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level,search_keyword";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_content";
 	
 	@Override
@@ -57,9 +58,9 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	
 	public void insert(CmsContent entity) {
 		String sql = "insert into cms_content " 
-			 + " (id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level) " 
+			 + " (id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level,search_keyword) " 
 			 + " values "
-			 + " (:id,:channelCode,:tags,:headTitle,:title,:content,:author,:dateCreated,:dateLastModified,:site,:level)";
+			 + " (:id,:channelCode,:tags,:headTitle,:title,:content,:author,:dateCreated,:dateLastModified,:site,:level,:searchKeyword)";
 		entity.setDateCreated(new Date());
 		entity.setDateLastModified(new Date());
 		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
@@ -73,7 +74,7 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	
 	public int update(CmsContent entity) {
 		String sql = "update cms_content set "
-					+ " channel_code=:channelCode,tags=:tags,head_title=:headTitle,title=:title,content=:content,author=:author,date_created=:dateCreated,date_last_modified=:dateLastModified,site=:site,level=:level "
+					+ " channel_code=:channelCode,tags=:tags,head_title=:headTitle,title=:title,content=:content,author=:author,date_created=:dateCreated,date_last_modified=:dateLastModified,site=:site,level=:level,search_keyword=:searchKeyword "
 					+ " where  id = :id ";
 		entity.setDateLastModified(new Date());
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
@@ -130,21 +131,25 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
             sql.append(" and site = :site ");
         }
 		
-        sql.append(" order by date_created desc ");
+        sql.append(" order by date_created desc");
 		
 		return pageQuery(sql.toString(),query,getEntityRowMapper());				
 	}
 
 	@Override
-	public CmsContent getNextCmsContent(String site,long id) {
-		String sql = SELECT_FROM+" where site = ? and id > ? order by id asc limit 1";
-		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
+	public CmsContent getNextCmsContent(Date dateCreated,String site,long id) {
+		Date start = DateUtils.addDays(dateCreated, -1);
+		Date end = DateUtils.addDays(dateCreated, 14);
+		String sql = SELECT_FROM+" where site = ? and id > ? and date_created between ? and ? order by id asc limit 1";
+		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id,start,end));
 	}
 
 	@Override // 
-	public CmsContent getPreCmsContent(String site,long id) {
-		String sql = SELECT_FROM+" where site = ? and id < ? order by id desc limit 1";
-		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id));
+	public CmsContent getPreCmsContent(Date dateCreated,String site,long id) {
+		Date start = DateUtils.addDays(dateCreated, -14);
+		Date end = DateUtils.addDays(dateCreated, 1);
+		String sql = SELECT_FROM+" where site = ? and id < ? and date_created between ? and ? order by id desc limit 1";
+		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,id,start,end));
 	}
 
 	@Override // 己调优 
@@ -169,6 +174,27 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		param.put("dateCreatedBegin", createdRange.getStartDate());
 		param.put("dateCreatedEnd", createdRange.getEndDate());
 		return pageQuery(sql.toString(),param,pageQuery.getPageSize(),pageQuery.getPage(),getEntityRowMapper());
+	}
+
+	@Override
+	public int countBySearchKeyword(Date start, Date end, String searchKeyword) {
+		String sql = "select count(*) from cms_content where date_created between ? and ? and search_keyword = ?";
+		return getSimpleJdbcTemplate().queryForInt(sql, start,end,searchKeyword);
+	}
+
+	@Override
+	public CmsContent getById(Date dateCreated, long id) {
+		Date end = DateUtils.addDays(dateCreated, 1);
+		String sql = SELECT_FROM + " where  id = ?  and date_created between ? and ?";
+		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),id,dateCreated,end));
+	}
+
+	@Override
+	public CmsContent findLastBySite(String site) {
+		Date start = DateUtils.addDays(new Date(), -13);
+		Date end = new Date();
+		String sql = SELECT_FROM + " where site = ? and date_created between ? and ? order by date_created desc limit 1";
+		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,start,end));
 	}
 	
 }

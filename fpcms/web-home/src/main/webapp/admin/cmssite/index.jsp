@@ -86,7 +86,8 @@
 			<a href="${ctx}/admin/cmssite/initAllSiteDefaultChannels.do">初始化所有网站频道</a>
 			<a href="${ctx}/admin/cmssite/updateSearchEngineRecord.do">更新百度site记录</a>
 			<a href="${ctx}/admin/cmssite/updateSearchEngineKeywordMaxRank.do">更新百度关键字最高排名</a>
-			<a href="${ctx}/admin/cmssite/showAllSiteLink.do">显示所有关键字列表</a>
+			<a href="${ctx}/admin/cmssite/updateHttpStatus.do">更新http状态</a>
+			<a href="${ctx}/admin/cmssite/showAllSiteLink.do?prefix=李&suffix=">显示所有关键字列表</a>
 		<div>
 	
 	</div>
@@ -106,12 +107,15 @@
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
 				<th sortColumn="site_domain" >网站域名</th>
 <!--				<th sortColumn="site_name" >网站名称</th>-->
+				<th sortColumn="http_status" >http状态</th>
+				<th sortColumn="ip" >IP</th>
 				<th sortColumn="site_desc" >网站描述</th>
 				<th sortColumn="city" >城市</th>
 				<th sortColumn="record_baidu" title="百度" >site记录数</th>
 				<th sortColumn="rank_baidu" title="百度" >关键字排名</th>
 				<th sortColumn="keyword" >网站关键词</th>
 				<th sortColumn="mobile" >移动电话</th>
+				<th sortColumn="redirect_site" >重定向site</th>
 				<!-- 
 				<th sortColumn="remarks" >备注</th>
 				<th sortColumn="company" >公司</th>
@@ -128,17 +132,20 @@
 		  <tbody>
 		  	  <c:forEach items="${page.itemList}" var="item" varStatus="status">
 		  	  
-			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}">
+			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}" style="${item.httpSuccess ? '' : 'background-color: rgb(255,100,0)'}">
 				<td>${page.paginator.startRow + status.index}</td>
 				
 				<td><a href="http://${item.siteDomain}${ctx}" title="预览" target="_blank">${item.siteDomain}</a>&nbsp;</td>
 <!--				<td><c:out value='${item.siteName}'/>&nbsp;</td>-->
+				<td>${item.httpStatus}&nbsp;</td>
+				<td>${item.ip}&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.city}'/>&nbsp;</td>
 				<td><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></td>
 				<td><font color="${item.rankBaidu <=0 ? 'red' : ''}">${item.rankBaidu}</font></td>
 				<td><a href="http://www.baidu.com/s?wd=${item.keyword}" target="_blank">${item.keyword}</a></td>
 				<td><c:out value='${item.mobile}'/>&nbsp;</td>
+				<td><a href="http://${item.redirectSite}${ctx}" title="预览" target="_blank">${item.redirectSite}</a></td>
 				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
 				<td><c:out value='${item.company}'/>&nbsp;</td>
@@ -152,6 +159,7 @@
 					<a href="${ctx}/admin/cmsproperty/index.do?propGroup=${item.siteDomain}">网站属性</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmscontent/genRandomCmsContentBySite.do?site=${item.siteDomain}&count=5" target="_blank">随机生成文章</a>&nbsp;&nbsp;
 					<a href="http://seo.chinaz.com/?host=${item.siteDomain}" target="_blank">SEO综合</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/cmssite/baiduAddUrl.jsp?url=http://${item.siteDomain}" target="_blank">百度提交URL</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/edit.do?siteDomain=${item.siteDomain}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/delete.do?siteDomain=${item.siteDomain}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
 				</td>

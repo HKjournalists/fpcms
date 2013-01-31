@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.duowan.common.util.DateConvertUtils;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.util.WebUtil;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsChannelQuery;
 import com.fpcms.service.CmsChannelService;
@@ -39,7 +41,6 @@ import com.fpcms.service.CmsContentService;
  *
  */
 @Controller
-@RequestMapping("/content")
 public class ContentController extends BaseController{
 	
 	private CmsChannelService cmsChannelService;
@@ -70,29 +71,61 @@ public class ContentController extends BaseController{
 	@ModelAttribute
 	public void init(ModelMap model) {
 	}
+
+	@RequestMapping("/content/last.do")
+	public String last(ModelMap model,CmsChannelQuery query,HttpServletRequest request,HttpServletResponse response) throws IOException {
+		CmsContent content = cmsContentService.findLastBySite(getSite());
+		if(content == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}
+		return show0(model, content.getId(), response, DateConvertUtils.extract(content.getDateCreated(),"yyyyMMdd"), content);
+	}
 	
 	/**
 	 * 显示内容
 	 */
-	@RequestMapping("/show/{contentId}.do")
-	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("contentId") long contentId,HttpServletRequest request,HttpServletResponse response) throws IOException {
-		CmsContent cmsContent = cmsContentService.getById(contentId);
+	@RequestMapping("/content/{dateCreated}/{contentId}.do")
+	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("dateCreated") String dateCreatedString,@PathVariable("contentId") long contentId,HttpServletRequest request,HttpServletResponse response) throws IOException {
+		Date dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
+		CmsContent cmsContent = cmsContentService.getById(dateCreated,contentId);
+		return show0(model, contentId, response, dateCreated, cmsContent);
+	}
+
+	private String show0(ModelMap model, long contentId,
+			HttpServletResponse response, Date dateCreated,
+			CmsContent cmsContent) throws IOException {
 		if(cmsContent == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;
 		}
-		if(!cmsContent.getSite().equals(getSite())) {
-			String location = "http://"+cmsContent.getSite()+"/content/show/"+contentId+".do";
-			response.addHeader("Location", location);
-			response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-			return null;
-		}
+//		if(!cmsContent.getSite().equals(getSite())) {
+//			String location = "http://"+cmsContent.getSite()+"/content/show/"+contentId+".do";
+//			WebUtil.send301Redirect(response, location);
+//			return null;
+//		}
 		
 		model.put("cmsContent", cmsContent);
-		model.put("nextCmsContent", cmsContentService.getNextCmsContent(cmsContent.getSite(),contentId));
-		model.put("preCmsContent", cmsContentService.getPreCmsContent(cmsContent.getSite(),contentId));
+		model.put("nextCmsContent", cmsContentService.getNextCmsContent(dateCreated,cmsContent.getSite(),contentId));
+		model.put("preCmsContent", cmsContentService.getPreCmsContent(dateCreated,cmsContent.getSite(),contentId));
 		
 		return "/content/show";
+	}
+	
+	/**
+	 * 显示内容
+	 */
+	@RequestMapping("/content/show/{contentId}.do")
+	@Deprecated
+	public void showDeprecated(ModelMap model,CmsChannelQuery query,@PathVariable("contentId") long contentId,HttpServletRequest request,HttpServletResponse response) throws IOException {
+		CmsContent cmsContent = cmsContentService.getById(contentId);
+		if(cmsContent == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		String day = DateConvertUtils.format(cmsContent.getDateCreated(), "yyyyMMdd");
+		String location = request.getContextPath() + "/content/"+day+"/"+contentId+".do";
+		WebUtil.send301Redirect(response,location);
 	}
 
 }

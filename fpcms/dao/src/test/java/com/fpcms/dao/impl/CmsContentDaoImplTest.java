@@ -90,14 +90,16 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_getNextCmsContent() {
-		CmsContent nextCmsContent = dao.getNextCmsContent("localhost", 150);
+		Date date = new Date();
+		CmsContent nextCmsContent = dao.getNextCmsContent(date,"localhost", 150);
 		assertNotNull(nextCmsContent);
 		assertTrue(nextCmsContent.getId() > 150);
 	}
 	
 	@Test
 	public void test_getPreCmsContent() {
-		CmsContent preCmsContent = dao.getPreCmsContent("localhost", 150);
+		Date date = new Date();
+		CmsContent preCmsContent = dao.getPreCmsContent(date,"localhost", 150);
 		assertNotNull(preCmsContent);
 		assertTrue(preCmsContent.getId() < 150);
 	}
@@ -119,6 +121,26 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 		
 		result = dao.countByTitle(DateUtils.addDays(new Date(),-20), new Date(), "not exist title 1111111111111xcsdf");
 		assertTrue(result == 0);
+	}
+	
+	@Test
+	public void test_countBySearchKeyword() {
+		test_insert();
+		int result = dao.countBySearchKeyword(DateUtils.addDays(new Date(),-20), new Date(), CmsContentDataFactory.newCmsContent().getSearchKeyword());
+		assertTrue(result == 1);
+		
+		result = dao.countBySearchKeyword(DateUtils.addDays(new Date(),-20), new Date(), "not exist title 1111111111111xcsdf");
+		assertTrue(result == 0);
+	}
+	
+	@Test
+	public void test_getByDateCreatedAndId() {
+		dao.getById(new Date(), 1);
+	}
+	
+	@Test
+	public void test_findLastBySite() {
+		assertNotNull(dao.findLastBySite("localhost"));
 	}
 }
 

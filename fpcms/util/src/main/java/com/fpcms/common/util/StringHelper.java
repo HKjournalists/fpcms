@@ -19,4 +19,14 @@ public class StringHelper {
 		return result;
 	}
 	
+	public static String getMetaDescription(String content) { //FIXME 生成的东西太多英文字符
+		if(StringUtils.isBlank(content)) {
+			return content;
+		}
+		String replaced = content.replaceAll("</\\w+>", "").replaceAll("&\\w+;", "").replaceAll("<.*?>", "").replaceAll("\\s", "");
+		return replaced.substring(0,Math.min(replaced.length(),200));
+//		String[] array = org.springframeworenizeToStringArray(content, KeywordUtil.DELIMITERS);
+//		return StringUtils.join(array,",").substring(0,200);
+	}
+	
 }

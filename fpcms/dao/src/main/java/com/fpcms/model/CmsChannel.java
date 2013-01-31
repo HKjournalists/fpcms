@@ -10,6 +10,7 @@ import static com.duowan.common.util.DateFormats.DATE_FORMAT;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -22,6 +23,7 @@ import com.duowan.common.util.tree.TreeCreator;
 import com.fpcms.common.util.ClasspathUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.FreemarkerUtil;
+import com.fpcms.common.util.StringHelper;
 
 
 /**
@@ -60,7 +62,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
     /**
      * 频道描述       db_column: channel_desc 
      */ 	
-	@Length(max=50)
+	@Length(max=300)
 	private java.lang.String channelDesc;
 	
     /**
@@ -171,7 +173,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	}
 	
 	public void setChannelName(java.lang.String value) {
-		this.channelName = value;
+		this.channelName = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getChannelCode() {
@@ -179,7 +181,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	}
 	
 	public void setChannelCode(java.lang.String value) {
-		this.channelCode = value;
+		this.channelCode = StringUtils.trim(value);
 	}
 	
 	public java.lang.String getChannelDesc() {
@@ -219,7 +221,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	}
 	
 	public void setSite(java.lang.String value) {
-		this.site = value;
+		this.site = StringUtils.trim(value);
 	}
 	
 	public long getLevel() {
@@ -244,7 +246,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	}
 
 	public void setLink(String link) {
-		this.link = link;
+		this.link = StringUtils.trim(link);
 	}
 
 	public String getLinkTarget() {
@@ -252,7 +254,7 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 	}
 
 	public void setLinkTarget(String linkTarget) {
-		this.linkTarget = linkTarget;
+		this.linkTarget = StringUtils.trim(linkTarget);
 	}
 	
 	public String getKeyword() {
@@ -271,6 +273,14 @@ public class CmsChannel  implements Node<Long>,java.io.Serializable,Cloneable{
 		this.dateCreated = dateCreated;
 	}
 
+
+	public String getMetaDescription() {
+		if(StringUtils.isNotBlank(getChannelDesc()) && getChannelDesc().length() > 30) {
+			return getChannelDesc();
+		}
+		return StringHelper.getMetaDescription(getContent());
+	}
+	
 	public CmsChannel newSubChannel() {
 		CmsChannel result = new CmsChannel();
 		result.setParentId(this.getId());

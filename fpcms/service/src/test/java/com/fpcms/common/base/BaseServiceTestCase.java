@@ -2,6 +2,7 @@ package com.fpcms.common.base;
 
 import org.junit.After;
 import org.junit.Before;
+import org.mockito.Mockito;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import com.duowan.common.util.holder.BeanValidatorHolder;
@@ -15,7 +16,7 @@ import com.duowan.common.util.holder.BeanValidatorHolder;
  * 请设置好要装载的spring配置文件,一般开发数据库与测试数据库分开
  * 所以你要装载的资源文件应改为"classpath:/spring/*-test-resource.xml"
  */
-public class BaseServiceTestCase {
+public class BaseServiceTestCase extends Mockito{
 	@Before
 	public void init() {
 		LocalValidatorFactoryBean factory  = new LocalValidatorFactoryBean();

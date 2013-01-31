@@ -11,12 +11,12 @@
 		<changefreq>hourly</changefreq>
 	</url>
 	<url>
-		<loc>http://${site}/channel/show/news.do</loc>
+		<loc>http://${site}/news.do</loc>
 		<changefreq>hourly</changefreq>
 	</url>
 	<c:forEach items="${navChannelList}" var="item">
 	<url>
-		<loc>http://${site}/channel/show/${item.channelCode}.do</loc>
+		<loc>http://${site}/${item.channelCode}.do</loc>
 		<changefreq>weekly</changefreq>
 	</url>
 	</c:forEach>

@@ -27,7 +27,7 @@ public class LoginController {
 		SysUser sysUser = sysUserService.authUser(username,password);
 		request.getSession().setAttribute(Constants.ADMIN_LOGIN_USER, sysUser.getUsername());
 		logger.info("login success:"+username+" clientIp:"+IpUtil.getIpAddr(request));
-		return "redirect:/admin/index.jsp";
+		return "redirect:/admin/index.do";
 	}
 	
 }
