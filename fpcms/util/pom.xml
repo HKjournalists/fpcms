@@ -49,6 +49,11 @@
 		<groupId>edu.uci.ics</groupId>
 		<artifactId>crawler4j</artifactId>
 	</dependency>
+
+	<dependency>
+	    <groupId>org.jsoup</groupId>
+	    <artifactId>jsoup</artifactId>
+	</dependency>
 				
 	<!-- spring begin -->
 	<dependency>

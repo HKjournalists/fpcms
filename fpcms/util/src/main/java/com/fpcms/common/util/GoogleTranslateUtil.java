@@ -19,18 +19,32 @@ public class GoogleTranslateUtil {
 	
 	public static String fromChinese2English(String words) {
 		logger.info("fromChinese2English,input:"+words);
-		String output = translate(words,"client=t&hl=zh-CN&ie=UTF-8&multires=1&oe=UTF-8&sc=1&ssel=0sl=zh-CN&tl=en","zh-CN");
+		
+		//完整参数 "client=t&hl=zh-CN&ie=UTF-8&multires=1&oe=UTF-8&sc=1&ssel=0&sl=zh-CN&tl=en"
+		String output = translate(words,"zh-CN","en");
 		logger.info("fromChinese2English,output:"+output);
 		return output;
 	}
 	
-	private static String translate(String words,String translateArgs,String endTag) {
+	/**
+	 * 
+	 * @param words	需要翻译的文本
+	 * @param sourceLang	源语言
+	 * @param targetLang	目标语言
+	 * @return
+	 */
+	public static String translate(String words,String sourceLang,String targetLang) {
+		if(!StringUtils.hasText(words)) {
+			return null;
+		}
+		
 		Map params = new HashMap();
 		params.put("text", words);
-		params.putAll(HttpUtils.parseQueryString(translateArgs));
+		params.put("sl", sourceLang);
+//		params.put("hl", sourceLang); //该参数暂时无用
+		params.put("tl", targetLang);
+		params.putAll(HttpUtils.parseQueryString("client=t"));
 		String text = NetUtil.httpPost("http://translate.google.cn/translate_a/t",params);
-		
-//		System.out.println(text);
 		
 		if(words.length() < 20) {
 			String seperator = "\",\"";
@@ -55,7 +69,10 @@ public class GoogleTranslateUtil {
 			List<String> cols = rows.get(i);
 			Map<String,String> map = ArrayUtils.toMap(cols.toArray(), "target","source","unuse","pinyin");
 			String target = map.get("target").trim();
-			if(target.equalsIgnoreCase("\"zh-CN\"") || target.equalsIgnoreCase("\"en\"")) {
+//			if(target.equalsIgnoreCase("\"zh-CN\"") || target.equalsIgnoreCase("\"en\"")) {
+//				break;
+//			}
+			if(target.equals("\""+sourceLang+"\"")) {
 				break;
 			}
 			mapRows.add(map);
@@ -78,7 +95,7 @@ public class GoogleTranslateUtil {
 	}
 	
 	public static String fromEnglish2Chinese(String words) {
-		return translate(words,"client=t&text="+words+"&hl=en&sl=en&tl=zh-CN","en");
+		return translate(words,"en","zh-CN");
 	}
 	
 }
