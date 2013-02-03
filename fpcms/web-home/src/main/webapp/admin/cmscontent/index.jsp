@@ -97,6 +97,7 @@
 				<th sortColumn="channel_code" >频道</th>
 				<th sortColumn="date_created" >创建时间</th>
 				<th sortColumn="title" >标题</th>
+				<th sortColumn="title" >文章来源网站</th>
 				<th sortColumn="author" >作者</th>
 <!--				<th sortColumn="date_last_modified" >更新时间</th>-->
 	 
@@ -115,6 +116,7 @@
 				<td><c:out value='${item.channelCode}'/>&nbsp;</td>
 				<td><fmt:formatDate value='${item.dateCreated}' pattern='yyyy-MM-dd'/>&nbsp;</td>
 				<td><a href="${ctx}/admin/cmscontent/show.do?id=${item.id}" title="<c:out value='${item.title}'/>"><c:out value='${fn:substring(item.title,0,20)}'/>...</a>&nbsp;</td>
+				<td><a href="http://${item.sourceUrl}" target="_blank">${item.sourceSite}</a></td>
 				<td><c:out value='${item.author}'/>&nbsp;</td>
 <!--				<td><fmt:formatDate value='${item.dateLastModified}' pattern='yyyy-MM-dd'/>&nbsp;</td>-->
 				<td>

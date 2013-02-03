@@ -27,6 +27,10 @@
 				<td><c:out value='${cmsContent.headTitle}'/></td>
 			</tr>
 			<tr>	
+				<td class="tdLabel">来源网站</td>	
+				<td><a href="http://${cmsContent.sourceSite}" target="_blank">${cmsContent.sourceSite}</a></td>
+			</tr>			
+			<tr>	
 				<td class="tdLabel">文章来源URL</td>	
 				<td><a href="${cmsContent.sourceUrl}" target="_blank">${cmsContent.sourceUrl}</a></td>
 			</tr>
