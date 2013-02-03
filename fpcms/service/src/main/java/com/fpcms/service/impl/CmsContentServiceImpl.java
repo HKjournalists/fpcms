@@ -190,7 +190,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setContent(article.getContent());
 		String title = article.getPerfectKeyword();
 		cmsContent.setTitle(StringUtils.trim(title)); //TODO 网站:关键字要附加进去
-		cmsContent.setAuthor("admin_ramd");
+		cmsContent.setAuthor("ramd");
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
 		cmsContent.setSite(site);
 		cmsContent.setSearchKeyword(article.getKeyword());
@@ -221,6 +221,10 @@ public class CmsContentServiceImpl implements CmsContentService {
 	@Override
 	public CmsContent findLastBySite(String site) {
 		return cmsContentDao.findLastBySite(site);
+	}
+
+	public int countBySourceUrl(Date start, Date end, String sourceUrl) {
+		return cmsContentDao.countBySourceUrl(start, end, sourceUrl);
 	}
 
 }

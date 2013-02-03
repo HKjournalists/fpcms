@@ -60,7 +60,7 @@ public class CmsContentController extends BaseController{
 	/** binder用于bean属性的设置 */
 	@InitBinder  
 	public void initBinder(WebDataBinder binder) {  
-	    binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));  
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));  
 	}
 	   
 	/**
@@ -73,9 +73,7 @@ public class CmsContentController extends BaseController{
 	/** 列表 */
 	@RequestMapping()
 	public String index(ModelMap model,CmsContentQuery query,HttpServletRequest request) {
-//		query.setChannelCode(RequestUtil.getAndCreateSession(request,"channelCode"));
-//		query.setSite(RequestUtil.getAndCreateSession(request,"site"));
-		
+		query.setPageSize(Math.max(100, query.getPageSize()));
 		Page<CmsContent> page = this.cmsContentService.findPage(query);
 		
 		model.addAllAttributes(toModelMap(page, query));

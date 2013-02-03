@@ -122,7 +122,37 @@
 		<font color='red'><form:errors path="redirectSite"/></font>
 		</td>
 	</tr>
+
+	<tr>	
+		<td class="tdLabel">
+			IP
+		</td>		
+		<td>
+		<form:input path="ip" id="ip" maxlength="20"  size="60"/>
+		<font color='red'><form:errors path="ip"/></font>
+		</td>
+	</tr>
 	
+	
+	<tr>	
+		<td class="tdLabel">
+			Http状态
+		</td>		
+		<td>
+		<form:input path="httpStatus" id="httpStatus" maxlength="20"  size="60"/>
+		<font color='red'><form:errors path="httpStatus"/></font>
+		</td>
+	</tr>
+				
+	<tr>	
+		<td class="tdLabel">
+			作者:
+		</td>		
+		<td>
+		<form:input path="author" id="author"  maxlength="20"  size="60"/>
+		<font color='red'><form:errors path="author"/></font>
+		</td>
+	</tr>		
 	
 	<tr>	
 		<td class="tdLabel">
@@ -143,14 +173,6 @@
 		<font color='red'><form:errors path="props"/></font>
 		</td>
 	</tr>
-		
-	<tr>	
-		<td class="tdLabel">
-			作者:
-		</td>		
-		<td>
-		<form:input path="author" id="author"  maxlength="20"  size="60"/>
-		<font color='red'><form:errors path="author"/></font>
-		</td>
-	</tr>		
+
+	
 		

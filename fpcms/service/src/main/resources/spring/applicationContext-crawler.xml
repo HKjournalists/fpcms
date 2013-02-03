@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"    default-autowire="byName" default-lazy-init="false">
+	
+	<bean id="articleCrawlService" class="com.fpcms.service.article_crawl.ArticleCrawlService"/>
+	
+	<bean id="parentSinglePageCrawler" class="com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler" abstract="true">
+		<property name="minContentLength" value="300"></property>
+	</bean>
+	
+	<bean parent="parentSinglePageCrawler">
+		<property name="sourceLang" value="en"></property>
+		<property name="urlList">
+			<list>
+				<value>http://indiatoday.intoday.in/section/114/1/india.html</value>
+				<value>http://indiatoday.intoday.in/section/110/1/business.html</value>
+			</list>
+		</property>
+		<property name="acceptUrlRegexList">
+			<list>
+				<value>.*/story/.*/\d{5,}.html</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean parent="parentSinglePageCrawler">
+		<property name="sourceLang" value="fr"></property>
+		<property name="urlList">
+			<list>
+				<value>http://www.rfi.fr/afrique</value>
+				<value>http://www.rfi.fr/france</value>
+			</list>
+		</property>
+		<!-- http://www.rfi.fr/afrique/20130201-pourquoi-afrique-sud-est-reservee-intervention-francaise-mali -->
+		<property name="acceptUrlRegexList">
+			<list>
+				<value>http://\w+.rfi.fr/\w+/\d{6}.*</value>
+			</list>
+		</property>
+	</bean>
+		
+</beans>

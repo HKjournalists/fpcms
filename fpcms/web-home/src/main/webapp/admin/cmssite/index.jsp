@@ -107,7 +107,7 @@
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
 				<th sortColumn="site_domain" >网站域名</th>
 <!--				<th sortColumn="site_name" >网站名称</th>-->
-				<th sortColumn="http_status" >http状态</th>
+				<th sortColumn="http_status" width="10px" >http状态</th>
 				<th sortColumn="ip" >IP</th>
 				<th sortColumn="site_desc" >网站描述</th>
 				<th sortColumn="city" >城市</th>

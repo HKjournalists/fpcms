@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import com.duowan.common.util.ArrayUtils;
+import com.duowan.common.util.MapUtils;
 import com.duowan.common.web.util.HttpUtils;
 
 public class GoogleTranslateUtil {
@@ -25,6 +26,10 @@ public class GoogleTranslateUtil {
 		logger.info("fromChinese2English,output:"+output);
 		return output;
 	}
+	
+//	public static String translate(Map<String,String> wordMap,String sourceLang,String targetLang) {
+//		
+//	}
 	
 	/**
 	 * 
@@ -41,7 +46,7 @@ public class GoogleTranslateUtil {
 		Map params = new HashMap();
 		params.put("text", words);
 		params.put("sl", sourceLang);
-//		params.put("hl", sourceLang); //该参数暂时无用
+//		params.put("hl", sourceLang); //该参数用于控制html页面展示是什么语言,非翻译语言需要使用
 		params.put("tl", targetLang);
 		params.putAll(HttpUtils.parseQueryString("client=t"));
 		String text = NetUtil.httpPost("http://translate.google.cn/translate_a/t",params);

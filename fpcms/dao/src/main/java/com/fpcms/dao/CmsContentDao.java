@@ -43,6 +43,8 @@ public interface CmsContentDao {
 
 	public int countBySearchKeyword(Date start, Date end, String searchKeyword);
 	
+	public int countBySourceUrl(Date start, Date end, String sourceUrl);
+	
 	public Page<CmsContent> findPage(PageQuery pageQuery, String site,String channelCode, DateRange createdRange);
 
 	public CmsContent getById(Date dateCreated, long id);

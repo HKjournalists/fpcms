@@ -95,9 +95,10 @@
 				<th sortColumn="id" >ID</th>
 				<th sortColumn="site" >网站域名</th>
 				<th sortColumn="channel_code" >频道</th>
+				<th sortColumn="date_created" >创建时间</th>
 				<th sortColumn="title" >标题</th>
 				<th sortColumn="author" >作者</th>
-				<th sortColumn="date_last_modified" >更新时间</th>
+<!--				<th sortColumn="date_last_modified" >更新时间</th>-->
 	 
 				<th>操作</th>
 			  </tr>
@@ -112,11 +113,11 @@
 				<td><c:out value='${item.id}'/>&nbsp;</td>
 				<td><c:out value='${item.site}'/>&nbsp;</td>
 				<td><c:out value='${item.channelCode}'/>&nbsp;</td>
-				<td><c:out value='${item.title}'/>&nbsp;</td>
+				<td><fmt:formatDate value='${item.dateCreated}' pattern='yyyy-MM-dd'/>&nbsp;</td>
+				<td><a href="${ctx}/admin/cmscontent/show.do?id=${item.id}"><c:out value='${fn:substring(item.title,0,25)}'/>...</a>&nbsp;</td>
 				<td><c:out value='${item.author}'/>&nbsp;</td>
-				<td><fmt:formatDate value='${item.dateLastModified}' pattern='yyyy-MM-dd'/>&nbsp;</td>
+<!--				<td><fmt:formatDate value='${item.dateLastModified}' pattern='yyyy-MM-dd'/>&nbsp;</td>-->
 				<td>
-					<a href="${ctx}/admin/cmscontent/show.do?id=${item.id}">查看</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmscontent/edit.do?id=${item.id}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmscontent/delete.do?id=${item.id}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
 				</td>

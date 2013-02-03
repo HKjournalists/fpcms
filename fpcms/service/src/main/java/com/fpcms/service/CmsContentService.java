@@ -76,4 +76,6 @@ public interface CmsContentService {
     public void genSiteRandomCmsContent(String site);
 
 	public CmsContent findLastBySite(String site);
+	
+	public int countBySourceUrl(Date start, Date end, String sourceUrl);
 }

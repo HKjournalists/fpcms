@@ -2,9 +2,7 @@ package com.fpcms.common.webcrawler.htmlparser;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -13,50 +11,84 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
+import com.fpcms.common.util.GoogleTranslateUtil;
+import com.fpcms.common.util.JsoupSelectorUtil;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.NetUtil;
+import com.fpcms.common.util.JsoupSelectorUtil.JsoupElementParentsSizeComparator;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 
 public class SinglePageCrawler {
 	
+	private static Logger logger = LoggerFactory.getLogger(SinglePageCrawler.class);
 	
-	private String url;
-	private String[] acceptUrlRegex;
-	private String[] excludeUriRegex;
-	private String translateSourceLang;
-	private String translateTargetLang;
+	private String[] urlList;
+	private String[] acceptUrlRegexList;
+	private String[] excludeUriRegexList;
+	private String sourceLang; //TODO 自动识别语言
 	private String[] mainContentSelector;
+	private int minContentLength = 300;
+	
+	private HtmlPageCrawler htmlPageCrawler = new HtmlPageCrawler() {
+		public boolean shoudVisitPage(Anchor a) {
+			return true;
+		}
+		public void visit(HtmlPage page) {
+		}
+	};
 	
 	public SinglePageCrawler() {
 	}
 	
-	public SinglePageCrawler(String url) {
+	public SinglePageCrawler(String... url) {
 		super();
-		this.url = url;
+		setUrlList(url);
+	}
+	
+	public void setHtmlPageCrawler(HtmlPageCrawler htmlPageCrawler) {
+		Assert.notNull(htmlPageCrawler,"htmlPageCrawler must be not null");
+		this.htmlPageCrawler = htmlPageCrawler;
 	}
 
-	public void setTranslateSourceLang(String translateSourceLang) {
-		this.translateSourceLang = translateSourceLang;
+	public void setSourceLang(String sourceLang) {
+		this.sourceLang = sourceLang;
 	}
 
-	public void setTranslateTargetLang(String translateTargetLang) {
-		this.translateTargetLang = translateTargetLang;
+	public void setAcceptUrlRegexList(String... acceptUrlRegex) {
+		this.acceptUrlRegexList = acceptUrlRegex;
+	}
+	
+	public void setExcludeUriRegexList(String[] excludeUriRegexList) {
+		this.excludeUriRegexList = excludeUriRegexList;
 	}
 
-	public void setAcceptUrlRegex(String... acceptUrlRegex) {
-		this.acceptUrlRegex = acceptUrlRegex;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
+	public void setUrlList(String... url) {
+		this.urlList = url;
 	}
 
 	public void setMainContentSelector(String... mainContentSelector) {
 		this.mainContentSelector = mainContentSelector;
 	}
+	
+	public void setMinContentLength(int minContentLength) {
+		this.minContentLength = minContentLength;
+	}
 
-	public void execute() throws MalformedURLException, IOException {
+	public void execute() {
+		for(String url : urlList) {
+			try {
+				crlawUrl(url);
+			}catch(Exception e) {
+				logger.error("error_on_crlaw_url:"+url,e);
+			}
+		}
+	}
+
+	private void crlawUrl(String url) {
 		String content = NetUtil.httpGet(url);
 		Document doc = Jsoup.parse(content);
 		Elements elements = doc.getElementsByTag("a");
@@ -71,13 +103,16 @@ public class SinglePageCrawler {
 			a.setText(text);
 			a.setTitle(title);
 			
-			if(isAcceptUrl(a.getHref())) {
-				extractArticleByJsoup(a);
+			if(isAcceptUrl(a.getHref()) && htmlPageCrawler.shoudVisitPage(a)) {
+				try {
+					extractArticleByJsoup(a);
+				}catch(Exception e) {
+					logger.warn("extractArticleByJsoup error",e);
+				}
 			}
 		}
 	}
 
-	
 	private void extractArticleByJsoup(Anchor anchor) throws IOException {
 		try {
 			
@@ -86,62 +121,54 @@ public class SinglePageCrawler {
 			
 			Document doc = conn.get();
 			String title = extrectMainTitle(doc.getElementsByTag("title").text());
-			String keywords = select(doc,"[name=keywords]").attr("content");
-			String description = select(doc,"[name=description]").attr("content");
-			String content = select(doc,mainContentSelector).text();
+			String keywords = JsoupSelectorUtil.select(doc,"[name=keywords]").attr("content");
+			String description = JsoupSelectorUtil.select(doc,"[name=description]").attr("content");
+			String content = JsoupSelectorUtil.select(doc,mainContentSelector).text();
+			Element smartMainContent = smartGetMainContent(doc);
 			
 			HtmlPage page = new HtmlPage();
 			page.setAnchor(anchor);
-			page.setContent(content);
+			page.setContent(StringUtils.defaultIfBlank(content,smartMainContent == null ? null : smartMainContent.text()));
 			page.setDescription(description);
 			page.setKeywords(keywords);
 			page.setTitle(title);
+			page.setSourceLang(sourceLang);
 			
-			Element maxLength = smartGetMainContent(doc);
-			
-			System.out.println("maxLengthElement.text:" + (maxLength == null ? "NOT_FOUND" : maxLength.text()));
-			System.out.println("url:"+page.getAnchor().getHref());
-			System.out.println("title:"+page.getTitle());
-			System.out.println("keywords:"+page.getKeywords());
-			System.out.println("description:"+page.getDescription());
-			System.out.println("content:"+page.getContent());
-			System.out.println("content.deepLevel:"+select(doc,mainContentSelector).parents().size());
-			
-			if(maxLength != null) {
-				if(!maxLength.text().equals(page.getContent())) {
-					System.out.println("-------------------error: smart max length text != selector["+StringUtils.join(mainContentSelector,",")+"] text----------------------");
+			logger.info("------------------- url:"+page.getAnchor().getHref()+" ---------------------------");
+			logger.info("smartMainContent.text:" + (smartMainContent == null ? "NOT_FOUND" : smartMainContent.text()));
+			logger.info("title:"+page.getTitle());
+			logger.info("keywords:"+page.getKeywords());
+			logger.info("description:"+page.getDescription());
+			logger.info("content,size:"+ StringUtils.length(page.getContent()) +" "+page.getContent());
+			logger.info("content.deepLevel:"+JsoupSelectorUtil.select(doc,mainContentSelector).parents().size());
+			if(smartMainContent != null && StringUtils.isNotBlank(content)) {
+				if(!smartMainContent.text().equals(page.getContent())) {
+					logger.warn("-------------------error: smart max length text != selector["+StringUtils.join(mainContentSelector,",")+"] text----------------------");
 				}
 			}
+			
+			htmlPageCrawler.visit(page);
 		}catch(Exception e) {
-			throw new RuntimeException("error on process anchor:"+anchor,e);
+			throw new RuntimeException("error on extractArticleByJsoup anchor:"+anchor,e);
 		}
 	}
 
 	private Element smartGetMainContent(Document doc) {
-		Elements div = select(doc,"div");
+		List<Element> allDiv = JsoupSelectorUtil.selectList(doc,"div");
+		Collections.sort(allDiv,new JsoupElementParentsSizeComparator());
 		
-		List<Element> allDiv = new ArrayList<Element>();
-		for(Element element : div) {
-			allDiv.add(element);
-		}
-		Collections.sort(allDiv,new Comparator<Element>() {
-			@Override
-			public int compare(Element o1, Element o2) {
-				int n1 = o1.parents().size();
-				int n2 = o2.parents().size();
-				return - new Integer(n1).compareTo(n2);
-			}
-		});
-		
-		List<Element> lengthValid = new ArrayList<Element>();
 		for(Element element : allDiv) {
-			int conditionSize = 300;
-			int conditionSymbolesCount = conditionSize / 50;
+			int conditionSymbolesCount = minContentLength / 50;
 			int commonSymbolesCount = KeywordUtil.getCommonSymbolsCount(element.text());
 			int divCount = element.getElementsByTag("div").size();
-			int parentLevel = element.parents().size();
-			if(element.text().length() > conditionSize  && parentLevel >= 4 && commonSymbolesCount > conditionSymbolesCount) {
-				System.out.println(element.tagName()+ " class:" + element.className() + " id:"+ element.id() + " anchor.count:"+element.getElementsByTag("a").size() + " levels:" + parentLevel + " contentSize:"+element.text().length()+" commonSymbolesCount:"+commonSymbolesCount+" divCount:"+divCount);
+			int parentsSize = element.parents().size();
+			
+			/*
+			 * TODO 增加判断如果出现空格数过多的文字也属于垃圾特征,如: 首页 产品列表 关于我们 
+			 * TODO 包含垃圾子段的父亲,也是垃圾
+			 * TODO 
+			 */
+			if(element.text().length() >= minContentLength  && parentsSize >= 4 && commonSymbolesCount > conditionSymbolesCount) {
 				if(element.getElementsByTag("a").size() >= 5) {
 					continue;
 				}
@@ -149,21 +176,11 @@ public class SinglePageCrawler {
 					continue;
 				}
 				
+				logger.info("success_found_valid_content:"+element.tagName()+ " class:" + element.className() + " id:"+ element.id() + " anchor.count:"+element.getElementsByTag("a").size() + " parentsSize:" + parentsSize + " contentSize:"+element.text().length()+" commonSymbolesCount:"+commonSymbolesCount+" divCount:"+divCount);
 				return element;
 			}
 		}
 		return null;
-	}
-
-	private static Elements select(Document doc,String... selectors) {
-		for(String selector : selectors) {
-			Elements elements = doc.select(selector);
-			if(elements.isEmpty()) {
-				continue;
-			}
-			return elements;
-		}
-		return new Elements();
 	}
 
 	private static char[] titleSeperator = {'-','_','|',':'};
@@ -182,12 +199,12 @@ public class SinglePageCrawler {
 		if(StringUtils.isBlank(href)) {
 			return false;
 		}
-		if(acceptUrlRegex == null) {
+		if(acceptUrlRegexList == null) {
 			return true;
 		}
 		
-		if(excludeUriRegex != null) {
-			for(String exclude : excludeUriRegex) {
+		if(excludeUriRegexList != null) {
+			for(String exclude : excludeUriRegexList) {
 				if(StringUtils.isNotBlank(exclude)) {
 					if(href.matches(exclude)) {
 						return false;
@@ -196,8 +213,8 @@ public class SinglePageCrawler {
 			}
 		}
 		
-		if(acceptUrlRegex != null) {
-			for(String accept : acceptUrlRegex) {
+		if(acceptUrlRegexList != null) {
+			for(String accept : acceptUrlRegexList) {
 				if(StringUtils.isNotBlank(accept)) {
 					if(href.matches(accept)) {
 						return true;

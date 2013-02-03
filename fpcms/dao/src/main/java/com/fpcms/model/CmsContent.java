@@ -98,9 +98,14 @@ public class CmsContent  implements java.io.Serializable{
 	
 	private Long level;
 	
+	
 	private String searchKeyword;
-	//columns END
-
+	/**
+	 * 来源URL
+	 */
+	@Length(max=200)
+	private String sourceUrl;
+	
 	public CmsContent(){
 	}
 
@@ -215,6 +220,14 @@ public class CmsContent  implements java.io.Serializable{
 
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+	
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
 	}
 
 	public String toString() {

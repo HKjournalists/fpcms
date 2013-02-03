@@ -34,8 +34,14 @@
 		<li><a href="${ctx}/admin/cmscontent/genRandomCmsContent.do?count=1" target="rightFrame">随机生成文章</a></li>
 		<li><a href="${ctx}/admin/cmsattachment/index.do" target="rightFrame">附件管理</a></li>
 		<li><a href="${ctx}/admin/cmsdomain/index.do" target="rightFrame">域名管理</a></li>
+		
 		<li><a href="${ctx}/admin/cmssite/index.do" target="rightFrame">网站管理</a></li>
 		<li><a href="${ctx}/admin/cmscontent/listForExternalLinks.do" target="rightFrame">外链文章</a></li>
+	  </ul>
+	  <h3 class="headerbar">文章采集</h3>
+	  <ul>
+		<li><a href="${ctx}/admin/cmscontent/index.do?site=localhost" target="rightFrame">查看文章采集</a></li>
+		<li><a href="${ctx}/admin/articlecrawl/gen.do" target="rightFrame">执行文章采集</a></li>
 	  </ul>
 	  <h3 class="headerbar">系统管理</h3>
 	  <ul>

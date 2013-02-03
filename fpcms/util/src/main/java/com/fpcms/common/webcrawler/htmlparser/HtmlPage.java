@@ -11,8 +11,10 @@ public class HtmlPage {
 	private String keywords;
 	private String description;
 	private String content;
-
+	
 	private Anchor anchor;
+	
+	private String sourceLang;
 	
 	public Anchor getAnchor() {
 		return anchor;
@@ -54,10 +56,18 @@ public class HtmlPage {
 		this.content = StringUtils.trim(content);
 	}
 	
+	public String getSourceLang() {
+		return sourceLang;
+	}
+
+	public void setSourceLang(String sourceLang) {
+		this.sourceLang = sourceLang;
+	}
+
 	public static class Anchor {
-		String href;
-		String text;
-		String title;
+		private String href;
+		private String text;
+		private String title;
 
 		public String getHref() {
 			return href;
