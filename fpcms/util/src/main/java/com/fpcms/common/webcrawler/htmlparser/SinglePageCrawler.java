@@ -188,11 +188,11 @@ public class SinglePageCrawler {
 		return null;
 	}
 
-	private static char[] titleSeperator = {':','_','-','|'};
+	private static char[] titleSeperator = {'_','-',':','|'};
 	private static String extrectMainTitle(String title) {
 		title = title.trim();
 		for(char c : titleSeperator) {
-			int indexOf = title.lastIndexOf(c);
+			int indexOf = title.indexOf(c);
 			if(indexOf >= 0) {
 				return title.substring(0,indexOf - 1);
 			}
