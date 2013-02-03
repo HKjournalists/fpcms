@@ -10,13 +10,13 @@ public class HtmlContentExtracter {
 //		c.setAcceptUrlRegex(".*url.*");
 //		c.setMainContentSelector("#endText");
 		
-		c.setUrl("http://www.iteye.com/blogs");
-		c.setAcceptUrlRegex(".*blog.*");
-		c.setMainContentSelector("#endText");
+//		c.setUrl("http://www.iteye.com/blogs");
+//		c.setAcceptUrlRegex(".*blog.*");
+//		c.setMainContentSelector("#blog_content");
 		
-//		c.setUrl("http://news.163.com");
-//		c.setAcceptUrlRegex(".*/13/.*.html");
-//		c.setMainContentSelector("#endText");
+		c.setUrl("http://news.163.com");
+		c.setAcceptUrlRegex(".*/13/.*.html");
+		c.setMainContentSelector("#endText");
 		
 //		c.setUrl("http://indiatoday.intoday.in/news.html");
 //		c.setAcceptUrlRegex(".*/story/.*.html");

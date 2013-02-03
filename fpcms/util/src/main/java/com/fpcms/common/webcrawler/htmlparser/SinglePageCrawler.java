@@ -98,19 +98,20 @@ public class SinglePageCrawler {
 			page.setTitle(title);
 			
 			Element maxLength = smartGetMainContent(doc);
-			if(maxLength != null) {
-				System.out.println("maxLengthElement.text:"+maxLength.text());
-				if(!maxLength.text().equals(page.getContent())) {
-					System.out.println("-------------------error: smart max length text != selector["+StringUtils.join(mainContentSelector,",")+"] text----------------------");
-				}
-			}
 			
+			System.out.println("maxLengthElement.text:" + (maxLength == null ? "NOT_FOUND" : maxLength.text()));
 			System.out.println("url:"+page.getAnchor().getHref());
 			System.out.println("title:"+page.getTitle());
 			System.out.println("keywords:"+page.getKeywords());
 			System.out.println("description:"+page.getDescription());
 			System.out.println("content:"+page.getContent());
 			System.out.println("content.deepLevel:"+select(doc,mainContentSelector).parents().size());
+			
+			if(maxLength != null) {
+				if(!maxLength.text().equals(page.getContent())) {
+					System.out.println("-------------------error: smart max length text != selector["+StringUtils.join(mainContentSelector,",")+"] text----------------------");
+				}
+			}
 		}catch(Exception e) {
 			throw new RuntimeException("error on process anchor:"+anchor,e);
 		}
@@ -136,12 +137,18 @@ public class SinglePageCrawler {
 		for(Element element : allDiv) {
 			int conditionSize = 300;
 			int conditionSymbolesCount = conditionSize / 50;
-			int commonSynbolesCount = KeywordUtil.getCommonSymbolsCount(element.text());
-			if(element.text().length() > conditionSize  && element.parents().size() >= 4 && commonSynbolesCount > conditionSymbolesCount) {
-				System.out.println(element.tagName()+ " class:" + element.className() + " id:"+ element.id() + " anchor.count:"+element.getElementsByTag("a").size() + " levels:" + element.parents().size() + " contentSize:"+element.text().length()+" commonSynbolesCount:"+commonSynbolesCount);
-				if(element.getElementsByTag("a").size() > 3) {
+			int commonSymbolesCount = KeywordUtil.getCommonSymbolsCount(element.text());
+			int divCount = element.getElementsByTag("div").size();
+			int parentLevel = element.parents().size();
+			if(element.text().length() > conditionSize  && parentLevel >= 4 && commonSymbolesCount > conditionSymbolesCount) {
+				System.out.println(element.tagName()+ " class:" + element.className() + " id:"+ element.id() + " anchor.count:"+element.getElementsByTag("a").size() + " levels:" + parentLevel + " contentSize:"+element.text().length()+" commonSymbolesCount:"+commonSymbolesCount+" divCount:"+divCount);
+				if(element.getElementsByTag("a").size() >= 5) {
 					continue;
 				}
+				if(divCount >= 5) {
+					continue;
+				}
+				
 				return element;
 			}
 		}
