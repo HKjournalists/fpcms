@@ -188,6 +188,12 @@ public class KeywordUtil {
 	static String[] question = {"吗"};
 	static String[] symbols = {",",".","!",";"};
 	public static Object getSymbol(String token) {
+		for(int i = 0; i < DELIMITERS.length(); i++) {
+			char c = DELIMITERS.charAt(i);
+			if(token.endsWith(""+c)) {
+				return "";
+			}
+		}
 		
 		for(String item : a) {
 			if(token.endsWith(item)) {
