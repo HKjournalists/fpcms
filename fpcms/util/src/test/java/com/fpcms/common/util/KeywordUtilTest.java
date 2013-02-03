@@ -9,7 +9,15 @@ import org.junit.Test;
 
 public class KeywordUtilTest extends Assert{
 
-
+	@Test
+	public void getCommonSymbolsCount() {
+		assertEquals(3,KeywordUtil.getCommonSymbolsCount("中国,是个.；"));
+		assertEquals(2,KeywordUtil.getCommonSymbolsCount("中国,是个."));
+		assertEquals(0,KeywordUtil.getCommonSymbolsCount(null));
+		assertEquals(0,KeywordUtil.getCommonSymbolsCount("   "));
+		assertEquals(0,KeywordUtil.getCommonSymbolsCount("  中国  "));
+	}
+	
 	
 	@Test
 	public void print() {

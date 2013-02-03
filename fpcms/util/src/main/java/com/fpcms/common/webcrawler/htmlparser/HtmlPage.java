@@ -1,5 +1,8 @@
 package com.fpcms.common.webcrawler.htmlparser;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.commons.lang.StringUtils;
 
 public class HtmlPage {
@@ -84,6 +87,27 @@ public class HtmlPage {
 		public String toString() {
 			return "Anchor [href=" + href + ", text=" + text + ", title="
 					+ title + "]";
+		}
+		
+		public static String toFullUrl(String baseUrl,String href)  {
+			if(href.matches("https?://.*")) {
+				return href;
+			}
+			if(href.startsWith("/")) {
+				return getRootUrl(baseUrl)	+	href;
+			}else {
+				return baseUrl + href;
+			}
+		}
+
+		public static String getRootUrl(String baseUrl) {
+			try {
+				URL url = new URL(baseUrl);
+				String root = url.getProtocol()+"://"+url.getHost();
+				return root;
+			} catch (MalformedURLException e) {
+				throw new RuntimeException("MalformedURLException,url:"+baseUrl,e);
+			}
 		}
 	}
 
