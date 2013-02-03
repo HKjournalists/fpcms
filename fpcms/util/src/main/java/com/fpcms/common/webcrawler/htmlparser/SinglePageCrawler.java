@@ -134,6 +134,8 @@ public class SinglePageCrawler {
 			page.setTitle(title);
 			page.setSourceLang(sourceLang);
 			
+			
+			//TODO 增加anchor.text 与 page.title的比较或者是替换
 			logger.info("------------------- url:"+page.getAnchor().getHref()+" ---------------------------");
 			logger.info("smartMainContent.text:" + (smartMainContent == null ? "NOT_FOUND" : smartMainContent.text()));
 			logger.info("title:"+page.getTitle());
@@ -183,7 +185,7 @@ public class SinglePageCrawler {
 		return null;
 	}
 
-	private static char[] titleSeperator = {'-','_','|',':'};
+	private static char[] titleSeperator = {':','_','-','|'};
 	private static String extrectMainTitle(String title) {
 		title = title.trim();
 		for(char c : titleSeperator) {
