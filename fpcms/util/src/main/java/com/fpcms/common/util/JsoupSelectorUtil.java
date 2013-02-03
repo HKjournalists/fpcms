@@ -5,13 +5,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class JsoupSelectorUtil {
 	
-	public static List<Element> selectList(Document doc, String... selector) {
+	public static List<Element> selectList(Element doc, String... selector) {
 		Elements elements = select(doc, selector);
 
 		List<Element> allDiv = new ArrayList<Element>();
@@ -21,7 +20,7 @@ public class JsoupSelectorUtil {
 		return allDiv;
 	}
 
-	public static Elements select(Document doc, String... selectors) {
+	public static Elements select(Element doc, String... selectors) {
 		if (selectors != null) {
 			for (String selector : selectors) {
 				if (StringUtils.isBlank(selector)) {

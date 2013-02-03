@@ -8,6 +8,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
+import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -118,12 +119,14 @@ public class SinglePageCrawler {
 			
 			Connection conn = Jsoup.connect(anchor.getHref());
 			conn.userAgent("Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)");
-			
+			conn.timeout(1000 * 6);
 			Document doc = conn.get();
-			String title = extrectMainTitle(doc.getElementsByTag("title").text());
-			String keywords = JsoupSelectorUtil.select(doc,"[name=keywords]").attr("content");
-			String description = JsoupSelectorUtil.select(doc,"[name=description]").attr("content");
-			String content = JsoupSelectorUtil.select(doc,mainContentSelector).text();
+			logger.info("doc.baseUri:"+doc.baseUri() );
+			
+			String title = extrectMainTitle(doc.title());
+			String keywords = JsoupSelectorUtil.select(doc.head(),"[name=keywords]").attr("content");
+			String description = JsoupSelectorUtil.select(doc.head(),"[name=description]").attr("content");
+			String content = JsoupSelectorUtil.select(doc.body(),mainContentSelector).text();
 			Element smartMainContent = smartGetMainContent(doc);
 			
 			HtmlPage page = new HtmlPage();
