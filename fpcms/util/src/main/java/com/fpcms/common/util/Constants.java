@@ -58,4 +58,11 @@ public interface Constants {
 
 	public static String QUERY_STRING = "queryString";
 	
+	/**
+	 * 采集回来的文章存放的站点,作者,频道
+	 */
+	public static String CRAWL_SITE = "localhost";
+	public static String CRAWL_AUTHOR = "crawler";
+	public static String CRAWL_CHANNEL_CODE = "news";
+	
 }

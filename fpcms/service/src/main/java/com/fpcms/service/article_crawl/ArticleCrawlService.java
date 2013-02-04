@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
 import com.fpcms.common.util.ApplicationContextUtil;
+import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
@@ -100,9 +101,9 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
 			c.setTitle(GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN"));
 			c.setSourceUrl(page.getAnchor().getHref());
-			c.setSite("localhost");
-			c.setChannelCode("news");
-			c.setAuthor("crawler");
+			c.setSite(Constants.CRAWL_SITE);
+			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
+			c.setAuthor(Constants.CRAWL_AUTHOR);
 			cmsContentService.create(c);
 			
 		}
