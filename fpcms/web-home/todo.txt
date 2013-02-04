@@ -174,5 +174,10 @@ http://indiatoday.intoday.in/ 今日印度
 考虑博客自动发布
 支持的博客列表: http://www.juxianzi.com/product/juziyue/help/partner.html
 
+博客自动发布:
+校内: http://blog.csdn.net/greatwall_sdut/article/details/3988729
+百度空间: http://java7.blog.hexun.com/70197431_d.html
+
+
 支持百度ping
 
