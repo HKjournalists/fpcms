@@ -157,4 +157,4 @@ http://stackoverflow.com 美国问答
 http://www.asahi.com/culture 日本朝日新闻
 http://indiatoday.intoday.in/ 今日印度
 
-
+1. LiveWriter编写日志
