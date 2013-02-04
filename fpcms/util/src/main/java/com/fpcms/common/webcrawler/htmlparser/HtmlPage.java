@@ -100,6 +100,19 @@ public class HtmlPage {
 		}
 		
 		public static String toFullUrl(String baseUrl,String href)  {
+			String result = toFullUrl0(baseUrl, href);
+			return deleteUrlParameter(result);
+		}
+
+		private static String deleteUrlParameter(String url) {
+			int indexOf = url.indexOf(";");
+			if(indexOf >= 0) {
+				return url.substring(0,indexOf);
+			}
+			return url;
+		}
+
+		private static String toFullUrl0(String baseUrl, String href) {
 			if(href.matches("https?://.*")) {
 				return href;
 			}

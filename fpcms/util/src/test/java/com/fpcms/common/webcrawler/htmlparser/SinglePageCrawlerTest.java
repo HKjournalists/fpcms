@@ -48,6 +48,16 @@ public class SinglePageCrawlerTest extends Mockito{
 		System.out.println(StringUtils.join(list,"\n"));
 		assertTrue(list.size() > 50);
 	}
+
+	@Test
+	public void test_getShoudVisitAnchorList_yahoo() throws IOException {
+		c.setAcceptUrlRegexList("http://.*.yahoo.com/.*-\\d{6,}.html.*");
+		List<Anchor> list = c.getShoudVisitAnchorList("http://news.yahoo.com/");
+		System.out.println(StringUtils.join(list,"\n"));
+		assertTrue(list.size() > 20);
+	}
+	
+	
 	
 	@Test
 	public void test_isAcceptUrl() throws IOException {

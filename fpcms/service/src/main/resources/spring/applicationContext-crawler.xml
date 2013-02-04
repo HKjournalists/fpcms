@@ -19,11 +19,13 @@
 			<list>
 				<value>http://indiatoday.intoday.in/section/114/1/india.html</value>
 				<value>http://indiatoday.intoday.in/section/110/1/business.html</value>
+				<value>http://news.yahoo.com/</value>
 			</list>
 		</property>
 		<property name="acceptUrlRegexList">
 			<list>
-				<value>.*/story/.*/\d{5,}.html</value>
+				<value>http://.*.yahoo.com/.*-\d{6,}.html.*</value>
+				<value>http://.*.intoday.in.*/story/.*/\d{5,}.html.*</value>
 			</list>
 		</property>
 	</bean>
@@ -60,5 +62,6 @@
 			</list>
 		</property>
 	</bean>
-		
+
+
 </beans>
