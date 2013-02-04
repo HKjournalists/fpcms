@@ -40,6 +40,7 @@
 	  <h3 class="headerbar">文章采集</h3>
 	  <ul>
 		<li><a href="${ctx}/admin/cmscontent/index.do?site=localhost&author=crawler" target="rightFrame">查看文章采集</a></li>
+		<li><a href="${ctx}/admin/articlecrawl/distributingArticles2Site.do" target="rightFrame" onclick="if(!confirm('确认执行文章分发?')) return false;">为网站分发文章</a></li>
 		<li><a href="${ctx}/admin/articlecrawl/gen.do" target="rightFrame" onclick="if(!confirm('确认执行采集?')) return false;">执行文章采集</a></li>
 	  </ul>
 	  <h3 class="headerbar">随机生成</h3>
