@@ -1,7 +1,10 @@
 package com.fpcms.common.webcrawler.htmlparser;
 
+import java.util.ArrayList;
+
 import org.apache.commons.lang.StringUtils;
 
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 
 public class HtmlPageTitleUtil {
@@ -15,9 +18,19 @@ public class HtmlPageTitleUtil {
 	
 	public static String smartGetTitle(String pageTitle) {
 		String result = extrectMainTitle(pageTitle,true,0);
-		if(result.length() < 5) {
-			result = extrectMainTitle(pageTitle,false,pageTitle.length());
+		
+		//english
+		if(pageTitle.matches("[\\s\\w-_:|]+")) {
+			ArrayList<String> tokenizerList = KeywordUtil.toTokenizerList(result);
+			if(tokenizerList.size() < 5) {
+				return extrectMainTitle(pageTitle,false,pageTitle.length());
+			}
+		}else {
+			if(result.length() < 5) {
+				return extrectMainTitle(pageTitle,false,pageTitle.length());
+			}
 		}
+		
 		return result;
 	}
 

@@ -10,6 +10,7 @@ public class HtmlPageTitleUtilTest extends Assert{
 
 	@Test
 	public void test() {
+		assertEquals("android - Get Drawable from image view",HtmlPageTitleUtil.smartGetTitle("android - Get Drawable from image view - Stack Overflow"));
 		assertEquals("Anti-rape ordinance a landmark decision, says Union Law Minister : North, News",HtmlPageTitleUtil.smartGetTitle("Anti-rape ordinance a landmark decision, says Union Law Minister : North, News - India Today"));
 		assertEquals("“倾向于原则适用统一赔偿标准”",HtmlPageTitleUtil.smartGetTitle("“倾向于原则适用统一赔偿标准”_网易新闻中心"));
 		
