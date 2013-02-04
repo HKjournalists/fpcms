@@ -20,15 +20,18 @@ public class CnblogBlogPoster implements BlogPoster {
 	static Logger logger = LoggerFactory.getLogger(CnblogBlogPoster.class);
 
 	@Override
-	public void postBlog(String username, String password, String title,
-			String content) {
-
+	public void postBlog(String username, String password, String title,String content) {
+		try {
+			login(username,password);
+			postNewBlog(title,content,true);
+		}catch(Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void postNewBlog(String title,String content,boolean candidate) throws IOException, HttpException {
-		PostMethod post = new PostMethod("http://www.cnblogs.com/fpqqchao/admin/EditPosts.aspx?opt=1");
-		post.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-		System.out.println("------------------ postNewBlog() ----------------------");
+		PostMethod post = newPostMethod("http://www.cnblogs.com/fpqqchao/admin/EditPosts.aspx?opt=1");
+		logger.info("postNewBlog:"+title);
 		
 		NameValuePair[] data = new NameValuePair[] {
 				new NameValuePair("Editor$Edit$APOptions$APSiteHome$chkDisplayHomePage", "on"),
