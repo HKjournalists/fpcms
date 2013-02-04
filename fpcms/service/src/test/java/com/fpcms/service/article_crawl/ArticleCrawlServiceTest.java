@@ -14,7 +14,7 @@ public class ArticleCrawlServiceTest extends AbstractTransactionalJUnit4SpringCo
 
 	@Test
 	public void test() {
-		articleCrawlService.execute();
+		articleCrawlService.crawlAllSite();
 	}
 	
 }

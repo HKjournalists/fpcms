@@ -45,4 +45,10 @@ public class GoogleTranslateUtilTest extends Assert {
 		assertEquals(str,"中国");
 	}
 	
+	@Test
+	public void test_autoTranslate() {
+		String str = GoogleTranslateUtil.autoTranslate("China", "zh-CN");
+		assertEquals(str,"中国");
+	}
+	
 }

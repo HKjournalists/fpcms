@@ -20,7 +20,7 @@ public class HtmlContentExtracter {
 //		c.setMainContentSelector("#endText");
 		
 		c.setUrlList("http://indiatoday.intoday.in/news.html");
-		c.setAcceptUrlRegexList(".*/story/.*.html");
+		c.setAcceptUrlRegexList(".*/story/.*.html\\?.*");
 		c.setMainContentSelector(".fullstorytext","#storybody");
 		
 		c.execute();

@@ -17,7 +17,7 @@ public class ArticleCrawlController {
 	
 	@RequestMapping
 	public String gen() {
-		articleCrawlService.execute();
+		articleCrawlService.crawlAllSite();
 		Flash.current().success("采集文章成功");
 		return "/commons/messages";
 	}

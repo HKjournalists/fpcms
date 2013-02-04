@@ -48,7 +48,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		this.applicationContext = applicationContext;
 	}
 	
-	public void execute() {
+	public void crawlAllSite() {
 		for(SinglePageCrawler crawler : singlePageCrawlerList) {
 			crawler.setHtmlPageCrawler(htmlPageCrawler);
 			crawler.execute();

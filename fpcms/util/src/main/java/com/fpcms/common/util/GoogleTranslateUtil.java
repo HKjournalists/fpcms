@@ -31,10 +31,14 @@ public class GoogleTranslateUtil {
 //		
 //	}
 	
+	public static String autoTranslate(String words,String targetLang) {
+		return translate(words,"auto",targetLang);
+	}
+	
 	/**
 	 * 
 	 * @param words	需要翻译的文本
-	 * @param sourceLang	源语言
+	 * @param sourceLang	源语言,值可以是auto
 	 * @param targetLang	目标语言
 	 * @return
 	 */

@@ -104,13 +104,21 @@ public class HtmlPage {
 				return href;
 			}
 			if(href.startsWith("/")) {
-				return getRootUrl(baseUrl)	+	href;
+				String root = getRootBaseUrl(baseUrl);
+				return root	+	href;
 			}else {
-				return baseUrl + href;
+				if(baseUrl.endsWith("/")) {
+					return baseUrl + href;
+				}else {
+					return baseUrl + "/" + href;
+				}
 			}
 		}
 
-		public static String getRootUrl(String baseUrl) {
+		public static String getRootBaseUrl(String baseUrl) {
+			if(StringUtils.isBlank(baseUrl)) {
+				return null;
+			}
 			try {
 				URL url = new URL(baseUrl);
 				String root = url.getProtocol()+"://"+url.getHost();

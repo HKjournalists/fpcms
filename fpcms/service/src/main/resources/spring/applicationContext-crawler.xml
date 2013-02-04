@@ -9,6 +9,7 @@
 	
 	<bean id="parentSinglePageCrawler" class="com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler" abstract="true">
 		<property name="minContentLength" value="300"></property>
+		<property name="sourceLang" value="auto"></property>
 	</bean>
 	
 	<bean parent="parentSinglePageCrawler">
@@ -41,5 +42,23 @@
 			</list>
 		</property>
 	</bean>
+
+	<bean parent="parentSinglePageCrawler">
+		<property name="sourceLang" value="ja"></property>
+		<property name="urlList">
+			<list>
+				<value>http://www.asahi.com/national</value>
+				<value>http://www.asahi.com/culture</value>
+			</list>
+		</property>
+		<!-- http://www.asahi.com/national/update/0201/TKY201302010186.html -->
+		<property name="acceptUrlRegexList">
+			<list>
+				<value>http://.*.asahi.com/.*/update/\d+/.*.html</value>
+			</list>
+		</property>
+	</bean>
+		
+	
 		
 </beans>

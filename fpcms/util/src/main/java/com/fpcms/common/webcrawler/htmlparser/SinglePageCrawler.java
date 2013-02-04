@@ -2,13 +2,14 @@ package com.fpcms.common.webcrawler.htmlparser;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.jsoup.Connection.Method;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -16,11 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.util.JsoupSelectorUtil;
+import com.fpcms.common.util.JsoupSelectorUtil.JsoupElementParentsSizeComparator;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.NetUtil;
-import com.fpcms.common.util.JsoupSelectorUtil.JsoupElementParentsSizeComparator;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 
 public class SinglePageCrawler {
@@ -63,7 +63,7 @@ public class SinglePageCrawler {
 		this.acceptUrlRegexList = acceptUrlRegex;
 	}
 	
-	public void setExcludeUriRegexList(String[] excludeUriRegexList) {
+	public void setExcludeUriRegexList(String... excludeUriRegexList) {
 		this.excludeUriRegexList = excludeUriRegexList;
 	}
 
@@ -89,10 +89,36 @@ public class SinglePageCrawler {
 		}
 	}
 
-	private void crlawUrl(String url) {
+	public List<HtmlPage> crlawUrl(String url) {
+		List<Anchor> shoudVisitAnchorList = getShoudVisitAnchorList(url);
+		return visitAnchorList(shoudVisitAnchorList);
+	}
+
+	List<HtmlPage> visitAnchorList(List<Anchor> shoudVisitAnchorList) {
+		List<HtmlPage> visitedPage = new ArrayList<HtmlPage>();
+		for(Anchor a : shoudVisitAnchorList) {
+			try {
+				HtmlPage page = extractArticleByJsoup(a);
+				htmlPageCrawler.visit(page);
+				visitedPage.add(page);
+			}catch(Exception e) {
+				logger.warn("extractArticleByJsoup error",e);
+			}
+		}
+		return visitedPage;
+	}
+
+	public List<Anchor> getShoudVisitAnchorList(String url) {
 		String content = NetUtil.httpGet(url);
 		Document doc = Jsoup.parse(content);
+		List<Anchor> shoudVisitAnchorList = getShoudVisitAnchorList(url, doc);
+		return shoudVisitAnchorList;
+	}
+	
+	private List<Anchor> getShoudVisitAnchorList(String url, Document doc) {
 		Elements elements = doc.getElementsByTag("a");
+		
+		List<Anchor> shoudVisitAnchorList = new ArrayList<Anchor>();
 		for(Element anchor : elements) {
 			String href = anchor.attr("href");
 			String text = StringUtils.trim(anchor.text());
@@ -105,16 +131,15 @@ public class SinglePageCrawler {
 			a.setTitle(title);
 			
 			if(isAcceptUrl(a.getHref()) && htmlPageCrawler.shoudVisitPage(a)) {
-				try {
-					extractArticleByJsoup(a);
-				}catch(Exception e) {
-					logger.warn("extractArticleByJsoup error",e);
-				}
+				shoudVisitAnchorList.add(a);
+			}else {
+				logger.info("ignore_by_not_accept_url:{}",a.getHref());
 			}
 		}
+		return shoudVisitAnchorList;
 	}
 
-	private void extractArticleByJsoup(Anchor anchor) throws IOException {
+	HtmlPage extractArticleByJsoup(Anchor anchor) throws IOException {
 		try {
 			
 			Connection conn = Jsoup.connect(anchor.getHref());
@@ -123,7 +148,7 @@ public class SinglePageCrawler {
 			Document doc = conn.get();
 			logger.info("doc.baseUri:"+doc.baseUri() );
 			
-			String title = extrectMainTitle(doc.title());
+			String title = smartGetTitle(anchor,doc.title());
 			String keywords = JsoupSelectorUtil.select(doc.head(),"[name=keywords]").attr("content");
 			String description = JsoupSelectorUtil.select(doc.head(),"[name=description]").attr("content");
 			String content = JsoupSelectorUtil.select(doc.body(),mainContentSelector).text();
@@ -152,10 +177,19 @@ public class SinglePageCrawler {
 				}
 			}
 			
-			htmlPageCrawler.visit(page);
+			return page;
 		}catch(Exception e) {
 			throw new RuntimeException("error on extractArticleByJsoup anchor:"+anchor,e);
 		}
+	}
+
+	private String smartGetTitle(Anchor anchor, String pageTitle) {
+//		if(StringUtils.isNotBlank(anchor.getText()) && anchor.getText().length() >= 6) {
+//			if(pageTitle.trim().startsWith(anchor.getText())) {
+//				return anchor.getText();
+//			}
+//		}
+		return extrectMainTitle(pageTitle);
 	}
 
 	private Element smartGetMainContent(Document doc) {
@@ -189,21 +223,28 @@ public class SinglePageCrawler {
 	}
 
 	private static char[] titleSeperator = {'_','-',':','|'};
-	private static String extrectMainTitle(String title) {
+	static String extrectMainTitle(String title) {
 		title = title.trim();
 		for(char c : titleSeperator) {
 			int indexOf = title.indexOf(c);
 			if(indexOf >= 0) {
-				return title.substring(0,indexOf - 1);
+				return title.substring(0,indexOf).trim();
 			}
 		}
 		return title;
 	}
 
-	private boolean isAcceptUrl(String href) {
+	boolean isAcceptUrl(String href) {
 		if(StringUtils.isBlank(href)) {
 			return false;
 		}
+		
+		try {
+			new URL(href);
+		} catch (MalformedURLException e) {
+			return false;
+		}
+		
 		if(acceptUrlRegexList == null) {
 			return true;
 		}
