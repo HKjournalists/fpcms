@@ -24,7 +24,7 @@ public class FreemarkerUtil {
 	}
 	
 	public static String readFreemarkerClassPathResource(String classpath,Map<String,Object> params)  {
-		InputStream input = BlogPingUtil.class.getResourceAsStream("");
+		InputStream input = BlogPingUtil.class.getResourceAsStream(classpath);
 		FreemarkerInputStream finput = new FreemarkerInputStream(input,params);
 		try {
 			return IOUtils.toString(finput,"UTF-8");

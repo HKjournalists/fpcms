@@ -3,7 +3,11 @@ package com.fpcms.common.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class BlogPingUtil {
+	static Logger logger = LoggerFactory.getLogger(BlogPingUtil.class);
 	
 	public static boolean baiduPing(String blogName,String blogHomeUrl,String newBlogUrl,String blogRssUrl){
 		Map<String,Object> params = new HashMap<String,Object>();
@@ -12,7 +16,12 @@ public class BlogPingUtil {
 		params.put("newBlogUrl", newBlogUrl);
 		params.put("blogRssUrl", blogRssUrl);
 		
+		logger.info("baiduPing,newBlogUrl:"+newBlogUrl);
+		
 		String pingXml = FreemarkerUtil.readFreemarkerClassPathResource("/ping/baidu_ping_template.xml",params);
+		
+		logger.debug("pingXml:{}",pingXml);
+		
 		String result = NetUtil.httpPost("http://ping.baidu.com/ping/RPC2", pingXml,"text/xml");
 		if(result.contains("<int>0</int>")) {
 			return true;
