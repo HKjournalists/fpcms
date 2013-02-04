@@ -75,6 +75,7 @@
 		<!-- http://www.asahi.com/national/update/0201/TKY201302010186.html -->
 		<property name="acceptUrlRegexList">
 			<list>
+				<value>http://.*.asahi.com/.*articles/.*\d+.*.html</value>
 				<value>http://.*.asahi.com/.*/update/\d+/.*.html</value>
 			</list>
 		</property>
