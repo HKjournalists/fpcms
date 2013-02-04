@@ -25,15 +25,6 @@
 		
 	<input type="hidden" id="id" name="id" value="${cmsContent.id}"/>
 
-	<tr>	
-		<td class="tdLabel">
-			标题:
-		</td>		
-		<td>
-		<form:input path="title" id="title" cssClass="" maxlength="200" size="100" />
-		<font color='red'><form:errors path="title"/></font>
-		</td>
-	</tr>	
 
 	<tr>	
 		<td class="tdLabel">
@@ -114,7 +105,37 @@
 		<font color='red'><form:errors path="site"/></font>
 		</td>
 	</tr>	
-			
+
+	<tr>	
+		<td class="tdLabel">
+			创建文章的搜索关键字
+		</td>		
+		<td>
+		<form:input path="searchKeyword" id="searchKeyword" cssClass="" maxlength="200" size="100" />
+		<font color='red'><form:errors path="searchKeyword"/></font>
+		</td>
+	</tr>
+	
+	<tr>	
+		<td class="tdLabel">
+			文章来源url:
+		</td>		
+		<td>
+		<form:input path="sourceUrl" id="sourceUrl" cssClass="" maxlength="200" size="100" />
+		<font color='red'><form:errors path="sourceUrl"/></font>
+		</td>
+	</tr>
+	
+	<tr>	
+		<td class="tdLabel">
+			标题:
+		</td>		
+		<td>
+		<form:input path="title" id="title" cssClass="" maxlength="200" size="100" />
+		<font color='red'><form:errors path="title"/></font>
+		</td>
+	</tr>	
+				
 	<tr>	
 		<td class="tdLabel">
 			内容:

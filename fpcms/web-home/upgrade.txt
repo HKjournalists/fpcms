@@ -1,3 +1,6 @@
 v.20130121
 	1. cms_site增加三个字段: props,redirect_site,daily_gen_content_count;
-	
+v.20130203
+	cms_content增加 source_url,display
+	SQL
+		alter table cms_content add column	`source_url` varchar(200) default NULL COMMENT '文章来源URL';

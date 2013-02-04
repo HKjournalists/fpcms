@@ -39,7 +39,7 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	
 	private RowMapper<CmsContent> entityRowMapper = new BeanPropertyRowMapper<CmsContent>(getEntityClass());
 	
-	static final private String COLUMNS = "id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level,search_keyword";
+	static final private String COLUMNS = "id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level,search_keyword,source_url";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from cms_content";
 	
 	@Override
@@ -58,9 +58,9 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	
 	public void insert(CmsContent entity) {
 		String sql = "insert into cms_content " 
-			 + " (id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level,search_keyword) " 
+			 + " (id,channel_code,tags,head_title,title,content,author,date_created,date_last_modified,site,level,search_keyword,source_url) " 
 			 + " values "
-			 + " (:id,:channelCode,:tags,:headTitle,:title,:content,:author,:dateCreated,:dateLastModified,:site,:level,:searchKeyword)";
+			 + " (:id,:channelCode,:tags,:headTitle,:title,:content,:author,:dateCreated,:dateLastModified,:site,:level,:searchKeyword,:sourceUrl)";
 		entity.setDateCreated(new Date());
 		entity.setDateLastModified(new Date());
 		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
@@ -74,7 +74,7 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 	
 	public int update(CmsContent entity) {
 		String sql = "update cms_content set "
-					+ " channel_code=:channelCode,tags=:tags,head_title=:headTitle,title=:title,content=:content,author=:author,date_created=:dateCreated,date_last_modified=:dateLastModified,site=:site,level=:level,search_keyword=:searchKeyword "
+					+ " channel_code=:channelCode,tags=:tags,head_title=:headTitle,title=:title,content=:content,author=:author,date_created=:dateCreated,date_last_modified=:dateLastModified,site=:site,level=:level,search_keyword=:searchKeyword,source_url=:sourceUrl"
 					+ " where  id = :id ";
 		entity.setDateLastModified(new Date());
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
@@ -182,6 +182,12 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		return getSimpleJdbcTemplate().queryForInt(sql, start,end,searchKeyword);
 	}
 
+	@Override
+	public int countBySourceUrl(Date start, Date end, String sourceUrl) {
+		String sql = "select count(*) from cms_content where date_created between ? and ? and source_url = ?";
+		return getSimpleJdbcTemplate().queryForInt(sql, start,end,sourceUrl);
+	}
+	
 	@Override
 	public CmsContent getById(Date dateCreated, long id) {
 		Date end = DateUtils.addDays(dateCreated, 1);

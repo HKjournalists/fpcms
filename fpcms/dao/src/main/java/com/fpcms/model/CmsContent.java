@@ -8,6 +8,9 @@ package com.fpcms.model;
 
 import static com.duowan.common.util.DateFormats.DATE_FORMAT;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -16,7 +19,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fpcms.common.util.ChineseSegmenterUtil;
-import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.StringHelper;
 
 
@@ -98,9 +100,14 @@ public class CmsContent  implements java.io.Serializable{
 	
 	private Long level;
 	
+	
 	private String searchKeyword;
-	//columns END
-
+	/**
+	 * 来源URL
+	 */
+	@Length(max=200)
+	private String sourceUrl;
+	
 	public CmsContent(){
 	}
 
@@ -215,6 +222,25 @@ public class CmsContent  implements java.io.Serializable{
 
 	public void setSearchKeyword(String searchKeyword) {
 		this.searchKeyword = searchKeyword;
+	}
+
+	public String getSourceSite() {
+		if(StringUtils.isBlank(sourceUrl)) {
+			return null;
+		}
+		try {
+			return new URL(sourceUrl).getHost();
+		} catch (MalformedURLException e) {
+			return sourceUrl;
+		}
+	}
+	
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
 	}
 
 	public String toString() {

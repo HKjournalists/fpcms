@@ -19,6 +19,10 @@ import org.slf4j.LoggerFactory;
 
 public class KeywordUtil {
 	private static Logger logger = LoggerFactory.getLogger(KeywordUtil.class);
+	
+	/** 常用标点符号 */
+	public static String COMMON_SYMBOLES = ",.?;!，。？；！";
+	
 	public static String DELIMITERS = " \t\n\r\f,.!?;:'/\"\\()+=-_<>，。！？；：、＝＋－——／·＃—￥％—…—＊（）‘“”～｀《》@#$%^&*~`|\\【】";
 	/**
 	 * 敏感词
@@ -30,6 +34,25 @@ public class KeywordUtil {
 	private static Set<String> nonNameKeywordSet = readKeywords("/keyword/nonName.txt");
 	{
 		logger.info("sensitive_keyword:"+sensitiveKeywordSet);
+	}
+	
+	/**
+	 * 得到常用标点符号的个数
+	 * @param str
+	 * @return
+	 */
+	public static int getCommonSymbolsCount(String str) {
+		if(StringUtils.isBlank(str)) {
+			return 0;
+		}
+		int result = 0;
+		for(int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			if(COMMON_SYMBOLES.indexOf(c) >= 0) {
+				result++;
+			}
+		}
+		return result;
 	}
 	
 	public static String getPerfectKeyword(String content,String keyword) {
@@ -165,6 +188,12 @@ public class KeywordUtil {
 	static String[] question = {"吗"};
 	static String[] symbols = {",",".","!",";"};
 	public static Object getSymbol(String token) {
+		for(int i = 0; i < DELIMITERS.length(); i++) {
+			char c = DELIMITERS.charAt(i);
+			if(token.endsWith(""+c)) {
+				return "";
+			}
+		}
 		
 		for(String item : a) {
 			if(token.endsWith(item)) {

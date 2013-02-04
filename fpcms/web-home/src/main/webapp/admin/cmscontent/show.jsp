@@ -27,8 +27,20 @@
 				<td><c:out value='${cmsContent.headTitle}'/></td>
 			</tr>
 			<tr>	
+				<td class="tdLabel">来源网站</td>	
+				<td><a href="http://${cmsContent.sourceSite}" target="_blank">${cmsContent.sourceSite}</a></td>
+			</tr>			
+			<tr>	
+				<td class="tdLabel">文章来源URL</td>	
+				<td><a href="${cmsContent.sourceUrl}" target="_blank">${cmsContent.sourceUrl}</a></td>
+			</tr>
+			<tr>	
 				<td class="tdLabel">标题</td>	
 				<td><c:out value='${cmsContent.title}'/></td>
+			</tr>
+			<tr>	
+				<td class="tdLabel">网站</td>	
+				<td><c:out value='${cmsContent.site}'/></td>
 			</tr>
 			<tr>	
 				<td class="tdLabel">内容</td>	
@@ -40,21 +52,16 @@
 			</tr>
 			<tr>	
 				<td class="tdLabel">创建时间</td>	
-				<td><fmt:formatDate value='${cmsContent.dateCreated}' pattern="yyyy-MM-dd"/></td>
+				<td><fmt:formatDate value='${cmsContent.dateCreated}' pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			</tr>
 			<tr>	
 				<td class="tdLabel">更新时间</td>	
-				<td><fmt:formatDate value='${cmsContent.dateLastModified}' pattern="yyyy-MM-dd"/></td>
-			</tr>
-			<tr>	
-				<td class="tdLabel">网站</td>	
-				<td><c:out value='${cmsContent.site}'/></td>
+				<td><fmt:formatDate value='${cmsContent.dateLastModified}' pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			</tr>
 			<tr>	
 				<td class="tdLabel">等级</td>	
 				<td><c:out value='${cmsContent.level}'/></td>
 			</tr>
-			
 		</table>
 	</form:form>
 </duowan:override>

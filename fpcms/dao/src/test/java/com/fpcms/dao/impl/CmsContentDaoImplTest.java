@@ -70,7 +70,9 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_insert() {
-		dao.insert(CmsContentDataFactory.newCmsContent());
+		CmsContent c = CmsContentDataFactory.newCmsContent();
+		dao.insert(c);
+		
 	}
 	
 	@Test
@@ -141,6 +143,16 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 	@Test
 	public void test_findLastBySite() {
 		assertNotNull(dao.findLastBySite("localhost"));
+	}
+	
+	@Test
+	public void test_countBySourceUrl() {
+		test_insert();
+		int result = dao.countBySourceUrl(DateUtils.addDays(new Date(),-20), new Date(), CmsContentDataFactory.newCmsContent().getSearchKeyword());
+		assertTrue(result == 1);
+		
+		result = dao.countBySourceUrl(DateUtils.addDays(new Date(),-20), new Date(), "not_exist_source_url_xxxxxxxxxxx928");
+		assertTrue(result == 0);
 	}
 }
 
