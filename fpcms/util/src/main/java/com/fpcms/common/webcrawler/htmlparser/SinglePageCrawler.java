@@ -148,7 +148,7 @@ public class SinglePageCrawler {
 			Document doc = conn.get();
 			logger.info("doc.baseUri:"+doc.baseUri() );
 			
-			String title = smartGetTitle(anchor,doc.title());
+			String title = HtmlPageTitleUtil.smartGetTitle(anchor,doc.title());
 			String keywords = JsoupSelectorUtil.select(doc.head(),"[name=keywords]").attr("content");
 			String description = JsoupSelectorUtil.select(doc.head(),"[name=description]").attr("content");
 			String content = JsoupSelectorUtil.select(doc.body(),mainContentSelector).text();
@@ -182,16 +182,7 @@ public class SinglePageCrawler {
 			throw new RuntimeException("error on extractArticleByJsoup anchor:"+anchor,e);
 		}
 	}
-
-	private String smartGetTitle(Anchor anchor, String pageTitle) {
-//		if(StringUtils.isNotBlank(anchor.getText()) && anchor.getText().length() >= 6) {
-//			if(pageTitle.trim().startsWith(anchor.getText())) {
-//				return anchor.getText();
-//			}
-//		}
-		return extrectMainTitle(pageTitle);
-	}
-
+	
 	private Element smartGetMainContent(Document doc) {
 		List<Element> allDiv = JsoupSelectorUtil.selectList(doc,"div");
 		Collections.sort(allDiv,new JsoupElementParentsSizeComparator());
@@ -208,7 +199,7 @@ public class SinglePageCrawler {
 			 * TODO 
 			 */
 			if(element.text().length() >= minContentLength  && parentsSize >= 4 && commonSymbolesCount > conditionSymbolesCount) {
-				if(element.getElementsByTag("a").size() >= 5) {
+				if(element.getElementsByTag("a").size() >= 10) {
 					continue;
 				}
 				if(divCount >= 5) {
@@ -220,18 +211,6 @@ public class SinglePageCrawler {
 			}
 		}
 		return null;
-	}
-
-	private static char[] titleSeperator = {'_','-',':','|'};
-	static String extrectMainTitle(String title) {
-		title = title.trim();
-		for(char c : titleSeperator) {
-			int indexOf = title.indexOf(c);
-			if(indexOf >= 0) {
-				return title.substring(0,indexOf).trim();
-			}
-		}
-		return title;
 	}
 
 	boolean isAcceptUrl(String href) {

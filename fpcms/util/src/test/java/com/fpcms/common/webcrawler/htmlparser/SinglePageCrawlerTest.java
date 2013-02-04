@@ -42,12 +42,6 @@ public class SinglePageCrawlerTest extends Mockito{
 	}
 	
 	@Test
-	public void test_extrectMainTitle() throws IOException {
-		assertEquals("SEO经验及教训",c.extrectMainTitle("SEO经验及教训 - badqiu - ITeye技术网站"));
-		assertEquals("多省市出台改作风规定 要求领导乘国产品牌汽车",c.extrectMainTitle("多省市出台改作风规定 要求领导乘国产品牌汽车_网易新闻中心"));
-	}
-
-	@Test
 	public void test_getShoudVisitAnchorList() throws IOException {
 		c.setAcceptUrlRegexList(".*/\\d{2}/\\d{4}/\\d{2}/.*.html\\??.*");
 		List<Anchor> list = c.getShoudVisitAnchorList("http://news.163.com");
