@@ -91,11 +91,16 @@ public class NetUtil {
 		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 	}
 	
+	public static String httpPost(String url, String postBody,String contextType) {
+		PostMethod method = newPostMethod(url);
+		method.setRequestBody(postBody);
+		method.setRequestHeader("Content-Type", "text/xml");
+		return executeForString(url,method);
+	}
+	
 	public static String httpPost(String url, Map<String,Object> parameters) {
-		logger.info("httpPost:"+url);
-		PostMethod method = new PostMethod(url);
-		method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8");  
-		setHeaders(method);
+		PostMethod method = newPostMethod(url);
+		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		for(String key : parameters.keySet()) {
 			String value = String.valueOf(parameters.get(key));
@@ -103,6 +108,15 @@ public class NetUtil {
 		}
 		method.setRequestBody(params.toArray(new NameValuePair[params.size()]));
 		return executeForString(url,method);
+	}
+
+
+	private static PostMethod newPostMethod(String url) {
+		logger.info("httpPost:"+url);
+		PostMethod method = new PostMethod(url);
+		method.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8");  
+		setHeaders(method);
+		return method;
 	}
 
 	private static String getCharset(HttpMethodBase method) throws IOException {

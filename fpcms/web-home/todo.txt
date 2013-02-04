@@ -172,5 +172,7 @@ http://indiatoday.intoday.in/ 今日印度
 智动博客有同义词库: http://www.zdexe.com/soft/weiyuanchuang/
 
 考虑博客自动发布
+支持的博客列表: http://www.juxianzi.com/product/juziyue/help/partner.html
 
+支持百度ping
 

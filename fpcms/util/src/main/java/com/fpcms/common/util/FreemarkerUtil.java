@@ -2,6 +2,7 @@ package com.fpcms.common.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
@@ -19,6 +20,18 @@ public class FreemarkerUtil {
 			return IOUtils.toString(input,"UTF-8");
 		} catch (IOException e) {
 			throw new RuntimeException("process content error,content="+content,e);
+		}
+	}
+	
+	public static String readFreemarkerClassPathResource(String classpath,Map<String,Object> params)  {
+		InputStream input = BlogPingUtil.class.getResourceAsStream("");
+		FreemarkerInputStream finput = new FreemarkerInputStream(input,params);
+		try {
+			return IOUtils.toString(finput,"UTF-8");
+		}catch(IOException e) {
+			throw new RuntimeException("error on readFreemarkerResource:"+classpath+" params:"+params,e);
+		}finally {
+			IOUtils.closeQuietly(input);
 		}
 	}
 	
