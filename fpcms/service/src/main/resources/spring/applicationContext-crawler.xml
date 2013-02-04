@@ -5,8 +5,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"    default-autowire="byName" default-lazy-init="false">
 	
-	<bean id="articleCrawlService" class="com.fpcms.service.article_crawl.ArticleCrawlService"/>
-	
 	<!-- 支持cron定时 -->
 	<bean id="parentSinglePageCrawler" class="com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler" abstract="true">
 		<property name="minContentLength" value="300"></property>
@@ -62,6 +60,5 @@
 			</list>
 		</property>
 	</bean>
-
 
 </beans>

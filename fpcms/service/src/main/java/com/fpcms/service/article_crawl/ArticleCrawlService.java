@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -53,6 +54,27 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			crawler.setHtmlPageCrawler(htmlPageCrawler);
 			crawler.execute();
 		}
+	}
+	
+	public List<String> getInvalidUrlList() {
+		List<String> invalidUrlList = new ArrayList<String>();
+		for(SinglePageCrawler crawler : getSinglePageCrawlerList()) {
+			for(String url : crawler.getUrlList()) {
+				try {
+					List<Anchor> list = crawler.getShoudVisitAnchorList(url);
+					if(CollectionUtils.isEmpty(list)) {
+						invalidUrlList.add(url);
+					}
+				}catch(Exception e) {
+					invalidUrlList.add(url);
+				}
+			}
+		}
+		return invalidUrlList;
+	}
+	
+	public List<SinglePageCrawler> getSinglePageCrawlerList() {
+		return singlePageCrawlerList;
 	}
 	
 	private class HtmlPageCrawlerImpl implements HtmlPageCrawler {

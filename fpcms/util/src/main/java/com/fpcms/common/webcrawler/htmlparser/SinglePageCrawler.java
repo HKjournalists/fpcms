@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -70,6 +71,10 @@ public class SinglePageCrawler {
 	public void setUrlList(String... url) {
 		this.urlList = url;
 	}
+	
+	public String[] getUrlList() {
+		return urlList;
+	}
 
 	public void setMainContentSelector(String... mainContentSelector) {
 		this.mainContentSelector = mainContentSelector;
@@ -112,7 +117,7 @@ public class SinglePageCrawler {
 		String content = NetUtil.httpGet(url);
 		Document doc = Jsoup.parse(content);
 		List<Anchor> shoudVisitAnchorList = getShoudVisitAnchorList(url, doc);
-		return shoudVisitAnchorList;
+		return new ArrayList<Anchor>(new LinkedHashSet<Anchor>(shoudVisitAnchorList));
 	}
 	
 	private List<Anchor> getShoudVisitAnchorList(String url, Document doc) {

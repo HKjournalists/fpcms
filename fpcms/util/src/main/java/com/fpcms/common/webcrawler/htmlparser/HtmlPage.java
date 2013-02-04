@@ -92,6 +92,31 @@ public class HtmlPage {
 		public void setTitle(String title) {
 			this.title = StringUtils.trim(title);
 		}
+		
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((href == null) ? 0 : href.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Anchor other = (Anchor) obj;
+			if (href == null) {
+				if (other.href != null)
+					return false;
+			} else if (!href.equals(other.href))
+				return false;
+			return true;
+		}
 
 		@Override
 		public String toString() {
