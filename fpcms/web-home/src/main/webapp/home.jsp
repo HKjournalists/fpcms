@@ -57,7 +57,7 @@
 		<dl class="all_list">
 			<c:forEach	items="${hot_news}" var="item">
 				<dt>
-					<a href="${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" style="font-weight: bold;">${item.title}</a>
+					<a href="${ctx}${item.uri}" style="font-weight: bold;">${item.title}</a>
 				</dt>
 			</c:forEach>
 		</dl>
@@ -111,7 +111,7 @@
 	<div>
 		<div class="neirong">
 			<c:forEach items="${newsPage.itemList}" var="item" varStatus="i">
-				<div class="list_title"><a href="${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></div>
+				<div class="list_title"><a href="${ctx}${item.uri}" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></div>
 				<div class="list_jj"><c:out value="${fn:substring(item.metaDescription,0,45)}"/>  </div>
 				
 				<div class="list_other">标签:${item.tags} 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd HH:00:00"/></span></div>

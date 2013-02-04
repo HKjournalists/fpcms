@@ -12,7 +12,7 @@
 
 <duowan:override name="content">
 		<c:forEach items="${page.itemList}" var="item">
-			<div class="list_title"><a href="${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" title="${item.title}" style="font-weight:bold;">${item.title}</a></div>
+			<div class="list_title"><a href="${ctx}${item.uri}" title="${item.title}" style="font-weight:bold;">${item.title}</a></div>
 			<div class="list_jj">${ fn:substring(item.metaDescription,50,100)}</div>
 			<div class="list_other">标签:${item.tags} 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd HH:00:00"/></span></div>
 		</c:forEach>

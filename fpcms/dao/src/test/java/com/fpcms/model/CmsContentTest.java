@@ -3,6 +3,9 @@ package com.fpcms.model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.duowan.common.util.DateConvertUtils;
+import com.fpcms.CmsContentDataFactory;
+
 
 public class CmsContentTest extends Assert{
 	CmsContent c = new CmsContent();
@@ -14,4 +17,13 @@ public class CmsContentTest extends Assert{
 		c.setTitle("   ");
 		assertEquals(null,c.getKeyword());
 	}
+	
+	@Test
+	public void test_getUrl() {
+		c.setSite("www.163.com");
+		c.setId(100L);
+		c.setDateCreated(DateConvertUtils.parse("20130206", "yyyyMMdd"));
+		assertEquals(c.getUrl(),"http://www.163.com/content/20130206/100.do"); 
+	}
+	
 }

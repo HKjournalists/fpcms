@@ -83,7 +83,7 @@
 		<div>
 	  	  <c:forEach items="${page.itemList}" var="item" varStatus="status">
 		  <p>
-			<a href="http://${item.site}${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" style="font-weight:bold;">${item.title}</a>http://${item.site}${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do;
+			<a href="${item.url}" style="font-weight:bold;">${item.title}</a>${item.url};
 		  </p>
 	  	  </c:forEach>		
 		</div>
@@ -92,7 +92,7 @@
 		<div>
 	  	  <c:forEach items="${page.itemList}" var="item" varStatus="status">
 		  <p>
-			<a href="http://${item.site}${ctx}/content/<fmt:formatDate value="${item.dateCreated}" pattern="yyyyMMdd"/>/${item.id}.do" style="font-weight:bold;">${item.title}</a>
+			<a href="${item.url}" style="font-weight:bold;">${item.title}</a>
 		  </p>
 	  	  </c:forEach>		
 		</div>

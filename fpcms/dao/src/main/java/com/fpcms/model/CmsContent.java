@@ -18,6 +18,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.duowan.common.util.DateConvertUtils;
 import com.fpcms.common.util.ChineseSegmenterUtil;
 import com.fpcms.common.util.StringHelper;
 
@@ -224,6 +225,14 @@ public class CmsContent  implements java.io.Serializable{
 		this.searchKeyword = searchKeyword;
 	}
 
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
+	}
+
 	public String getSourceSite() {
 		if(StringUtils.isBlank(sourceUrl)) {
 			return null;
@@ -234,15 +243,22 @@ public class CmsContent  implements java.io.Serializable{
 			return sourceUrl;
 		}
 	}
+	/**
+	 * 得到访问的URL地址
+	 * @return
+	 */
+	public String getUrl() {
+		return "http://"+site+getUri();
+	}
 	
-	public String getSourceUrl() {
-		return sourceUrl;
+	/**
+	 * 得到访问的URI地址
+	 * @return
+	 */
+	public String getUri() {
+		return "/content/"+DateConvertUtils.format(getDateCreated(), "yyyyMMdd")+"/"+getId()+".do";
 	}
-
-	public void setSourceUrl(String sourceUrl) {
-		this.sourceUrl = sourceUrl;
-	}
-
+	
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}

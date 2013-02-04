@@ -113,7 +113,7 @@
 				<td>${page.paginator.startRow + status.index}</td>
 				
 				<td><c:out value='${item.id}'/>&nbsp;</td>
-				<td><c:out value='${item.site}'/>&nbsp;</td>
+				<td><a href="${item.url}" target="_blank"><c:out value='${item.site}'/></a>&nbsp;</td>
 				<td><c:out value='${item.channelCode}'/>&nbsp;</td>
 				<td><fmt:formatDate value='${item.dateCreated}' pattern='yyyy-MM-dd'/>&nbsp;</td>
 				<td><a href="${ctx}/admin/cmscontent/show.do?id=${item.id}" title="<c:out value='${item.title}'/>"><c:out value='${fn:substring(item.title,0,20)}'/>...</a>&nbsp;</td>
