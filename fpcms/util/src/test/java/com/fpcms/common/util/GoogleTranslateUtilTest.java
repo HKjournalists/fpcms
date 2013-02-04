@@ -49,6 +49,10 @@ public class GoogleTranslateUtilTest extends Assert {
 	public void test_autoTranslate() {
 		String str = GoogleTranslateUtil.autoTranslate("China", "zh-CN");
 		assertEquals(str,"中国");
+		
+		str = GoogleTranslateUtil.translate("朝日新聞デジタル：塗装会社で爆発、経営者が死亡　東京・文京区","ja", "zh-CN");
+		assertEquals(str,"“朝日新闻”数字爆炸的涂装公司，管理层的死亡，东京都文京区，");
+		
 	}
 	
 }

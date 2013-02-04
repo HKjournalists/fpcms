@@ -31,7 +31,6 @@
 <div class="urbangreymenu">
 	  <h3 class="headerbar">网站管理</h3>
 	  <ul>
-		<li><a href="${ctx}/admin/cmscontent/genRandomCmsContent.do?count=1" target="rightFrame" onclick="if(!confirm('确认执行生成文章?')) return false;">随机生成文章</a></li>
 		<li><a href="${ctx}/admin/cmsattachment/index.do" target="rightFrame">附件管理</a></li>
 		<li><a href="${ctx}/admin/cmsdomain/index.do" target="rightFrame">域名管理</a></li>
 		
@@ -40,8 +39,13 @@
 	  </ul>
 	  <h3 class="headerbar">文章采集</h3>
 	  <ul>
-		<li><a href="${ctx}/admin/cmscontent/index.do?site=localhost" target="rightFrame">查看文章采集</a></li>
+		<li><a href="${ctx}/admin/cmscontent/index.do?site=localhost&author=crawler" target="rightFrame">查看文章采集</a></li>
 		<li><a href="${ctx}/admin/articlecrawl/gen.do" target="rightFrame" onclick="if(!confirm('确认执行采集?')) return false;">执行文章采集</a></li>
+	  </ul>
+	  <h3 class="headerbar">随机生成</h3>
+	  <ul>
+		<li><a href="${ctx}/admin/cmscontent/index.do?author=ramd" target="rightFrame">查看随机生成文章</a></li>
+		<li><a href="${ctx}/admin/cmscontent/genRandomCmsContent.do?count=1" target="rightFrame" onclick="if(!confirm('确认执行生成文章?')) return false;">随机生成文章</a></li>
 	  </ul>
 	  <h3 class="headerbar">系统管理</h3>
 	  <ul>

@@ -149,7 +149,7 @@ public class CmsContentServiceImpl implements CmsContentService {
         	// Bean Validator检查,属性检查失败将抛异常
             validateWithException(cmsContent);
             int contentLength = cmsContent.getContent().length();
-			Assert.isTrue(contentLength > 200,"cmsContent:"+cmsContent.getTitle()+" length > 200 false,cur length:"+contentLength);
+			Assert.isTrue(contentLength > 200,"cmsContent.title:" + cmsContent.getTitle() + " length > 200 false,current length:"+contentLength);
             
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
