@@ -29,7 +29,7 @@ public class RssController extends BaseController{
 	@Autowired(required=true)
 	private CmsContentService cmsContentService;
 	
-	@RequestMapping
+	@RequestMapping("/rss.xml")
 	public void rss(HttpServletResponse response) throws RssGenerationException, IOException {
 		DateRange dateRange = new DateRange(DateUtils.addDays(new Date(),-20),new Date());
 		Page<CmsContent> page = cmsContentService.findPage(new PageQuery(15), getSite(), Constants.CHANNED_CODE_NEWS, dateRange);

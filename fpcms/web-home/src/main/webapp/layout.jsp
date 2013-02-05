@@ -42,7 +42,7 @@
 			</div>
 		</div>
 		<div id="top_other">
-			<b><a href="javascript:addFavorite('${company}-发票','${keyword}');">加入收藏夹</a> | <a href="${ctx}/rss.do">RSS</a></b>
+			<b><a href="javascript:addFavorite('${company}-发票','${keyword}');">加入收藏夹</a> | <a href="${ctx}/rss.xml">RSS</a></b>
 		</div>
 		</div>
 	</div>
