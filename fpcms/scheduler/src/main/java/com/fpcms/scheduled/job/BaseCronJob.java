@@ -37,7 +37,7 @@ public abstract class BaseCronJob implements InitializingBean{
 
 		};
 		taskScheduler.schedule(task, new CronTrigger(cron));
-		logger.info("scheduled with cron:["+cron+"] for \t"+getClass().getSimpleName());
+		logger.info("scheduled_with_cron:["+cron+"] for \t"+getClass().getSimpleName());
 	}
 	
 	private void execute0() {
