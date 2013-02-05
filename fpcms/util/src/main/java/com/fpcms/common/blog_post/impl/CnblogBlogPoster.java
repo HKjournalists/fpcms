@@ -14,7 +14,7 @@ public class CnblogBlogPoster extends BaseBlogPoster {
 	public static String EXT_Editor_Edit_APOptions_APSiteHome_cbHomeCandidate = "Editor$Edit$APOptions$APSiteHome$cbHomeCandidate"; //候选区, on发送,false不发送
 	public CnblogBlogPoster() {
 		setLoginUrl("http://passport.cnblogs.com/login.aspx");
-		setPostNewBlogUrl("http://www.cnblogs.com/fpqqchao/admin/EditPosts.aspx?opt=1");
+		setPostNewBlogUrl("http://www.cnblogs.com/fpqqchao/admin/EditPosts.aspx?opt=1"); //FIXME 不同的用户,会有不同的URL
 	}
 	
 	protected void setPostNewBlogRequestBody(String title, String content,String metaDescription,Map<String,String> ext, PostMethod post) {
