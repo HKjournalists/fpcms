@@ -32,6 +32,7 @@ public abstract class BaseCronJob implements InitializingBean{
 			@Override
 			public void run() {
 				try {
+					logger.info("start_execute_cron_job:"+getClass().getSimpleName());
 					execute();
 				}catch(Exception e) {
 					logger.error("execute error",e);
