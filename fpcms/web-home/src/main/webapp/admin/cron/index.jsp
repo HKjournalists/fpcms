@@ -28,6 +28,7 @@
 				<th style="width:1px;"> </th>
 				<th>任务类名</th>
 				<th>任务描述</th>
+				<th>cron</th>
 				<th>操作</th>
 			  </tr>
 		  </thead>
@@ -38,6 +39,7 @@
 				<td>${page.paginator.startRow + status.index}</td>
 				<td>${item.class.simpleName} </td>
 				<td>${item.jobRemark} </td>
+				<td>${item.cron} </td>
 				<td> <a href="${ctx}/admin/cron/exec.do?jobName=${item.class.name}" onclick="if(!confirm('确认执行${item.class.simpleName}:${item.jobRemark}?')) return false; ">手工执行任务</a> </td>
 			  </tr>
 			  
