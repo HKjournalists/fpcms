@@ -10,8 +10,12 @@ public class CnblogBlogPosterTest {
 	CnblogBlogPoster poster = new CnblogBlogPoster();
 	@Test
 	public void login() throws IOException {
-		poster.login("fpqqchao", "abc123");
-		poster.postNewBlog("test_title",StringUtils.repeat("<p>test_content</p>",70),false);
+		Blog blog = new Blog();
+		blog.setUsername("fpqqchao");
+		blog.setPassword("abc123");
+		blog.setTitle("test_title");
+		blog.setContent(StringUtils.repeat("<p>test_content</p>",70));
+		poster.postBlog(blog);
 	}
 	
 }

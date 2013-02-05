@@ -1,6 +1,8 @@
 #!/bin/bash
 
 source /etc/profile
+#可以引用/etc/profile中的别名
+shopt -s expand_aliases
 
 bash /etc/profile
 

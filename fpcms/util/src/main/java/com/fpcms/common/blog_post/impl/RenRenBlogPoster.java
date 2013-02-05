@@ -19,9 +19,7 @@ public class RenRenBlogPoster implements BlogPoster {
 	static Logger logger = LoggerFactory.getLogger(RenRenBlogPoster.class);
 
 	@Override
-	public void postBlog(String username, String password, String title,
-			String content) {
-
+	public void postBlog(Blog blog) {
 	}
 
 	public void execute() {

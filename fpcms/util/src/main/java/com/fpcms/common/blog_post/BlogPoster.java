@@ -1,8 +1,10 @@
 package com.fpcms.common.blog_post;
 
+import com.fpcms.common.blog_post.impl.Blog;
+
 public interface BlogPoster {
 
-	public void postBlog(String username,String password,String title,String content);
+	public void postBlog(Blog blog);
 	
 }
 
