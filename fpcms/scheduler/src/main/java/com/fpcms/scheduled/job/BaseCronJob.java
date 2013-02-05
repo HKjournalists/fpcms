@@ -12,6 +12,7 @@ public abstract class BaseCronJob implements InitializingBean{
 	private static Logger logger = LoggerFactory.getLogger(BaseCronJob.class);
 	private String cron;
 	
+	
 	public BaseCronJob(String cron) {
 		setCron(cron);
 	}
@@ -31,16 +32,21 @@ public abstract class BaseCronJob implements InitializingBean{
 		Runnable task = new Runnable() {
 			@Override
 			public void run() {
-				try {
-					logger.info("start_execute_cron_job:"+getClass().getSimpleName());
-					execute();
-				}catch(Exception e) {
-					logger.error("execute error",e);
-				}
+				execute0();
 			}
+
 		};
 		taskScheduler.schedule(task, new CronTrigger(cron));
 		logger.info("scheduled with cron:["+cron+"] for \t"+getClass().getSimpleName());
+	}
+	
+	private void execute0() {
+		try {
+			logger.info("start_execute_cron_job:"+getClass().getSimpleName());
+			execute();
+		}catch(Exception e) {
+			logger.error("execute error",e);
+		}
 	}
 	
 	protected abstract void execute();
