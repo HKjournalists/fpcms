@@ -102,7 +102,13 @@
 		<artifactId>crawler4j</artifactId>
 		<version>3.4</version>
 	</dependency>
-	
+
+	<dependency>
+		<groupId>rss4j</groupId>
+		<artifactId>rss4j</artifactId>
+		<version>0.92</version>
+	</dependency>
+
 	<!-- html parser -->
 	<dependency>
 	    <groupId>org.jsoup</groupId>
