@@ -3,6 +3,7 @@ package com.fpcms.scheduled.job;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -58,7 +59,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 			if(page == null) {
 				break;
 			}
-			if(page.getContent().length() < 300) {
+			if(StringUtils.length(page.getContent()) < 300) {
 				continue;
 			}
 			
