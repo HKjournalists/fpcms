@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.duowan.common.util.DateConvertUtils;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.util.SpiderUtil;
 import com.fpcms.common.util.WebUtil;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsChannelQuery;
@@ -72,14 +73,43 @@ public class ContentController extends BaseController{
 	public void init(ModelMap model) {
 	}
 
-	@RequestMapping("/content/last.do")
-	public String last(ModelMap model,CmsChannelQuery query,HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public String last(ModelMap model,HttpServletRequest request,HttpServletResponse response) throws IOException {
 		CmsContent content = cmsContentService.findLastBySite(getSite());
 		if(content == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;
 		}
 		return show0(model, content.getId(), response, DateConvertUtils.extract(content.getDateCreated(),"yyyyMMdd"), content);
+	}
+
+	/**
+	 * 用于外链使用的链接
+	 * @param model
+	 * @param dateCreatedString
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/linked/{dateCreated}.do")
+	public String linked(ModelMap model,@PathVariable("dateCreated") String dateCreatedString,HttpServletRequest request,HttpServletResponse response) throws IOException {
+//		if(SpiderUtil.isSpider(request)) {
+			Date dateCreated = null;
+			try {
+				dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
+			}catch(Exception e) {
+				return last(model,request,response);
+			}
+			
+			CmsContent cmsContent = cmsContentService.findFirstByCreatedDay(getSite(),dateCreated);
+			if(cmsContent == null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return null;
+			}
+			return show0(model, cmsContent.getId(), response, dateCreated, cmsContent);
+//		}else {
+//			return "/linked";
+//		}
 	}
 	
 	/**

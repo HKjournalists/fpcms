@@ -202,5 +202,12 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		String sql = SELECT_FROM + " where site = ? and date_created between ? and ? order by date_created desc limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,start,end));
 	}
+
+	@Override
+	public CmsContent findFirstByCreatedDay(String site,Date createdDay) {
+		Date end = DateUtils.addDays(createdDay, 1);
+		String sql = SELECT_FROM + " where  site = ? and date_created between ? and ? limit 1";
+		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,createdDay,end));
+	}
 	
 }

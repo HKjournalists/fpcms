@@ -227,4 +227,9 @@ public class CmsContentServiceImpl implements CmsContentService {
 		return cmsContentDao.countBySourceUrl(start, end, sourceUrl);
 	}
 
+	@Override
+	public CmsContent findFirstByCreatedDay(String site,Date createdDay) {
+		return cmsContentDao.findFirstByCreatedDay(site,createdDay);
+	}
+
 }

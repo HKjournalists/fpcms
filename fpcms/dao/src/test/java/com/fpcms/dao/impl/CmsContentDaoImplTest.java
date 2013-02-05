@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.duowan.common.util.DateConvertUtils;
 import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
@@ -153,6 +154,12 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 		
 		result = dao.countBySourceUrl(DateUtils.addDays(new Date(),-20), new Date(), "not_exist_source_url_xxxxxxxxxxx928");
 		assertTrue(result == 0);
+	}
+	
+	@Test
+	public void test_findFirstByCreatedDay() {
+		CmsContent createdDay = dao.findFirstByCreatedDay("localhost", DateConvertUtils.extract(new Date(), "yyyy-MM-dd"));
+		assertNotNull(createdDay);
 	}
 }
 

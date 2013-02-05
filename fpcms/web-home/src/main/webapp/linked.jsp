@@ -8,16 +8,9 @@
 </head>
 <body>
 <div style="width: 800px">
-	<table width="100%" >
-	  <tr><th width="25%">昵称</th><td>陈${city}</td></tr>
-	  <tr><th>来自</th><td>浙江</td></tr>
-	  <tr><th>性别</th><td>男</td></tr>
-	  <tr><th>爱好</th><td>爬山,跳舞,KTV,看书</td></tr>
-	</table>
 	<div>
 		<h1>自我介绍</h1>
-		<pre>
-		小硕：一张说明书
+		<pre>	　　小硕：一张说明书
 	
 	　　产品名称：小硕
 	
@@ -81,13 +74,6 @@
 	　　
 		3个月后，此案在内华达州州立法院开庭，幼儿园败诉，因为<a href="#3" rel="nofollow">陪审团</a>的23名成员被这位<a href="#4" rel="nofollow">母亲</a>在辩护时讲的一个故事感动了。 
 		</pre>
-		<h1>英文介绍</h1>
-		Good afternoon .I am of great hornor to stand here and introduce myself to you .First of all ,my english name is ...and my chinese name is ..If you are going to have a job interview ,you must say much things which can show your willness to this job ,such as ,it is my long cherished dream to be ...and I am eager to get an oppertunity to do...and then give some examples which can give evidence to .then you can say something about your hobbies .and it is best that the hobbies have something do with the job. 
-	　　What is more important is do not forget to communicate with the interviewee,keeping a smile and keeping your talks interesting and funny can contribute to the success. 
-	　　I hope you will give them a wonderfull speech .Good luck to you ! 
-		I was one with 13 years of teaching experience in physical education teachers, secondary school physical education in a title, came to xx secondary schools until the school work in xx.
-		In the thirteen years of education and teaching practice, through their own efforts and the help of teachers of various subjects, and gradually formed its own teaching style, emphasis on teaching by example, student-teacher relationship and harmonious, there is a strong regulatory capacity classroom organization and curriculum innovation. Participate actively in research and teaching activities, Hefei, in 2002 participated in the first batch of the new curriculum reform tests and report problems of the sport in the province under the leadership of teaching and research involved in national issues, "super-weight children Experiment and Research on Health Behavior" study, was awarded national second prize, writing paper, the "style of teaching physical education students and stimulated interest" a paper published in the "Anhui Education Forum" in 2001 the second phase, "knows CAI" in 2001, Hefei, electronic teaching appraisal of papers received second prize, "proposed the cultivation of high school students interested in sports," a paper won the 2000 annual Hefei Urban Education organized by the Institute of Education thesis second prize competitions. The academic competition, Hefei, in 2001 was the first physical education teachers (junior group) Basic Skills Competition first prize in the same year to participate in Anhui Province, the second primary and secondary physical education teachers teaching basic skills competition were junior high school group of individuals Total second prize. 1998-2000 school sports have been the work of advanced individuals in Hefei in 2001 was appointed as the first batch of xx zone "backbone teachers" and maintained since 2002 by Hefei City Audio-Visual Education (Modern Educational Technology) Work advanced individuals. 
-		43 secondary school work, except those engaged in physical education work, may also serve a number of other work, but also gained some achievements. From 95 onwards, has served as secretary of the Communist Youth League schools, a post created by hand, "secondary school students Communist Youth League" in 2001, received outstanding high school students in Anhui Model Youth League Youth League (Hefei year only), Anhui Province, the same year was the work of the Communist Youth League School Advanced Individual title; it is representative of Hefei, the twelfth Tuandai Hui is also the eleventh Tuandai Hui on behalf of Anhui Province. School science and technology activities as a team leader In the meantime, the joint efforts of all teachers and students in the group in 2001 was awarded the "First National Youth Computer Robot Competition" Excellent instructor title, and the secondary counselors Creative Competition Second Prize Award; 2003 Youth in Anhui Province was awarded the first Computer Robotics Competition (team leader and coach); in August 2004, counseling, primary and secondary school students to participate in Hefei, the fourth group of junior high school computer-robot competition, was awarded first prize in the Junior Division in Hefei 
 	</div>
 </div>
 </body>

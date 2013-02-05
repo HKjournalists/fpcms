@@ -51,5 +51,7 @@ public interface CmsContentDao {
 
 	public CmsContent findLastBySite(String site);
 
+	public CmsContent findFirstByCreatedDay(String site,Date createdDay);
+
 	
 }

@@ -78,4 +78,6 @@ public interface CmsContentService {
 	public CmsContent findLastBySite(String site);
 	
 	public int countBySourceUrl(Date start, Date end, String sourceUrl);
+
+	public CmsContent findFirstByCreatedDay(String site,Date createdDay);
 }
