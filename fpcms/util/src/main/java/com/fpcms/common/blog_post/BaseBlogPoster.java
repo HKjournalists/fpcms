@@ -1,7 +1,9 @@
-package com.fpcms.common.blog_post.impl;
+package com.fpcms.common.blog_post;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
@@ -10,12 +12,15 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
+import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.blog_post.BlogPoster;
+import com.fpcms.common.blog_post.BlogPosterHelper;
 
 public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 
@@ -56,7 +61,8 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 		}
 	}
 	
-	protected void login(String username,String password) throws IOException {
+	protected void login(String username,String password) throws Exception,IOException {
+		Assert.hasText(loginUrl,"loginUrl must be not empty");
 		PostMethod post = helper.newPostMethod(loginUrl);
 		try {
 			logger.info("login with username:"+username);
@@ -66,7 +72,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			InputStream stream = post.getResponseBodyAsStream();
 			String responseString = IOUtils.toString(stream,"UTF-8");
 			verifyHttpStatusCode(post.getStatusCode(),"login error,username:" + username);
-			Assert.isTrue(verifyLoginResult(responseString),"login error,username:"+username+" password:"+password);
+			Assert.isTrue(verifyLoginResult(responseString),"login error,username:"+username + " response:"+responseString);
 		}finally {
 			post.releaseConnection();
 		}
@@ -79,7 +85,8 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 		throw new IllegalStateException("error http statusCode:" + statusCode + "; " +attachErrorMessage);
 	}
 
-	protected void postNewBlog(String title,String content,String metaDescription,Map<String,String> ext) throws IOException, HttpException {
+	protected void postNewBlog(String title,String content,String metaDescription,Map<String,String> ext) throws Exception,IOException, HttpException {
+		Assert.hasText(postNewBlogUrl,"postNewBlogUrl must be not empty");
 		PostMethod post = helper.newPostMethod(postNewBlogUrl);
 		logger.info("postNewBlog:"+title);
 		try {
@@ -89,7 +96,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			String responseString = IOUtils.toString(stream,"UTF-8");
 			stream.close();
 			verifyHttpStatusCode(post.getStatusCode(),"post new blog error,blog title:"+title);
-			Assert.isTrue(verifyPostNewBlogResult(responseString),"post blog error,title:"+title);
+			Assert.isTrue(verifyPostNewBlogResult(responseString),"post blog error,title:"+title+" response:"+responseString);
 		}finally {
 			post.releaseConnection();
 		}
@@ -99,14 +106,22 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 		return true;
 	}
 
-	protected abstract void setLoginRequestBody(String username, String password,PostMethod post);
+	protected abstract void setLoginRequestBody(String username, String password,PostMethod post) throws Exception;
 	
 	protected boolean verifyPostNewBlogResult(String responseString) {
 		return true;
 	}
 
-	protected abstract void setPostNewBlogRequestBody(String title, String content,String metaDescription, Map<String, String> ext, PostMethod post);
+	protected abstract void setPostNewBlogRequestBody(String title, String content,String metaDescription, Map<String, String> ext, PostMethod post)  throws Exception;
 
+	public static String urlEncode(String content)
+		throws UnsupportedEncodingException {
+		if(StringUtils.isBlank(content)) {
+			return null;
+		}
+		return URLEncoder.encode(content,"UTF-8");
+	}
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.hasText(loginUrl,"loginUrl must be not empty");

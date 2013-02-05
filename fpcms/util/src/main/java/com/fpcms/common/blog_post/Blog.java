@@ -1,4 +1,4 @@
-package com.fpcms.common.blog_post.impl;
+package com.fpcms.common.blog_post;
 
 import java.util.HashMap;
 import java.util.Map;

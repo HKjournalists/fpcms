@@ -7,6 +7,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fpcms.common.blog_post.BaseBlogPoster;
+
 public class CnblogBlogPoster extends BaseBlogPoster {
 	static Logger logger = LoggerFactory.getLogger(CnblogBlogPoster.class);
 	public static String EXT_Editor_Edit_APOptions_APSiteHome_cbHomeCandidate = "Editor$Edit$APOptions$APSiteHome$cbHomeCandidate"; //候选区, on发送,false不发送

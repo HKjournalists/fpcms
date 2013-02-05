@@ -1,4 +1,4 @@
-package com.fpcms.common.blog_post.impl;
+package com.fpcms.common.blog_post;
 
 import org.apache.commons.httpclient.methods.PostMethod;
 
@@ -12,6 +12,7 @@ public class BlogPosterHelper {
 		post.setRequestHeader("Accept-Language","zh-cn,zh;q=0.8,en-us;q=0.5,en;q=0.3");
 		post.setRequestHeader("Referer",url);
 		post.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		post.getParams().setContentCharset("UTF-8"); //这个可以控制 NameValuePair的编码，具体请查看  PostMethod.generateRequestEntity();
 		return post;
 	}
 	
