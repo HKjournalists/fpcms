@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +62,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				break;
 			
 			String site = cmsSite.getSiteDomain();
-			if(site.startsWith("www.")) {
+			if(isMainSite(site)) {
 				CmsContent content = list.remove(0);
 				content.setSite(site);
 				logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
@@ -69,6 +70,13 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 			}
 		}
 		
+	}
+
+	public static boolean isMainSite(String site) {
+		if(StringUtils.isBlank(site)) {
+			return false;
+		}
+		return site.startsWith("www.") || StringUtils.countMatches(site, ".") == 1;
 	}
 	
 	@Override
