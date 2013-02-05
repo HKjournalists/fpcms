@@ -23,10 +23,13 @@ public class ArticleCrawlJob extends BaseCronJob{
 	}
 	
 	@Override
-	protected void execute() {
+	public void execute() {
 		articleCrawlService.crawlAllSite();
 	}
 
-
+	@Override
+	public String getJobRemark() {
+		return "文章采集";
+	}
 	
 }

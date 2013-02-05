@@ -50,6 +50,7 @@
 	  </ul>
 	  <h3 class="headerbar">系统管理</h3>
 	  <ul>
+		<li><a href="${ctx}/admin/cron/index.do" target="rightFrame">定时任务</a></li>
 		<li><a href="${ctx}/admin/sysuser/index.do" target="rightFrame">用户管理</a></li>
 		<li><a href="${ctx}/admin/system/systemProperties.do" target="rightFrame">系统属性</a></li>
 	  </ul>

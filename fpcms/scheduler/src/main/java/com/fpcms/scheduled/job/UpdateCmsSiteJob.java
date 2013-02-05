@@ -40,4 +40,8 @@ public class UpdateCmsSiteJob extends BaseCronJob implements InitializingBean{
 		super.afterPropertiesSet();
 	}
 	
+	@Override
+	public String getJobRemark() {
+		return "更新CmsSite网站状态";
+	}
 }

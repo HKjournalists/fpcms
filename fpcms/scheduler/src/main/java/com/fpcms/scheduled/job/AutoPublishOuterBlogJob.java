@@ -46,7 +46,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	}
 	
 	@Override
-	protected void execute() {
+	public void execute() {
 		final List<HtmlPage> pageList = cralwerForPageList();
 		postAllBlog(pageList);
 	}
@@ -116,4 +116,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		return pageList;
 	}
 
+	@Override
+	public String getJobRemark() {
+		return "发送BLOG至其它网站";
+	}
 }

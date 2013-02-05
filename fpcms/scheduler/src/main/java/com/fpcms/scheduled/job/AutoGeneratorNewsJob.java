@@ -41,4 +41,9 @@ public class AutoGeneratorNewsJob extends BaseCronJob implements InitializingBea
 		super.afterPropertiesSet();
 	}
 	
+	@Override
+	public String getJobRemark() {
+		return "自动生成随机文章";
+	}
+	
 }

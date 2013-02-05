@@ -12,7 +12,6 @@ public abstract class BaseCronJob implements InitializingBean{
 	private static Logger logger = LoggerFactory.getLogger(BaseCronJob.class);
 	private String cron;
 	
-	
 	public BaseCronJob(String cron) {
 		setCron(cron);
 	}
@@ -49,7 +48,11 @@ public abstract class BaseCronJob implements InitializingBean{
 		}
 	}
 	
-	protected abstract void execute();
+	public abstract void execute();
+	
+	public String getJobRemark() {
+		return null;
+	}
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
