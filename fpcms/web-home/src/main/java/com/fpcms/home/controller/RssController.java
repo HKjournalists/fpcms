@@ -53,7 +53,7 @@ public class RssController extends BaseController{
 		doc.setVersion(RssDocument.VERSION_91);
 		doc.addChannel(channel);
 		
-		response.setContentType("text/xml");
+		response.setContentType("text/xml;charset=UTF-8");
 		RssGenerator.generateRss(doc,response.getWriter());
 	}
 }
