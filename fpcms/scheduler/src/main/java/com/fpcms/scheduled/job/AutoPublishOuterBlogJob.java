@@ -72,7 +72,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		Assert.isTrue(page.getContent().length() > 200);
 		StringBuilder content = new StringBuilder(page.getContent());
 		content.insert(100, selectRandomSite());
-		content.insert(200, selectRandomSite());
+		content.insert(Math.min(200,content.length() - 50), selectRandomSite());
 		return "<pre>"+NaipanArticleGeneratorUtil.transformArticle(content.toString())+"</pre>";
 	}
 	
