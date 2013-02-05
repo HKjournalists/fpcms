@@ -6,16 +6,20 @@
 
 package com.fpcms.model;
 
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
 
+import com.duowan.common.util.DateConvertUtils;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.cache.ValueCallback;
 import com.fpcms.common.util.HttpStatusCheckUtil;
+import com.fpcms.common.util.StringHelper;
 
 
 /**
@@ -107,6 +111,11 @@ public class CmsDomain  implements java.io.Serializable{
 				return HttpStatusCheckUtil.getHttpStatus("www."+domain);
 			}
 		});
+	}
+	
+	public String getYesterdayOuterLinked() {
+		String site = "www."+domain;
+		return StringHelper.getYesterdayOuterLinked(site);
 	}
 	
 	public boolean isHttpSuccess() {

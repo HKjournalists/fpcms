@@ -1,9 +1,12 @@
 package com.fpcms.common.util;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.util.Assert;
+
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 
 public class RandomUtil {
 	/**
@@ -34,5 +37,13 @@ public class RandomUtil {
 			count++;
 		}
 		return null;
+	}
+
+	public static <T> T randomRemove(List<T> pageList) {
+		T obj = randomSelect(pageList);
+		if(obj != null) {
+			pageList.remove(obj);
+		}
+		return obj;
 	}
 }

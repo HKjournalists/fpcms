@@ -16,6 +16,16 @@ public class HtmlPage {
 	
 	private String sourceLang;
 	
+	
+	public HtmlPage() {
+	}
+	
+	public HtmlPage(String title, String content) {
+		super();
+		this.title = title;
+		this.content = content;
+	}
+
 	public Anchor getAnchor() {
 		return anchor;
 	}

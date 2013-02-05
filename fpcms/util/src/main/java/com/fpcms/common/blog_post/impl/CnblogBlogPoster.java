@@ -18,7 +18,7 @@ public class CnblogBlogPoster extends BaseBlogPoster {
 	}
 	
 	protected void setPostNewBlogRequestBody(String title, String content,String metaDescription,Map<String,String> ext, PostMethod post) {
-		String value = ext.get(EXT_Editor_Edit_APOptions_APSiteHome_cbHomeCandidate); 
+		String candidate = title.contains("test") ? "" : "on"; 
 		NameValuePair[] data = new NameValuePair[] {
 				new NameValuePair("Editor$Edit$APOptions$APSiteHome$chkDisplayHomePage", "on"),
 				new NameValuePair("Editor$Edit$Advanced$chkComments", "on"),
@@ -28,7 +28,7 @@ public class CnblogBlogPoster extends BaseBlogPoster {
 				new NameValuePair("Editor$Edit$Advanced$txbEntryName", ""),
 				new NameValuePair("Editor$Edit$Advanced$txbExcerpt", metaDescription),//digest log
 				new NameValuePair("Editor$Edit$Advanced$txbTag", ""),
-				new NameValuePair(EXT_Editor_Edit_APOptions_APSiteHome_cbHomeCandidate, value), 
+				new NameValuePair(EXT_Editor_Edit_APOptions_APSiteHome_cbHomeCandidate, candidate), //候选区, on发送,false不发送
 				
 				new NameValuePair("Editor$Edit$EditorBody", content), //必须大于200
 				new NameValuePair("Editor$Edit$lkbPost", "发布"),

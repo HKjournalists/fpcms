@@ -1,7 +1,12 @@
 package com.fpcms.common.util;
 
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.duowan.common.util.DateConvertUtils;
 
 public class StringHelperTest extends Assert{
 	
@@ -14,4 +19,10 @@ public class StringHelperTest extends Assert{
 		assertEquals("中国人民银行","中国人民银行");
 	}
 	
+	@Test
+	public void test_getYesterdayOuterLinked() {
+		Date date = DateUtils.addDays(new Date(),-1);
+		String string = StringHelper.getYesterdayOuterLinked("www.163.com");
+		assertEquals(string,"http://www.163.com/linked/"+DateConvertUtils.format(date, "yyyyMMdd")+".do");
+	}
 }

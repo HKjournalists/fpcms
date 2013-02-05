@@ -1,12 +1,29 @@
 package com.fpcms.common.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
+
+import com.duowan.common.util.DateConvertUtils;
 
 public class StringHelper {
-
+	
+	/**
+	 * 得到昨天文章的外链
+	 * @param site
+	 * @return
+	 */
+	public static String getYesterdayOuterLinked(String site) {
+		return getOuterLinked(site,DateUtils.addDays(new Date(),-1));
+	}
+	
+	public static String getOuterLinked(String site,Date date) {
+		return "http://"+site+"/linked/"+DateConvertUtils.format(date, "yyyyMMdd")+".do";
+	}
+	
 	public static List<String> removeEmptyLines(List<String> lines) {
 		if(lines == null) return null;
 		

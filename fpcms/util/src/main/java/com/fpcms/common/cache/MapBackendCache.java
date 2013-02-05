@@ -38,7 +38,7 @@ public class MapBackendCache implements Cache {
 		}else {
 			v = v - by;
 		}
-		map.put(key, v);
+		set(key,v,Integer.MAX_VALUE);
 		return v;
 	}
 
@@ -76,7 +76,7 @@ public class MapBackendCache implements Cache {
 		}else {
 			v = v + by;
 		}
-		map.put(key, v);
+		set(key,v,Integer.MAX_VALUE);
 		return v;
 	}
 

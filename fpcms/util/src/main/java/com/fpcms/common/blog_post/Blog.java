@@ -12,6 +12,15 @@ public class Blog {
 	private String metaDescription;
 	private Map<String,String> ext = new HashMap<String,String>();
 	
+	public Blog() {
+	}
+	
+	public Blog(String title, String content) {
+		super();
+		this.title = title;
+		this.content = content;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
