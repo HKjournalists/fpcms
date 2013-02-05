@@ -67,6 +67,7 @@ public class ConfigableBlogPoster extends BaseBlogPoster{
 		variables.put("metaDescription", urlEncode(metaDescription));
 		String body = FreemarkerUtil.processByFreemarker(postNewBlogRequestBodyTemplate, "UTF-8", variables);
 		post.setRequestBody(body);
+		logger.info("postNewBlogRequestBody:"+body);
 	}
 
 	private Map newVariables() {

@@ -56,5 +56,26 @@
 		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
 	</bean>	
 	 -->
+
+	<bean id="blogbusBlogPoster" class="com.fpcms.common.blog_post.impl.ConfigableBlogPoster" >
+		<property name="loginUrl" value="http://passport.blogbus.com/login"></property>
+		<property name="loginRequestBodyTemplate" >
+			<value><![CDATA[username=${username}&password=${password}&remember=on]]></value>
+		</property>
+		<property name="verifyLoginResultRegex" >
+			<value><![CDATA[]]></value>
+		</property>
+		
+		<property name="postNewBlogUrl" value="http://blog.home.blogbus.com/6666994/posts/"></property>
+		<property name="postNewBlogRequestBodyTemplate">
+			<value><![CDATA[
+			title=${title}&post_time=2013-02-05+17%3A13&content=${content}&sort_id=&tags=test_tag&excerpt=&visibility=public&password=&visi_opt=public&allow_comment=1&allow_trackback=1&allow_auto_link=1&force=0
+			]]></value>
+		</property>
+		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
+	</bean>	
+		 
+	 
+	 
 	
 </beans>

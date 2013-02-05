@@ -44,7 +44,11 @@ public class BlogPosterServiceTest {
 		blogPoster.postBlog(newBlog("fpqqchao@gmail.com","asdf@1234"));
 	}
 	
-
+	@Test
+	public void blogbusBlogPoster() {
+		blogPoster.postBlog(newBlog("fpqqchao","abc123"));
+	}
+	
 	private Blog newBlog() {
 		return newBlog("fpqqchao","abc123");
 	}
