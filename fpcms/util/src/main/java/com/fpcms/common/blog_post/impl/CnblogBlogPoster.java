@@ -65,7 +65,7 @@ public class CnblogBlogPoster extends BaseBlogPoster {
 	}
 	
 	protected boolean verifyLoginResult(String responseString) {
-		return responseString.contains("<h2>Object moved to <a href=\"http://home.cnblogs.com/\">here</a>.</h2");
+		return responseString.matches("(?s).*<h2>Object moved to.*home.cnblogs.com.*here.*");
 	}
 
 	@Override
