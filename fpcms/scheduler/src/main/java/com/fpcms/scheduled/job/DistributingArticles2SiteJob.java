@@ -86,4 +86,8 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 		super.afterPropertiesSet();
 	}
 	
+	@Override
+	public String getJobRemark() {
+		return "分发文章至网站";
+	}
 }

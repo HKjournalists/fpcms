@@ -14,6 +14,7 @@ import com.fpcms.common.blog_post.impl.ChinaUnixBlogPoster;
 import com.fpcms.common.blog_post.impl.CnblogBlogPoster;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
+import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
@@ -40,7 +41,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	}
 
 	public AutoPublishOuterBlogJob() {
-		super("1 30 2 * * *");
+		super("1 30 2,5 * * *");
 		posterList.add(new AccountBlogPosterDecorator(new CnblogBlogPoster(),"fpqqchao","abc123"));
 		posterList.add(new AccountBlogPosterDecorator(new ChinaUnixBlogPoster(),"fpqqchao","abc123"));
 	}
@@ -61,7 +62,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 				continue;
 			}
 			
-			poster.postBlog(new Blog(page.getTitle(),addRandomLink(page)));
+			poster.postBlog(new Blog(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()),addRandomLink(page)));
 		}
 	}
 
@@ -71,7 +72,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		StringBuilder content = new StringBuilder(page.getContent());
 		content.insert(100, selectRandomSite());
 		content.insert(200, selectRandomSite());
-		return content.toString();
+		return NaipanArticleGeneratorUtil.transformArticle(content.toString());
 	}
 	
 	private String selectRandomSite() {
@@ -80,7 +81,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		Page<CmsDomain> page = cmsDomainService.findPage(query);
 		CmsDomain domain = RandomUtil.randomSelect(page.getItemList());
 		Assert.notNull(domain,"not found any random CmsDomain");
-		return domain.getYesterdayOuterLinked();
+		String link =  domain.getYesterdayOuterLinked();
+		return String.format(" <a href='%s'>%s</a>; ",link,link);
 	}
 
 	private List<HtmlPage> cralwerForPageList() {
