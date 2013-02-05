@@ -29,7 +29,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	private BlogPosterHelper helper = new BlogPosterHelper();
 	private String loginUrl = null;
 	private String postNewBlogUrl = null;
-	
+	private String postNewBlogContentType = null;
 	private HttpClient client = new HttpClient();
 	{
 		client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
@@ -40,7 +40,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	}
 
 	public void setLoginUrl(String loginUrl) {
-		this.loginUrl = loginUrl;
+		this.loginUrl = StringUtils.trim(loginUrl);
 	}
 
 	public String getPostNewBlogUrl() {
@@ -48,7 +48,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	}
 
 	public void setPostNewBlogUrl(String postNewBlogUrl) {
-		this.postNewBlogUrl = postNewBlogUrl;
+		this.postNewBlogUrl = StringUtils.trim(postNewBlogUrl);
 	}
 
 	@Override
@@ -62,10 +62,10 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	}
 	
 	protected void login(String username,String password) throws Exception,IOException {
-		Assert.hasText(loginUrl,"loginUrl must be not empty");
-		PostMethod post = helper.newPostMethod(loginUrl);
+		Assert.hasText(getLoginUrl(),"loginUrl must be not empty");
+		PostMethod post = helper.newPostMethod(getLoginUrl());
 		try {
-			logger.info("login with username:"+username);
+			logger.info("start login with username:"+username+" loginUrl:"+getLoginUrl());
 			setLoginRequestBody(username, password, post);
 			client.executeMethod(post);
 			Cookie[] cookies = client.getState().getCookies();
@@ -73,6 +73,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			String responseString = IOUtils.toString(stream,"UTF-8");
 			verifyHttpStatusCode(post.getStatusCode(),"login error,username:" + username);
 			Assert.isTrue(verifyLoginResult(responseString),"login error,username:"+username + " response:"+responseString);
+			logger.info("login_success with username:"+username+" loginUrl:"+getLoginUrl());
 		}finally {
 			post.releaseConnection();
 		}
@@ -86,10 +87,14 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	}
 
 	protected void postNewBlog(String title,String content,String metaDescription,Map<String,String> ext) throws Exception,IOException, HttpException {
-		Assert.hasText(postNewBlogUrl,"postNewBlogUrl must be not empty");
-		PostMethod post = helper.newPostMethod(postNewBlogUrl);
-		logger.info("postNewBlog:"+title);
+		Assert.hasText(getPostNewBlogUrl(),"postNewBlogUrl must be not empty");
+		PostMethod post = helper.newPostMethod(getPostNewBlogUrl());
+		if(StringUtils.isNotBlank(getPostNewBlogContentType())) {
+			post.setRequestHeader("Content-Type",getPostNewBlogContentType());
+		}
+		
 		try {
+			logger.info("start postNewBlog:"+title+" url:"+getPostNewBlogUrl());
 			setPostNewBlogRequestBody(title, content,metaDescription, ext, post);
 			client.executeMethod(post);
 			InputStream stream = post.getResponseBodyAsStream();
@@ -97,9 +102,18 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			stream.close();
 			verifyHttpStatusCode(post.getStatusCode(),"post new blog error,blog title:"+title);
 			Assert.isTrue(verifyPostNewBlogResult(responseString),"post blog error,title:"+title+" response:"+responseString);
+			logger.info("postNewBlog_success:"+title+" url:"+getPostNewBlogUrl());
 		}finally {
 			post.releaseConnection();
 		}
+	}
+
+	public String getPostNewBlogContentType() {
+		return postNewBlogContentType;
+	}
+
+	public void setPostNewBlogContentType(String postNewBlogContentType) {
+		this.postNewBlogContentType = postNewBlogContentType;
 	}
 
 	protected boolean verifyLoginResult(String responseString) {
@@ -124,8 +138,11 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Assert.hasText(loginUrl,"loginUrl must be not empty");
-		Assert.hasText(postNewBlogUrl,"postNewBlogUrl must be not empty");		
+		Assert.hasText(getLoginUrl(),"loginUrl must be not empty");
+		Assert.hasText(getPostNewBlogUrl(),"postNewBlogUrl must be not empty");		
+		
+		logger.info("loginUrl:"+loginUrl);
+		logger.info("postNewBlogUrl:"+postNewBlogUrl);
 	}
 	
 }

@@ -20,6 +20,7 @@
 			<c:if test="${preCmsContent != null}">上一篇:<a href="${ctx}/content/<fmt:formatDate value="${preCmsContent.dateCreated}" pattern="yyyyMMdd"/>/${preCmsContent.id}.do">${preCmsContent.title}</a><br /></c:if>
 			<c:if test="${nextCmsContent != null}">下一篇:<a href="${ctx}/content/<fmt:formatDate value="${nextCmsContent.dateCreated}" pattern="yyyyMMdd"/>/${nextCmsContent.id}.do">${nextCmsContent.title}</a></c:if>
 			</h3>
+			本文地址:<a href="${cmsContent.url}">${cmsContent.title}</a><a href="${cmsContent.url}">${cmsContent.url}</a>;
 			</div>
 		</div>
 		
