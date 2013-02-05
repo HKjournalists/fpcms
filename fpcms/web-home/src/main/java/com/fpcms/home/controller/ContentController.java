@@ -93,7 +93,7 @@ public class ContentController extends BaseController{
 	 */
 	@RequestMapping("/linked/{dateCreated}.do")
 	public String linked(ModelMap model,@PathVariable("dateCreated") String dateCreatedString,HttpServletRequest request,HttpServletResponse response) throws IOException {
-//		if(SpiderUtil.isSpider(request)) {
+		if(SpiderUtil.isSpider(request)) {
 			Date dateCreated = null;
 			try {
 				dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
@@ -107,9 +107,9 @@ public class ContentController extends BaseController{
 				return null;
 			}
 			return show0(model, cmsContent.getId(), response, dateCreated, cmsContent);
-//		}else {
-//			return "/linked";
-//		}
+		}else {
+			return "/linked";
+		}
 	}
 	
 	/**
