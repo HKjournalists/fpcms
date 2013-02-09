@@ -34,7 +34,7 @@ public class HtmlPageTitleUtil {
 		return result;
 	}
 
-	private static char[] titleSeperator = {'_','-',':','|','：','—','-','|'};
+	private static char[] titleSeperator = {'_','-',':','|','>','：','—','-','|'};
 	static String extrectMainTitle(String title,boolean isIndexOf,int fromIndex) {
 		title = title.trim();
 		for(char c : titleSeperator) {
