@@ -29,11 +29,12 @@ public class SinglePageCrawler {
 	private static Logger logger = LoggerFactory.getLogger(SinglePageCrawler.class);
 	
 	private String[] urlList;
-	private String[] acceptUrlRegexList;
+	private String[] acceptUrlRegexList = new String[]{".*"};
 	private String[] excludeUriRegexList;
 	private String sourceLang; //TODO 自动识别语言
 	private String[] mainContentSelector;
 	private int minContentLength = 300;
+	private boolean deleteUrlQueryString = true;
 	
 	private HtmlPageCrawler htmlPageCrawler = new HtmlPageCrawler() {
 		public boolean shoudVisitPage(Anchor a) {
@@ -83,6 +84,14 @@ public class SinglePageCrawler {
 	public void setMinContentLength(int minContentLength) {
 		this.minContentLength = minContentLength;
 	}
+	
+	public boolean isDeleteUrlQueryString() {
+		return deleteUrlQueryString;
+	}
+
+	public void setDeleteUrlQueryString(boolean deleteUrlQueryString) {
+		this.deleteUrlQueryString = deleteUrlQueryString;
+	}
 
 	public void execute() {
 		for(String url : urlList) {
@@ -131,6 +140,7 @@ public class SinglePageCrawler {
 			Anchor a = new Anchor();
 			
 			String fullHref = Anchor.toFullUrl(url,href);
+			fullHref = deleteUrlQueryString ? Anchor.removeQueryString(fullHref) : fullHref;
 			a.setHref(fullHref);
 			a.setText(text);
 			a.setTitle(title);
@@ -227,10 +237,6 @@ public class SinglePageCrawler {
 			new URL(href);
 		} catch (MalformedURLException e) {
 			return false;
-		}
-		
-		if(acceptUrlRegexList == null) {
-			return true;
 		}
 		
 		if(excludeUriRegexList != null) {

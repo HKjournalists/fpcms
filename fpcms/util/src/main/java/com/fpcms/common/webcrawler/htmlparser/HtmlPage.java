@@ -136,15 +136,19 @@ public class HtmlPage {
 		
 		public static String toFullUrl(String baseUrl,String href)  {
 			String result = toFullUrl0(baseUrl, href);
-			return deleteUrlParameter(result);
+			return deleteUrlParameter(result,";");
 		}
 
-		private static String deleteUrlParameter(String url) {
-			int indexOf = url.indexOf(";");
+		private static String deleteUrlParameter(String url,String seperator) {
+			int indexOf = url.indexOf(seperator);
 			if(indexOf >= 0) {
 				return url.substring(0,indexOf);
 			}
 			return url;
+		}
+		
+		public static String removeQueryString(String fullHref) {
+			return deleteUrlParameter(fullHref,"?");
 		}
 
 		private static String toFullUrl0(String baseUrl, String href) {
@@ -175,6 +179,8 @@ public class HtmlPage {
 				throw new RuntimeException("MalformedURLException,url:"+baseUrl,e);
 			}
 		}
+
+		
 	}
 
 }

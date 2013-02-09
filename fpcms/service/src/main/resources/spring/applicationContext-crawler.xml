@@ -11,25 +11,59 @@
 		<property name="sourceLang" value="auto"></property>
 	</bean>
 	
-	<bean parent="parentSinglePageCrawler">
-		<property name="sourceLang" value="en"></property>
-		<property name="urlList">
-			<list>
-				<value>http://indiatoday.intoday.in/section/114/1/india.html</value>
-				<value>http://indiatoday.intoday.in/section/110/1/business.html</value>
-				<value>http://news.yahoo.com/</value>
-				<value>http://www.infoq.com/</value>
-			</list>
-		</property>
-		<property name="acceptUrlRegexList">
-			<list>
-				<value>http://.*.intoday.in.*/story/.*/\d{5,}.html.*</value>
-				<value>http://.*.yahoo.com/.*-\d{6,}.html.*</value>
-				<value>http://www.infoq.com/news/.*</value>
-			</list>
-		</property>
-	</bean>
-
+<!--	<bean parent="parentSinglePageCrawler">-->
+<!--		<property name="sourceLang" value="en"></property>-->
+<!--		<property name="urlList">-->
+<!--			<list>-->
+<!--				<value>http://indiatoday.intoday.in/section/114/1/india.html</value>-->
+<!--				<value>http://indiatoday.intoday.in/section/110/1/business.html</value>-->
+<!--				<value>http://news.yahoo.com/</value>-->
+<!--				<value>http://www.infoq.com/</value>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--		<property name="acceptUrlRegexList">-->
+<!--			<list>-->
+<!--				<value>http://.*.intoday.in.*/story/.*/\d{5,}.html.*</value>-->
+<!--				<value>http://.*.yahoo.com/.*-\d{6,}.html.*</value>-->
+<!--				<value>http://www.infoq.com/news/.*</value>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--	</bean>-->
+<!---->
+<!--	<bean parent="parentSinglePageCrawler">-->
+<!--		<property name="sourceLang" value="fr"></property>-->
+<!--		<property name="urlList">-->
+<!--			<list>-->
+<!--				<value>http://www.rfi.fr/afrique</value>-->
+<!--				<value>http://www.rfi.fr/france</value>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--		 http://www.rfi.fr/afrique/20130201-pourquoi-afrique-sud-est-reservee-intervention-francaise-mali -->
+<!--		<property name="acceptUrlRegexList">-->
+<!--			<list>-->
+<!--				<value>http://\w+.rfi.fr/\w+/\d{6}.*</value>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--	</bean>-->
+<!---->
+<!--	<bean parent="parentSinglePageCrawler">-->
+<!--		<property name="minContentLength" value="200"></property>-->
+<!--		<property name="sourceLang" value="ja"></property>-->
+<!--		<property name="urlList">-->
+<!--			<list>-->
+<!--				<value>http://www.asahi.com/national</value>-->
+<!--				<value>http://www.asahi.com/culture</value>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--		 http://www.asahi.com/national/update/0201/TKY201302010186.html -->
+<!--		<property name="acceptUrlRegexList">-->
+<!--			<list>-->
+<!--				<value>http://.*.asahi.com/.*articles/.*\d+.*.html</value>-->
+<!--				<value>http://.*.asahi.com/.*/update/\d+/.*.html</value>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--	</bean>-->
+	
 	<!-- 
 	<bean parent="parentSinglePageCrawler">
 		<property name="minContentLength" value="100"></property>
@@ -47,38 +81,22 @@
 	</bean>
 	 -->
 	
-	<bean parent="parentSinglePageCrawler">
-		<property name="sourceLang" value="fr"></property>
-		<property name="urlList">
-			<list>
-				<value>http://www.rfi.fr/afrique</value>
-				<value>http://www.rfi.fr/france</value>
-			</list>
-		</property>
-		<!-- http://www.rfi.fr/afrique/20130201-pourquoi-afrique-sud-est-reservee-intervention-francaise-mali -->
-		<property name="acceptUrlRegexList">
-			<list>
-				<value>http://\w+.rfi.fr/\w+/\d{6}.*</value>
-			</list>
-		</property>
-	</bean>
 
+	
 	<bean parent="parentSinglePageCrawler">
 		<property name="minContentLength" value="200"></property>
-		<property name="sourceLang" value="ja"></property>
+		<property name="sourceLang" value="en"></property>
 		<property name="urlList">
 			<list>
-				<value>http://www.asahi.com/national</value>
-				<value>http://www.asahi.com/culture</value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&gl=us&tbm=nws&q=invoice]]></value>
 			</list>
 		</property>
-		<!-- http://www.asahi.com/national/update/0201/TKY201302010186.html -->
-		<property name="acceptUrlRegexList">
+		<property name="excludeUriRegexList">
 			<list>
-				<value>http://.*.asahi.com/.*articles/.*\d+.*.html</value>
-				<value>http://.*.asahi.com/.*/update/\d+/.*.html</value>
+				<value>.*google.*</value>
 			</list>
 		</property>
-	</bean>
+	</bean>	
+	
 
 </beans>
