@@ -94,6 +94,7 @@
 		</property>
 		<property name="excludeUriRegexList">
 			<list>
+				<value>.*ebay.*</value>
 				<value>.*google.*</value>
 			</list>
 		</property>
