@@ -25,11 +25,14 @@ import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.RandomUtil;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
+import com.fpcms.model.CmsDomain;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsContentService;
+import com.fpcms.service.CmsDomainService;
 import com.fpcms.service.CmsPropertyService;
 import com.fpcms.service.CmsSiteService;
 
@@ -49,6 +52,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 	
 	private CmsPropertyService cmsPropertyService;
 	private CmsSiteService cmsSiteService;
+	private CmsDomainService cmsDomainService;
 	//
 	// 请删除无用的方法，代码生成器只是为你生成一个架子
 	//
@@ -65,6 +69,36 @@ public class CmsContentServiceImpl implements CmsContentService {
 	
 	public void setCmsSiteService(CmsSiteService cmsSiteService) {
 		this.cmsSiteService = cmsSiteService;
+	}
+	
+	public void setCmsDomainService(CmsDomainService cmsDomainService) {
+		this.cmsDomainService = cmsDomainService;
+	}
+
+	public CmsContent createWithRandomLink(CmsContent cmsContent) {
+		return createWithRandomLink(cmsContent,100);
+	}
+	/** 
+	 * 创建CmsContent,并且附加随机链接
+	 **/
+	public CmsContent createWithRandomLink(CmsContent cmsContent,int randomLinkPercent) {
+		if(RandomUtil.randomTrue(randomLinkPercent)) {
+			String link = getRandomSiteLink();
+			if(StringUtils.isNotBlank(link)) {
+			    String linkedContent = cmsContent.getContent();
+			    linkedContent = linkedContent + "<a href='"+link+"'>"+link+"</a>";
+			    cmsContent.setContent(linkedContent);
+			}
+		}
+	    return create(cmsContent);
+	}
+	
+	private String getRandomSiteLink() {
+		CmsDomain domain = RandomUtil.randomSelect(cmsDomainService.findAll());
+		if(domain != null ) {
+			return domain.getYesterdayOuterLinked();
+		}
+		return null;
 	}
 
 	/** 
@@ -194,7 +228,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setChannelCode(Constants.CHANNED_CODE_NEWS);
 		cmsContent.setSite(site);
 		cmsContent.setSearchKeyword(article.getKeyword());
-		create(cmsContent);
+		createWithRandomLink(cmsContent,40);
 		log.info("generate_random_news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
 	}
 

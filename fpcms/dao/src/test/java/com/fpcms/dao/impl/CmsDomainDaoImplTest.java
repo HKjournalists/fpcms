@@ -78,6 +78,9 @@ public class CmsDomainDaoImplTest extends BaseDaoTestCase{
 		dao.getByRemarks(new java.lang.String("1"));
 	}
 	
-	
+	@Test
+	public void test_findAll() {
+		dao.findAll();
+	}
 }
 

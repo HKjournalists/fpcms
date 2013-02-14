@@ -23,7 +23,11 @@ import com.fpcms.query.CmsContentQuery;
  * @since 1.0
  */
 public interface CmsContentService {
-
+	/** 
+	 * 创建CmsContent,并且附加随机链接
+	 **/
+	public CmsContent createWithRandomLink(CmsContent cmsContent);
+	
 	/** 
 	 * 创建CmsContent
 	 **/

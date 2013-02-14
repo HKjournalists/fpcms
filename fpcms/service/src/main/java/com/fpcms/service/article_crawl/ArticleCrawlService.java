@@ -104,7 +104,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			c.setSite(Constants.CRAWL_SITE);
 			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
 			c.setAuthor(Constants.CRAWL_AUTHOR);
-			cmsContentService.create(c);
+			cmsContentService.createWithRandomLink(c);
 			
 		}
 		

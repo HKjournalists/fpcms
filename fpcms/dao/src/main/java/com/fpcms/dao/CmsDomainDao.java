@@ -6,6 +6,8 @@
 
 package com.fpcms.dao;
 
+import java.util.List;
+
 import com.duowan.common.util.page.Page;
 import com.fpcms.model.CmsDomain;
 import com.fpcms.query.CmsDomainQuery;
@@ -31,6 +33,8 @@ public interface CmsDomainDao {
 	public CmsDomain getByRemarks(String remarks);
 	
 
-	public Page<CmsDomain> findPage(CmsDomainQuery query);	
+	public Page<CmsDomain> findPage(CmsDomainQuery query);
+
+	public List<CmsDomain> findAll();	
 	
 }

@@ -8,6 +8,8 @@ package com.fpcms.service.impl;
 
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -125,4 +127,9 @@ public class CmsDomainServiceImpl implements CmsDomainService {
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
     }
+
+	@Override
+	public List<CmsDomain> findAll() {
+		return cmsDomainDao.findAll();
+	}
 }

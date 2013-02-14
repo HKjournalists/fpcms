@@ -9,6 +9,8 @@ package com.fpcms.dao.impl;
 import static com.duowan.common.util.ObjectUtils.isEmpty;
 import static com.duowan.common.util.ObjectUtils.isNotEmpty;
 
+import java.util.List;
+
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -110,4 +112,10 @@ public class CmsDomainDaoImpl extends BaseSpringJdbcDao implements CmsDomainDao{
 		
 		return pageQuery(sql.toString(),query,getEntityRowMapper());				
 	}
+
+	@Override
+	public List<CmsDomain> findAll() {
+		return getSimpleJdbcTemplate().query(SELECT_FROM, getEntityRowMapper());
+	}
+	
 }

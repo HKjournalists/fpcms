@@ -6,6 +6,8 @@
 
 package com.fpcms.service;
 
+import java.util.List;
+
 import com.duowan.common.util.page.Page;
 import com.fpcms.model.CmsDomain;
 import com.fpcms.query.CmsDomainQuery;
@@ -50,5 +52,5 @@ public interface CmsDomainService {
 	 **/ 	
 	public CmsDomain getByRemarks(String remarks);
 	
-    
+    public List<CmsDomain> findAll();
 }
