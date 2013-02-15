@@ -7,28 +7,29 @@
 	
 	<!-- 支持cron定时 -->
 	<bean id="parentSinglePageCrawler" class="com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler" abstract="true">
-		<property name="minContentLength" value="300"></property>
+		<property name="minContentLength" value="500"></property>
 		<property name="sourceLang" value="auto"></property>
 	</bean>
 	
-<!--	<bean parent="parentSinglePageCrawler">-->
-<!--		<property name="sourceLang" value="en"></property>-->
-<!--		<property name="urlList">-->
-<!--			<list>-->
-<!--				<value>http://indiatoday.intoday.in/section/114/1/india.html</value>-->
-<!--				<value>http://indiatoday.intoday.in/section/110/1/business.html</value>-->
-<!--				<value>http://news.yahoo.com/</value>-->
-<!--				<value>http://www.infoq.com/</value>-->
-<!--			</list>-->
-<!--		</property>-->
-<!--		<property name="acceptUrlRegexList">-->
-<!--			<list>-->
-<!--				<value>http://.*.intoday.in.*/story/.*/\d{5,}.html.*</value>-->
-<!--				<value>http://.*.yahoo.com/.*-\d{6,}.html.*</value>-->
-<!--				<value>http://www.infoq.com/news/.*</value>-->
-<!--			</list>-->
-<!--		</property>-->
-<!--	</bean>-->
+	<bean parent="parentSinglePageCrawler">
+		<property name="sourceLang" value="en"></property>
+		<property name="urlList">
+			<list>
+				<value>http://indiatoday.intoday.in/section/114/1/india.html</value>
+				<value>http://indiatoday.intoday.in/section/110/1/business.html</value>
+				<value>http://news.yahoo.com/</value>
+				<value>http://www.infoq.com/</value>
+			</list>
+		</property>
+		<property name="acceptUrlRegexList">
+			<list>
+				<value>http://.*.intoday.in.*/story/.*/\d{5,}.html.*</value>
+				<value>http://.*.yahoo.com/.*-\d{6,}.html.*</value>
+				<value>http://www.infoq.com/news/.*</value>
+			</list>
+		</property>
+	</bean>
+	
 <!---->
 <!--	<bean parent="parentSinglePageCrawler">-->
 <!--		<property name="sourceLang" value="fr"></property>-->
@@ -84,7 +85,6 @@
 
 	
 	<bean parent="parentSinglePageCrawler">
-		<property name="minContentLength" value="200"></property>
 		<property name="sourceLang" value="en"></property>
 		<property name="urlList">
 			<list>

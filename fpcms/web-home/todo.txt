@@ -90,7 +90,8 @@ select t.title from (
 49. QQ可以使用WebChat,避免要打开QQ客户端(但存在问题,对方不会加你QQ)
 # 50. CSS,JS未启用gzip压缩
 51. 自运化测试: content,channel,home_page
-52. 更加智能的抽取title
+#52. 更加智能的抽取title
+53. 增加文章转载模块
 http://www.pc51.com/
 账号haofapiao.com
 密码admin123789
