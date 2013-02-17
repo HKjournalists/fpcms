@@ -92,6 +92,8 @@ select t.title from (
 51. 自运化测试: content,channel,home_page
 #52. 更加智能的抽取title
 53. 增加文章转载模块
+54. 增加随机显示子站文章模块
+
 http://www.pc51.com/
 账号haofapiao.com
 密码admin123789
