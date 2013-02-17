@@ -60,11 +60,11 @@ select t.title from (
 	2. 通过rebots.txt禁止  /proxy访问
 39. 增加友链模块,增加友链随机插入文章
 #40. SEO减少文章大小
-41. 搜索的关键词每个site可以自定义，并且采用 Groovy动态构建
+# 41. 搜索的关键词每个site可以自定义，并且采用 Groovy动态构建
 42. 采用rsync备份
 #43. 应用页面cache
-44. 通过RobotsFilter保护robots.txt资源
-45. 保护公司名称
+-- 44. 通过RobotsFilter保护robots.txt资源
+# 45. 保护公司名称
 #46. 保护QQ号码
 47. www-data运行java程序
 # 48. 禁止root登陆ssh,并且配合需要private key登陆

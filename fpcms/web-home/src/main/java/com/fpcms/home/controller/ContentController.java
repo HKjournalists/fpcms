@@ -106,7 +106,8 @@ public class ContentController extends BaseController{
 				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 				return null;
 			}
-			return show0(model, cmsContent.getId(), response, dateCreated, cmsContent);
+//			return show0(model, cmsContent.getId(), response, dateCreated, cmsContent);
+			return "redirect:"+cmsContent.getUrl();
 		}else {
 			return "/linked";
 		}
