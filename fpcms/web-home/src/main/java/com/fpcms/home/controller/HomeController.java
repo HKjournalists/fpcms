@@ -1,7 +1,9 @@
 package com.fpcms.home.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.duowan.common.util.DateRange;
+import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.BaseController;
 import com.fpcms.common.util.CmsSiteUtil;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.RandomUtil;
+import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsContentService;
@@ -33,6 +38,9 @@ public class HomeController extends BaseController{
 	
 	@Autowired(required=true)
 	private CmsSiteService cmsSiteService;
+	
+	private Map<String,List<CmsContent>> subSiteNewsPageMap = new HashMap<String,List<CmsContent>>();
+	
 	/** 显示 */
 	@RequestMapping()
 	public String home(ModelMap model) throws Exception {
@@ -40,6 +48,9 @@ public class HomeController extends BaseController{
 		
 		DateRange dateRange = new DateRange(DateUtils.addDays(new Date(),-20),new Date());
 		model.put("newsPage", cmsContentService.findPage(new PageQuery(20),getSite(),Constants.CHANNED_CODE_NEWS,dateRange));
+		
+		Page<CmsContent> page = cmsContentService.findBySiteLike(new PageQuery(100), getSite(), Constants.CHANNED_CODE_NEWS, dateRange);
+		model.put("subSiteNewsList",RandomUtil.randomSelectList(page.getItemList(),10));
 		
 		List<CmsSite> subSiteList = cmsSiteService.findSubSites(CmsSiteUtil.getDomain(getSite()));
 		model.put("subSiteList", subSiteList);

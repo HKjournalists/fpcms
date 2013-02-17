@@ -47,11 +47,14 @@ public interface CmsContentDao {
 	
 	public Page<CmsContent> findPage(PageQuery pageQuery, String site,String channelCode, DateRange createdRange);
 
+	public Page findBySiteLike(PageQuery pageQuery, String site,String channelCode, DateRange createdRange);
+	
 	public CmsContent getById(Date dateCreated, long id);
 
 	public CmsContent findLastBySite(String site);
 
 	public CmsContent findFirstByCreatedDay(String site,Date createdDay);
+
 
 	
 }

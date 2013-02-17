@@ -51,13 +51,13 @@
 </div>
 <div class="border mt10">
 	<div class="subject_bg">
-		<div class="subject_title"><a href="${ctx}/news.do">热门新闻</a></div>
+		<div class="subject_title"><a href="${ctx}/news.do">随机新闻</a></div>
 	</div>
 	<div class="m10">
 		<dl class="all_list">
-			<c:forEach	items="${hot_news}" var="item">
+			<c:forEach	items="${subSiteNewsList}" var="item" varStatus="status">
 				<dt>
-					<a href="${ctx}${item.uri}" style="font-weight: bold;">${item.title}</a>
+					<a href="${item.url}" title="<c:out value='${item.title}'/>" >${status.index+1}. <c:out value='${fn:substring(item.title,0,13)}'/></a>
 				</dt>
 			</c:forEach>
 		</dl>
@@ -92,6 +92,7 @@
 		</dl>
 	</div>
 </div>
+
 </duowan:override>
 
 			

@@ -176,6 +176,25 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		return pageQuery(sql.toString(),param,pageQuery.getPageSize(),pageQuery.getPage(),getEntityRowMapper());
 	}
 
+	//TODO findBySiteLike与findPage() 重构并合并.
+	@Override
+	public Page findBySiteLike(PageQuery pageQuery, String site,
+			String channelCode, DateRange createdRange) {
+		Assert.hasText(site,"site must be not empty");
+		Assert.hasText(channelCode,"channelCode must be not empty");
+		Assert.notNull(createdRange,"createdRange must be not null");
+		Assert.notNull(createdRange.getStartDate(),"createdRange.getStartDate() must be not null");
+		Assert.notNull(createdRange.getEndDate(),"createdRange.getEndDate() must be not null");
+		
+		String sql = SELECT_FROM +" where site like :site and channel_code = :channelCode and date_created between :dateCreatedBegin and :dateCreatedEnd order by date_created desc ";
+		Map param = new HashMap();
+		param.put("site", "%."+site);
+		param.put("channelCode", channelCode);
+		param.put("dateCreatedBegin", createdRange.getStartDate());
+		param.put("dateCreatedEnd", createdRange.getEndDate());
+		return pageQuery(sql.toString(),param,pageQuery.getPageSize(),pageQuery.getPage(),getEntityRowMapper());
+	}
+	
 	@Override
 	public int countBySearchKeyword(Date start, Date end, String searchKeyword) {
 		String sql = "select count(*) from cms_content where date_created between ? and ? and search_keyword = ?";
@@ -209,5 +228,7 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		String sql = SELECT_FROM + " where  site = ? and date_created between ? and ? limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,createdDay,end));
 	}
+
+
 	
 }

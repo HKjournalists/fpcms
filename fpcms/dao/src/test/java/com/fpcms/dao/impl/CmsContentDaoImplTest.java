@@ -115,6 +115,15 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 		assertNotNull(page);
 		assertFalse(page.getItemList().isEmpty());
 	}
+
+	@Test
+	public void test_findBySiteLike() {
+		Date endDate = new Date();
+		Date startDate = DateUtils.addDays(endDate, -30);
+		Page<CmsContent> page = dao.findBySiteLike(new PageQuery(1, 20), "localhost", "news", new DateRange(startDate, endDate));
+		assertNotNull(page);
+		assertFalse(page.getItemList().isEmpty());
+	}
 	
 	@Test
 	public void test_countByTitle() {

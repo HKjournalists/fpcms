@@ -70,6 +70,9 @@ public interface CmsContentService {
 	
 	
 	public Page<CmsContent> findPage(PageQuery pageQuery,String site,String channelCode,DateRange createdRange);
+	
+	public Page findBySiteLike(PageQuery pageQuery, String site,String channelCode, DateRange createdRange);
+	
     /**
      * 随机生成文章
      */
@@ -84,4 +87,5 @@ public interface CmsContentService {
 	public int countBySourceUrl(Date start, Date end, String sourceUrl);
 
 	public CmsContent findFirstByCreatedDay(String site,Date createdDay);
+
 }

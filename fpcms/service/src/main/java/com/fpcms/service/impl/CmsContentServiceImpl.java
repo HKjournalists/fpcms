@@ -248,6 +248,12 @@ public class CmsContentServiceImpl implements CmsContentService {
 	}
 
 	@Override
+	public Page findBySiteLike(PageQuery pageQuery, String site,
+			String channelCode, DateRange createdRange) {
+		return cmsContentDao.findBySiteLike(pageQuery, site,channelCode,createdRange);
+	}
+	
+	@Override
 	public CmsContent getById(Date dateCreated, long id) {
 		return cmsContentDao.getById(dateCreated,id);
 	}
@@ -265,5 +271,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 	public CmsContent findFirstByCreatedDay(String site,Date createdDay) {
 		return cmsContentDao.findFirstByCreatedDay(site,createdDay);
 	}
+
+
 
 }
