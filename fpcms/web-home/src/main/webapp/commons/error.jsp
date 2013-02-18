@@ -26,8 +26,6 @@
 		String requestUri = (String) request.getAttribute("javax.servlet.error.request_uri");
 		LogFactory.getLog(requestUri).error(exception.getMessage(), exception);
 	%>
-	示例远程图片,请自行下载<br />
-	<img alt="system internal error" src="${ctx}/images/error.gif" />
 	<h3>
 	对不起,发生系统内部错误,不能处理你的请求<br />
 	</h3>
