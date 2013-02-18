@@ -124,16 +124,16 @@
 	
 	<div id="kefuDialog" style="display: none;">
 		<div style="width:400px;height:157px; display:block; background-color: rgb(204,242,255);">
-		<img src="${ctx}/images/kefu.jpg"/>
-		
-		<div style="float: right; margin-top: 70px; margin-right: 30px">
-		<b>咨询购买<font color="red">发票</font>相关业务</b>
-		<br/>
-		<br/>
-		<br/>
-		<button id="btn-custom1" onclick="openQQChat()">QQ客服沟通</button>
-		<button id="btn-custom2" onclick="closeKefuDialog()">关闭</button>
-		</div>
+			<img src="${ctx}/images/kefu.jpg" style="float: left;"/>
+			
+			<div style="float: right; margin-top: 70px; margin-right: 30px">
+			<b>咨询购买<font color="red">发票</font>相关业务</b>
+			<br/>
+			<br/>
+			<br/>
+			<button id="btn-custom1" onclick="openQQChat()">QQ客服沟通</button>
+			<button id="btn-custom2" onclick="closeKefuDialog()">关闭</button>
+			</div>
 		</div>
 	</div>
 	
