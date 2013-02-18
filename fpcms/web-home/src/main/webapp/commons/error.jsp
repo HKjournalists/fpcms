@@ -27,7 +27,7 @@
 		LogFactory.getLog(requestUri).error(exception.getMessage(), exception);
 	%>
 	<h3>
-	对不起,发生系统内部错误,不能处理你的请求<br />
+	发生系统内部错误<br />
 	</h3>
 	<b>错误信息:</b> <%=exception.getMessage()%>
 	<br>
