@@ -16,7 +16,7 @@ public class AutoGeneratorNewsJob extends BaseCronJob implements InitializingBea
 	private CmsContentService cmsContentService;
 
 	public AutoGeneratorNewsJob() {
-		super("0 1 10,18 * * *");
+		super("0 1 11 * * *");
 	}
 	
 	public void setCmsContentService(CmsContentService cmsContentService) {
