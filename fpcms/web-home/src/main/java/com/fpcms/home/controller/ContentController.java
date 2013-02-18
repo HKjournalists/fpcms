@@ -107,7 +107,8 @@ public class ContentController extends BaseController{
 				return null;
 			}
 //			return show0(model, cmsContent.getId(), response, dateCreated, cmsContent);
-			return "redirect:"+cmsContent.getUrl();
+			WebUtil.send301Redirect(response,cmsContent.getUrl());
+			return null;
 		}else {
 			return "/linked";
 		}
