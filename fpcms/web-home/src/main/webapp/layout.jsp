@@ -4,8 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	
+	<c:if test="${requestHost != 'www.fpzhangsha.com' }">
 	<meta name="robots" content="noarchive">
+	</c:if>
 	
 	<duowan:block name="head">
 	</duowan:block>
