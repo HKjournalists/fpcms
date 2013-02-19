@@ -11,6 +11,7 @@
 		<property name="sourceLang" value="auto"></property>
 	</bean>
 	
+	<!-- 
 	<bean parent="parentSinglePageCrawler">
 		<property name="sourceLang" value="en"></property>
 		<property name="urlList">
@@ -29,6 +30,7 @@
 			</list>
 		</property>
 	</bean>
+	 -->
 	
 <!---->
 <!--	<bean parent="parentSinglePageCrawler">-->
