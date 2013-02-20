@@ -92,6 +92,9 @@
 			<list>
 				<value><![CDATA[https://www.google.com.hk/search?num=30&hl=en&gl=us&tbm=nws&q=allintitle:invoice]]></value>
 				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=100]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=200]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=300]]></value>
 			</list>
 		</property>
 		<property name="excludeUriRegexList">
