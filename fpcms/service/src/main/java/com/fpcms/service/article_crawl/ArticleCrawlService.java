@@ -96,6 +96,10 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			if(StringUtils.isBlank(page.getContent()) || StringUtils.isBlank(page.getTitle())) {
 				return;
 			}
+			//过滤 \u003c 等unicode非法字符
+			if(page.getTitle().contains("\\u") || page.getContent().contains("\\u")) {
+				return;
+			}
 			
 			CmsContent c = new CmsContent();
 			c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
