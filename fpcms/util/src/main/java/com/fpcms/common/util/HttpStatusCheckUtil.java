@@ -27,7 +27,7 @@ public class HttpStatusCheckUtil {
 			return String.valueOf(httpResponseCode);
 		}catch(Exception e) {
 			log.error("update http status error on site:"+site,e);
-			return e.getMessage();
+			return e.toString();
 		}
 	}
 	
