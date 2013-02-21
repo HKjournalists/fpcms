@@ -27,6 +27,11 @@ public class SearchEngineUtilTest extends Assert{
 		System.out.println(map);
 		assertTrue(!map.isEmpty());
 		
+		
+		Map<String,Integer> map2 = SearchEngineUtil.baiduKeywordsRank("南昌代开发票,南昌发票,南昌开发票", "www.fpnanchang.com");
+		System.out.println(map2);
+		assertTrue(!map2.isEmpty());
+		
 		Map<String,Integer> empty = SearchEngineUtil.baiduKeywordsRank("安徽代开发票,安徽发票,安徽开发票", "www.aaafaipiao.com");
 		System.out.println(empty);
 		assertTrue(empty.isEmpty());

@@ -93,7 +93,7 @@ public class SearchEngineUtil {
 						rankMap.put(keyword, rank);
 					}
 				}
-				return rankMap;
+				return MapUtil.sortByValue(rankMap);
 			}
 		});
 	}
