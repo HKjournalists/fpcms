@@ -1,5 +1,6 @@
 package com.fpcms.home.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class MonitorController {
 	private CmsSiteService cmsSiteService;
 	
 	@RequestMapping
-	public void monitorAllDomain(HttpServletResponse response) {
+	public void monitorAllDomain(HttpServletResponse response) throws IOException {
 		List<String> failList = new ArrayList();
 		for(CmsDomain domain : cmsDomainService.findAll()) {
 			if(!domain.isHttpSuccess()) {
@@ -33,11 +34,13 @@ public class MonitorController {
 		
 		if(!failList.isEmpty()) {
 			 throw new RuntimeException("error domain http status:"+failList);
+		}else {
+			response.getWriter().println("success");
 		}
 	}
 	
 	@RequestMapping
-	public void monitorAllSite(HttpServletResponse response) {
+	public void monitorAllSite(HttpServletResponse response) throws IOException {
 		List<String> failList = new ArrayList();
 		for(CmsSite site : cmsSiteService.findAll()) {
 			if(!site.isHttpSuccess()) {
@@ -47,6 +50,8 @@ public class MonitorController {
 		
 		if(!failList.isEmpty()) {
 			 throw new RuntimeException("error site http status:"+failList);
+		}else {
+			response.getWriter().println("success");
 		}
 	}
 }
