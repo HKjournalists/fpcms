@@ -1,5 +1,7 @@
 package com.fpcms.common.util;
 
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,6 +21,22 @@ public class SearchEngineUtilTest extends Assert{
 		
 	}
 
+	@Test
+	public void test_baiduKeywordsRank() {
+		Map<String,Integer> map = SearchEngineUtil.baiduKeywordsRank("唐山代开发票,唐山发票,唐山开发票,ABC代开发票", "www.aaafaipiao.com");
+		System.out.println(map);
+		assertTrue(!map.isEmpty());
+		
+		
+		Map<String,Integer> map2 = SearchEngineUtil.baiduKeywordsRank("南昌代开发票,南昌发票,南昌开发票", "www.fpnanchang.com");
+		System.out.println(map2);
+		assertTrue(!map2.isEmpty());
+		
+		Map<String,Integer> empty = SearchEngineUtil.baiduKeywordsRank("安徽代开发票,安徽发票,安徽开发票", "www.aaafaipiao.com");
+		System.out.println(empty);
+		assertTrue(empty.isEmpty());
+	}
+	
 	@Test
 	public void test_googleSearch() {
 		String string = SearchEngineUtil.googleSearch("中央银行",100,1);

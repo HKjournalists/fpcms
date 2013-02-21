@@ -113,6 +113,7 @@
 				<th sortColumn="city" >城市</th>
 				<th sortColumn="record_baidu" title="百度" >site记录数</th>
 				<th sortColumn="rank_baidu" title="百度" >关键字排名</th>
+				<th sortColumn="rank_baidu" title="百度" >详细排名</th>
 				<th sortColumn="keyword" >网站关键词</th>
 				<th sortColumn="mobile" >移动电话</th>
 				<th sortColumn="redirect_site" >重定向site</th>
@@ -141,9 +142,10 @@
 				<td>${item.ip}&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.city}'/>&nbsp;</td>
-				<td><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></td>
+				<td><a href="http://www.baidu.com/s?wd=site:${item.siteDomain}&rn=100"><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></a></td>
 				<td><font color="${item.rankBaidu <=0 ? 'red' : ''}">${item.rankBaidu}</font></td>
 				<td><a href="http://www.baidu.com/s?wd=${item.keyword}" target="_blank">${item.keyword}</a></td>
+				<td>${item.properties.keywordsRankBaidu}</td>
 				<td><c:out value='${item.mobile}'/>&nbsp;</td>
 				<td><a href="http://${item.redirectSite}${ctx}" title="预览" target="_blank">${item.redirectSite}</a></td>
 				<!-- 
