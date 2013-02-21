@@ -71,7 +71,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			Cookie[] cookies = client.getState().getCookies();
 			InputStream stream = post.getResponseBodyAsStream();
 			String responseString = IOUtils.toString(stream,"UTF-8");
-			verifyHttpStatusCode(post.getStatusCode(),"login error,username:" + username);
+			verifyHttpStatusCode(post.getStatusCode(),"login error,username:" + username+" response:"+responseString);
 			Assert.isTrue(verifyLoginResult(responseString),"login error,username:"+username + " response:"+responseString);
 			logger.info("login_success with username:"+username+" loginUrl:"+getLoginUrl());
 		}finally {

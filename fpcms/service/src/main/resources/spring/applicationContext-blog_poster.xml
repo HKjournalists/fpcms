@@ -15,7 +15,7 @@
 			<value><![CDATA[<meta http-equiv='Refresh' content='0;URL=/index.php?s=/Home/index'>]]></value>
 		</property>
 		
-		<property name="postNewBlogUrl" value="http://blog.51cto.com/user_index.php?action=addblog_new"></property>
+		<property name="postNewBlogUrl" value="http://linux2o848.blog.51cto.com/user_index.php?action=addblog_new"></property>
 		<property name="postNewBlogContentType" value="multipart/form-data;"></property>
 		<property name="postNewBlogRequestBodyTemplate">
 			<value><![CDATA[]]></value>
@@ -38,32 +38,35 @@
 		</property>
 		<property name="verifyPostNewBlogResultRegex" value="Success|操作成功"></property>
 	</bean>
+	 -->
 		
+	<!-- TODO: 需要得到OSchina的user_code,可以从登陆返回在成功页取回 -->
 	<bean id="oschinaBlogPoster" class="com.fpcms.common.blog_post.impl.ConfigableBlogPoster" >
 		<property name="loginUrl" value="https://www.oschina.net/action/user/hash_login"></property>
 		<property name="loginRequestBodyTemplate" >
 			<value><![CDATA[email=fpqqchao%40gmail.com&pwd=6367c48dd193d56ea7b0baad25b19455e529f5ee&save_login=1]]></value>
 		</property>
 		<property name="verifyLoginResultRegex" >
-			<value><![CDATA[111]]></value>
+			<value><![CDATA[]]></value>
 		</property>
 		
-		<property name="postNewBlogUrl" value="http://blog.51cto.com/user_index.php?action=addblog_new"></property>
+		<property name="postNewBlogUrl" value="http://my.oschina.net/action/blog/save?as_top=0"></property>
 		<property name="postNewBlogRequestBodyTemplate">
 			<value><![CDATA[
+			user_code=K0v0y4bY73AvkfZTdNSIRvLm2bnQ0lLZywYBCmoA&draft=0&title=${title}&catalog=300881&content=${content}&content_type=0&tags=&music_url=&pubDate=&type=1&origin_url=&privacy=0&deny_comment=0
 			]]></value>
 		</property>
-		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
+		<property name="verifyPostNewBlogResultRegex" value='.*id".\d+.*'></property>
 	</bean>	
-	 -->
-	<!-- 
+	
+	<!-- 审核比较严格,放弃
 	<bean id="blogbusBlogPoster" class="com.fpcms.common.blog_post.impl.ConfigableBlogPoster" >
 		<property name="loginUrl" value="http://passport.blogbus.com/login"></property>
 		<property name="loginRequestBodyTemplate" >
 			<value><![CDATA[username=${username}&password=${password}&remember=on]]></value>
 		</property>
 		<property name="verifyLoginResultRegex" >
-			<value><![CDATA[]]></value>
+			<value><![CDATA[111]]></value>
 		</property>
 		
 		<property name="postNewBlogUrl" value="http://blog.home.blogbus.com/6666994/posts/"></property>
@@ -75,8 +78,6 @@
 		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
 	</bean>	
 	 -->
-		 
-	 
 	 
 	
 </beans>
