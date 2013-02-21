@@ -1,5 +1,8 @@
 package com.fpcms.common.util;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.duowan.common.util.Profiler;
@@ -74,6 +77,18 @@ public class SearchEngineUtil {
 		return Integer.parseInt(rank);
 	}
 
+	public static Map<String,Integer> baiduKeywordsRank(String keywords,String site) {
+		String[] keywordsArray = org.springframework.util.StringUtils.tokenizeToStringArray(keywords, ",_| ");
+		TreeMap<String,Integer> rankMap = new TreeMap<String,Integer>();
+		for(String keyword : keywordsArray) {
+			int rank = SearchEngineUtil.baiduKeywordRank(keyword, site);
+			if(rank > 0) {
+				rankMap.put(keyword, rank);
+			}
+		}
+		return rankMap;
+	}
+	
 	private static String getBaiduSiteContentByRegex(String keyword, String site) {
 		String url = "http://www.baidu.com/s";
 		String content = NetUtil.httpGet(url,"wd="+keyword+"&rn=100");

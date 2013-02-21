@@ -71,6 +71,7 @@ public class KeywordUtilTest extends Assert{
 	public void test_getMaxRank() {
 		int rank = KeywordUtil.getMaxRank("唐山开发票,唐山代开发票,唐山发票","www.aaafaipiao.com");
 		assertTrue(rank > 0);
+		
 	}
 	
 	@Test

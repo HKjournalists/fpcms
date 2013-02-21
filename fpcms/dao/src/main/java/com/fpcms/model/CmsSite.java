@@ -6,6 +6,8 @@
 
 package com.fpcms.model;
 
+import java.util.Properties;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -15,6 +17,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fpcms.common.util.HttpStatusCheckUtil;
+import com.fpcms.common.util.PropertyHelper;
 
 
 /**
@@ -28,6 +31,7 @@ public class CmsSite  implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
 	
+	public static final String PROP_KEYWORDS_RANK_BAIDU = "keywordsRankBaidu";
 	
 	//date formats
 	
@@ -151,7 +155,7 @@ public class CmsSite  implements java.io.Serializable{
 	/**
 	 * 扩展属性:key_value字段
 	 */
-	private String props;
+	private Properties props = new Properties();
 	/**
 	 * IP地址
 	 */
@@ -348,11 +352,19 @@ public class CmsSite  implements java.io.Serializable{
 	}
 
 	public String getProps() {
-		return props;
+		return PropertyHelper.toString(props);
 	}
 
 	public void setProps(String props) {
-		this.props = props;
+		this.props = PropertyHelper.loadFromString(props);
+	}
+	
+	public Properties getProperties() {
+		return this.props;
+	}
+	
+	public void setProperty(String key,String value) {
+		this.props.setProperty(key, value);
 	}
 	
 	public String getIp() {

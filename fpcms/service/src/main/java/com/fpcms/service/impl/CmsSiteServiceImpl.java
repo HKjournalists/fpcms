@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ReverseComparator;
@@ -225,13 +226,14 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 			
 			for(CmsSite site :list) {
 				try{
-					int min = KeywordUtil.getMaxRank(site.getKeyword(),site.getSiteDomain());
-					
-					if(min != site.getRankBaidu()) {
+					Map<String,Integer> rankMap = SearchEngineUtil.baiduKeywordsRank(site.getKeyword(), site.getSiteDomain());
+					int max = KeywordUtil.getMaxRank(site.getKeyword(),site.getSiteDomain());
+					if(max != site.getRankBaidu()) {
 						updatedSiteList.add(site);
-						site.setRankBaidu(min);
-						update(site);
+						site.setRankBaidu(max);
 					}
+					site.setProperty(CmsSite.PROP_KEYWORDS_RANK_BAIDU, rankMap.toString());
+					update(site);
 				}catch(Exception e) {
 					log.error("error updateSearchEngineKeywordMaxRank on :"+site.getSiteDomain(),e);
 				}

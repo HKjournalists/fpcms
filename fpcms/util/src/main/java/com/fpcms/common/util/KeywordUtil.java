@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -171,9 +172,13 @@ public class KeywordUtil {
 	
 	public static int getMaxRank(String keywords,String site) {
 		String[] keywordsArray = org.springframework.util.StringUtils.tokenizeToStringArray(keywords, ",_| ");
+		Map<String,Integer> keywordRankMap = SearchEngineUtil.baiduKeywordsRank(keywords, site);
+		if(keywordRankMap.isEmpty()) {
+			return 0;
+		}
 		int min = Integer.MAX_VALUE;
-		for(String keyword : keywordsArray) {
-			int rank = SearchEngineUtil.baiduKeywordRank(keyword, site);
+		for(String keyword : keywordRankMap.keySet()) {
+			int rank = keywordRankMap.get(keyword);
 			if(rank > 0 && rank < min) {
 				min = rank;
 			}
