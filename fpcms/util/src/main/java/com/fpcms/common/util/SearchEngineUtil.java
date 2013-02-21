@@ -6,6 +6,9 @@ import java.util.TreeMap;
 import org.apache.commons.lang.StringUtils;
 
 import com.duowan.common.util.Profiler;
+import com.fpcms.common.cache.Cache;
+import com.fpcms.common.cache.CacheManager;
+import com.fpcms.common.cache.ValueCallback;
 
 public class SearchEngineUtil {
 
@@ -77,16 +80,22 @@ public class SearchEngineUtil {
 		return Integer.parseInt(rank);
 	}
 
-	public static Map<String,Integer> baiduKeywordsRank(String keywords,String site) {
-		String[] keywordsArray = org.springframework.util.StringUtils.tokenizeToStringArray(keywords, ",_| ");
-		TreeMap<String,Integer> rankMap = new TreeMap<String,Integer>();
-		for(String keyword : keywordsArray) {
-			int rank = SearchEngineUtil.baiduKeywordRank(keyword, site);
-			if(rank > 0) {
-				rankMap.put(keyword, rank);
+	private static Cache cache = CacheManager.createCache(SearchEngineUtil.class, 500);
+	public static Map<String,Integer> baiduKeywordsRank(final String keywords,final String site) {
+		return cache.get("baiduKeywordsRank:"+keywords+"_"+site, 3600, new ValueCallback<Map<String,Integer>>() {
+			@Override
+			public Map<String, Integer> create(String key) {
+				String[] keywordsArray = org.springframework.util.StringUtils.tokenizeToStringArray(keywords, ",_| ");
+				TreeMap<String,Integer> rankMap = new TreeMap<String,Integer>();
+				for(String keyword : keywordsArray) {
+					int rank = SearchEngineUtil.baiduKeywordRank(keyword, site);
+					if(rank > 0) {
+						rankMap.put(keyword, rank);
+					}
+				}
+				return rankMap;
 			}
-		}
-		return rankMap;
+		});
 	}
 	
 	private static String getBaiduSiteContentByRegex(String keyword, String site) {
