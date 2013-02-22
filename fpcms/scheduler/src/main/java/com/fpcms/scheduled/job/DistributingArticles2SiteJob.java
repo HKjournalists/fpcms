@@ -65,6 +65,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 			if(isMainSite(site)) {
 				CmsContent content = list.remove(0);
 				content.setSite(site);
+				content.setDateCreated(new Date());
 				logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
 				cmsContentService.update(content);
 			}
