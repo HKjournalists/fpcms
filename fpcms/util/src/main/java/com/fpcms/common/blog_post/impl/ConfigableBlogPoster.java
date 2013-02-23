@@ -13,7 +13,8 @@ import com.fpcms.common.blog_post.BaseBlogPoster;
 import com.fpcms.common.util.FreemarkerUtil;
 
 /**
- * 可以配置的博客发送器
+ * 可以配置的博客发送器,
+ * 注意，Freemarker的变量引用可以为 @{},避免与spring ${}冲突
  * 
  * @author badqiu
  *
@@ -28,20 +29,23 @@ public class ConfigableBlogPoster extends BaseBlogPoster{
 	private String verifyPostNewBlogResultRegex;
 	
 	public void setLoginRequestBodyTemplate(String loginRequestBodyTemplate) {
-		this.loginRequestBodyTemplate = StringUtils.trim(loginRequestBodyTemplate);
+		this.loginRequestBodyTemplate = trimAndReplaced(loginRequestBodyTemplate);
 	}
 
-	public void setPostNewBlogRequestBodyTemplate(
-			String postNewBlogRequestBodyTemplate) {
-		this.postNewBlogRequestBodyTemplate = StringUtils.trim(postNewBlogRequestBodyTemplate);
+	public void setPostNewBlogRequestBodyTemplate(String postNewBlogRequestBodyTemplate) {
+		this.postNewBlogRequestBodyTemplate = trimAndReplaced(postNewBlogRequestBodyTemplate);
 	}
 	
 	public void setVerifyLoginResultRegex(String verifyLoginResultRegex) {
-		this.verifyLoginResultRegex = StringUtils.trim(verifyLoginResultRegex);
+		this.verifyLoginResultRegex = trimAndReplaced(verifyLoginResultRegex);
 	}
 
 	public void setVerifyPostNewBlogResultRegex(String verifyPostNewBlogResultRegex) {
-		this.verifyPostNewBlogResultRegex = StringUtils.trim(verifyPostNewBlogResultRegex);
+		this.verifyPostNewBlogResultRegex = trimAndReplaced(verifyPostNewBlogResultRegex);
+	}
+
+	private static String trimAndReplaced(String verifyPostNewBlogResultRegex) {
+		return StringUtils.replace(StringUtils.trim(verifyPostNewBlogResultRegex),"@{","${");
 	}
 
 	@Override

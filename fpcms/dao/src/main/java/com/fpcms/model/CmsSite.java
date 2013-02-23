@@ -18,6 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import com.fpcms.common.util.HttpStatusCheckUtil;
 import com.fpcms.common.util.PropertyHelper;
+import com.fpcms.common.util.StringHelper;
 
 
 /**
@@ -387,6 +388,10 @@ public class CmsSite  implements java.io.Serializable{
 		return HttpStatusCheckUtil.isHttpSuccess(httpStatus);
 	}
 
+	public String getYesterdayOuterLinked() {
+		return StringHelper.getYesterdayOuterLinked(siteDomain);
+	}
+	
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}

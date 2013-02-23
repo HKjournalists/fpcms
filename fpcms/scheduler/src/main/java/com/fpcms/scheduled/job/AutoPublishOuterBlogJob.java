@@ -7,12 +7,12 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.duowan.common.util.page.Page;
 import com.fpcms.common.blog_post.AccountBlogPosterDecorator;
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.blog_post.BlogPoster;
 import com.fpcms.common.blog_post.impl.ChinaUnixBlogPoster;
 import com.fpcms.common.blog_post.impl.CnblogBlogPoster;
+import com.fpcms.common.blog_post.impl.OschinaBlogPoster;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
@@ -22,8 +22,9 @@ import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.CmsDomain;
-import com.fpcms.query.CmsDomainQuery;
+import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsDomainService;
+import com.fpcms.service.CmsSiteService;
 
 /**
  * 自动针对外网发布外链BLOG
@@ -35,16 +36,22 @@ import com.fpcms.service.CmsDomainService;
 public class AutoPublishOuterBlogJob extends BaseCronJob{
 	private List<BlogPoster> posterList = new ArrayList<BlogPoster>();
 	private CmsDomainService cmsDomainService;
+	private CmsSiteService cmsSiteService;
 	private Cache cache = CacheManager.createCache(AutoPublishOuterBlogJob.class,1000);
 	
 	public void setCmsDomainService(CmsDomainService cmsDomainService) {
 		this.cmsDomainService = cmsDomainService;
+	}
+	
+	public void setCmsSiteService(CmsSiteService cmsSiteService) {
+		this.cmsSiteService = cmsSiteService;
 	}
 
 	public AutoPublishOuterBlogJob() {
 		super("1 30 2,5 * * *");
 		posterList.add(new AccountBlogPosterDecorator(new CnblogBlogPoster(),"fpqqchao","abc123"));
 		posterList.add(new AccountBlogPosterDecorator(new ChinaUnixBlogPoster(),"fpqqchao","abc123"));
+		posterList.add(new AccountBlogPosterDecorator(new OschinaBlogPoster(),"fpqqchao@gmail.com","6367c48dd193d56ea7b0baad25b19455e529f5ee"));
 	}
 	
 	@Override
@@ -80,21 +87,27 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		Assert.hasText(page.getContent());
 		Assert.isTrue(page.getContent().length() > 200);
 		StringBuilder content = new StringBuilder(page.getContent());
-		content.insert(200, selectRandomSite());
+		content.insert(200, selectRandomDomain());
 		content.append(selectRandomSite());
 		return "<pre>"+NaipanArticleGeneratorUtil.transformArticle(content.toString())+"</pre>";
 	}
 	
-	private String selectRandomSite() {
-		CmsDomainQuery query = new CmsDomainQuery();
-		query.setPageSize(Integer.MAX_VALUE);
-		Page<CmsDomain> page = cmsDomainService.findPage(query);
-		CmsDomain domain = RandomUtil.randomSelect(page.getItemList());
+	private String selectRandomDomain() {
+		List<CmsDomain> domainList = cmsDomainService.findAll();
+		CmsDomain domain = RandomUtil.randomSelect(domainList);
 		Assert.notNull(domain,"not found any random CmsDomain");
 		String link =  domain.getYesterdayOuterLinked();
 		return String.format(" <a href='%s'>%s</a>; ",link,link);
 	}
 
+	private String selectRandomSite() {
+		List<CmsSite> siteList = cmsSiteService.findAll();
+		CmsSite site = RandomUtil.randomSelect(siteList);
+		Assert.notNull(site,"not found any random CmsDomain");
+		String link =  site.getYesterdayOuterLinked();
+		return String.format(" <a href='%s'>%s</a>; ",link,link);
+	}
+	
 	private List<HtmlPage> cralwerForPageList() {
 		SinglePageCrawler cralwer = new SinglePageCrawler();
 		cralwer.setSourceLang("zh-CN");
