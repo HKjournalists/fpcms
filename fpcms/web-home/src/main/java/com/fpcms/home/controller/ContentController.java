@@ -14,6 +14,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -93,7 +94,7 @@ public class ContentController extends BaseController{
 	 */
 	@RequestMapping("/linked/{dateCreated}.do")
 	public String linked(ModelMap model,@PathVariable("dateCreated") String dateCreatedString,HttpServletRequest request,HttpServletResponse response) throws IOException {
-		if(SpiderUtil.isSpider(request)) {
+		if(SpiderUtil.isSpider(request) || StringUtils.isNotBlank(request.getParameter("debug"))) {
 			Date dateCreated = null;
 			try {
 				dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
