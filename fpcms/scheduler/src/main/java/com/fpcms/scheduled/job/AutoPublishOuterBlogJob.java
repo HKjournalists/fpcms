@@ -55,15 +55,24 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 
 	void postAllBlog(final List<HtmlPage> pageList) {
 		for(BlogPoster poster : posterList) {
-			HtmlPage page = RandomUtil.randomRemove(pageList);
+			HtmlPage page = getRandomValidPage(pageList);
 			if(page == null) {
 				break;
+			}
+			poster.postBlog(new Blog(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()),addRandomLink(page)));
+		}
+	}
+	
+	HtmlPage getRandomValidPage(final List<HtmlPage> pageList) {
+		while(true) {
+			HtmlPage page = RandomUtil.randomRemove(pageList);
+			if(page == null) {
+				return null;
 			}
 			if(StringUtils.length(page.getContent()) < 300) {
 				continue;
 			}
-			
-			poster.postBlog(new Blog(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()),addRandomLink(page)));
+			return page;
 		}
 	}
 
