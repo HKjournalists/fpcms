@@ -7,6 +7,7 @@
 
 <duowan:override name="head">
 	<title>CmsSite 维护</title>
+	<base target="_blank">
 	
 	<script src="${ctx}/js/rest.js" ></script>
 	<link href="<c:url value="/widgets/simpletable/simpletable.css"/>" type="text/css" rel="stylesheet">
@@ -18,6 +19,7 @@
 			window.simpleTable = new SimpleTable('queryForm',${page.paginator.page},${page.paginator.pageSize},'${pageRequest.sortColumns}');
 		});
 	</script>
+	
 </duowan:override>
 
 <duowan:override name="content">
