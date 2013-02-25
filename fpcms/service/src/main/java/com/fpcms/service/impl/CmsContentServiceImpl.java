@@ -25,6 +25,7 @@ import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.DomainUtil;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
@@ -192,6 +193,10 @@ public class CmsContentServiceImpl implements CmsContentService {
 	public synchronized void genRandomCmsContent() {
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		for(CmsSite cmsSite : siteList) {
+			if(DomainUtil.isMainSite(cmsSite.getSiteDomain())) {
+				log.info("ignore genRandomCmsContent for site:"+cmsSite.getSiteDomain()+" by isMainSite,main site example:www.example.com example.com");
+				continue;
+			}
 			for(int i = 0; i < 5; i++) {
 				try {
 					genSiteRandomCmsContent(cmsSite.getSiteDomain());

@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 import com.duowan.common.util.Profiler;
 import com.fpcms.service.CmsContentService;
 
-//@Service
+@Service
 public class AutoGeneratorNewsJob extends BaseCronJob implements InitializingBean{
 	
 	private static Logger logger = LoggerFactory.getLogger(AutoGeneratorNewsJob.class);

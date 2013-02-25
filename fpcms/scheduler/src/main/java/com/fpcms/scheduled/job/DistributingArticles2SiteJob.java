@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.DomainUtil;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsContentQuery;
@@ -62,7 +62,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				break;
 			
 			String site = cmsSite.getSiteDomain();
-			if(isMainSite(site)) {
+			if(DomainUtil.isMainSite(site)) {
 				CmsContent content = list.remove(0);
 				content.setSite(site);
 				content.setDateCreated(new Date());
@@ -73,13 +73,6 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 		
 	}
 
-	public static boolean isMainSite(String site) {
-		if(StringUtils.isBlank(site)) {
-			return false;
-		}
-		return site.startsWith("www.") || StringUtils.countMatches(site, ".") == 1;
-	}
-	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(cmsSiteService,"cmsSiteService must be not null");
