@@ -10,6 +10,9 @@ import static com.duowan.common.util.DateFormats.DATE_FORMAT;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -19,7 +22,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.duowan.common.util.DateConvertUtils;
-import com.fpcms.common.util.AppModeUtil;
 import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.ChineseSegmenterUtil;
 import com.fpcms.common.util.StringHelper;
@@ -164,7 +166,18 @@ public class CmsContent  implements java.io.Serializable{
 		if(StringUtils.isBlank(title)) {
 			return null;
 		}
-		return StringUtils.join(ChineseSegmenterUtil.getMinLengthKeywords(title, 3, true),",");
+		List<String> minLengthKeywords = new ArrayList(ChineseSegmenterUtil.getMinLengthKeywords(title, 3, true));
+		removeRegexMatch(minLengthKeywords, ".*\\d.*");
+		return StringUtils.join(minLengthKeywords,",");
+	}
+
+	private static void removeRegexMatch(List<String> list, String regex) {
+		for(ListIterator<String> it = list.listIterator();it.hasNext();) {
+			String keyword = it.next();
+			if(keyword.matches(regex)) {
+				it.remove();
+			}
+		}
 	}
 	
 	public String getMetaDescription() {
