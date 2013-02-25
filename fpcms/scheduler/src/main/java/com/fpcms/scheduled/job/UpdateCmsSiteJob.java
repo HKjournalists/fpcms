@@ -21,7 +21,7 @@ public class UpdateCmsSiteJob extends BaseCronJob implements InitializingBean{
 	private CmsSiteService cmsSiteService;
 
 	public UpdateCmsSiteJob() {
-		super("0 1 7,12,18 * * *");
+		super("0 1 7,12,18,21 * * *");
 	}
 	
 	public void setCmsSiteService(CmsSiteService cmsSiteService) {
