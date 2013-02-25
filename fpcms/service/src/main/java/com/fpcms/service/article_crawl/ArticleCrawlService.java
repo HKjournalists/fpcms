@@ -100,6 +100,14 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			if(page.getTitle().contains("\\u") || page.getContent().contains("\\u")) {
 				return;
 			}
+			//过滤 url
+			if(page.getContent().contains("http://")) {
+				return;
+			}
+			//过滤 www.
+			if(page.getContent().contains("www.")) {
+				return;
+			}
 			
 			CmsContent c = new CmsContent();
 			c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
