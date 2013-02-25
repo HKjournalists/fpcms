@@ -7,21 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.fpcms.service.CmsSiteService;
-
-/**
- * 更新cms_site的搜索引擎记录的Job
- * 
- * @author badqiu
- *
- */
 @Service
-public class UpdateCmsSiteJob extends BaseCronJob implements InitializingBean{
+public class UpdateSiteHttpStatusJob extends BaseCronJob implements InitializingBean{
 	static Logger logger = LoggerFactory.getLogger(UpdateCmsSiteJob.class);
 	
 	private CmsSiteService cmsSiteService;
 
-	public UpdateCmsSiteJob() {
-		super("0 1 7,12,18,21 * * *");
+	public UpdateSiteHttpStatusJob() {
+		super("0 1/20 * * * *");
 	}
 	
 	public void setCmsSiteService(CmsSiteService cmsSiteService) {
@@ -29,8 +22,7 @@ public class UpdateCmsSiteJob extends BaseCronJob implements InitializingBean{
 	}
 
 	public void execute() {
-		cmsSiteService.updateSearchEngineRecord();
-		cmsSiteService.updateSearchEngineKeywordMaxRank();
+		cmsSiteService.updateHttpStatus();
 	}
 	
 	@Override
@@ -41,6 +33,7 @@ public class UpdateCmsSiteJob extends BaseCronJob implements InitializingBean{
 	
 	@Override
 	public String getJobRemark() {
-		return "更新百度关键字排名等记录状态";
+		return "更新CmsSite网站http状态";
 	}
+	
 }
