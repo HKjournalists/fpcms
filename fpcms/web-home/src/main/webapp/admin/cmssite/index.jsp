@@ -164,6 +164,7 @@
 					<a href="${ctx}/admin/cmssite/baiduAddUrl.jsp?url=http://${item.siteDomain}" target="_blank">百度提交URL</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/edit.do?siteDomain=${item.siteDomain}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmssite/delete.do?siteDomain=${item.siteDomain}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
+					<a href="http://addlink.gzchengjie.com/?${item.siteDomain}">gzchengjie超级外链</a>
 				</td>
 			  </tr>
 			  
