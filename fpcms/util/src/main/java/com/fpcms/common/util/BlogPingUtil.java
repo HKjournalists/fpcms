@@ -11,7 +11,7 @@ public class BlogPingUtil {
 	
 	public static boolean baiduPing(String blogName,String blogHomeUrl,String newBlogUrl,String blogRssUrl){
 		boolean result = baiduPing0(blogName, blogHomeUrl, newBlogUrl, blogRssUrl);
-		logger.info("baiduPing,newBlogUrl:"+newBlogUrl+" success:"+result);
+		logger.info("baiduPing,newBlogUrl:"+newBlogUrl+" success:"+result+" blogRssUrl:"+blogRssUrl+" blogName:"+blogName+" blogHomeUrl:"+blogHomeUrl);
 		return result;
 	}
 
