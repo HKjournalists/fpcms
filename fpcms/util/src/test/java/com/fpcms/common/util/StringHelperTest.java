@@ -1,6 +1,9 @@
 package com.fpcms.common.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Assert;
@@ -24,5 +27,12 @@ public class StringHelperTest extends Assert{
 		Date date = DateUtils.addDays(new Date(),-1);
 		String string = StringHelper.getYesterdayOuterLinked("www.163.com");
 		assertEquals(string,"http://www.163.com/linked/"+DateConvertUtils.format(date, "yyyyMMdd")+".do");
+	}
+	
+	@Test
+	public void test_removeRegexMatch() {
+		List<String> list = new ArrayList(Arrays.asList("中国","12月","人民","2013年"));
+		StringHelper.removeRegexMatch(list, ".*\\d.*");
+		assertEquals(list.toString(),"[中国, 人民]");
 	}
 }

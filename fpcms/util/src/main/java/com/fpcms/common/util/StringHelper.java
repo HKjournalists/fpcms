@@ -3,6 +3,7 @@ package com.fpcms.common.util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -44,6 +45,15 @@ public class StringHelper {
 		return replaced.substring(0,Math.min(replaced.length(),200));
 //		String[] array = org.springframeworenizeToStringArray(content, KeywordUtil.DELIMITERS);
 //		return StringUtils.join(array,",").substring(0,200);
+	}
+	
+	public static void removeRegexMatch(List<String> list, String regex) {
+		for(ListIterator<String> it = list.listIterator();it.hasNext();) {
+			String keyword = it.next();
+			if(keyword.matches(regex)) {
+				it.remove();
+			}
+		}
 	}
 	
 }

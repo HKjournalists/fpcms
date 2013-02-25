@@ -167,17 +167,8 @@ public class CmsContent  implements java.io.Serializable{
 			return null;
 		}
 		List<String> minLengthKeywords = new ArrayList(ChineseSegmenterUtil.getMinLengthKeywords(title, 3, true));
-		removeRegexMatch(minLengthKeywords, ".*\\d.*");
+		StringHelper.removeRegexMatch(minLengthKeywords, ".*\\d.*");
 		return StringUtils.join(minLengthKeywords,",");
-	}
-
-	private static void removeRegexMatch(List<String> list, String regex) {
-		for(ListIterator<String> it = list.listIterator();it.hasNext();) {
-			String keyword = it.next();
-			if(keyword.matches(regex)) {
-				it.remove();
-			}
-		}
 	}
 	
 	public String getMetaDescription() {
