@@ -19,6 +19,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.duowan.common.util.DateConvertUtils;
+import com.fpcms.common.util.AppModeUtil;
+import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.ChineseSegmenterUtil;
 import com.fpcms.common.util.StringHelper;
 
@@ -267,6 +269,19 @@ public class CmsContent  implements java.io.Serializable{
 		return new HashCodeBuilder()
 			.append(getId())
 			.toHashCode();
+	}
+	
+	public static void baiduBlogPing(CmsContent cmsContent) {
+//		if(!AppModeUtil.isProdAppMode()) {
+//			return;
+//		}
+		if("localhost".equals(cmsContent.getSite())) {
+			return;
+		}
+		if("127.0.0.1".equals(cmsContent.getSite())) {
+			return;
+		}
+		BlogPingUtil.baiduPing(cmsContent.getSite(), "http://"+cmsContent.getSite(), cmsContent.getUrl(), "http://"+cmsContent.getSite()+"/rss.xml");
 	}
 	
 	public boolean equals(Object obj) {

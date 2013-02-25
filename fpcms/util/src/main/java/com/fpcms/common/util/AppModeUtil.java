@@ -6,6 +6,10 @@ public class AppModeUtil {
 		return "dev".equals(System.getProperty("appMode"));
 	}
 	
+	public static boolean isProdAppMode() {
+		return "prod".equals(System.getProperty("appMode"));
+	}
+	
 	public static boolean hasDevPassword() {
 		return Constants.DEV_PASSWORD_VALUE.equals(System.getProperty(Constants.DEV_PASSWORD_KEY));
 	}

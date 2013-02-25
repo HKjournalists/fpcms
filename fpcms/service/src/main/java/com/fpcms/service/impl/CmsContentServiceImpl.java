@@ -24,6 +24,7 @@ import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
+import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.DomainUtil;
 import com.fpcms.common.util.RandomUtil;
@@ -235,6 +236,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setSearchKeyword(article.getKeyword());
 		createWithRandomLink(cmsContent,40);
 		log.info("generate_random_news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
+		CmsContent.baiduBlogPing(cmsContent);
 	}
 
 	@Override

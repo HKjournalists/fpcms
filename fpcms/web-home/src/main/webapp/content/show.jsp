@@ -4,7 +4,7 @@
 
 <duowan:override name="head">
 	<title>${cmsContent.title}</title>
-	<meta name="keywords" content="${cmsContent.title}" />
+	<meta name="keywords" content="${cmsContent.keyword},${cmsContent.title}" />
 	<meta name="description" content="${cmsContent.metaDescription}" /> 
 </duowan:override>
 

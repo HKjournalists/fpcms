@@ -10,13 +10,18 @@ public class BlogPingUtil {
 	static Logger logger = LoggerFactory.getLogger(BlogPingUtil.class);
 	
 	public static boolean baiduPing(String blogName,String blogHomeUrl,String newBlogUrl,String blogRssUrl){
+		boolean result = baiduPing0(blogName, blogHomeUrl, newBlogUrl, blogRssUrl);
+		logger.info("baiduPing,newBlogUrl:"+newBlogUrl+" success:"+result);
+		return result;
+	}
+
+	private static boolean baiduPing0(String blogName, String blogHomeUrl,
+			String newBlogUrl, String blogRssUrl) {
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("blogName", blogName);
 		params.put("blogHomeUrl", blogHomeUrl);
 		params.put("newBlogUrl", newBlogUrl);
 		params.put("blogRssUrl", blogRssUrl);
-		
-		logger.info("baiduPing,newBlogUrl:"+newBlogUrl);
 		
 		String pingXml = FreemarkerUtil.readFreemarkerClassPathResource("/ping/baidu_ping_template.xml",params);
 		

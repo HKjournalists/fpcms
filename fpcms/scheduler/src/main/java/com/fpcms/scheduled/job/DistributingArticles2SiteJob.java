@@ -68,9 +68,9 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				content.setDateCreated(new Date());
 				logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
 				cmsContentService.update(content);
+				CmsContent.baiduBlogPing(content);
 			}
 		}
-		
 	}
 
 	@Override
