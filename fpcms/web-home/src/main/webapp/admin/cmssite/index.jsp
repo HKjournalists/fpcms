@@ -7,7 +7,6 @@
 
 <duowan:override name="head">
 	<title>CmsSite 维护</title>
-	<base target="_blank">
 	
 	<script src="${ctx}/js/rest.js" ></script>
 	<link href="<c:url value="/widgets/simpletable/simpletable.css"/>" type="text/css" rel="stylesheet">
@@ -144,7 +143,7 @@
 				<td>${item.ip}&nbsp;</td>
 				<td><c:out value='${item.siteDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.city}'/>&nbsp;</td>
-				<td><a href="http://www.baidu.com/s?wd=site:${item.siteDomain}&rn=100"><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></a></td>
+				<td><a href="http://www.baidu.com/s?wd=site:${item.siteDomain}&rn=100" target="_blank"><font color="${item.recordBaidu <=0 ? 'red' : ''}">${item.recordBaidu}</font></a></td>
 				<td><font color="${item.rankBaidu <=0 ? 'red' : ''}">${item.rankBaidu}</font></td>
 				<td><a href="http://www.baidu.com/s?wd=${item.keyword}" target="_blank">${item.keyword}</a></td>
 				<td>${item.properties.keywordsRankBaidu}</td>
