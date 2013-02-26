@@ -55,4 +55,10 @@ public class GoogleTranslateUtilTest extends Assert {
 		
 	}
 	
+	@Test
+	public void test_autoTranslate_zh_tw() {
+		String str = GoogleTranslateUtil.autoTranslate("財政部稅務入口網統一發票管理", "zh-CN");
+		assertEquals(str,"税务财政部发票统一的网络管理入口");
+	}
+	
 }

@@ -1,6 +1,7 @@
 package com.fpcms.service.article_crawl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -92,21 +93,10 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			return true;
 		}
 
+		List<String> filterWords = Arrays.asList("\\u","http://","www.","代开","开发票","买发票","卖发票","销售发票");
 		@Override
 		public void visit(HtmlPage page) {
-			if(StringUtils.isBlank(page.getContent()) || StringUtils.isBlank(page.getTitle())) {
-				return;
-			}
-			//过滤 \u003c 等unicode非法字符
-			if(page.getTitle().contains("\\u") || page.getContent().contains("\\u")) {
-				return;
-			}
-			//过滤 url
-			if(page.getContent().contains("http://")) {
-				return;
-			}
-			//过滤 www.
-			if(page.getContent().contains("www.")) {
+			if(hasFilterKeyword(page.getTitle(),page.getContent())) {
 				return;
 			}
 			
@@ -118,6 +108,10 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 				c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
 				c.setTitle(GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN"));
 			}
+			
+			if(hasFilterKeyword(c.getTitle(),c.getContent())) {
+				return;
+			}
 			c.setSourceUrl(page.getAnchor().getHref());
 			c.setSite(Constants.CRAWL_SITE);
 			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
@@ -126,7 +120,24 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			
 		}
 		
+		boolean hasFilterKeyword(String... contents) {
+			if(contents == null) return false;
+			
+			for(String c : contents) {
+				if(StringUtils.isBlank(c)) {
+					continue;
+				}
+				
+				for(String keyword : filterWords) {
+					if(c.contains(keyword)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
 	}
+	
 
 	@Override
 	public void afterPropertiesSet() throws Exception {

@@ -179,11 +179,12 @@ public class CmsContentController extends BaseController{
 		return "/admin/cmscontent/listForExternalLinks";
 	}
 	
-	public String buildOriginalArticle(ModelMap model) {
-		
-		
-		return "";
+	/** 原创文章增加链接 */
+	@RequestMapping()
+	public String buildOriginalArticle(ModelMap model,@RequestParam("id") long id) {
+		CmsContent cmsContent = cmsContentService.getById(id);
+		model.addAttribute("cmsContent",cmsContent);
+		return "/admin/cmscontent/show";
 	}
-	
 }
 

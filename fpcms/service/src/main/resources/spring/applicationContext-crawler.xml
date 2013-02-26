@@ -106,11 +106,12 @@
 	</bean>	
 	
 	<bean parent="parentSinglePageCrawler">
-		<property name="sourceLang" value="zh-CN"></property>
+		<property name="sourceLang" value="zh-TW"></property>
 		<property name="urlList">
 			<list>
-				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=zh-CN&newwindow=1&safe=strict&biw=1440&bih=730&tbs=qdr%3Ah&q=allintitle:%E6%B7%98%E5%AE%9D&oq=%E6%B7%98%E5%AE%9D]]></value>
-				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=zh-CN&newwindow=1&safe=strict&biw=1440&bih=730&tbs=qdr%3Ah&q=allintitle:%E4%BA%AC%E4%B8%9C%E5%95%86%E5%9F%8E]]></value>
+				<value><![CDATA[https://www.google.com.tw/search?q=%E5%8F%91%E7%A5%A8&hl=zh-TW&newwindow=1&source=lnt&tbs=qdr:d&sa=X&biw=1440&bih=69&num=100]]></value>
+				<value><![CDATA[https://www.google.com.tw/search?q=%E5%8F%91%E7%A5%A8&hl=zh-TW&newwindow=1&source=lnt&tbs=qdr:d&sa=X&biw=1440&bih=69&num=100&start=100]]></value>
+				<value><![CDATA[https://www.google.com.tw/search?q=%E5%8F%91%E7%A5%A8&hl=zh-TW&newwindow=1&source=lnt&tbs=qdr:d&sa=X&biw=1440&bih=69&num=100&start=200]]></value>
 			</list>
 		</property>
 		<property name="excludeUriRegexList">

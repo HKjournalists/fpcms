@@ -239,24 +239,24 @@ public class CmsContentServiceImpl implements CmsContentService {
 		CmsContent.baiduBlogPing(cmsContent);
 	}
 
-	/** 
-	 * 1. 增加文本及URL链接
-	 * 2. 打乱文章
-	 **/
-	public String buildOriginalArticle(String content,List<Anchor> anchorList) {
-		
-		StringBuilder sb = new StringBuilder(content);
-		int index = 0;
-		while(index >= 0) {
-			index = content.indexOf(",");
-			if(anchorList.isEmpty()) {
-				break;
-			}
-			Anchor anchor = anchorList.remove(0);
-		}
-		return "";
-	}
-	
+//	/** 
+//	 * 1. 增加文本及URL链接
+//	 * 2. 打乱文章
+//	 **/
+//	public String buildOriginalArticle(String content,List<Anchor> anchorList) {
+//		
+//		StringBuilder sb = new StringBuilder(content);
+//		int index = 0;
+//		while(index >= 0) {
+//			index = content.indexOf(",");
+//			if(anchorList.isEmpty()) {
+//				break;
+//			}
+//			Anchor anchor = anchorList.remove(0);
+//		}
+//		return "";
+//	}
+//	
 	@Override
 	public CmsContent getNextCmsContent(Date dateCreated,String site,long id) {
 		return cmsContentDao.getNextCmsContent(dateCreated,site,id);
