@@ -18,6 +18,7 @@ import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.GoogleTranslateUtil;
+import com.fpcms.common.util.JChineseConvertor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
@@ -101,9 +102,12 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			}
 			
 			CmsContent c = new CmsContent();
-			if("zh-CN".equals(page.getSourceLang())) {
+			if("zh-cn".equals(page.getSourceLang())) {
 				c.setContent(NaipanArticleGeneratorUtil.transformArticle(page.getContent()));
 				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()));
+			}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
+				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
+				c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));
 			}else {
 				c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
 				c.setTitle(GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN"));
@@ -112,6 +116,10 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			if(hasFilterKeyword(c.getTitle(),c.getContent())) {
 				return;
 			}
+			if(StringUtils.isBlank(c.getContent())) {
+				return;
+			}
+			
 			c.setSourceUrl(page.getAnchor().getHref());
 			c.setSite(Constants.CRAWL_SITE);
 			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
