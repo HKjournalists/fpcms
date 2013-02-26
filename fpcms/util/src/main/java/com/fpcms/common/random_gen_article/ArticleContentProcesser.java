@@ -66,45 +66,6 @@ public class ArticleContentProcesser {
 //		article = GoogleTranslateUtil.fromEnglish2Chinese(GoogleTranslateUtil.fromChinese2English(article));
 	}
 
-	private void filterByChineseSegment(Set<String> tokens) {
-		Map<String,Integer> tokenCountMap = ChineseSegmenterUtil.segmenteForTokenCount(StringUtils.join(tokens,","));
-		List<TokenCount> tokenCountList =ChineseSegmenterUtil.toSortedTokenCountList(tokenCountMap);
-		System.out.print("TokenCount:");
-		for(int i =0; i < tokenCountList.size(); i++){
-			TokenCount tokenCount = tokenCountList.get(i);
-			if(tokenCount.getCount() >= 3) {
-				System.out.print(tokenCount+"  ");
-			}
-		}
-		
-		List<TokenCount> sortedTokenLengthList = new ArrayList<TokenCount>(tokenCountList);
-		Collections.sort(sortedTokenLengthList,new Comparator<TokenCount>() {
-			@Override
-			public int compare(TokenCount o1, TokenCount o2) {
-				int len1 = o1.getToken().length();
-				int len2 = o2.getToken().length();
-				if(len1 == len2) {
-					return 0;
-				}
-				if(len1 > len2) {
-					return 1;
-				}else {
-					return -1;
-				}
-			}
-			
-		});
-		System.out.print("TokenLength:");
-		for(int i =0; i < sortedTokenLengthList.size(); i++){
-			TokenCount tokenCount = tokenCountList.get(i);
-			if(tokenCount.getToken().length() >= 4) {
-				System.out.print(tokenCount+"  ");
-			}
-		}
-		System.out.println();
-	}
-
-	
 	private String toHtmlFormat(Collection<String> tokens) {
 		StringBuilder result = new StringBuilder();
 		for(String token : tokens) {

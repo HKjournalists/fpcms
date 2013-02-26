@@ -24,6 +24,12 @@ public class StringHelper {
 	public static String getOuterLinked(String site,Date date) {
 		return "http://"+site+"/linked/"+DateConvertUtils.format(date, "yyyyMMdd")+".do";
 	}
+
+	public static String toHtmlFormat(String content) {
+		StringBuilder sb = new StringBuilder(content);
+		
+		return sb.toString();
+	}
 	
 	public static List<String> removeEmptyLines(List<String> lines) {
 		if(lines == null) return null;

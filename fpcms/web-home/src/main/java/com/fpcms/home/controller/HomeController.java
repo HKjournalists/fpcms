@@ -22,6 +22,7 @@ import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsContentService;
+import com.fpcms.service.CmsDomainService;
 import com.fpcms.service.CmsPropertyService;
 import com.fpcms.service.CmsSiteService;
 
@@ -54,6 +55,8 @@ public class HomeController extends BaseController{
 		
 		List<CmsSite> subSiteList = cmsSiteService.findSubSites(CmsSiteUtil.getDomain(getSite()));
 		model.put("subSiteList", subSiteList);
+		
+		model.put("allSiteList", cmsSiteService.findAll());
 		return "/home";
 	}
 	
