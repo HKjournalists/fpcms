@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -125,33 +126,36 @@ public class SinglePageCrawler {
 	public List<Anchor> getShoudVisitAnchorList(String url) {
 		String content = NetUtil.httpGet(url);
 		Document doc = Jsoup.parse(content);
-		List<Anchor> shoudVisitAnchorList = getShoudVisitAnchorList(url, doc);
-		return new ArrayList<Anchor>(new LinkedHashSet<Anchor>(shoudVisitAnchorList));
+		Collection<Anchor> shoudVisitAnchorList = getShoudVisitAnchorList(url, doc);
+		return new ArrayList<Anchor>(shoudVisitAnchorList);
 	}
 	
 	private List<Anchor> getShoudVisitAnchorList(String url, Document doc) {
 		Elements elements = doc.getElementsByTag("a");
 		
-		List<Anchor> shoudVisitAnchorList = new ArrayList<Anchor>();
+		LinkedHashSet<Anchor> shoudVisitAnchorSet = new LinkedHashSet<Anchor>();
 		for(Element anchor : elements) {
 			String href = anchor.attr("href");
 			String text = StringUtils.trim(anchor.text());
 			String title = anchor.attr("title");
 			Anchor a = new Anchor();
-			
 			String fullHref = Anchor.toFullUrl(url,href);
 			fullHref = deleteUrlQueryString ? Anchor.removeQueryString(fullHref) : fullHref;
 			a.setHref(fullHref);
 			a.setText(text);
 			a.setTitle(title);
-			
+			shoudVisitAnchorSet.add(a);
+		}
+		
+		List<Anchor> result = new ArrayList<Anchor>();
+		for(Anchor a : shoudVisitAnchorSet) {
 			if(isAcceptUrl(a.getHref()) && htmlPageCrawler.shoudVisitPage(a)) {
-				shoudVisitAnchorList.add(a);
+				result.add(a);
 			}else {
 				logger.info("ignore_by_not_accept_url:{}",a.getHref());
 			}
 		}
-		return shoudVisitAnchorList;
+		return result;
 	}
 
 	HtmlPage extractArticleByJsoup(Anchor anchor) throws IOException {
