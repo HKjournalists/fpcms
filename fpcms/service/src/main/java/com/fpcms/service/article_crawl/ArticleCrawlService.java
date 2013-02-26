@@ -105,9 +105,9 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			if("zh-cn".equals(page.getSourceLang())) {
 				c.setContent(NaipanArticleGeneratorUtil.transformArticle(page.getContent()));
 				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()));
-			}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
-				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
-				c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));
+//			}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
+//				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
+//				c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));
 			}else {
 				c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
 				c.setTitle(GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN"));

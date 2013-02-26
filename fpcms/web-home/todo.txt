@@ -200,3 +200,14 @@ http://xiaohan86.com/
 伪原创技巧:
 1. 增加图片法,图片增加alt
 2. 
+
+linux图片乱码:
+1. mkdir
+mkdir -p /usr/local/jdk/jre/lib/fonts/fallback
+cd /usr/local/jdk/jre/lib/fonts/fallback
+2.
+put c:/windows/Fonts/simsun.ttc into dir
+重启java进程
+
+
+
