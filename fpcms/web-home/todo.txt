@@ -196,3 +196,7 @@ http://baiduseoguide.com/
 http://xiaohan86.com/
 
 速度较快的机房: 美国KT机房,美国圣安娜KT机房位于美国加州圣安娜
+
+伪原创技巧:
+1. 增加图片法,图片增加alt
+2. 

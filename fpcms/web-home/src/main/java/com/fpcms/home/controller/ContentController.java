@@ -7,14 +7,23 @@
 
 package com.fpcms.home.controller;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
+import org.apache.tika.io.IOUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -159,6 +168,83 @@ public class ContentController extends BaseController{
 		String day = DateConvertUtils.format(cmsContent.getDateCreated(), "yyyyMMdd");
 		String location = request.getContextPath() + "/content/"+day+"/"+contentId+".do";
 		WebUtil.send301Redirect(response,location);
+	}
+	
+	@RequestMapping("/content_img/{dateCreated}/{contentId}.do")
+	public void content_img(@PathVariable("dateCreated") String dateCreatedString,@PathVariable("contentId") long contentId,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("image/jpeg;");
+		response.setDateHeader("Expires", DateUtils.addDays(new Date(), 360 * 5).getTime());
+		response.setHeader("Cache-Control", "max-age=180000");
+		
+		Date dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
+		CmsContent cmsContent = cmsContentService.getById(dateCreated,contentId);
+		String content = cmsContent.getContent();
+		
+		BufferedImage backgroudImage = getBackgroudImage();
+		BufferedImage outputImage = new GenImageByContentProcessor(content,backgroudImage).execute();
+		ImageIO.write(outputImage, "JPG", response.getOutputStream());
+	}
+
+	public class GenImageByContentProcessor {
+		private String content;
+		private BufferedImage backgroudImage;
+		int width;
+		int height;
+		int ROWS = 30;
+		int COLS = 20;
+		
+		public GenImageByContentProcessor(String content,
+				BufferedImage backgroudImage) {
+			super();
+			this.content = content;
+			this.backgroudImage = backgroudImage;
+			width = backgroudImage.getWidth();
+			height = backgroudImage.getHeight();
+		}
+
+		private BufferedImage execute() {
+			BufferedImage outputImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+			// 得到该图片的绘图对象
+			Graphics g = outputImage.getGraphics();
+			// 填充整个图片的颜色
+			g.fillRect(0, 0, 680, 220);
+			g.drawImage(backgroudImage,0,0,null);
+			
+			for (int i = 0; i < ROWS; i++) {
+				for(int j = 0; j < COLS; j++) {
+					g.setColor(new Color(0,0,255));
+					g.setFont(new Font("宋体", Font.BOLD | Font.ITALIC, 15));// 输出的
+					int index = i * COLS + j;
+					if(index >= content.length()) {
+						break;
+					}
+					char charAt = content.charAt(index);
+					int x = (i * 15) + 3;
+					int y = j * 18;
+					
+					if(x >= width || y >= height) {
+						break;
+					}
+					
+					g.drawString(""+charAt,x, y);
+				}
+			}
+			return outputImage;
+		}
+	}
+
+	static BufferedImage backgroudImage = null;
+	private static BufferedImage getBackgroudImage() throws IOException {
+		if(backgroudImage == null) {
+			InputStream input = ContentController.class.getResourceAsStream("/img/content_img_backgroud.jpg");
+			try {
+				backgroudImage = ImageIO.read(input);
+				return backgroudImage;
+			}finally {
+				IOUtils.closeQuietly(input);
+			}
+		}
+		return backgroudImage;
 	}
 
 }
