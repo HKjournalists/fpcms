@@ -105,7 +105,7 @@ public class CmsDomain  implements java.io.Serializable{
 
 	static Cache cache = CacheManager.createCache(CmsDomain.class, 200);
 	public String getHttpStatus() {
-		return cache.get(domain,3600,new ValueCallback<String>() {
+		return cache.get(domain,600,new ValueCallback<String>() {
 			@Override
 			public String create(String key) {
 				return HttpStatusCheckUtil.getHttpStatus("www."+domain);

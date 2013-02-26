@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
+import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.GoogleTranslateUtil;
@@ -110,8 +111,13 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			}
 			
 			CmsContent c = new CmsContent();
-			c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
-			c.setTitle(GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN"));
+			if("zh-CN".equals(page.getSourceLang())) {
+				c.setContent(NaipanArticleGeneratorUtil.transformArticle(page.getContent()));
+				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()));
+			}else {
+				c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
+				c.setTitle(GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN"));
+			}
 			c.setSourceUrl(page.getAnchor().getHref());
 			c.setSite(Constants.CRAWL_SITE);
 			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);

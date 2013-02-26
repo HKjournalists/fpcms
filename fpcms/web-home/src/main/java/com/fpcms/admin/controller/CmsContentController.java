@@ -179,5 +179,11 @@ public class CmsContentController extends BaseController{
 		return "/admin/cmscontent/listForExternalLinks";
 	}
 	
+	public String buildOriginalArticle(ModelMap model) {
+		
+		
+		return "";
+	}
+	
 }
 

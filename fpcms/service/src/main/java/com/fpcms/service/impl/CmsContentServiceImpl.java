@@ -24,10 +24,10 @@ import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
-import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.DomainUtil;
 import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsDomain;
@@ -239,6 +239,24 @@ public class CmsContentServiceImpl implements CmsContentService {
 		CmsContent.baiduBlogPing(cmsContent);
 	}
 
+	/** 
+	 * 1. 增加文本及URL链接
+	 * 2. 打乱文章
+	 **/
+	public String buildOriginalArticle(String content,List<Anchor> anchorList) {
+		
+		StringBuilder sb = new StringBuilder(content);
+		int index = 0;
+		while(index >= 0) {
+			index = content.indexOf(",");
+			if(anchorList.isEmpty()) {
+				break;
+			}
+			Anchor anchor = anchorList.remove(0);
+		}
+		return "";
+	}
+	
 	@Override
 	public CmsContent getNextCmsContent(Date dateCreated,String site,long id) {
 		return cmsContentDao.getNextCmsContent(dateCreated,site,id);
