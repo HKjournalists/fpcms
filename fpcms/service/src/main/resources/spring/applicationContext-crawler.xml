@@ -85,7 +85,6 @@
 	 -->
 	
 
-	
 	<bean parent="parentSinglePageCrawler">
 		<property name="sourceLang" value="en"></property>
 		<property name="urlList">
