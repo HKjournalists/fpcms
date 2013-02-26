@@ -22,6 +22,14 @@ spider_stat Baidu fpshijiazhuang.com
 spider_stat Baidu fpjinan.com
 spider_stat Baidu fpfuzhou.com
 spider_stat Baidu haofapiao.com
+spider_stat Baidu starkp.com
+spider_stat Baidu szhaoexport.com
+spider_stat Baidu fpnanchang.com
+spider_stat Baidu powerkp.info
+spider_stat Baidu goodk123.info
+spider_stat Baidu bbbkp123.info
+spider_stat Baidu 6699ysk.info
+spider_stat Baidu 1111kp.info
 spider_stat Baidu aaafaipiao.com
 
 echo ""
