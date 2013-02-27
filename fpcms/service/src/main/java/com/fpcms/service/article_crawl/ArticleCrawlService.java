@@ -8,24 +8,28 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.shiro.util.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
+import com.duowan.common.util.DateRange;
+import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.EmptySearchResultException;
 import com.fpcms.common.util.GoogleTranslateUtil;
-import com.fpcms.common.util.JChineseConvertor;
 import com.fpcms.common.util.RegexUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
-import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.CmsContent;
 import com.fpcms.service.CmsContentService;
 
@@ -36,6 +40,7 @@ import com.fpcms.service.CmsContentService;
  *
  */
 public class ArticleCrawlService implements ApplicationContextAware,InitializingBean{
+	private static Logger logger = LoggerFactory.getLogger(ArticleCrawlService.class);
 	
 	private List<SinglePageCrawler> singlePageCrawlerList = new ArrayList<SinglePageCrawler>();
 	private HtmlPageCrawler htmlPageCrawler = new HtmlPageCrawlerImpl();
@@ -56,10 +61,42 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		this.applicationContext = applicationContext;
 	}
 	
+	/**
+	 * 爬网站
+	 */
 	public void crawlAllSite() {
 		for(SinglePageCrawler crawler : singlePageCrawlerList) {
 			crawler.setHtmlPageCrawler(htmlPageCrawler);
 			crawler.execute();
+		}
+	}
+	
+	/**
+	 * 合并过于短小的文章
+	 */
+	public void mergeSmallArticle() {
+		DateRange createdRange = new DateRange(DateUtils.addDays(new Date(),-5), new Date());
+		Page<CmsContent> page = cmsContentService.findPage(new PageQuery(1000), Constants.CRAWL_SITE, Constants.CRAWL_CHANNEL_CODE, createdRange);
+		List<CmsContent> list = page.getItemList();
+		
+		for(int i = 0; i < list.size(); i+=2) {
+			if(i + 1 >= list.size()) {
+				break;
+			}
+			
+			CmsContent one = list.get(i);
+			CmsContent two = list.get(i+1);
+			int MERGE_MIN_LENGTH = 450;
+			if(one.getContent().length() < MERGE_MIN_LENGTH || two.getContent().length() < MERGE_MIN_LENGTH) {
+				logger.info("mrege small cms_content,id:"+one.getId()+" with id:"+two.getId()+", one title:"+one.getTitle()+", two title:"+two.getTitle());
+				
+				String mergeTitle = one.getTitle()+";"+two.getTitle();
+				String mergeContent = "<h1>"+one.getTitle()+"</h1><p>"+one.getContent()+"</p><h1>"+two.getTitle()+"</h1><p>"+two.getContent()+"</p>";
+				one.setTitle(mergeTitle);
+				one.setContent(mergeContent);
+				cmsContentService.update(one);
+				cmsContentService.removeById(two.getId());			
+			}
 		}
 	}
 	

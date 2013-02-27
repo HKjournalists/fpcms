@@ -1,7 +1,7 @@
 package com.fpcms.common.util;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -57,8 +57,22 @@ public class GoogleTranslateUtilTest extends Assert {
 	
 	@Test
 	public void test_autoTranslate_zh_tw() {
-		String str = GoogleTranslateUtil.autoTranslate("財政部稅務入口網統一發票管理", "zh-CN");
+		String str = GoogleTranslateUtil.autoTranslate("財政部稅務入口網統一發票管理,", "zh-CN");
 		assertEquals(str,"税务财政部发票统一的网络管理入口");
+		
+		str = GoogleTranslateUtil.translate("財政部稅務入口網統一發票管理","zh-TW", "zh-CN");
+		assertEquals(str,"财政部税务入口网统一发票管理");
+	}
+	
+	@Test
+	public void test_autoTranslate_2() throws UnsupportedEncodingException {
+		String s = "\u53ef\u4ee5\u544a\u8bc9\u6211\u003e";
+		byte[] utfString = s.getBytes("UTF-8");
+		System.out.println("1111:"+new String(utfString));
+		String str = GoogleTranslateUtil.autoTranslate("<br>財政部稅務入口網統一發票管理</br>,", "zh-CN");
+		String expected = new String(str.getBytes("UTF-8"));
+		assertEquals(expected,"税务财政部发票统一的网络管理入口");
+		
 	}
 	
 }

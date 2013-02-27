@@ -2,16 +2,23 @@ package com.fpcms.service.article_crawl;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.math.RandomUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.duowan.common.util.DateRange;
+import com.duowan.common.util.page.Page;
+import com.duowan.common.util.page.PageQuery;
+import com.duowan.common.util.page.Paginator;
 import com.fpcms.model.CmsContent;
 import com.fpcms.service.CmsContentService;
 
@@ -58,6 +65,24 @@ public class ArticleCrawlServiceTest extends Mockito{
 		removeIgnoreSite(list);
 		
 		assertTrue(list.toString(),list.isEmpty());
+	}
+	
+	@Test
+	public void mergeSmallArticle() {
+		List<CmsContent> list = Arrays.asList(newCmsContent(300),newCmsContent(1400),newCmsContent(800),newCmsContent(1000),newCmsContent(300));
+		Page<CmsContent> page = new Page<CmsContent>(list,new Paginator(1, 100, 1000));
+		when(cmsContentService.findPage((PageQuery)any(), (String)any(), (String)any(), (DateRange)any())).thenReturn(page);
+		articleCrawlService.mergeSmallArticle();
+	}
+
+	private CmsContent newCmsContent(int i) {
+		String title = ""+RandomUtils.nextInt();
+		String content = RandomStringUtils.randomAlphanumeric(i);
+		CmsContent c = new CmsContent();
+		c.setTitle(title);
+		c.setContent(content);
+		c.setId((long)i);
+		return c;
 	}
 
 	private void removeIgnoreSite(List<String> list) {

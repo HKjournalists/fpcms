@@ -25,6 +25,7 @@ public class ArticleCrawlJob extends BaseCronJob{
 	@Override
 	public void execute() {
 		articleCrawlService.crawlAllSite();
+		articleCrawlService.mergeSmallArticle();
 	}
 
 	@Override
