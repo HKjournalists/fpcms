@@ -64,7 +64,12 @@
 	    <groupId>org.jsoup</groupId>
 	    <artifactId>jsoup</artifactId>
 	</dependency>
-				
+
+	<dependency>
+		<groupId>org.apache.xmlrpc</groupId>
+		<artifactId>xmlrpc-client</artifactId>
+	</dependency>
+					
 	<!-- spring begin -->
 	<dependency>
 		<groupId>org.springframework</groupId>
