@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<methodCall>
+	<methodName>metaWeblog.newPost</methodName>
+	<params>
+		<param>
+			<value>1</value>
+		</param>
+		<param>
+			<value>fpqqchao@gmail.com</value>
+		</param>
+		<param>
+			<value>asdf@1234</value>
+		</param>
+		<param>
+			<value>
+				<struct>
+					<member>
+						<name>title</name>
+						<value>test_title_from_Metaweblog</value>
+					</member>
+					<member>
+						<name>description</name>
+						<value>test_content</value>
+					</member>
+					<member>
+						<name>mt_excerpt</name>
+						<value></value>
+					</member>
+					<member>
+						<name>mt_keywords</name>
+						<value></value>
+					</member>
+					<member>
+						<name>categories</name>
+						<value>
+							<array>
+								<data />
+							</array>
+						</value>
+					</member>
+				</struct>
+			</value>
+		</param>
+		<param>
+			<value>
+				<boolean>1</boolean>
+			</value>
+		</param>
+	</params>
+</methodCall>
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<methodCall>
+	<methodName>metaWeblog.newPost</methodName>
+	<params>
+		<param>
+			<value>
+				<string>1</string>
+			</value>
+		</param>
+		<param>
+			<value>
+				<string>fpqqchao@gmail.com</string>
+			</value>
+		</param>
+		<param>
+			<value>
+				<string>asdf@1234</string>
+			</value>
+		</param>
+		<param>
+			<value>
+				<struct>
+					<member>
+						<name>title</name>
+						<value>
+							<string>test_title</string>
+						</value>
+					</member>
+					<member>
+						<name>description</name>
+						<value>
+							<string>&lt;p&gt;test_content&lt;/p&gt;</string>
+						</value>
+					</member>
+					<member>
+						<name>mt_keywords</name>
+						<value>
+							<string />
+						</value>
+					</member>
+					<member>
+						<name>categories</name>
+						<value>
+							<array>
+								<data />
+							</array>
+						</value>
+					</member>
+					<member>
+						<name>mt_excerpt</name>
+						<value>
+							<string />
+						</value>
+					</member>
+				</struct>
+			</value>
+		</param>
+		<param>
+			<value>
+				<boolean>1</boolean>
+			</value>
+		</param>
+	</params>
+</methodCall>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<methodCall>
+	<methodName>metaWeblog.newPost</methodName>
+	<params>
+		<param>
+			<value>
+				<string>1</string>
+			</value>
+		</param>
+		<param>
+			<value>
+				<string>fpqqchao@gmail.com</string>
+			</value>
+		</param>
+		<param>
+			<value>
+				<string>asdf@1234</string>
+			</value>
+		</param>
+		<param>
+			<value>
+				<struct>
+					<member>
+						<name>title</name>
+						<value>
+							<string>test_title_from_Metaweblog</string>
+						</value>
+					</member>
+					<member>
+						<name>description</name>
+						<value>
+							<string>test_content</string>
+						</value>
+					</member>
+					<member>
+						<name>mt_excerpt</name>
+						<value>
+							<string></string>
+						</value>
+					</member>
+					<member>
+						<name>mt_keywords</name>
+						<value>
+							<string></string>
+						</value>
+					</member>
+					<member>
+						<name>categories</name>
+						<value>
+							<array>
+								<data />
+							</array>
+						</value>
+					</member>
+				</struct>
+			</value>
+		</param>
+		<param>
+			<value>
+				<boolean>1</boolean>
+			</value>
+		</param>
+	</params>
+</methodCall>

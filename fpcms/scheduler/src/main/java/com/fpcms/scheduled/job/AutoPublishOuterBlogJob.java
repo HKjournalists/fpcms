@@ -12,10 +12,12 @@ import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.blog_post.BlogPoster;
 import com.fpcms.common.blog_post.impl.ChinaUnixBlogPoster;
 import com.fpcms.common.blog_post.impl.CnblogBlogPoster;
+import com.fpcms.common.blog_post.impl.MetaWeblogBlogPoster;
 import com.fpcms.common.blog_post.impl.OschinaBlogPoster;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
+import com.fpcms.common.util.MetaWeblog;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
@@ -52,6 +54,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		posterList.add(new AccountBlogPosterDecorator(new CnblogBlogPoster(),"fpqqchao","abc123"));
 		posterList.add(new AccountBlogPosterDecorator(new ChinaUnixBlogPoster(),"fpqqchao","abc123"));
 		posterList.add(new AccountBlogPosterDecorator(new OschinaBlogPoster(),"fpqqchao@gmail.com","6367c48dd193d56ea7b0baad25b19455e529f5ee"));
+		posterList.add(new MetaWeblogBlogPoster("http://sh292did.blog.163.com/","fpqqchao@gmail.com","asdf@1234"));
+		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3099457992","fpqqchao@gmail.com","asdf@1234"));
 	}
 	
 	@Override

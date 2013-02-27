@@ -1,0 +1,25 @@
+1. 得到发布API的URL
+	访问博客地址,需要通过windows live writer的UserAgent,如163返回
+	<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.163.com/desc/rsd.xml" />
+	<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.163.com/desc/wlwmanifest.xml" />
+2. 通过 EditURI得到API地址
+	http://blog.163.com/desc/rsd.xml
+	<?xml version="1.0" encoding="UTF-8"?>
+	<rsd version="1.0" xmlns="http://archipelago.phrasewise.com/rsd">
+	  <service>
+	    <engineName>NetEase</engineName>
+	    <engineLink>http://os.blog.163.com/api/</engineLink>
+	    <homePageLink>http://blog.163.com/</homePageLink>
+	    <apis>      
+	      <api name="Metaweblog" blogID="1" preferred="true" apiLink="http://os.blog.163.com/api/xmlrpc/metaweblog/" />
+	    </apis>
+	  </service>
+	</rsd>
+
+3. 通过engineLink得到发布Metaweblog API地址: 	http://os.blog.163.com/api/xmlrpc/metaweblog/
+
+4. 通过用户名密码,发布博客
+
+5. 得到博客URL地址
+
+6. 执行百度Ping

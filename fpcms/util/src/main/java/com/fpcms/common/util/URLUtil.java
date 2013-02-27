@@ -1,5 +1,6 @@
 package com.fpcms.common.util;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.commons.lang.StringUtils;
@@ -9,6 +10,18 @@ import org.slf4j.LoggerFactory;
 public class URLUtil {
 	static Logger logger = LoggerFactory.getLogger(URLUtil.class);
 	static String LOCALHOST = "localhost";
+	
+	public static URL newURL(String url) {
+		if(StringUtils.isBlank(url)) {
+			return null;
+		}
+		try {
+			return new URL(url);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException("MalformedURLException:"+url+" cause:"+e);
+		}
+	}
+	
 	public static String getHostSite(String url) {
 		if(StringUtils.isBlank(url)) {
 			return LOCALHOST;
