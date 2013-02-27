@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://www.oschina.net/action/xmlrpc -->
+<methodResponse xmlns:ex="http://ws.apache.org/xmlrpc/namespaces/extensions">
+	<params>
+		<param>
+			<value>
+				<array>
+					<data>
+						<value>
+							<struct>
+								<member>
+									<name>blogName</name>
+									<value>定地</value>
+								</member>
+								<member>
+									<name>xmlrpc</name>
+									<value>http://www.oschina.net/action/xmlrpc</value>
+								</member>
+								<member>
+									<name>blogid</name>
+									<value>947963</value>
+								</member>
+								<member>
+									<name>isAdmin</name>
+									<value>false</value>
+								</member>
+								<member>
+									<name>url</name>
+									<value>http://my.oschina.net/u/947963</value>
+								</member>
+							</struct>
+						</value>
+					</data>
+				</array>
+			</value>
+		</param>
+	</params>
+</methodResponse>

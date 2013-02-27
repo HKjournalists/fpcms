@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<methodResponse xmlns:ex="http://ws.apache.org/xmlrpc/namespaces/extensions">
+	<params>
+		<param>
+			<value>110722</value>
+		</param>
+	</params>
+</methodResponse>
+
+<!-- false -->
+<!-- 
+<methodResponse xmlns:ex="http://ws.apache.org/xmlrpc/namespaces/extensions">
+	<fault>
+		<value>
+			<struct>
+				<member>
+					<name>faultCode</name>
+					<value>
+						<i4>0</i4>
+					</value>
+				</member>
+				<member>
+					<name>faultString</name>
+					<value>Failed to invoke method newPost in class
+						net.oschina.action.XmlrpcAction: Data truncation: Data too long
+						for column 'title' at row 1</value>
+				</member>
+			</struct>
+		</value>
+	</fault>
+</methodResponse>
+-->

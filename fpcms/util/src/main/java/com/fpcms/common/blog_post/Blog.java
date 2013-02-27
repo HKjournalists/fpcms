@@ -10,6 +10,7 @@ public class Blog {
 	private String title;
 	private String content;
 	private String metaDescription;
+	private String category;
 	private Map<String,String> ext = new HashMap<String,String>();
 	
 	public Blog() {
@@ -45,6 +46,15 @@ public class Blog {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public Map<String, String> getExt() {
 		return ext;
 	}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<methodCall>
+ <methodName>blogger.getUsersBlogs</methodName>
+ <params>
+  <param>
+   <value>
+    <string>ffffffabffffffce6dffffff93ffffffac29ffffffc9fffffff826ffffffdeffffffc9ffffffe43c0b763036ffffffa0fffffff3ffffffa963377716</string>
+   </value>
+  </param>
+  <param>
+   <value>
+    <string>fpqqchao@gmail.com</string>
+   </value>
+  </param>
+  <param>
+   <value>
+    <string>abc123</string>
+   </value>
+  </param>
+ </params>
+</methodCall>

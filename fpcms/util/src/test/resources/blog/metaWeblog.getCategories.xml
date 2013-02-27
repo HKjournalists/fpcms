@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<methodCall>
+ <methodName>metaWeblog.getCategories</methodName>
+ <params>
+  <param>
+   <value>
+    <string>947963</string>
+   </value>
+  </param>
+  <param>
+   <value>
+    <string>fpqqchao@gmail.com</string>
+   </value>
+  </param>
+  <param>
+   <value>
+    <string>abc123</string>
+   </value>
+  </param>
+ </params>
+</methodCall>
