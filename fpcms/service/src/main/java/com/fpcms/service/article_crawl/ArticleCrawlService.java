@@ -17,8 +17,11 @@ import org.springframework.util.Assert;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.EmptySearchResultException;
 import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.util.JChineseConvertor;
+import com.fpcms.common.util.RegexUtil;
+import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
@@ -94,7 +97,6 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			return true;
 		}
 
-		List<String> filterWords = Arrays.asList("\\u","http://","www.","代开","开发票","买发票","卖发票","销售发票");
 		@Override
 		public void visit(HtmlPage page) {
 			if(hasFilterKeyword(page.getTitle(),page.getContent())) {
@@ -120,33 +122,48 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 				return;
 			}
 			
-			c.setSourceUrl(page.getAnchor().getHref());
-			c.setSite(Constants.CRAWL_SITE);
-			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
-			c.setAuthor(Constants.CRAWL_AUTHOR);
-			cmsContentService.create(c);
-			
+			try {
+				SearchEngineUtil.baiduSearch("\""+c.getTitle()+"\"", 100, 1);
+				throw new RuntimeException("百度已经存在该文章,title:"+c.getTitle());
+			}catch(EmptySearchResultException e) {
+				c.setSourceUrl(page.getAnchor().getHref());
+				c.setSite(Constants.CRAWL_SITE);
+				c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
+				c.setAuthor(Constants.CRAWL_AUTHOR);
+				cmsContentService.create(c);
+			}
 		}
 		
-		boolean hasFilterKeyword(String... contents) {
-			if(contents == null) return false;
-			
-			for(String c : contents) {
-				if(StringUtils.isBlank(c)) {
-					continue;
-				}
-				
-				for(String keyword : filterWords) {
-					if(c.contains(keyword)) {
-						return true;
-					}
-				}
-			}
-			return false;
-		}
+
 	}
 	
-
+	static List<String> filterWords = Arrays.asList("\\u","http://","www.","代开","开发票","买发票","卖发票","销售发票");
+	static List<String> filterRegex = Arrays.asList("开.*发票","发票.*代开","发票.*开","假.*发票");
+	static boolean hasFilterKeyword(String... contents) {
+		if(contents == null) return false;
+		
+		for(String c : contents) {
+			if(StringUtils.isBlank(c)) {
+				continue;
+			}
+			
+			for(String keyword : filterWords) {
+				if(c.contains(keyword)) {
+					return true;
+				}
+			}
+			for(String regex : filterRegex) {
+				if(c.contains(regex)) {
+					return true;
+				}
+				if(RegexUtil.findByRegexGroup(c, regex, 0) != null) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(applicationContext,"applicationContext must be not null");

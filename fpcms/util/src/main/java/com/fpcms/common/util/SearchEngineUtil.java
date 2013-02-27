@@ -19,7 +19,7 @@ public class SearchEngineUtil {
 			int pageSize = 10;
 			String result = NetUtil.httpGet("http://www.soso.com/q",String.format("num="+pageSize+"&pg="+pageNumber+"&w=%s",keywords));
 			if(isInvalidSearchResult(result)) {
-				throw new RuntimeException("sosoSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageNumber);
+				throw new EmptySearchResultException("sosoSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageNumber);
 			}
 			return result;
 		}finally {
@@ -33,7 +33,7 @@ public class SearchEngineUtil {
 			int start = (pageNumber - 1) * pageSize;
 			String result = NetUtil.httpGet("https://www.google.com.hk/search",String.format("hl=zh-CN&start=%s&num=%s&q=%s",start,pageSize,keywords));
 			if(isInvalidSearchResult(result)) {
-				throw new RuntimeException("googleSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageSize);
+				throw new EmptySearchResultException("googleSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageSize);
 			}
 			return result;
 		}finally {
@@ -41,13 +41,13 @@ public class SearchEngineUtil {
 		}
 	}
 
-	public static String baiduSearch(String keywords, int pageSize,int pageNumber) {
-		Profiler.enter("SearchEngineUtil.googleSearch");
+	public static String baiduSearch(String keywords, int pageSize,int pageNumber) throws EmptySearchResultException{
+		Profiler.enter("SearchEngineUtil.baiduSearch");
 		try {
 			int start = (pageNumber - 1) * pageSize;
 			String result = NetUtil.httpGet("http://www.baidu.com/s",String.format("pn=%s&rn=%s&wd=%s",start,pageSize,keywords));
 			if(isInvalidSearchResult(result)) {
-				throw new RuntimeException("googleSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageSize);
+				throw new EmptySearchResultException("baiduSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageSize);
 			}
 			return result;
 		}finally {
@@ -60,7 +60,7 @@ public class SearchEngineUtil {
 		try {
 			String result = NetUtil.httpGet("http://www.sogou.com/web",String.format("num="+pageSize+"&page="+pageNumber+"&query=%s",keywords));
 			if(isInvalidSearchResult(result)) {
-				throw new RuntimeException("sogouSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageNumber);
+				throw new EmptySearchResultException("sogouSearch return empty result,keywords:"+keywords+" pageSize:"+pageSize+" pageNumber:"+pageNumber);
 			}
 			return result;
 		}finally {

@@ -8,6 +8,11 @@ import org.junit.Test;
 
 public class SearchEngineUtilTest extends Assert{
 
+	@Test(expected=EmptySearchResultException.class)
+	public void test_baiduSearch() {
+		SearchEngineUtil.baiduSearch("\"百度推广青岛胶东航母基地\"", 100, 1);
+	}
+	
 	@Test
 	public void test_baiduKeywordRank() {
 		for(int i = 0; i < 1; i++) {
