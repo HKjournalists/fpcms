@@ -141,16 +141,21 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			}
 			
 			CmsContent c = new CmsContent();
+			String content = null;
+			String title = null;
 			if("zh-cn".equals(page.getSourceLang())) {
-				c.setContent(NaipanArticleGeneratorUtil.transformArticle(page.getContent()));
-				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()));
+				content = NaipanArticleGeneratorUtil.transformArticle(page.getContent());
+				title = NaipanArticleGeneratorUtil.transformArticle(page.getTitle());
 //			}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
 //				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
 //				c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));
 			}else {
-				c.setContent(GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN"));
-				c.setTitle(GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN"));
+				content = GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN");
+				title = GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN");
 			}
+			
+			c.setContent("<pre>"+content+"</pre>");
+			c.setTitle(title);
 			
 			if(hasFilterKeyword(c.getTitle(),c.getContent())) {
 				return;
