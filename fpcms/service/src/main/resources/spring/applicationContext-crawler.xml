@@ -109,7 +109,7 @@
 		<property name="sourceLang" value="zh-CN"></property>
 		<property name="urlList">
 			<list>
-				<value><![CDATA[https://www.google.com.tw/search?q=%E5%8F%91%E7%A5%A8&hl=zh-CN&newwindow=1&source=lnt&tbs=qdr:d&sa=X&biw=1440&bih=69&num=100]]></value>
+				<value><![CDATA[https://www.google.com.tw/search?q=%E5%8F%91%E7%A5%A8+-%E5%BC%80&hl=zh-CN&newwindow=1&source=lnt&tbs=qdr:d&sa=X&biw=1440&bih=69&num=100]]></value>
 			</list>
 		</property>
 		<property name="excludeUriRegexList">
