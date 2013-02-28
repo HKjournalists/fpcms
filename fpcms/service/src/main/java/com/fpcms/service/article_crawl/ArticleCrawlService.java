@@ -28,6 +28,7 @@ import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.EmptySearchResultException;
 import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.util.HtmlFormatUtil;
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RegexUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.common.util.URLEncoderUtil;
@@ -202,7 +203,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		String title = null;
 		if("zh-cn".equalsIgnoreCase(page.getSourceLang()) || "zh-tw".equalsIgnoreCase(page.getSourceLang())) {
 			content = NaipanArticleGeneratorUtil.transformArticle(GoogleTranslateUtil.reverseTwoWayTranslate(page.getContent(),"zh-CN","en"));
-			title = NaipanArticleGeneratorUtil.transformArticle(GoogleTranslateUtil.reverseTwoWayTranslate(page.getTitle(),"zh-CN","en"));
+			title = KeywordUtil.getMaxLengthToken(NaipanArticleGeneratorUtil.transformArticle(GoogleTranslateUtil.reverseTwoWayTranslate(page.getTitle(),"zh-CN","en")));
 //		}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
 //			c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
 //			c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));

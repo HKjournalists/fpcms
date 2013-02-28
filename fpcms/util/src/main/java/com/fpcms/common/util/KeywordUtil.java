@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -54,6 +55,22 @@ public class KeywordUtil {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * 得到最大长度的字符串
+	 * @param keywords
+	 * @return
+	 */
+	public static String getMaxLengthToken(String keywords) {
+		if(StringUtils.isBlank(keywords)) {
+			return keywords;
+		}
+		
+		List<String> keywordsList = KeywordUtil.toTokenizerList(keywords);
+		Collections.sort(keywordsList,new ReverseComparator(new StringLengthComparator()));
+		String maxLengthKeyword = keywordsList.get(0);
+		return maxLengthKeyword;
 	}
 	
 	public static String getPerfectKeyword(String content,String keyword) {
