@@ -15,7 +15,9 @@ public class SearchEngineUtilTest extends Assert{
 	
 	@Test
 	public void baiduKeywordsNotExist() {
+		assertTrue(SearchEngineUtil.baiduKeywordsNotExist("广西3黑客侵略考试网站篡改考生的成果在有利可图的被捕"));
 		assertFalse(SearchEngineUtil.baiduKeywordsNotExist("java 判断是否有中文,以及它的位置"));
+		assertTrue(SearchEngineUtil.baiduKeywordsNotExist("张骥辞任广州市副市长同意被转移到家庭计划局局长大洋网张骥辞任广州市副市长同意被转移到家庭计划局局长-大洋网"));
 		assertTrue(SearchEngineUtil.baiduKeywordsNotExist("张骥辞任广州市副市长同意被转移到家庭计划局局长-大洋网"));
 	}
 	

@@ -52,7 +52,8 @@ public class SearchEngineUtil {
 		Collections.sort(keywordsList,new ReverseComparator(new StringLengthComparator()));
 		String maxLengthKeyword = keywordsList.get(0);
 		try {
-			baiduSearch("\""+maxLengthKeyword+"\"",1,100);
+			String substring = maxLengthKeyword.substring(0,Math.min(36,maxLengthKeyword.length()));
+			baiduSearch("\""+substring+"\"",1,100);
 			return false;
 		}catch(EmptySearchResultException e) {
 			return true;

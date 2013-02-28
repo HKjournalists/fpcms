@@ -18,6 +18,8 @@ public class HtmlPageTitleUtilTest extends Assert{
 		assertEquals("SEO经验及教训",HtmlPageTitleUtil.smartGetTitle("SEO经验及教训 - badqiu - ITeye技术网站"));
 		assertEquals("穆沙拉夫称， 1999年的卡吉尔操作是一个巨大的成功，为白军",HtmlPageTitleUtil.smartGetTitle("穆沙拉夫称， 1999年的卡吉尔操作是一个巨大的成功，为白军：巴基斯坦新闻"));
 		assertEquals("多省市出台改作风规定 要求领导乘国产品牌汽车",HtmlPageTitleUtil.smartGetTitle("多省市出台改作风规定 要求领导乘国产品牌汽车_网易新闻中心"));
+		
+		assertEquals("图片故事-赵本山曝光退出春晚的本相：具有挖苦意味的​​是难以总结市长过不去",HtmlPageTitleUtil.smartGetTitle("图片故事-赵本山曝光退出春晚的本相：具有挖苦意味的​​是难以总结市长过不去 - 河北网"));
 	}
 	
 	@Test
