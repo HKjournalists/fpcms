@@ -17,7 +17,38 @@
 </duowan:override>
 
 <duowan:override name="page_left">
+<div class="border">
+	<div class="subject_bg">
+		<div class="subject_title">发票分类</div>
+	</div>
 
+	<div>
+		<dl class="class_list">
+			<dt>
+				<a><span>增值专用发票</span></a>
+			</dt>
+			<dt>
+				<a><span>餐饮发票</span></a>
+			</dt>
+			<dt>
+				<a><span>广告费发票</span></a>
+			</dt>
+			<dt>
+				<a><span>建筑发票</span></a>
+			</dt>
+			<dt>
+				<a><span>租赁费发票</span></a>
+			</dt>
+			<dt>
+				<a><span>会议费发票</span></a>
+			</dt>
+			<dt>
+				<a><span>提供其他各类发票</span></a>
+			</dt>
+		</dl>
+	</div>
+</div>
+ 
 <div class="border mt10">
 	<div class="subject_bg">
 		<div class="subject_title"><a href="${ctx}/news.do">随机新闻</a></div>
@@ -52,39 +83,7 @@
 </duowan:override>
 
 <duowan:override name="page_left_not_exist">
-<!--
-<div class="border">
-	<div class="subject_bg">
-		<div class="subject_title">发票分类</div>
-	</div>
 
-	<div>
-		<dl class="class_list">
-			<dt>
-				<a><span>增值专用发票</span></a>
-			</dt>
-			<dt>
-				<a><span>餐饮发票</span></a>
-			</dt>
-			<dt>
-				<a><span>广告费发票</span></a>
-			</dt>
-			<dt>
-				<a><span>建筑发票</span></a>
-			</dt>
-			<dt>
-				<a><span>租赁费发票</span></a>
-			</dt>
-			<dt>
-				<a><span>会议费发票</span></a>
-			</dt>
-			<dt>
-				<a><span>提供其他各类发票</span></a>
-			</dt>
-		</dl>
-	</div>
-</div>
- -->
 
 <!-- 
 <div class="border ">
