@@ -35,7 +35,9 @@ import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
 import com.fpcms.model.CmsContent;
+import com.fpcms.model.CmsKeyValue;
 import com.fpcms.service.CmsContentService;
+import com.fpcms.service.CmsKeyValueService;
 
 /**
  * 从其它网站进行文章采集的service
@@ -50,6 +52,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	private HtmlPageCrawler htmlPageCrawler = new HtmlPageCrawlerImpl();
 	private CmsContentService cmsContentService;
 	private ApplicationContext applicationContext;
+	private CmsKeyValueService cmsKeyValueService;
 	
 	public void loadSinglePageCrawlerList() {
 		singlePageCrawlerList = ApplicationContextUtil.getBeans(applicationContext,SinglePageCrawler.class);
@@ -57,6 +60,10 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 
 	public void setCmsContentService(CmsContentService cmsContentService) {
 		this.cmsContentService = cmsContentService;
+	}
+	
+	public void setCmsKeyValueService(CmsKeyValueService cmsKeyValueService) {
+		this.cmsKeyValueService = cmsKeyValueService;
 	}
 
 	@Override
@@ -82,8 +89,16 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		Set<String> buzzList = BaiduTopBuzzUtil.getBaiduBuzzs();
 		
 		for(final String buzz : buzzList) {
+			CmsKeyValue cmsKeyValue = new CmsKeyValue(Constants.KEY_VALUE_GROUP_SEARCH_BUZZ,buzz);
+			if(cmsKeyValueService.exist(cmsKeyValue)) {
+				logger.info("ignore search,already_search_buzz:"+buzz);
+				continue;
+			}
+			
+			cmsKeyValueService.create(cmsKeyValue);
+			
 			final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
-			String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
+			String searchUrl = "https://www.google.com.hk/search?num=20&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
 			SinglePageCrawler crawler = new SinglePageCrawler();
 			crawler.setUrlList(searchUrl);
 			crawler.setSourceLang("zh-CN");
@@ -206,6 +221,8 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		}
 		
 		if(SearchEngineUtil.baiduKeywordsNotExist(c.getTitle())) {
+			logger.info("baidu_not_exist article:"+c.getTitle());
+			
 			c.setSourceUrl(page.getAnchor().getHref());
 			c.setSite(Constants.CRAWL_SITE);
 			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
@@ -248,6 +265,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(applicationContext,"applicationContext must be not null");
 		Assert.notNull(cmsContentService,"cmsContentService must be not null");
+		Assert.notNull(cmsKeyValueService,"cmsKeyValueService must be not null");
 		loadSinglePageCrawlerList();
 		Assert.notEmpty(singlePageCrawlerList,"singlePageCrawlerList must be not empty");
 	}

@@ -52,6 +52,7 @@
 	  <ul>
 		<li><a href="${ctx}/admin/cron/index.do" target="rightFrame">定时任务</a></li>
 		<li><a href="${ctx}/admin/sysuser/index.do" target="rightFrame">用户管理</a></li>
+		<li><a href="${ctx}/admin/cmskeyvalue/index.do" target="rightFrame">KeyValue管理</a></li>
 		<li><a href="${ctx}/admin/system/systemProperties.do" target="rightFrame">系统属性</a></li>
 	  </ul>
 </div>
