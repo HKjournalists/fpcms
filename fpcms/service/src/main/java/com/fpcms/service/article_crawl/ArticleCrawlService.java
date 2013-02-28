@@ -27,6 +27,7 @@ import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.EmptySearchResultException;
 import com.fpcms.common.util.GoogleTranslateUtil;
+import com.fpcms.common.util.HtmlFormatUtil;
 import com.fpcms.common.util.RegexUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.common.util.URLEncoderUtil;
@@ -210,7 +211,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			title = GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN");
 		}
 		
-		c.setContent(content);
+		c.setContent(HtmlFormatUtil.htmlBeauty(content));
 		c.setTitle(title);
 		
 		if(hasFilterKeyword(c.getTitle(),c.getContent())) {

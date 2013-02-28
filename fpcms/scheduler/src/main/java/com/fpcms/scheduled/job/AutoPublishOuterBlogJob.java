@@ -19,6 +19,7 @@ import com.fpcms.common.blog_post.impl.OschinaBlogPoster;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
+import com.fpcms.common.util.HtmlFormatUtil;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
@@ -113,7 +114,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		content.insert(200, selectRandomDomain());
 		content.append(selectRandomSite());
 		String transformArticle = NaipanArticleGeneratorUtil.transformArticle(content.toString());
-		return transformArticle.contains("\n") ? "<pre>"+transformArticle+"</pre>" : transformArticle;
+		return transformArticle.contains("\n") ? "<pre>"+transformArticle+"</pre>" : HtmlFormatUtil.htmlBeauty(transformArticle);
 	}
 	
 	private String selectRandomDomain() {
