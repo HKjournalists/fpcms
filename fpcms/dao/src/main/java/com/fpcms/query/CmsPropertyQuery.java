@@ -31,6 +31,8 @@ public class CmsPropertyQuery extends PageQuery implements Serializable {
 	/** ramarks */
 	private java.lang.String ramarks;
 
+	private String sortColumns;
+	
 	public java.lang.String getPropGroup() {
 		return this.propGroup;
 	}
@@ -62,7 +64,14 @@ public class CmsPropertyQuery extends PageQuery implements Serializable {
 	public void setRamarks(java.lang.String value) {
 		this.ramarks = value;
 	}
-	
+
+	public String getSortColumns() {
+		return sortColumns;
+	}
+
+	public void setSortColumns(String sortColumns) {
+		this.sortColumns = sortColumns;
+	}
 
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);

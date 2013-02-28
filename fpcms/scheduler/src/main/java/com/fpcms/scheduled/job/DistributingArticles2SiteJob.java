@@ -46,7 +46,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 		this.cmsSiteService = cmsSiteService;
 	}
 
-	public void execute() {
+	public synchronized void execute() {
 		CmsContentQuery query = new CmsContentQuery();
 		query.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
 		query.setSite(Constants.CRAWL_SITE);

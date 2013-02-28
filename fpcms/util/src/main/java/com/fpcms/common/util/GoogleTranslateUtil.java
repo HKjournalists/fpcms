@@ -27,6 +27,12 @@ public class GoogleTranslateUtil {
 		return output;
 	}
 	
+	public static String reverseTwoWayTranslate(String input,String sourceLang,String targetLang) {
+		String one = GoogleTranslateUtil.translate(input,sourceLang,targetLang);
+		String two = GoogleTranslateUtil.translate(one,targetLang,sourceLang);
+		return two;
+	}
+	
 //	public static String translate(Map<String,String> wordMap,String sourceLang,String targetLang) {
 //		
 //	}
@@ -77,30 +83,33 @@ public class GoogleTranslateUtil {
 		for(int i = 0; i < rows.size(); i++) {
 			List<String> cols = rows.get(i);
 			Map<String,String> map = ArrayUtils.toMap(cols.toArray(), "target","source","unuse","pinyin");
-			String target = map.get("target").trim();
+			String target = removeDoubleQuotes(map.get("target")).trim();
 //			if(target.equalsIgnoreCase("\"zh-CN\"") || target.equalsIgnoreCase("\"en\"")) {
 //				break;
 //			}
-			if(target.equals("\""+sourceLang+"\"")) {
+			if(target.equals("\""+sourceLang+"\"") || target.equals(sourceLang)) {
 				break;
 			}
 			mapRows.add(map);
 			
 		}
 		
+		return replaceTranslateResult(words,mapRows);
+	}
+
+	private static String replaceTranslateResult(String words,List<Map<String, String>> mapRows) {
 		StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < mapRows.size(); i++) {
 			Map<String,String> row = mapRows.get(i);
 			String target = row.get("target");
 			target = target.substring(1,target.length() - 1);
-			
 			sb.append(target);
-			if(i != mapRows.size() - 1) {
-				sb.append(KeywordUtil.getSymbol(target));
-			}
 		}
-		return sb.toString();
-		
+		return StringUtils.replace(sb.toString(),"\\r\\n","\r\n");
+	}
+
+	private static String removeDoubleQuotes(String str) {
+		return str.substring(1,str.length() - 1).trim();
 	}
 	
 	public static String fromEnglish2Chinese(String words) {

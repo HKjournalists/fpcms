@@ -17,42 +17,6 @@
 </duowan:override>
 
 <duowan:override name="page_left">
-
-<div class="border mt10">
-	<div class="subject_bg">
-		<div class="subject_title"><a href="${ctx}/news.do">随机新闻</a></div>
-	</div>
-	<div class="m10">
-		<dl class="all_list">
-			<c:forEach	items="${subSiteNewsList}" var="item" varStatus="status">
-				<dt>
-					<a href="${item.url}" title="<c:out value='${item.title}'/>" >${status.index+1}. <c:out value='${fn:substring(item.title,0,13)}'/></a>
-				</dt>
-			</c:forEach>
-		</dl>
-	</div>
-</div>
-<div class="border mt10" style="font-size: 15pt">
-	<div class="subject_bg">
-		<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
-	</div>
-	<div class="m10 " id="template_home_contact" style="display: none">
-		<div align="left" >
-		<b>联系人:</b> {%= o.contactName %} <br/>
-		<b>电话:</b>&nbsp;&nbsp;&nbsp;{%= o.mobile %} <br/>
-		<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%= o.qq %}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
-		</div>
-	</div>
-	<script type="text/javascript">
-	tmplWithSiteProperty("template_home_contact","${ctx}","${requestHost}");
-	</script>
-</div>
-
-
-</duowan:override>
-
-<duowan:override name="page_left_not_exist">
-<!--
 <div class="border">
 	<div class="subject_bg">
 		<div class="subject_title">发票分类</div>
@@ -84,9 +48,37 @@
 		</dl>
 	</div>
 </div>
- -->
+ 
+<div class="border mt10">
+	<div class="subject_bg">
+		<div class="subject_title"><a href="${ctx}/news.do">随机新闻</a></div>
+	</div>
+	<div class="m10">
+		<dl class="all_list">
+			<c:forEach	items="${subSiteNewsList}" var="item" varStatus="status">
+				<dt>
+					<a href="${item.url}" title="<c:out value='${item.title}'/>" >${status.index+1}. <c:out value='${fn:substring(item.title,0,13)}'/></a>
+				</dt>
+			</c:forEach>
+		</dl>
+	</div>
+</div>
+<div class="border mt10" style="font-size: 15pt">
+	<div class="subject_bg">
+		<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
+	</div>
+	<div class="m10 " id="template_home_contact" style="display: none">
+		<div align="left" >
+		<b>联系人:</b> {%= o.contactName %} <br/>
+		<b>电话:</b>&nbsp;&nbsp;&nbsp;{%= o.mobile %} <br/>
+		<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%= o.qq %}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
+		</div>
+	</div>
+	<script type="text/javascript">
+	tmplWithSiteProperty("template_home_contact","${ctx}","${requestHost}");
+	</script>
+</div>
 
-<!-- 
 <div class="border ">
 	<div class="subject_bg">
 		<div class="subject_title">子站</div>
@@ -101,11 +93,9 @@
 		</dl>
 	</div>
 </div>
- -->
 
 </duowan:override>
 
-			
 <duowan:override name="pageRight">
 	<div class="subject_bg">
 		<div class="subject_title">${home.channelName}</div>

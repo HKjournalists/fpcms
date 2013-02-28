@@ -23,7 +23,8 @@ public class ArticleCrawlJob extends BaseCronJob{
 	}
 	
 	@Override
-	public void execute() {
+	public synchronized void execute() {
+		articleCrawlService.crawlAllBuzzKeyword();
 		articleCrawlService.crawlAllSite();
 		articleCrawlService.mergeSmallArticle();
 	}

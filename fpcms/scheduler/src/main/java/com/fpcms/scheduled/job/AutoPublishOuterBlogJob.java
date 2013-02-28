@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -17,15 +19,16 @@ import com.fpcms.common.blog_post.impl.OschinaBlogPoster;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
-import com.fpcms.common.util.MetaWeblog;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
-import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.CmsDomain;
+import com.fpcms.model.CmsKeyValue;
 import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsDomainService;
+import com.fpcms.service.CmsKeyValueService;
 import com.fpcms.service.CmsSiteService;
 
 /**
@@ -36,9 +39,12 @@ import com.fpcms.service.CmsSiteService;
  */
 @Service
 public class AutoPublishOuterBlogJob extends BaseCronJob{
+	private static Logger logger = LoggerFactory.getLogger(AutoPublishOuterBlogJob.class);
+	
 	private List<BlogPoster> posterList = new ArrayList<BlogPoster>();
 	private CmsDomainService cmsDomainService;
 	private CmsSiteService cmsSiteService;
+	private CmsKeyValueService cmsKeyValueService;
 	private Cache cache = CacheManager.createCache(AutoPublishOuterBlogJob.class,1000);
 	
 	public void setCmsDomainService(CmsDomainService cmsDomainService) {
@@ -47,6 +53,10 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	
 	public void setCmsSiteService(CmsSiteService cmsSiteService) {
 		this.cmsSiteService = cmsSiteService;
+	}
+	
+	public void setCmsKeyValueService(CmsKeyValueService cmsKeyValueService) {
+		this.cmsKeyValueService = cmsKeyValueService;
 	}
 
 	public AutoPublishOuterBlogJob() {
@@ -59,18 +69,22 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	}
 	
 	@Override
-	public void execute() {
+	public synchronized void execute() {
 		final List<HtmlPage> pageList = cralwerForPageList();
 		postAllBlog(pageList);
 	}
 
 	void postAllBlog(final List<HtmlPage> pageList) {
 		for(BlogPoster poster : posterList) {
-			HtmlPage page = getRandomValidPage(pageList);
-			if(page == null) {
-				break;
+			try {
+				HtmlPage page = getRandomValidPage(pageList);
+				if(page == null) {
+					break;
+				}
+				poster.postBlog(new Blog(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()),addRandomLink(page)));
+			}catch(RuntimeException e) {
+				logger.error("postBlog error",e);
 			}
-			poster.postBlog(new Blog(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()),addRandomLink(page)));
 		}
 	}
 	
@@ -83,6 +97,11 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 			if(StringUtils.length(page.getContent()) < 300) {
 				continue;
 			}
+			CmsKeyValue cmsKeyValue = new CmsKeyValue("outerBlog", page.getAnchor().getHref());
+			if(cmsKeyValueService.exist(cmsKeyValue)) {
+				continue;
+			}
+			cmsKeyValueService.create(cmsKeyValue);
 			return page;
 		}
 	}
@@ -93,7 +112,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		StringBuilder content = new StringBuilder(page.getContent());
 		content.insert(200, selectRandomDomain());
 		content.append(selectRandomSite());
-		return "<pre>"+NaipanArticleGeneratorUtil.transformArticle(content.toString())+"</pre>";
+		String transformArticle = NaipanArticleGeneratorUtil.transformArticle(content.toString());
+		return transformArticle.contains("\n") ? "<pre>"+transformArticle+"</pre>" : transformArticle;
 	}
 	
 	private String selectRandomDomain() {
@@ -148,5 +168,13 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	@Override
 	public String getJobRemark() {
 		return "发送BLOG至其它网站";
+	}
+	
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		super.afterPropertiesSet();
+		Assert.notNull(cmsKeyValueService,"cmsKeyValueService must be not null");
+		Assert.notNull(cmsSiteService,"cmsSiteService must be not null");
+		Assert.notNull(cmsDomainService,"cmsDomainService must be not null");
 	}
 }

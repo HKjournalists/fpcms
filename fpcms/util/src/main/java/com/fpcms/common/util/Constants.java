@@ -64,5 +64,10 @@ public interface Constants {
 	public static String CRAWL_SITE = "localhost";
 	public static String CRAWL_AUTHOR = "crawler";
 	public static String CRAWL_CHANNEL_CODE = "news";
+
+	/**
+	 * key_value的group
+	 */
+	public static String KEY_VALUE_GROUP_SEARCH_BUZZ = "search_buzz";
 	
 }

@@ -1,10 +1,15 @@
 package com.fpcms.common.webcrawler.htmlparser;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
+import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.lang.StringUtils;
 
 import com.fpcms.common.util.KeywordUtil;
+import com.fpcms.common.util.StringLengthComparator;
+import com.fpcms.common.util.TextLangUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 
 public class HtmlPageTitleUtil {
@@ -13,9 +18,20 @@ public class HtmlPageTitleUtil {
 			return extrectMainTitle(pageTitle,true,anchor.getText().length());
 		}
 		
-		return smartGetTitle(pageTitle);
+		return filterWithMaxLength(smartGetTitle(pageTitle));
 	}
 	
+	public static String filterWithMaxLength(String title) {
+		if(TextLangUtil.hasChinese(title)) {
+			List<String> keywordsList = KeywordUtil.toTokenizerList(title);
+			Collections.sort(keywordsList,new ReverseComparator(new StringLengthComparator()));
+			String maxLengthKeyword = keywordsList.get(0);
+			return maxLengthKeyword;
+		}else {
+			return title;
+		}
+	}
+
 	public static String smartGetTitle(String pageTitle) {
 		String result = extrectMainTitle(pageTitle,true,0);
 		

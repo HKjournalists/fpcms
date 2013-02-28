@@ -23,6 +23,12 @@ public class GoogleTranslateUtilTest extends Assert {
 	}
 	
 	@Test
+	public void reverseTwoWayTranslate()  {
+		String r = GoogleTranslateUtil.reverseTwoWayTranslate("中国人民是个好银行,不是么？", "zh-CN", "en");
+		assertEquals("中国人是一个很好的银行，是不是？",r);
+	}
+	
+	@Test
 	public void test_fromChinese2English() {
 
 		String str = GoogleTranslateUtil.fromChinese2English("中国人民银行");
@@ -69,9 +75,9 @@ public class GoogleTranslateUtilTest extends Assert {
 		String s = "\u53ef\u4ee5\u544a\u8bc9\u6211\u003e";
 		byte[] utfString = s.getBytes("UTF-8");
 		System.out.println("1111:"+new String(utfString));
-		String str = GoogleTranslateUtil.autoTranslate("<br>財政部稅務入口網統一發票管理</br>,", "zh-CN");
+		String str = GoogleTranslateUtil.autoTranslate("財政部稅務入口網統一發票管理,中国人民银行是个好银行!不是么?", "zh-CN");
 		String expected = new String(str.getBytes("UTF-8"));
-		assertEquals(expected,"税务财政部发票统一的网络管理入口");
+		assertEquals(expected,"财政部税务入口网统一发票管理,中国人民银行是个好银行!不是么?zh-CN");
 		
 	}
 	
