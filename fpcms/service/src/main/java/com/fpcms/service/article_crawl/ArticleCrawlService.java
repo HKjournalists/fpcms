@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -16,9 +17,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
+import com.duowan.common.util.DateConvertUtils;
 import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
+import com.fpcms.common.random_gen_article.BaiduTopBuzzUtil;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.common.util.Constants;
@@ -26,6 +29,7 @@ import com.fpcms.common.util.EmptySearchResultException;
 import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.util.RegexUtil;
 import com.fpcms.common.util.SearchEngineUtil;
+import com.fpcms.common.util.URLEncoderUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
@@ -70,6 +74,32 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			crawler.execute();
 		}
 	}
+	
+	/**
+	 * 爬热门关键词
+	 */
+	public void crawlAllBuzzKeyword() {
+		Set<String> buzzList = BaiduTopBuzzUtil.getBaiduBuzzs();
+		
+		for(final String buzz : buzzList) {
+			final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
+			String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
+			SinglePageCrawler crawler = new SinglePageCrawler();
+			crawler.setUrlList(searchUrl);
+			crawler.setSourceLang("zh-CN");
+			crawler.setExcludeUriRegexList(".*google.*",".*youtube.*",".*blogger.*");
+			crawler.setHtmlPageCrawler(new HtmlPageCrawlerImpl() {
+				@Override
+				public void prepareCmsContent(CmsContent c) {
+					c.setTitle("图片故事-"+c.getTitle());
+				}
+			});
+			crawler.execute();
+		}
+		
+	}
+
+
 	
 	/**
 	 * 合并过于短小的文章
@@ -136,48 +166,57 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 
 		@Override
 		public void visit(HtmlPage page) {
-			if(hasFilterKeyword(page.getTitle(),page.getContent())) {
-				return;
-			}
-			
-			CmsContent c = new CmsContent();
-			String content = null;
-			String title = null;
-			if("zh-cn".equals(page.getSourceLang())) {
-				content = NaipanArticleGeneratorUtil.transformArticle(page.getContent());
-				title = NaipanArticleGeneratorUtil.transformArticle(page.getTitle());
-//			}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
-//				c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
-//				c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));
-			}else {
-				content = GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN");
-				title = GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN");
-			}
-			
-			c.setContent("<pre>"+content+"</pre>");
-			c.setTitle(title);
-			
-			if(hasFilterKeyword(c.getTitle(),c.getContent())) {
-				return;
-			}
-			if(StringUtils.isBlank(c.getContent())) {
-				return;
-			}
-			
-			try {
-				SearchEngineUtil.baiduSearch("\""+c.getTitle()+"\"", 100, 1);
-				throw new RuntimeException("百度已经存在该文章,title:"+c.getTitle());
-			}catch(EmptySearchResultException e) {
-				c.setSourceUrl(page.getAnchor().getHref());
-				c.setSite(Constants.CRAWL_SITE);
-				c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
-				c.setAuthor(Constants.CRAWL_AUTHOR);
+			CmsContent c = buildCmsContent(page);
+			if(c != null) {
+				prepareCmsContent(c);
 				cmsContentService.create(c);
 			}
 		}
-		
-
+		protected void prepareCmsContent(CmsContent c) {
+		}
 	}
+	
+	private CmsContent buildCmsContent(HtmlPage page) {
+		if(hasFilterKeyword(page.getTitle(),page.getContent())) {
+			return null;
+		}
+		
+		CmsContent c = new CmsContent();
+		String content = null;
+		String title = null;
+		if("zh-cn".equalsIgnoreCase(page.getSourceLang()) || "zh-tw".equalsIgnoreCase(page.getSourceLang())) {
+			content = NaipanArticleGeneratorUtil.transformArticle(GoogleTranslateUtil.reverseTwoWayTranslate(page.getContent(),"zh-CN","en"));
+			title = NaipanArticleGeneratorUtil.transformArticle(GoogleTranslateUtil.reverseTwoWayTranslate(page.getTitle(),"zh-CN","en"));
+//		}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
+//			c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
+//			c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));
+		}else {
+			content = GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN");
+			title = GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN");
+		}
+		
+		c.setContent("<pre>"+content+"</pre>");
+		c.setTitle(title);
+		
+		if(hasFilterKeyword(c.getTitle(),c.getContent())) {
+			return null;
+		}
+		if(StringUtils.isBlank(c.getContent())) {
+			return null;
+		}
+		
+		try {
+			SearchEngineUtil.baiduSearch("\""+c.getTitle()+"\"", 100, 1);
+			throw new RuntimeException("百度已经存在该文章,title:"+c.getTitle());
+		}catch(EmptySearchResultException e) {
+			c.setSourceUrl(page.getAnchor().getHref());
+			c.setSite(Constants.CRAWL_SITE);
+			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
+			c.setAuthor(Constants.CRAWL_AUTHOR);
+		}
+		return c;
+	}
+	
 	
 	static List<String> filterWords = Arrays.asList("\\u","http://","www.","代开","开发票","买发票","卖发票","销售发票");
 	static List<String> filterRegex = Arrays.asList("开.*发票","发票.*代开","发票.*开","假.*发票");

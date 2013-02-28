@@ -27,6 +27,12 @@ public class GoogleTranslateUtil {
 		return output;
 	}
 	
+	public static String reverseTwoWayTranslate(String input,String sourceLang,String targetLang) {
+		String one = GoogleTranslateUtil.translate(input,sourceLang,targetLang);
+		String two = GoogleTranslateUtil.translate(one,targetLang,sourceLang);
+		return two;
+	}
+	
 //	public static String translate(Map<String,String> wordMap,String sourceLang,String targetLang) {
 //		
 //	}
@@ -81,7 +87,7 @@ public class GoogleTranslateUtil {
 //			if(target.equalsIgnoreCase("\"zh-CN\"") || target.equalsIgnoreCase("\"en\"")) {
 //				break;
 //			}
-			if(target.equals("\""+sourceLang+"\"")) {
+			if(target.equals("\""+sourceLang+"\"") || target.equals(sourceLang)) {
 				break;
 			}
 			mapRows.add(map);

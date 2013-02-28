@@ -23,6 +23,12 @@ public class GoogleTranslateUtilTest extends Assert {
 	}
 	
 	@Test
+	public void reverseTwoWayTranslate()  {
+		String r = GoogleTranslateUtil.reverseTwoWayTranslate("中国人民是个好银行,不是么？", "zh-CN", "en");
+		assertEquals("中国人是一个很好的银行，是不是？",r);
+	}
+	
+	@Test
 	public void test_fromChinese2English() {
 
 		String str = GoogleTranslateUtil.fromChinese2English("中国人民银行");
