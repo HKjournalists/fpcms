@@ -100,7 +100,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			cmsKeyValueService.create(cmsKeyValue);
 			
 			final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
-			String searchUrl = "https://www.google.com.hk/search?num=20&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
+			String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
 			SinglePageCrawler crawler = new SinglePageCrawler();
 			crawler.setUrlList(searchUrl);
 			crawler.setSourceLang("zh-CN");
