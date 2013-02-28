@@ -27,9 +27,17 @@ public class MetaWeblogBlogPosterTest {
 	}
 	
 	@Test
-	public void test_sohu() throws IOException {
+	public void test_51cto() throws IOException {
 		poster.setBlogUrl("http://51ctoblog.blog.51cto.com");
 		poster.setUsername("fpqqchao@gmail.com");
+		poster.setPassword("abc123");
+		poster.postBlog(new Blog("MetaWeblogBlogPosterTest title",StringUtils.repeat("MetaWeblogBlogPosterTest content,",100)));
+	}
+	
+	@Test
+	public void test_blogbug() throws IOException {
+		poster.setBlogUrl("http://blogbug.blogbus.com");
+		poster.setUsername("blogtg123@gmail.com");
 		poster.setPassword("abc123");
 		poster.postBlog(new Blog("MetaWeblogBlogPosterTest title",StringUtils.repeat("MetaWeblogBlogPosterTest content,",100)));
 	}
