@@ -28,7 +28,7 @@ public class UpdateCmsSiteJob extends BaseCronJob implements InitializingBean{
 		this.cmsSiteService = cmsSiteService;
 	}
 
-	public void execute() {
+	public synchronized void execute() {
 		cmsSiteService.updateSearchEngineRecord();
 		cmsSiteService.updateSearchEngineKeywordMaxRank();
 	}

@@ -69,7 +69,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	}
 	
 	@Override
-	public void execute() {
+	public synchronized void execute() {
 		final List<HtmlPage> pageList = cralwerForPageList();
 		postAllBlog(pageList);
 	}

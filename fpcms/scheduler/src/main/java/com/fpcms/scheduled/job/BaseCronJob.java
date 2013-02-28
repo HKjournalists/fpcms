@@ -39,7 +39,7 @@ public abstract class BaseCronJob implements InitializingBean{
 		logger.info("scheduled_with_cron:["+cron+"] for \t"+getClass().getSimpleName());
 	}
 	
-	private void execute0() {
+	private synchronized void execute0() {
 		try {
 			logger.info("start_execute_cron_job:"+getClass().getSimpleName());
 			execute();
