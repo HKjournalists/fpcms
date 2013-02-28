@@ -79,13 +79,6 @@
 	</script>
 </div>
 
-
-</duowan:override>
-
-<duowan:override name="page_left_not_exist">
-
-
-<!-- 
 <div class="border ">
 	<div class="subject_bg">
 		<div class="subject_title">子站</div>
@@ -100,7 +93,13 @@
 		</dl>
 	</div>
 </div>
- -->
+
+</duowan:override>
+
+<duowan:override name="page_left_not_exist">
+
+
+
 
 </duowan:override>
 
