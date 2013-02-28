@@ -14,6 +14,12 @@ public class SearchEngineUtilTest extends Assert{
 	}
 	
 	@Test
+	public void baiduKeywordsNotExist() {
+		assertFalse(SearchEngineUtil.baiduKeywordsNotExist("java 判断是否有中文,以及它的位置"));
+		assertTrue(SearchEngineUtil.baiduKeywordsNotExist("张骥辞任广州市副市长同意被转移到家庭计划局局长-大洋网"));
+	}
+	
+	@Test
 	public void test_baiduKeywordRank() {
 		for(int i = 0; i < 1; i++) {
 			int rank = SearchEngineUtil.baiduKeywordRank("唐山代开发票", "www.aaafaipiao.com");

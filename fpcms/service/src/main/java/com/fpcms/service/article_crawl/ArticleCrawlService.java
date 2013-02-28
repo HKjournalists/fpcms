@@ -205,16 +205,15 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			return null;
 		}
 		
-		try {
-			SearchEngineUtil.baiduSearch("\""+c.getTitle()+"\"", 100, 1);
-			throw new RuntimeException("百度已经存在该文章,title:"+c.getTitle());
-		}catch(EmptySearchResultException e) {
+		if(SearchEngineUtil.baiduKeywordsNotExist(c.getTitle())) {
 			c.setSourceUrl(page.getAnchor().getHref());
 			c.setSite(Constants.CRAWL_SITE);
 			c.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
 			c.setAuthor(Constants.CRAWL_AUTHOR);
+			return c;
+		}else {
+			throw new RuntimeException("百度已经存在该文章,title:"+c.getTitle());
 		}
-		return c;
 	}
 	
 	

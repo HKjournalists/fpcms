@@ -1,9 +1,13 @@
 package com.fpcms.common.util;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.util.Assert;
 
 import com.duowan.common.util.Profiler;
 import com.fpcms.common.cache.Cache;
@@ -41,6 +45,20 @@ public class SearchEngineUtil {
 		}
 	}
 
+	public static boolean baiduKeywordsNotExist(String keywords) throws EmptySearchResultException{
+		Assert.hasText(keywords,"keywords must be not empty");
+		
+		List<String> keywordsList = KeywordUtil.toTokenizerList(keywords);
+		Collections.sort(keywordsList,new ReverseComparator(new StringLengthComparator()));
+		String maxLengthKeyword = keywordsList.get(0);
+		try {
+			baiduSearch("\""+maxLengthKeyword+"\"",1,100);
+			return false;
+		}catch(EmptySearchResultException e) {
+			return true;
+		}
+	}
+	
 	public static String baiduSearch(String keywords, int pageSize,int pageNumber) throws EmptySearchResultException{
 		Profiler.enter("SearchEngineUtil.baiduSearch");
 		try {
