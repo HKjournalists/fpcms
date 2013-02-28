@@ -114,8 +114,10 @@ public class SinglePageCrawler {
 		for(Anchor a : shoudVisitAnchorList) {
 			try {
 				HtmlPage page = extractArticleByJsoup(a);
-				htmlPageCrawler.visit(page);
-				visitedPage.add(page);
+				if(page != null) {
+					htmlPageCrawler.visit(page);
+					visitedPage.add(page);
+				}
 			}catch(Exception e) {
 				logger.warn("extractArticleByJsoup error",e);
 			}
@@ -181,6 +183,9 @@ public class SinglePageCrawler {
 			page.setTitle(title);
 			page.setSourceLang(sourceLang);
 			
+			if(StringUtils.length(page.getContent()) < minContentLength) {
+				return null;
+			}
 			
 			//TODO 增加anchor.text 与 page.title的比较或者是替换
 			logger.info("------------------- url:"+page.getAnchor().getHref()+" ---------------------------");
