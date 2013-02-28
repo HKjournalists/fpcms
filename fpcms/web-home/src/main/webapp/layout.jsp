@@ -74,7 +74,7 @@
 	</div>
 
 	<div class="width mt10">
-		<div id="page_left">
+		<div id="page_left" style="float: left;">
 			<duowan:block name="page_left">
 				<div class="border mt10" style="font-size: 15pt">
 					<div class="subject_bg">
@@ -92,7 +92,7 @@
 		</div>
 
 		<!--Left Over-->
-		<div id="page_right">
+		<div id="page_right" style="float: right;">
 			<duowan:block name="pageRight">
 			<div class="border">
 				<div class="subject_bg">
