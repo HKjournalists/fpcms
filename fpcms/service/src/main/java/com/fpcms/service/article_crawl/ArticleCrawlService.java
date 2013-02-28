@@ -210,7 +210,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			title = GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN");
 		}
 		
-		c.setContent("<pre>"+content+"</pre>");
+		c.setContent(content);
 		c.setTitle(title);
 		
 		if(hasFilterKeyword(c.getTitle(),c.getContent())) {
