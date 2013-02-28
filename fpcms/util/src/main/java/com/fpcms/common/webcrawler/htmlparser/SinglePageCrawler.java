@@ -183,10 +183,6 @@ public class SinglePageCrawler {
 			page.setTitle(title);
 			page.setSourceLang(sourceLang);
 			
-			if(StringUtils.length(page.getContent()) < minContentLength) {
-				return null;
-			}
-			
 			//TODO 增加anchor.text 与 page.title的比较或者是替换
 			logger.info("------------------- url:"+page.getAnchor().getHref()+" ---------------------------");
 			logger.info("smartMainContent.text:" + (smartMainContent == null ? "NOT_FOUND" : smartMainContent.text()));
@@ -199,6 +195,10 @@ public class SinglePageCrawler {
 				if(!smartMainContent.text().equals(page.getContent())) {
 					logger.warn("-------------------error: smart max length text != selector["+StringUtils.join(mainContentSelector,",")+"] text----------------------");
 				}
+			}
+			
+			if(StringUtils.length(page.getContent()) < minContentLength) {
+				return null;
 			}
 			
 			return page;
