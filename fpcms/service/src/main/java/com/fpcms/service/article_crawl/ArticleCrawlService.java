@@ -25,7 +25,6 @@ import com.fpcms.common.random_gen_article.BaiduTopBuzzUtil;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.common.util.Constants;
-import com.fpcms.common.util.EmptySearchResultException;
 import com.fpcms.common.util.GoogleTranslateUtil;
 import com.fpcms.common.util.HtmlFormatUtil;
 import com.fpcms.common.util.KeywordUtil;
@@ -33,13 +32,15 @@ import com.fpcms.common.util.RegexUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.common.util.URLEncoderUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
-import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsKeyValue;
+import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsKeyValueService;
+import com.fpcms.service.CmsSiteService;
 
 /**
  * 从其它网站进行文章采集的service
@@ -53,6 +54,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	private List<SinglePageCrawler> singlePageCrawlerList = new ArrayList<SinglePageCrawler>();
 	private HtmlPageCrawler htmlPageCrawler = new HtmlPageCrawlerImpl();
 	private CmsContentService cmsContentService;
+	private CmsSiteService cmsSiteService;
 	private ApplicationContext applicationContext;
 	private CmsKeyValueService cmsKeyValueService;
 	
@@ -66,6 +68,10 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	
 	public void setCmsKeyValueService(CmsKeyValueService cmsKeyValueService) {
 		this.cmsKeyValueService = cmsKeyValueService;
+	}
+	
+	public void setCmsSiteService(CmsSiteService cmsSiteService) {
+		this.cmsSiteService = cmsSiteService;
 	}
 
 	@Override
@@ -83,37 +89,61 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			crawler.execute();
 		}
 	}
+
+	/**
+	 * 爬每个站点的关键词
+	 */
+	public void crawlAllSiteKeyword() {
+		for(final CmsSite cmsSite : cmsSiteService.findAll()) {
+			ArrayList<String> keywordList = KeywordUtil.toTokenizerList(cmsSite.getKeyword());
+			if(keywordList.isEmpty()) {
+				continue;
+			}
+			
+			String keyword = keywordList.get(0);
+			crawByKeyword(keyword,new HtmlPageCrawlerImpl() {
+				@Override
+				protected void prepareCmsContent(CmsContent c) {
+					super.prepareCmsContent(c);
+					c.setSite(cmsSite.getSiteDomain());
+				}
+			});
+		}
+		
+	}
 	
 	/**
 	 * 爬热门关键词
 	 */
 	public void crawlAllBuzzKeyword() {
 		Set<String> buzzList = BaiduTopBuzzUtil.getBaiduBuzzs();
-		
 		for(final String buzz : buzzList) {
-			CmsKeyValue cmsKeyValue = new CmsKeyValue(Constants.KEY_VALUE_GROUP_SEARCH_BUZZ,buzz);
-			if(cmsKeyValueService.exist(cmsKeyValue)) {
-				logger.info("ignore search,already_search_buzz:"+buzz);
-				continue;
-			}
-			
-			cmsKeyValueService.create(cmsKeyValue);
-			
-			final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
-			String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
-			SinglePageCrawler crawler = new SinglePageCrawler();
-			crawler.setUrlList(searchUrl);
-			crawler.setSourceLang("zh-CN");
-			crawler.setExcludeUriRegexList(".*google.*",".*youtube.*",".*blogger.*");
-			crawler.setHtmlPageCrawler(new HtmlPageCrawlerImpl() {
+			crawByKeyword(buzz,new HtmlPageCrawlerImpl() {
 				@Override
 				public void prepareCmsContent(CmsContent c) {
 					c.setTitle("图片故事-"+c.getTitle());
 				}
 			});
-			crawler.execute();
+		}
+	}
+
+	private void crawByKeyword(final String buzz,HtmlPageCrawler htmlPageCrawler) {
+		CmsKeyValue cmsKeyValue = new CmsKeyValue(Constants.KEY_VALUE_GROUP_SEARCH_BUZZ,buzz);
+		if(cmsKeyValueService.exist(cmsKeyValue)) {
+			logger.info("ignore search,already_search_buzz:"+buzz);
+			return;
 		}
 		
+		cmsKeyValueService.create(cmsKeyValue);
+		
+		final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
+		String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
+		SinglePageCrawler crawler = new SinglePageCrawler();
+		crawler.setUrlList(searchUrl);
+		crawler.setSourceLang("zh-CN");
+		crawler.setExcludeUriRegexList(".*google.*",".*youtube.*",".*blogger.*");
+		crawler.setHtmlPageCrawler(htmlPageCrawler);
+		crawler.execute();
 	}
 
 
