@@ -96,14 +96,6 @@
 
 </duowan:override>
 
-<duowan:override name="page_left_not_exist">
-
-
-
-
-</duowan:override>
-
-			
 <duowan:override name="pageRight">
 	<div class="subject_bg">
 		<div class="subject_title">${home.channelName}</div>
