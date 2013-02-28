@@ -235,8 +235,8 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	}
 	
 	
-	static List<String> filterWords = Arrays.asList("\\u","http://","www.","代开","开发票","买发票","卖发票","销售发票");
-	static List<String> filterRegex = Arrays.asList("开.*发票","发票.*代开","发票.*开","假.*发票");
+	static List<String> filterWords = Arrays.asList("\\u","http://","www.","代开","开发票","买发票","卖发票","销售发票","代開");
+	static List<String> filterRegex = Arrays.asList("开.*发票","发票.*代开","发票.*开","假.*发票","開.*發票");
 	static boolean hasFilterKeyword(String... contents) {
 		if(contents == null) return false;
 		
