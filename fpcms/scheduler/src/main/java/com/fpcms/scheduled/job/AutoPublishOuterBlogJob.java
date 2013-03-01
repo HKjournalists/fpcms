@@ -95,7 +95,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 			if(page == null) {
 				return null;
 			}
-			if(StringUtils.length(page.getContent()) < 300) {
+			if(StringUtils.length(StringUtils.remove(StringUtils.trim(page.getContent())," ")) < 300) {
 				continue;
 			}
 			CmsKeyValue cmsKeyValue = new CmsKeyValue("outerBlog", page.getAnchor().getHref());

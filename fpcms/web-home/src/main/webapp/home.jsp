@@ -4,7 +4,7 @@
 <%@ include file="/commons/taglibs.jsp" %>
 
 <duowan:override name="head">
-	<title>${fn:replace(keyword,',','_')}-最值得信赖</title>
+	<title>${fn:replace(siteName,',','_')}-最值得信赖</title>
 	<meta name="keywords" content="${keyword}" />
 	<meta name="description" content="${home.metaDescription}" />
 	<style type="text/css">
