@@ -184,10 +184,14 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 		List<CmsSite> list = findAll();
 		Collections.sort(list,new ReverseComparator(new BeanComparator("recordBaidu")));
 		for(CmsSite site : list) {
-			String status = HttpStatusCheckUtil.getHttpStatus(site.getSiteDomain());
-			site.setHttpStatus(status);
-			site.setIp(IpUtil.getIp(site.getSiteDomain()));
-			update(site);
+			try {
+				String status = HttpStatusCheckUtil.getHttpStatus(site.getSiteDomain());
+				site.setHttpStatus(status);
+				site.setIp(IpUtil.getIp(site.getSiteDomain()));
+				update(site);
+			}catch(Exception e) {
+				log.error("error on update CmsSite httpStatus:"+site.getSiteDomain(),e);
+			}
 		}
 	}
 	

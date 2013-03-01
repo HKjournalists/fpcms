@@ -381,7 +381,7 @@ public class CmsSite  implements java.io.Serializable{
 	}
 
 	public void setHttpStatus(String httpStatus) {
-		this.httpStatus = httpStatus;
+		this.httpStatus = StringUtils.substring(httpStatus,0,Math.min(40, StringUtils.length(httpStatus)));
 	}
 
 	public boolean isHttpSuccess() {
