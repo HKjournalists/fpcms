@@ -30,6 +30,14 @@ spider_stat Baidu goodk123.info
 spider_stat Baidu bbbkp123.info
 spider_stat Baidu 6699ysk.info
 spider_stat Baidu 1111kp.info
+
+spider_stat Baidu kp1111.info
+spider_stat Baidu kp1234.info
+spider_stat Baidu fp1234.info
+spider_stat Baidu star1111.info
+spider_stat Baidu star1234.info
+spider_stat Baidu fp1111.info
+
 spider_stat Baidu aaafaipiao.com
 
 echo ""
