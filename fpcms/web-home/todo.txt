@@ -147,6 +147,7 @@ where channel_code='home'  and site in (select site_domain from cms_site where r
 
 #########
 网站内部外链: 同一IP 不可互相链接
+SEO: 网站排名的唯一最关键因素: 外链
 
 
 安全修改:
