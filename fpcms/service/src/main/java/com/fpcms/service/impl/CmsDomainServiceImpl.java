@@ -132,4 +132,11 @@ public class CmsDomainServiceImpl implements CmsDomainService {
 	public List<CmsDomain> findAll() {
 		return cmsDomainDao.findAll();
 	}
+	
+	public void updateCmsDomainStatus() {
+		for(CmsDomain domain : findAll()) {
+			domain.getHttpStatus();
+			update(domain);
+		}
+	}
 }

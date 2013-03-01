@@ -80,7 +80,7 @@
 				
 				<td><a href="${ctx}/admin/cmssite/index.do?siteDomain=${item.domain}">${item.domain}</a></td>
 				<td><c:out value='${item.ip}'/>&nbsp;</td>
-				<td><a href="http://${item.domain}">${item.httpStatus}</a>&nbsp;</td>
+				<td><a href="http://www.${item.domain}">${item.httpStatus}</a>&nbsp;</td>
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
 				<td><c:out value='${item.props}'/>&nbsp;</td>
 				<td>

@@ -53,4 +53,6 @@ public interface CmsDomainService {
 	public CmsDomain getByRemarks(String remarks);
 	
     public List<CmsDomain> findAll();
+    
+    public void updateCmsDomainStatus();
 }
