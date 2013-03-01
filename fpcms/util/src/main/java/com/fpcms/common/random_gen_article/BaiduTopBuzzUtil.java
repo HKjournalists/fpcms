@@ -1,8 +1,10 @@
 package com.fpcms.common.random_gen_article;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +13,7 @@ import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.cache.ValueCallback;
 import com.fpcms.common.util.Constants;
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.NetUtil;
 import com.fpcms.common.util.RegexUtil;
 /**
@@ -25,7 +28,16 @@ public class BaiduTopBuzzUtil {
 	static String CACHE_KEYWORD_BUZZS = "KEYWORD_BUZZS";
 	static Cache cache = CacheManager.createCache(BaiduTopBuzzUtil.class,Constants.BAIDU_BUZZ_URLS.length+1);
 	public static Set<String> getBaiduBuzzs() {
-		return getBaiduBuzzs0();
+		return format(getBaiduBuzzs0());
+	}
+
+	static Set<String> format(Set<String> baiduBuzzs0) {
+		LinkedHashSet<String> set = new LinkedHashSet<String>();
+		for(String keyword : baiduBuzzs0) {
+			String formatedKeyword = StringUtils.join(KeywordUtil.toTokenizerList(keyword)," ");
+			set.add(formatedKeyword);
+		}
+		return set;
 	}
 
 	private static Set<String> getBaiduBuzzs0() {
