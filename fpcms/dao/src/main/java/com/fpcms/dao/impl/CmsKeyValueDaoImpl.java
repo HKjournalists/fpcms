@@ -82,7 +82,7 @@ public class CmsKeyValueDaoImpl extends BaseSpringJdbcDao implements CmsKeyValue
 //	}
 
 	public int deleteBy(Date beforeDateCreated) {
-		String sql = "delete from cms_key_value where date_created >= ? ";
+		String sql = "delete from cms_key_value where date_created <= ? ";
 		return  getSimpleJdbcTemplate().update(sql,beforeDateCreated);
 	}
 	

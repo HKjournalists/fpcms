@@ -76,7 +76,7 @@ public class CmsKeyValueDaoImplTest extends BaseDaoTestCase{
 	@Test
 	public void test_delete() {
 		dao.deleteById(new java.lang.String("1"),new java.lang.String("1"));
-		dao.deleteBy(DateUtils.addDays(new Date(),3650));
+		dao.deleteBy(DateUtils.addDays(new Date(),-365));
 	}
 	
 	@Test
