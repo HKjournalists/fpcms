@@ -213,3 +213,10 @@ put c:/windows/Fonts/simsun.ttc into dir
 
 
 
+Windows Live Writer支持有metaweblog api的博客。独立博客用户好说，一般都有。
+比较著名的，外国有Live Spaces，blogger , wordpress, radio userland，livejournal等
+国内有博客园、CSDN、网易博客、bokee.com博客、myspace.cn博客，支持Writer；不支持的有，新浪博客、QQ空间、赛我网(Cyworld)、blogcn.com博客、和讯博客，
+BLOG: sourceforge,
+
+邀请Zac、牟长青、IT咖啡厅、28推、推一把、bloghuman等SEO专家
+

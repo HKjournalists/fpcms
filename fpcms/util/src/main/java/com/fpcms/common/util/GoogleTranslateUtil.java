@@ -105,7 +105,9 @@ public class GoogleTranslateUtil {
 			target = target.substring(1,target.length() - 1);
 			sb.append(target);
 		}
-		return StringUtils.replace(sb.toString(),"\\r\\n","\r\n");
+		String r1 = StringUtils.replace(sb.toString(),"\\r\\n","\r\n");
+//		return StringUtils.replace(StringUtils.replace(r1, "\\u003c", "<"),"\\u003e",">");
+		return r1;
 	}
 
 	private static String removeDoubleQuotes(String str) {

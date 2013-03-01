@@ -59,12 +59,15 @@ public class GoogleTranslateUtilTest extends Assert {
 		str = GoogleTranslateUtil.translate("朝日新聞デジタル：塗装会社で爆発、経営者が死亡　東京・文京区","ja", "zh-CN");
 		assertEquals(str,"“朝日新闻”数字爆炸的涂装公司，管理层的死亡，东京都文京区，");
 		
+		
+		str = GoogleTranslateUtil.translate("<p>朝日新聞デジタル：塗装会社で爆発</p>、経営者が死亡　<h1>東京・文京区</h1>","ja", "zh-CN");
+		assertEquals(str,"爆炸\\u003c/ P\\u003e管理\\u003c/ h1 \\u003e文京区，东京\\u003cH1\\u003e死在涂料公司：数字“朝日新闻” \\u003cP\\u003e");
 	}
 	
 	@Test
 	public void test_autoTranslate_zh_tw() {
 		String str = GoogleTranslateUtil.autoTranslate("財政部稅務入口網統一發票管理,", "zh-CN");
-		assertEquals(str,"税务财政部发票统一的网络管理入口");
+		assertEquals(str,"发票统一的网络管理入口税务财政部，");
 		
 		str = GoogleTranslateUtil.translate("財政部稅務入口網統一發票管理","zh-TW", "zh-CN");
 		assertEquals(str,"财政部税务入口网统一发票管理");
