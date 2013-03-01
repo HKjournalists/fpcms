@@ -170,7 +170,7 @@ public class ContentController extends BaseController{
 		WebUtil.send301Redirect(response,location);
 	}
 	
-	@RequestMapping("/content_img/{dateCreated}/{contentId}.do")
+	@RequestMapping("/content_img/{dateCreated}/{contentId}.jpg")
 	public void content_img(@PathVariable("dateCreated") String dateCreatedString,@PathVariable("contentId") long contentId,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("image/jpeg;");
 		response.setDateHeader("Expires", DateUtils.addDays(new Date(), 360 * 5).getTime());

@@ -12,7 +12,7 @@
 		<div>
 			<div id="imgContainer"></div>
 			<h1>${cmsContent.title}</h1>
-			<img alt="${cmsContent.title}" src="${ctx}/content_img/<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyyMMdd"/>/${cmsContent.id}.do"></img><br/>
+			<img alt="${cmsContent.title}" src="${ctx}/gen/content_img/<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyyMMdd"/>/${cmsContent.id}.jpg"></img><br/>
 			${cmsContent.content}
 			<br />
 			<span>创建时间:<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyy-MM-dd HH:mm"/></span><br />
