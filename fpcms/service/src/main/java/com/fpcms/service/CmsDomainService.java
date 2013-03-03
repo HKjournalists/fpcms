@@ -55,4 +55,9 @@ public interface CmsDomainService {
     public List<CmsDomain> findAll();
     
     public void updateCmsDomainStatus();
+    
+    public CmsDomain randomSelectDomain();
+    
+    public String insertRandomLinks(String article,int randomLinkCount);
+    
 }

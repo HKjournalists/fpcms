@@ -12,7 +12,14 @@
 		<input type="button" value="后退" onclick="history.back();"/>
 		
 		<input type="hidden" id="id" name="id" value="${cmsContent.id}"/>
-	
+
+		<br />
+		<div>	
+				<h1>${cmsContent.title}</h1>
+				<div>${cmsContent.content}</div>
+		</div>
+		<br />
+			
 		<table class="formTable">
 			<tr>	
 				<td class="tdLabel">频道ID</td>	
@@ -63,6 +70,7 @@
 				<td><c:out value='${cmsContent.level}'/></td>
 			</tr>
 		</table>
+
 	</form:form>
 </duowan:override>
 

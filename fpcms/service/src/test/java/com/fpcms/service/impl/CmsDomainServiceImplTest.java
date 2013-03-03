@@ -8,9 +8,10 @@
 package com.fpcms.service.impl;
 
 import static junit.framework.Assert.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -71,6 +72,13 @@ public class CmsDomainServiceImplTest extends BaseServiceTestCase{
 		assertNotNull(cmsDomain);
 	}
 	
+	@Test
+	public void test_insertRandomLinks() {
+		List<CmsDomain> list = Arrays.asList(CmsDomainDataFactory.newCmsDomain(),CmsDomainDataFactory.newCmsDomain());
+		when(cmsDomainDao.findAll()).thenReturn(list);
+		String str = service.insertRandomLinks("我是一个中国人.你不是;我到底是不是呢。", 2);
+		assertEquals(str,"我是一个中国人.你不是;我到底是不是呢。http://www.null/linked/20130302.do");
+	}
 	
 }
 

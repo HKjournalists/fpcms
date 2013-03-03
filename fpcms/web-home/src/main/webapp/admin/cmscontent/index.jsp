@@ -123,6 +123,7 @@
 <!--				<td><fmt:formatDate value='${item.dateLastModified}' pattern='yyyy-MM-dd'/>&nbsp;</td>-->
 				<td>
 					<a href='http://www.baidu.com/s?wd="${item.title}"' target="_blank">百度搜索</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/cmscontent/buildOriginalArticle.do?id=${item.id}">带链接伪原创文章</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmscontent/edit.do?id=${item.id}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/cmscontent/delete.do?id=${item.id}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
 				</td>

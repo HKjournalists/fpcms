@@ -45,6 +45,7 @@
 		<div class="handleControl">
 			<input type="submit" class="stdButton" style="width:80px" value="查询" onclick="getReferenceForm(this).action='${ctx}/admin/cmsdomain/index.do'"/>
 			<input type="button" class="stdButton" style="width:80px" value="新增" onclick="window.location = '${ctx}/admin/cmsdomain/add.do'"/>
+			<a href='${ctx}/admin/cmsdomain/signature.do'">签名</a>
 		<div>
 	
 	</div>

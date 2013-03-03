@@ -1,7 +1,9 @@
 package com.fpcms.scheduled.job;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -22,9 +24,9 @@ import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.HtmlFormatUtil;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
-import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.CmsDomain;
 import com.fpcms.model.CmsKeyValue;
 import com.fpcms.model.CmsSite;
@@ -82,7 +84,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 				if(page == null) {
 					break;
 				}
-				poster.postBlog(new Blog(NaipanArticleGeneratorUtil.transformArticle(page.getTitle()),addRandomLink(page)));
+				String transformTitle = NaipanArticleGeneratorUtil.transformArticle(page.getTitle());
+				poster.postBlog(new Blog(transformTitle,new RandomLinkPrecessor().execute(page)));
 			}catch(RuntimeException e) {
 				logger.error("postBlog error",e);
 			}
@@ -107,30 +110,39 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		}
 	}
 
-	private String addRandomLink(HtmlPage page) {
-		Assert.hasText(page.getContent());
-		Assert.isTrue(page.getContent().length() > 200);
-		StringBuilder content = new StringBuilder(page.getContent());
-		content.insert(200, selectRandomDomain());
-		content.append(selectRandomSite());
-		String transformArticle = NaipanArticleGeneratorUtil.transformArticle(content.toString());
-		return transformArticle.contains("\n") ? "<pre>"+transformArticle+"</pre>" : HtmlFormatUtil.htmlBeauty(transformArticle);
-	}
+	public class RandomLinkPrecessor {
+		Set<String> useedLink = new HashSet();
+		private String execute(HtmlPage page) {
+			Assert.hasText(page.getContent());
+			Assert.isTrue(page.getContent().length() > 200);
+			String transformArticle = NaipanArticleGeneratorUtil.transformArticle(page.getContent());
+			StringBuilder content = new StringBuilder(transformArticle);
+			content.insert(200, selectRandomDomain());
+			content.append(selectRandomDomain());
+			return transformArticle.contains("\n") ? "<pre>"+transformArticle+"</pre>" : HtmlFormatUtil.htmlBeauty(transformArticle);
+		}
+		
+		private String selectRandomDomain() {
+			for(int i = 0; i < 10; i++) {
+				CmsDomain domain = cmsDomainService.randomSelectDomain();
+				Assert.notNull(domain,"not found any random CmsDomain");
+				String link =  domain.getYesterdayOuterLinked();
+				if(useedLink.contains(link)) {
+					continue;
+				}
+				useedLink.add(link);
+				return String.format(" <a href='%s'>%s</a>; ",link,link);
+			}
+			return "";
+		}
 	
-	private String selectRandomDomain() {
-		List<CmsDomain> domainList = cmsDomainService.findAll();
-		CmsDomain domain = RandomUtil.randomSelect(domainList);
-		Assert.notNull(domain,"not found any random CmsDomain");
-		String link =  domain.getYesterdayOuterLinked();
-		return String.format(" <a href='%s'>%s</a>; ",link,link);
-	}
-
-	private String selectRandomSite() {
-		List<CmsSite> siteList = cmsSiteService.findAll();
-		CmsSite site = RandomUtil.randomSelect(siteList);
-		Assert.notNull(site,"not found any random CmsDomain");
-		String link =  site.getYesterdayOuterLinked();
-		return String.format(" <a href='%s'>%s</a>; ",link,link);
+		private String selectRandomSite() {
+			List<CmsSite> siteList = cmsSiteService.findAll();
+			CmsSite site = RandomUtil.randomSelect(siteList);
+			Assert.notNull(site,"not found any random CmsDomain");
+			String link =  site.getYesterdayOuterLinked();
+			return String.format(" <a href='%s'>%s</a>; ",link,link);
+		}
 	}
 	
 	private List<HtmlPage> cralwerForPageList() {

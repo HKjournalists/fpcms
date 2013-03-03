@@ -18,6 +18,8 @@ import org.springframework.util.Assert;
 
 import com.duowan.common.util.page.Page;
 import com.fpcms.common.util.IpUtil;
+import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.util.StringHelper;
 import com.fpcms.dao.CmsDomainDao;
 import com.fpcms.model.CmsDomain;
 import com.fpcms.query.CmsDomainQuery;
@@ -139,4 +141,27 @@ public class CmsDomainServiceImpl implements CmsDomainService {
 			update(domain);
 		}
 	}
+
+	@Override
+	public CmsDomain randomSelectDomain() {
+		return RandomUtil.randomSelect(findAll());
+	}
+
+	@Override
+	public String insertRandomLinks(String article,int randomLinkCount) {
+		StringBuilder result = new StringBuilder(article);
+		int fromIndex = 0;
+		for(int i = 0 ; i < randomLinkCount; i++) {
+			int index = StringHelper.indexOf(result,fromIndex,"。",".");
+			if(index >= 0) {
+				CmsDomain domain = randomSelectDomain();
+				Assert.notNull(domain);
+				String link = domain.getYesterdayOuterLinked();
+				fromIndex = index + 1 + link.length();
+				result.insert(index + 1, link);
+			}
+		}
+		return result.toString();
+	}
+	
 }

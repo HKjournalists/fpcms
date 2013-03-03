@@ -15,7 +15,7 @@ public class HtmlFormatUtil {
 		sb.insert(0, "<p>");
 		while(start < sb.length()) {
 			start += 120;
-			int index = indexOf(sb,start,"。",".","？","?","！","!");
+			int index = StringHelper.indexOf(sb,start,"。",".","？","?","！","!");
 			if(index == -1) {
 				break;
 			}
@@ -23,16 +23,6 @@ public class HtmlFormatUtil {
 		}
 		sb.append("</p>");
 		return sb.toString();
-	}
-	
-	public static int indexOf(StringBuilder str,int fromIndex,String... chars) {
-		for(String ch : chars) {
-			int index = str.indexOf(ch,fromIndex);
-			if(index >= 0) {
-				return index;
-			}
-		}
-		return -1;
 	}
 	
 }

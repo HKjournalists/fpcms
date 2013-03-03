@@ -143,6 +143,13 @@ public class CmsDomainController extends BaseController{
 		Flash.current().success(DELETE_SUCCESS);
 		return LIST_ACTION;
 	}
+
+	/** 显示列表用于签名 */
+	@RequestMapping
+	public String signature(ModelMap model,CmsDomainQuery query,HttpServletRequest request) {
+		model.put("cmsDomainList", cmsDomainService.findAll());
+		return "/admin/cmsdomain/signature";
+	}
 	
 }
 

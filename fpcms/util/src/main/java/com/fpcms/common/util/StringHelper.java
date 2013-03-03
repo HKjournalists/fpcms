@@ -62,4 +62,14 @@ public class StringHelper {
 		}
 	}
 	
+	public static int indexOf(StringBuilder str,int fromIndex,String... chars) {
+		for(String ch : chars) {
+			int index = str.indexOf(ch,fromIndex);
+			if(index >= 0) {
+				return index;
+			}
+		}
+		return -1;
+	}
+	
 }

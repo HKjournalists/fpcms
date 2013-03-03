@@ -15,9 +15,11 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
+import org.apache.commons.lang.NumberUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -29,9 +31,12 @@ import com.duowan.common.exception.MessageException;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.util.StringHelper;
 import com.fpcms.model.CmsContent;
+import com.fpcms.model.CmsDomain;
 import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsContentService;
+import com.fpcms.service.CmsDomainService;
 
 
 /**
@@ -47,6 +52,7 @@ import com.fpcms.service.CmsContentService;
 public class CmsContentController extends BaseController{
 	
 	private CmsContentService cmsContentService;
+	private CmsDomainService cmsDomainService = null;
 	
 	private final String LIST_ACTION = "redirect:/admin/cmscontent/index.do";
 	
@@ -57,6 +63,10 @@ public class CmsContentController extends BaseController{
 		this.cmsContentService = service;
 	}
 	
+	public void setCmsDomainService(CmsDomainService cmsDomainService) {
+		this.cmsDomainService = cmsDomainService;
+	}
+
 	/** binder用于bean属性的设置 */
 	@InitBinder  
 	public void initBinder(WebDataBinder binder) {  
@@ -181,10 +191,15 @@ public class CmsContentController extends BaseController{
 	
 	/** 原创文章增加链接 */
 	@RequestMapping()
-	public String buildOriginalArticle(ModelMap model,@RequestParam("id") long id) {
+	public String buildOriginalArticle(ModelMap model,@RequestParam("id") long id,Integer randomLinkCount) {
+		randomLinkCount = randomLinkCount == null ? 3 : randomLinkCount;
+		
 		CmsContent cmsContent = cmsContentService.getById(id);
+		String linkedContent = cmsDomainService.insertRandomLinks(cmsContent.getContent(),randomLinkCount);
+		cmsContent.setContent(linkedContent);
 		model.addAttribute("cmsContent",cmsContent);
 		return "/admin/cmscontent/show";
 	}
+	
 }
 

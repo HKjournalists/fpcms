@@ -188,6 +188,8 @@ http://indiatoday.intoday.in/ 今日印度
 外链增加参考: http://zhanzhang.baidu.com/inbound/index?site=http%3A%2F%2Fwww.starkp.com%2F&d=http%3A%2F%2Fwww.shcai.org%2F&range=2012.11.27-2013.02.20
 				http://xiaohan86.com/201009946.html
 
+外键增加分析: http://zhanzhang.baidu.com/inbound/index?site=http%3A%2F%2Fwww.haofapiao.com%2F&d=www.010bjfp11.com
+
 SEO价格: http://www.shcai.org/
 
 支持百度ping
@@ -220,3 +222,7 @@ BLOG: sourceforge,
 
 邀请Zac、牟长青、IT咖啡厅、28推、推一把、bloghuman等SEO专家
 
+支持EditURI:
+http://blog.techweb.com.cn
+
+http://bbs.28tui.com 陈有达 abc123
