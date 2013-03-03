@@ -105,7 +105,7 @@ public class CmsDomainDaoImpl extends BaseSpringJdbcDao implements CmsDomainDao{
         }
 		
 		if(isEmpty(query.getSortColumns())) {
-			query.setSortColumns("domain desc");
+			query.setSortColumns("ip desc,domain desc");
 		}
 		sql.append(" order by "+query.getSortColumns());
 		
