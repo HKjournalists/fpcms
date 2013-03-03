@@ -35,7 +35,7 @@
 	<button onclick="history.back();">返回</button>
 	<br>
 
-	<p><a href="#" onclick="showDetail();">点击这里查看具体错误消息</a>,报告以下错误消息给系统管理员,可以更加快速的解决问题</p>
+	<p><a href="#" onclick="showDetail();">detail</a></p>
 
 	<div id="detail_system_error_msg" style="display:none">
 		<pre><% //exception.printStackTrace(new java.io.PrintWriter(out));%></pre>
