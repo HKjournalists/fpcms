@@ -85,7 +85,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 					break;
 				}
 				String transformTitle = NaipanArticleGeneratorUtil.transformArticle(page.getTitle());
-				poster.postBlog(new Blog(transformTitle,new RandomLinkPrecessor().execute(page)));
+				String content = new RandomLinkPrecessor().execute(page);
+				poster.postBlog(new Blog(transformTitle,content));
 			}catch(RuntimeException e) {
 				logger.error("postBlog error",e);
 			}
@@ -117,9 +118,9 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 			Assert.isTrue(page.getContent().length() > 200);
 			String transformArticle = NaipanArticleGeneratorUtil.transformArticle(page.getContent());
 			StringBuilder content = new StringBuilder(transformArticle);
-			content.insert(200, selectRandomDomain());
+			content.insert(Math.min(content.length(),200), selectRandomDomain());
 			content.append(selectRandomDomain());
-			return transformArticle.contains("\n") ? "<pre>"+transformArticle+"</pre>" : HtmlFormatUtil.htmlBeauty(transformArticle);
+			return "<pre>"+content.toString()+"</pre>"; //TODO 该段文本如果没有<pre>格式，会存在问题，
 		}
 		
 		private String selectRandomDomain() {
