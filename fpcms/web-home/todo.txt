@@ -225,6 +225,9 @@ BLOG: sourceforge,
 
 支持EditURI:
 http://blog.techweb.com.cn
+http://blog.donews.com
+http://blog.51cto.com/
+
 
 http://bbs.28tui.com 陈有达 abc123
 http://bbs.28tui18.com 陈有达 abc123

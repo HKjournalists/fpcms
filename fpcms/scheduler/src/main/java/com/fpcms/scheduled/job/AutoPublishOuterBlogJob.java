@@ -23,6 +23,7 @@ import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.HtmlFormatUtil;
 import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.util.ThreadUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
@@ -48,7 +49,6 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	private CmsDomainService cmsDomainService;
 	private CmsSiteService cmsSiteService;
 	private CmsKeyValueService cmsKeyValueService;
-	private Cache cache = CacheManager.createCache(AutoPublishOuterBlogJob.class,1000);
 	
 	public void setCmsDomainService(CmsDomainService cmsDomainService) {
 		this.cmsDomainService = cmsDomainService;
@@ -102,13 +102,18 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 			if(StringUtils.length(StringUtils.remove(StringUtils.trim(page.getContent())," ")) < 300) {
 				continue;
 			}
-			CmsKeyValue cmsKeyValue = new CmsKeyValue("outerBlog", page.getAnchor().getHref());
+			CmsKeyValue cmsKeyValue = newOuterBlogCmsKeyValue(page.getAnchor());
 			if(cmsKeyValueService.exist(cmsKeyValue)) {
 				continue;
 			}
 			cmsKeyValueService.create(cmsKeyValue);
 			return page;
 		}
+	}
+
+	private static CmsKeyValue newOuterBlogCmsKeyValue(Anchor anchor) {
+		CmsKeyValue cmsKeyValue = new CmsKeyValue("outerBlog", anchor.getHref());
+		return cmsKeyValue;
 	}
 
 	public class RandomLinkPrecessor {
@@ -149,26 +154,21 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	private List<HtmlPage> cralwerForPageList() {
 		SinglePageCrawler cralwer = new SinglePageCrawler();
 		cralwer.setSourceLang("zh-CN");
-		cralwer.setAcceptUrlRegexList("http://www.oschina.net/code/snippet_.*");
-		cralwer.setUrlList("http://www.oschina.net/code/list/1/java");
+		cralwer.setAcceptUrlRegexList("http://www.oschina.net/code/snippet_.*","http://\\w+.blog.51cto.com/\\d+/\\d+");
+		cralwer.setUrlList("http://www.oschina.net/code/list/1/java","http://blog.51cto.com/original/","http://blog.51cto.com/original.php?cid=0&page=2");
 		
 		final List<HtmlPage> pageList = new ArrayList<HtmlPage>();
 		cralwer.setHtmlPageCrawler(new HtmlPageCrawler() {
 			@Override
 			public void visit(HtmlPage page) {
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
+				ThreadUtil.sleep(1000);
 				pageList.add(page);
 			}
 			
 			@Override
 			public boolean shoudVisitPage(Anchor a) {
-				long count = cache.incr(a.getHref(), 1);
-				if(count > 1)  {
+				CmsKeyValue keyValue = newOuterBlogCmsKeyValue(a);
+				if(cmsKeyValueService.exist(keyValue)) {
 					return false;
 				}
 				return true;
