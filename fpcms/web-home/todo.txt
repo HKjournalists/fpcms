@@ -227,6 +227,12 @@ BLOG: sourceforge,
 http://blog.techweb.com.cn
 http://blog.donews.com
 http://blog.51cto.com/
+http://blog.cn.com/
+http://blog.35.cn/
+http://www.blog.com/
+http://www.blogbus.com/
+http://www.okqq.net/
+
 
 
 http://bbs.28tui.com 陈有达 abc123
