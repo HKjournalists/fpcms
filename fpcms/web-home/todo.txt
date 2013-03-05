@@ -226,13 +226,23 @@ BLOG: sourceforge,
 支持EditURI:
 http://blog.techweb.com.cn
 http://blog.donews.com
-http://blog.51cto.com/
+- http://blog.51cto.com/
 http://blog.cn.com/
 http://blog.35.cn/
 http://www.blog.com/
 http://www.blogbus.com/
 http://www.okqq.net/
 
+
+待注册:
+http://post.liebiao.com
+http://bbs.chinaz.com/Shuiba/thread-4286947-1-1.html
+http://www.tianya.cn/blog/
+http://blog.stockstar.com/
+http://www.im286.com/forum.php
+http://bbs.dedecms.com/
+http://dg.58.com/
+http://9.douban.com/subject/9367463/
 
 
 http://bbs.28tui.com 陈有达 abc123

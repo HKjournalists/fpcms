@@ -22,7 +22,7 @@ public class MetaweblogPosterTest {
 
 	@Before
 	public void setUp() {
-		blog.setCategory("");
+		blog.setCategories("");
 	}
 	
 	@Test

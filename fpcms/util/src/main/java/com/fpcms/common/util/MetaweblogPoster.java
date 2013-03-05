@@ -56,7 +56,7 @@ public class MetaweblogPoster {
 			config.setServerURL(this.blogUrl);
 			config.setUserAgent(WINDOWS_LIVE_WRITER_UserAgent);
 			this.blogClient = new XmlRpcClient();
-//			this.blogClient.setTypeFactory(new CustomTypeFactoryImpl(this.blogClient));
+			this.blogClient.setTypeFactory(new CustomTypeFactoryImpl(this.blogClient));
 			blogClient.setConfig(config);
 		}
 	}
@@ -82,7 +82,7 @@ public class MetaweblogPoster {
 		// Set up parameters required by newPost method
 		Map<String, Object> post = new HashMap<String, Object>();
 		post.put("title", blog.getTitle());// 标题
-		post.put("categories", StringUtils.isBlank(blog.getCategory()) ? new String[]{} : new String[]{blog.getCategory()});// 分类
+		post.put("categories", blog.getCategories());// 分类
 		post.put("description", blog.getContent());// 内容
 		post.put("mt_keywords", "");
 		post.put("mt_excerpt", "");
@@ -90,7 +90,7 @@ public class MetaweblogPoster {
 		
 		try {
 			// 发布新博文
-			String result = (String) this.blogClient.execute("metaWeblog.newPost", params);
+			String result = String.valueOf(this.blogClient.execute("metaWeblog.newPost", params));
 			logger.info("Created with blogid " + result+" on url:"+blogUrl);
 			return result;
 		} catch (Exception e) {

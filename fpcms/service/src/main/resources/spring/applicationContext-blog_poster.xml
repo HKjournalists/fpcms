@@ -22,9 +22,10 @@
 		</property>
 		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
 	</bean>
-
+	
+	<!--
 	<bean id="hexunBlogPoster" class="com.fpcms.common.blog_post.impl.ConfigableBlogPoster" >
-		<property name="loginUrl" value="https://reg.hexun.com/login.aspx?gourl=http%3a%2f%2fblog.hexun.com%2f"></property>
+		<property name="loginUrl" value="https://reg.hexun.com/login.aspx"></property>
 		<property name="loginRequestBodyTemplate" >
 			<value><![CDATA[username=${username}&password=${password}&LoginStateAuto=1]]></value>
 		</property>
@@ -32,7 +33,7 @@
 			<value><![CDATA[11]]></value>
 		</property>
 		
-		<property name="postNewBlogUrl" value="http://post.blog.hexun.com/PostArticleHandler.ashx"></property>
+		<property name="postNewBlogUrl" value="https://post.blog.hexun.com/PostArticleHandler.ashx"></property>
 		<property name="postNewBlogRequestBodyTemplate">
 			<value><![CDATA[blogname=f22353hg&action=0&oldclass=0&weibo=1&newcategorytextbox=%E8%AF%B7%E8%BE%93%E5%85%A5%E6%96%B0%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0&chkselected=&categorylist=0&ContentSpaw=${content}&TitleTextbox=${title}&articleid=0&draftid=0&SourceTextbox=&SourceUrlTextbox=&TagTextbox=tag&TrackbackTextbox=&BriefTextbox=&VerificationInput=undefined&postid=0&HideCheckbox=1&AcceptCommentCheckbox=1&posttype=%E5%8E%9F%E5%88%9B&postclass=77&StickOutCheckbox=0&StickOutOrderNumberTextbox=0&StickOutExpiredTimeTextbox=&xfh=undefined]]></value>
 		</property>

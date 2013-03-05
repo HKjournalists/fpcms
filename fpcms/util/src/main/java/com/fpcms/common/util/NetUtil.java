@@ -91,10 +91,10 @@ public class NetUtil {
 		method.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
 	}
 	
-	public static String httpPost(String url, String postBody,String contextType) {
+	public static String httpPost(String url, String postBody,String contentType) {
 		PostMethod method = newPostMethod(url);
 		method.setRequestBody(postBody);
-		method.setRequestHeader("Content-Type", "text/xml");
+		method.setRequestHeader("Content-Type", contentType);
 		return executeForString(url,method);
 	}
 	
@@ -121,6 +121,10 @@ public class NetUtil {
 
 	private static String getCharset(HttpMethodBase method) throws IOException {
 		String charset = RegexUtil.findByRegexGroup(method.getResponseBodyAsString(), "(?s)<meta.*?charset\\s*=\\s*([\\w-]+)", 1);
+		if(StringUtils.hasText(charset)) {
+			return charset;
+		}
+		charset = RegexUtil.findByRegexGroup(method.getResponseBodyAsString(), "(?s)encoding=['\"]([\\w-]+)['\"]", 1);
 		if(StringUtils.hasText(charset)) {
 			return charset;
 		}

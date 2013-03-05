@@ -71,8 +71,8 @@ public class MetaWeblogBlogPoster implements BlogPoster,InitializingBean{
 				logger.info("found blog EditURI:"+editURI);
 				
 				Map<String,String> map = getMetaWebLogAPIAttributes(editURI);
-				String apiLink = map.get("apilink");
-				String blogId = map.get("blogid");
+				String apiLink = StringUtils.trim(map.get("apilink"));
+				String blogId = StringUtils.trim(map.get("blogid"));
 				logger.info("found MetalogAPI map:"+map);
 				poster = new MetaweblogPoster(URLUtil.newURL(apiLink),blogId);
 			}else {
