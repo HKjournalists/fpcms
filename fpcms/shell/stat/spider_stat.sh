@@ -40,6 +40,8 @@ spider_stat Baidu fp1111.info
 
 spider_stat Baidu aaafaipiao.com
 
+cat /data/log/fpcms/spider.log | grep Baidu | grep  -P "\w+.\w+/linked" 
+
 echo ""
 cat /data/log/fpcms/spider.log | awk '{print $6}' | sort | uniq -c
 
