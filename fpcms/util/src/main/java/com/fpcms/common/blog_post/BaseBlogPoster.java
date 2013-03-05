@@ -4,17 +4,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.cookie.CookiePolicy;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -34,7 +37,25 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	private HttpClient client = new HttpClient();
 	{
 //		client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+//		CookiePolicy.registerCookieSpec("accept_all", AcceptAllCookieSpecBase.class);
+//		client.getParams().setCookiePolicy("accept_all");
 	}
+	
+//	public static class AcceptAllCookieSpecBase extends CookieSpecBase{
+//		@Override
+//		public boolean domainMatch(String host, String domain) {
+//			return true;
+//		}
+//		@Override
+//		public boolean pathMatch(String path, String topmostPath) {
+//			return true;
+//		}
+////		@Override
+////		public boolean match(String host, int port, String path,
+////				boolean secure, Cookie cookie) {
+////			return true;
+////		}
+//	}
 	
 	public String getLoginUrl() {
 		return loginUrl;
@@ -59,14 +80,14 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	@Override
 	public void postBlog(Blog blog) {
 		try {
-			Cookie[] cookies = login(blog.getUsername(),blog.getPassword());
+			List<BasicClientCookie> cookies = login(blog.getUsername(),blog.getPassword());
 			postNewBlog(blog.getTitle(),blog.getContent(),blog.getMetaDescription(),blog.getExt(),cookies);
 		}catch(Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 	
-	protected Cookie[] login(String username,String password) throws Exception,IOException {
+	protected List<BasicClientCookie> login(String username,String password) throws Exception,IOException {
 		Assert.hasText(getLoginUrl(),"loginUrl must be not empty");
 		PostMethod post = helper.newPostMethod(getLoginUrl());
 		try {
@@ -83,24 +104,86 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			verifyHttpStatusCode(post.getStatusCode(),"login error,username:" + username+" response:"+responseString);
 			Assert.isTrue(verifyLoginResult(responseString),"login error,username:"+username + " response:"+responseString);
 			logger.info("login_success with username:"+username+" loginUrl:"+getLoginUrl());
+			
 			return fromSetCookieHeader(post.getResponseHeaders("Set-Cookie"));
 		}finally {
 			post.releaseConnection();
 		}
 	}
 
-	private Cookie[] fromSetCookieHeader(Header[] responseHeaders) {
-		return null;
+	private static List<BasicClientCookie> fromSetCookieHeader(Header[] responseHeaders) {
+		List<BasicClientCookie> cookies = new ArrayList<BasicClientCookie>();
+		for(Header h : responseHeaders) {
+			BasicClientCookie cookie = parseRawCookie(h.getValue());
+			cookies.add(cookie);
+		}
+		return cookies;
+	}
+	
+	
+	private static BasicClientCookie parseRawCookie(String rawCookie)  {
+	    String[] rawCookieParams = rawCookie.split(";");
+
+	    String[] rawCookieNameAndValue = splitFirst(rawCookieParams[0],'=');
+	    if (rawCookieNameAndValue.length < 2) {
+	        throw new RuntimeException("Invalid cookie: missing name and value. "+rawCookieParams[0]+" raw cookie:"+rawCookie);
+	    }
+
+	    String cookieName = rawCookieNameAndValue[0].trim();
+	    String cookieValue = rawCookieNameAndValue[1].trim();
+	    BasicClientCookie cookie = new BasicClientCookie(cookieName, cookieValue);
+	    for (int i = 1; i < rawCookieParams.length; i++) {
+	        String rawCookieParamNameAndValue[] = rawCookieParams[i].trim().split("=");
+
+	        String paramName = rawCookieParamNameAndValue[0].trim();
+	        
+	        if(rawCookieParamNameAndValue.length == 1) {
+	        	continue;
+	        }
+	        
+	        if (paramName.equalsIgnoreCase("secure")) {
+	            cookie.setSecure(true);
+	        } else {
+	            String paramValue = rawCookieParamNameAndValue[1].trim();
+
+	            if (paramName.equalsIgnoreCase("expires")) {
+	                cookie.setExpiryDate(new Date(paramValue));
+	            } else if (paramName.equalsIgnoreCase("max-age")) {
+	                long maxAge = Long.parseLong(paramValue);
+	                Date expiryDate = new Date(System.currentTimeMillis() + maxAge);
+	                cookie.setExpiryDate(expiryDate);
+	            } else if (paramName.equalsIgnoreCase("domain")) {
+	                cookie.setDomain(paramValue);
+	            } else if (paramName.equalsIgnoreCase("path")) {
+	                cookie.setPath(paramValue);
+	            } else if (paramName.equalsIgnoreCase("comment")) {
+	                cookie.setPath(paramValue);
+	            } else {
+	                throw new RuntimeException("Invalid cookie: invalid attribute name. cookie name:"+paramName);
+	            }
+	        }
+	    }
+
+	    return cookie;
 	}
 
-	private void printResponseHeaders(PostMethod post) {
+	private static String[] splitFirst(String str,char seperator) {
+		int index = str.indexOf(seperator);
+		if(index >= 0) {
+			return new String[]{str.substring(0, index),str.substring(index + 1,str.length())};
+		}
+		return new String[]{str};
+	}
+	
+
+	private static void printResponseHeaders(PostMethod post) {
 		Header[] headers = post.getResponseHeaders();
 		for(Header h : headers) {
 			System.out.println(h.getName()+"="+h.getValue());
 		}
 	}
 
-	private void printCookies(Cookie[] cookies) {
+	private static void printCookies(Cookie[] cookies) {
 		System.out.println("--------- print cookies ------");
 		for(Cookie c : cookies) {
 			System.out.println(c.getName()+"="+c.getValue());
@@ -108,9 +191,9 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	}
 	
 	
-	private static String toRequestHeaderCookieString(Cookie[] cookies) {
+	private static String toRequestHeaderCookieString(List<BasicClientCookie> cookies) {
 		 String tmpcookies = "";  
-		for(Cookie c : cookies) {
+		for(BasicClientCookie c : cookies) {
 			tmpcookies = tmpcookies + c.toString() + ";";  
 		}
 		return tmpcookies;
@@ -123,7 +206,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 		throw new IllegalStateException("error http statusCode:" + statusCode + "; " +attachErrorMessage);
 	}
 
-	protected void postNewBlog(String title,String content,String metaDescription,Map<String,String> ext, Cookie[] cookies) throws Exception,IOException, HttpException {
+	protected void postNewBlog(String title,String content,String metaDescription,Map<String,String> ext, List<BasicClientCookie> cookies) throws Exception,IOException, HttpException {
 		Assert.hasText(getPostNewBlogUrl(),"postNewBlogUrl must be not empty");
 		PostMethod post = helper.newPostMethod(getPostNewBlogUrl());
 		if(StringUtils.isNotBlank(getPostNewBlogContentType())) {

@@ -6,7 +6,7 @@ import java.util.Map;
 public class HexunBlogPoster extends ConfigableBlogPoster{
 
 	public HexunBlogPoster() {
-		setLoginUrl("http://reg.hexun.com/login.aspx");
+		setLoginUrl("https://reg.hexun.com/login.aspx");
 		setLoginRequestBodyTemplate("username=${username}&password=${password}&LoginStateAuto=1");
 		setVerifyLoginResultRegex("Object moved to");
 		
