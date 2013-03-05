@@ -251,6 +251,10 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		if(StringUtils.isBlank(c.getContent())) {
 			return null;
 		}
+		if(KeywordUtil.isSensitiveKeyword(c.getTitle()) || KeywordUtil.isSensitiveKeyword(c.getContent())) {
+			logger.info("ignore has sensitiveKeyword HtmlPage:"+c.getTitle());
+			return null;
+		}
 		
 		if(SearchEngineUtil.baiduKeywordsNotExist(c.getTitle())) {
 			logger.info("baidu_not_exist article:"+c.getTitle());
