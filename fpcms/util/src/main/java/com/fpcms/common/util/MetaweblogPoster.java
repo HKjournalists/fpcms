@@ -23,6 +23,7 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
 import com.fpcms.common.blog_post.Blog;
+import com.fpcms.common.blog_post.impl.CustomTypeFactoryImpl;
 
 public class MetaweblogPoster {
 	public static String WINDOWS_LIVE_WRITER_UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Windows Live Writer 1.0)";

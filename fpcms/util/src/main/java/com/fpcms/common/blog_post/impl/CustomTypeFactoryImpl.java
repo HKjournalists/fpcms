@@ -1,4 +1,4 @@
-package com.fpcms.common.util;
+package com.fpcms.common.blog_post.impl;
 
 import org.apache.xmlrpc.common.TypeFactoryImpl;
 import org.apache.xmlrpc.common.XmlRpcController;
