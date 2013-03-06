@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.duowan.common.util.page.Page;
+import com.fpcms.common.blog_post.Blog;
+import com.fpcms.common.blog_post.impl.MetaWeblogBlogPoster;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.model.CmsDomain;
 import com.fpcms.query.CmsDomainQuery;
@@ -40,5 +42,13 @@ public class AutoPublishOuterBlogJobTest extends Mockito{
 		list.add(new HtmlPage("test_title_AutoPublishOuterBlogJobTest",StringUtils.repeat("11111", 200)));
 		list.add(new HtmlPage("test_title_AutoPublishOuterBlogJobTest",StringUtils.repeat("11111", 200)));
 		job.postAllBlog(list);
+	}
+	
+	@Test
+	public void test_postBlog_blog_com() {
+		MetaWeblogBlogPoster blogPoster = new MetaWeblogBlogPoster("http://blogtg123.blog.com/","blogtg123@gmail.com","abc123");
+		Blog blog = new Blog("test_title","test_content");
+		blog.setCategories("1");
+		blogPoster.postBlog(blog);
 	}
 }

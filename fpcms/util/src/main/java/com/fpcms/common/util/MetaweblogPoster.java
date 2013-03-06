@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
 import com.fpcms.common.blog_post.Blog;
 
 public class MetaweblogPoster {
-	public static String WINDOWS_LIVE_WRITER_UserAgent = "User-Agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Windows Live Writer 1.0)";
+	public static String WINDOWS_LIVE_WRITER_UserAgent = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Windows Live Writer 1.0)";
 	
 	private static Logger logger = LoggerFactory.getLogger(MetaweblogPoster.class);
 	
@@ -101,6 +101,7 @@ public class MetaweblogPoster {
 
 	private String toXmlString(Object[] params) {
 		try {
+			if(params == null) return null;
 			String xmlString = null;
 			XmlRpcClientRequestImpl request = new XmlRpcClientRequestImpl(blogClient.getClientConfig(), "metaWeblog.newPost", params);
 			ReqWriterImpl reqWriter = new ReqWriterImpl(request);

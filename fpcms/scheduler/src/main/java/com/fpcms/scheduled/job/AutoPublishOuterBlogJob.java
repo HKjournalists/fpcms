@@ -69,6 +69,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		posterList.add(new AccountBlogPosterDecorator(new OschinaBlogPoster(),"fpqqchao@gmail.com","6367c48dd193d56ea7b0baad25b19455e529f5ee"));
 		posterList.add(new MetaWeblogBlogPoster("http://sh292did.blog.163.com/","fpqqchao@gmail.com","asdf@1234"));
 		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3099457992","fpqqchao@gmail.com","asdf@1234"));
+		posterList.add(new MetaWeblogBlogPoster("http://blogtg123.blog.com/","blogtg123@gmail.com","abc123"));
 	}
 	
 	@Override
