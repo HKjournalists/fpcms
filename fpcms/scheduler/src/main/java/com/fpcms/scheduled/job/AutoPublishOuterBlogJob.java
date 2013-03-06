@@ -137,7 +137,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 					continue;
 				}
 				useedLink.add(link);
-				return String.format(" <a href='%s'>%s</a>; ",link,link);
+				return link;
 			}
 			return "";
 		}
@@ -147,7 +147,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 			CmsSite site = RandomUtil.randomSelect(siteList);
 			Assert.notNull(site,"not found any random CmsDomain");
 			String link =  site.getYesterdayOuterLinked();
-			return String.format(" <a href='%s'>%s</a>; ",link,link);
+			return link;
 		}
 	}
 	
