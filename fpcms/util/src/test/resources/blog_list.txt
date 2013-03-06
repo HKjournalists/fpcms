@@ -394,3 +394,190 @@ http://blog.gxsky.com/ 5星+
 499 职场博客 blog.jobems.com China
 
 500 儿童博客网 www.61bay.com China
+
+
+
+http://spaces.msn.com/
+http://www.blogeasy.com/
+http://www.easyjournal.com/
+http://www.vnunet.com/blogs/
+http://multiply.com/
+http://www.blog-city.com/bc/
+http://www.blogharbor.com/
+http://bloghi.com/
+http://bloghorn.com/
+http://www.blogspirit.com/
+http://www.blogsource.com/
+http://www.ebloggy.com/
+http://www.pitas.com/
+http://www.blogger.de/
+++++ Wordpress
+http://www.blogsome.com/
+http://weblogs.us/
+http://www.wordpress.com
+http://www.wpblogs.com/
+http://www.blogthing.com/
+http://globbo.org/
+http://www.theblog.cc/
+http://learnerblogs.org/
+http://uniblogs.org/
+http://edublogs.org
+http://hrblogs.org/
+http://beblogger.com/
+http://www.evilsupergenius.net/
+++++ Blogger
+http://www.blogcafe.com/
+http://www.blogspot.com
+++++ Other
+(These seem to belong in the same network)
+http://www.weblogs.hu/
+http://www.weblogs.cz/
+http://www.blogs.ro/
+http://www.weblogs.pl/
+http://www.blogs.fi/
+http://www.blogs.no/
+http://www.blogs.dk/
+http://www.blogs.se/
+http://www.blogs.ie/
+http://www.blog.com.es/
+http://www.blog.de/
+http://www.blog.com/
+http://www.blog.co.uk/
+http://www.blog.ca/
+++ Subdirectories
+http://members.freewebs.com/
+http://www.livejournal.com/
+http://www.20six.co.uk/
+http://www.xanga.com/
+http://www.aeonity.com/
+http://www.bloggercrab.com/
+http://www.upsaid.com/
+
+http://www.bloglines.com/ PR8
+http://www.technorati.com/ PR8
+http://www.feedster.com/ PR8
+http://boingboing.net/ PR8
+http://www.weblogalot.com/ PR7
+http://blogcritics.org/ PR7
+http://www.globeofblogs.com/ PR7
+http://www.bloggernity.com/ PR7
+http://www.blogrankings.com/ PR7
+http://www.globeofblogs.com/ PR7
+http://www.blogstreet.com/ PR7
+http://blogcatalog.com/ PR7
+http://blogdex.net/ PR6
+http://www.2rss.com/ PR6
+http://www.pubsub.com/ PR6
+http://www.blogsearchengine.com/ PR6
+http://www.blogdigger.com/ PR6
+http://portal.eatonweb.com/ PR6
+http://www.blogdex.net/ PR6
+http://www.blogmatrix.com/ PR6
+http://www.fastbuzz.com/ PR6
+http://www.blogrunner.com/ PR6
+http://bulkfeeds.net/ PR6
+http://www.blogsbywomen.org/ PR6
+http://www.search4rss.com/ PR6
+http://www.blurtit.com/ PR5
+http://www.bloogz.com/ PR5
+http://www.shas3.com/ PR5
+http://www.blogexplosion.com/ PR5
+http://www.syndic8.com/ PR5
+http://findingblog.com/  PR5
+
+
+列表URL
+http://www.360doc.com/content/12/1027/13/10432794_244061274.shtml
+
+
+Danga 软件支持的国外免费博客列表
+
+GreatestJournal.com - Based on the same software as LiveJournal, offers free voice posts, 1GB of photo hosting, and space for up to 2,000 user icons.
+
+InsaneJournal.com - Another site based on the Danga software that runs LiveJournal, offers free and paid accounts, paid benefits are only enhancements.
+
+JorunalFen.net - Runs on the Danga platform, very much directed towards various “fandoms” (i.e. Harry Potter, various Television shows) and is meant for users 18 and older.
+
+LiveJournal.com - One of the most well known of the blogging hosts. Offers multiple account types such as ad-supported and paid. The center of a few controversies recently.
+
+Themed 国外免费博客列表
+
+Blogabond.com - A site dedicated to travel blogs with map integration and more.
+
+BlogCheese.com - A video blogging website.
+
+BusyThumbs.com - A blog site specifically for your text messages and camera phone images.
+
+Freevlog - Designed for video blogging and completely free.
+
+Trippert.com - Create and share blogs of your travels.
+
+Ufem.com - Blogging site specifically geared towards women. Offers multiple themes and plugins.
+
+Word Count Journal.com - A new blogging format that is also part challenge. Write one word on the first day, two words on the second day and so on, at the end of the year you’ll have written 66,795 words.
+
+Xanco.com - Another moblogging site for you to share all your mobile communications with friends and family.
+
+WordPress 支持的国外免费博客列表
+
+Blogetery.com - Offers multiple templates, anti-spam, free sub-domain and more.
+
+BlogRox.com - Runs on WordPress and offers 50MB of free online space.
+
+Blogsome.com - Based out of Ireland, this site uses the WordPress MU platform, large choice of themes.
+
+Edublogs.com - WordPress powered blogging for educators.
+
+WordPress.com - Not only can you install WordPress on your own sites, you can use the same software on their site and save yourself all of the technical work.
+
+其他平台的国外免费博客列表
+
+Blog.com - Offers free blog hosting with unlimited bandwidth for their free package, more benefits for paid members.
+
+Blog Ladder.com - All blog entries show up on the main ladder as well as inside your own blog.
+
+Blogger.com - A great starting site to get a taste of blogging, very easy to use.
+
+Blogr.com - Allows you to blog, host photos & videos, and podcasts.
+
+BlogSpirit.com - European based blogging site, offers 30-day trial and subscription thereafter, but offers quite a bit of storage.
+
+Blogster.com - Offers free image hosting in addition to free blogs.
+
+BlogYx.com - Blogging site with extras such as chat boxes so you can interact with your readers.
+
+Bloki.com - Lets you build a blog site and even open it up for collaboration.
+
+Bravenet.com - Free blog hosting with RSS feeds and more.
+
+ClearBlogs.com - Free blog hosting and offers templates, friends only posts, IP-Banning and more.
+
+Etribes.com - Based in Europe, allows you to create all sorts of websites including a blog.
+
+Multiply.com - Mixes blogging and social networking, with photo galleries and more.
+
+Netcipia.com - Free blog and wiki for private or public display with 2GB of storage.
+
+Open Diary.com - Offers unlimited storage and posts, low cost subscription rates for advanced features.
+
+ShoutPost.com - A platform for creating blogs with a focus on generating traffic.
+
+SoulCast.com - Have something you want to talk about, but want to say it anonymously? This may be the blogging site for you.
+
+Squarespace.com - Lets you build your blog with numerous themes, also allows you to add other site features.
+
+Terapad.com - Offers blogs as well as features such as an integrated store.
+
+Tooum.com - Fully integrated blog and forum which allows for seamless discussion between the two.
+
+Tumblr.com - A blog platform with a focus on allowing media-rich posts.
+
+Weebly.com - Allows you to create a site and blog, free hosting and change designs on the fly.
+
+Windows Live Spaces - Free blogging with your MSN account, only drawback is readers have to have an account also.
+
+Vox.com - Part of the SixApart family of blogging sites, very much geared towards the personal journal types of blogs.
+
+Xanga.com - Part social network, part blogging, all free.
+Yahoo 360 - Part of your Yahoo account and features easy publishing.
+Zoomshare.com - Free blog hosting with 250MB of free storage.
