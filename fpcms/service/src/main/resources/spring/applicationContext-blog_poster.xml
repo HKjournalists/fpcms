@@ -22,6 +22,7 @@
 		</property>
 		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
 	</bean>
+	-->
 	
 	<!--
 	<bean id="hexunBlogPoster" class="com.fpcms.common.blog_post.impl.ConfigableBlogPoster" >
