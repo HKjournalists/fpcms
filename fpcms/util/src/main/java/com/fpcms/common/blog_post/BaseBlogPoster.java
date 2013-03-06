@@ -95,9 +95,9 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			setLoginRequestBody(username, password, post);
 			client.executeMethod(post);
 			
-			printResponseHeaders(post);
+//			printResponseHeaders(post);
 			Cookie[] cookies = client.getState().getCookies();
-			printCookies(cookies);
+//			printCookies(cookies);
 			
 			InputStream stream = post.getResponseBodyAsStream();
 			String responseString = IOUtils.toString(stream,"UTF-8");
@@ -177,6 +177,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	
 
 	private static void printResponseHeaders(PostMethod post) {
+		System.out.println("--------- printResponseHeaders ------");
 		Header[] headers = post.getResponseHeaders();
 		for(Header h : headers) {
 			System.out.println(h.getName()+"="+h.getValue());
@@ -184,7 +185,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	}
 
 	private static void printCookies(Cookie[] cookies) {
-		System.out.println("--------- print cookies ------");
+		System.out.println("--------- printCookies ------");
 		for(Cookie c : cookies) {
 			System.out.println(c.getName()+"="+c.getValue());
 		}
