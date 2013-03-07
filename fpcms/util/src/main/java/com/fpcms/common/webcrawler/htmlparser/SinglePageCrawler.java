@@ -37,6 +37,11 @@ public class SinglePageCrawler {
 	private int minContentLength = 300;
 	private boolean deleteUrlQueryString = true;
 	
+	/**
+	 * 为文章打些标签
+	 */
+	private String tags;
+	
 	private HtmlPageCrawler htmlPageCrawler = new HtmlPageCrawler() {
 		public boolean shoudVisitPage(Anchor a) {
 			return true;
@@ -77,6 +82,14 @@ public class SinglePageCrawler {
 	public String[] getUrlList() {
 		return urlList;
 	}
+	
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
 
 	public void setMainContentSelector(String... mainContentSelector) {
 		this.mainContentSelector = mainContentSelector;
@@ -95,6 +108,8 @@ public class SinglePageCrawler {
 	}
 
 	public void execute() {
+		logger.info("start_execute_craw,sourceLang:"+sourceLang+" tags:"+tags+" minContentLength:"+minContentLength+" acceptUrlRegexList:"+StringUtils.join(acceptUrlRegexList,","));
+		
 		for(String url : urlList) {
 			try {
 				crlawUrl(url);

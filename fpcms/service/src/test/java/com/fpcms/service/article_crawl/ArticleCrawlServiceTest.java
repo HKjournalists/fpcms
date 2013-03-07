@@ -21,10 +21,12 @@ import com.duowan.common.util.page.PageQuery;
 import com.duowan.common.util.page.Paginator;
 import com.fpcms.model.CmsContent;
 import com.fpcms.service.CmsContentService;
+import com.fpcms.service.CmsKeyValueService;
 
 public class ArticleCrawlServiceTest extends Mockito{
 	private ArticleCrawlService articleCrawlService = new ArticleCrawlService(); ;
 	private CmsContentService cmsContentService = mock(CmsContentService.class);
+	private CmsKeyValueService cmsKeyValueService = mock(CmsKeyValueService.class);
 	private ApplicationContext applicationContext;
 	
 	@Before
@@ -32,6 +34,9 @@ public class ArticleCrawlServiceTest extends Mockito{
 		applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/applicationContext-crawler.xml");
 		articleCrawlService.setApplicationContext(applicationContext);
 		articleCrawlService.setCmsContentService(cmsContentService);
+		articleCrawlService.setCmsContentService(cmsContentService);
+		articleCrawlService.setCmsKeyValueService(cmsKeyValueService);
+		
 		articleCrawlService.afterPropertiesSet();
 	}
 	
@@ -73,6 +78,11 @@ public class ArticleCrawlServiceTest extends Mockito{
 		Page<CmsContent> page = new Page<CmsContent>(list,new Paginator(1, 100, 1000));
 		when(cmsContentService.findPage((PageQuery)any(), (String)any(), (String)any(), (DateRange)any())).thenReturn(page);
 		articleCrawlService.mergeSmallArticle();
+	}
+	
+	@Test
+	public void crawlFapiaoKeyword() {
+		articleCrawlService.crawlFapiaoKeyword();
 	}
 
 	private CmsContent newCmsContent(int i) {

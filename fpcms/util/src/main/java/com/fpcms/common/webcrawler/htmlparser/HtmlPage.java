@@ -16,6 +16,8 @@ public class HtmlPage {
 	
 	private String sourceLang;
 	
+	private String tags;
+	
 	
 	public HtmlPage() {
 	}
@@ -73,6 +75,16 @@ public class HtmlPage {
 	public void setSourceLang(String sourceLang) {
 		this.sourceLang = sourceLang;
 	}
+	
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+
 
 	public static class Anchor {
 		private String href;

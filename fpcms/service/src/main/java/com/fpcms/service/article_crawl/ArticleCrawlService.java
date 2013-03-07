@@ -32,15 +32,16 @@ import com.fpcms.common.util.RegexUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.common.util.URLEncoderUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPageCrawler;
 import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
-import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsKeyValue;
 import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsKeyValueService;
 import com.fpcms.service.CmsSiteService;
+import com.fpcms.service.article_crawl.ArticleCrawlService.Transformer;
 
 /**
  * 从其它网站进行文章采集的service
@@ -101,7 +102,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			}
 			
 			String keyword = keywordList.get(0);
-			crawByKeyword(keyword,new HtmlPageCrawlerImpl() {
+			crawByKeyword(keyword,keyword,new HtmlPageCrawlerImpl() {
 				@Override
 				protected void prepareCmsContent(CmsContent c) {
 					super.prepareCmsContent(c);
@@ -118,7 +119,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	public void crawlAllBuzzKeyword() {
 		Set<String> buzzList = BaiduTopBuzzUtil.getBaiduBuzzs();
 		for(final String buzz : buzzList) {
-			crawByKeyword(buzz,new HtmlPageCrawlerImpl() {
+			crawByKeyword(buzz,"buzz",new HtmlPageCrawlerImpl() {
 				@Override
 				public void prepareCmsContent(CmsContent c) {
 					c.setTitle("图片故事-"+c.getTitle());
@@ -127,7 +128,24 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		}
 	}
 
-	private void crawByKeyword(final String buzz,HtmlPageCrawler htmlPageCrawler) {
+	/**
+	 * 爬发票关键词
+	 */
+	public void crawlFapiaoKeyword() {
+		String searchUrl = "http://www.google.com/search?q=%E5%8F%91%E7%A5%A8&num=100&hl=zh-CN&biw=1440&bih=702&tbm=nws";
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler("fapiao",new HtmlPageCrawlerImpl(){
+			@Override
+			public void visit(HtmlPage page) {
+				CmsContent c = buildCmsContent(page,new NaipanTransformer());
+				if(c != null) {
+					cmsContentService.create(c);
+				}
+			}
+		},searchUrl);
+		crawler.execute();
+	}
+	
+	private void crawByKeyword(final String buzz,String tags,HtmlPageCrawler htmlPageCrawler) {
 		CmsKeyValue cmsKeyValue = new CmsKeyValue(Constants.KEY_VALUE_GROUP_SEARCH_BUZZ,buzz);
 		if(cmsKeyValueService.exist(cmsKeyValue)) {
 			logger.info("ignore search,already_search_buzz:"+buzz);
@@ -138,15 +156,19 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		
 		final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
 		String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
-		SinglePageCrawler crawler = new SinglePageCrawler();
-		crawler.setUrlList(searchUrl);
-		crawler.setSourceLang("zh-CN");
-		crawler.setExcludeUriRegexList(".*google.*",".*youtube.*",".*blogger.*");
-		crawler.setHtmlPageCrawler(htmlPageCrawler);
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,htmlPageCrawler,searchUrl);
 		crawler.execute();
 	}
 
-
+	private SinglePageCrawler newGoogleSinglePageCrawler(String tags,HtmlPageCrawler htmlPageCrawler, String... searchUrl) {
+		SinglePageCrawler crawler = new SinglePageCrawler();
+		crawler.setUrlList(searchUrl);
+		crawler.setSourceLang("zh-CN");
+		crawler.setTags(tags);
+		crawler.setExcludeUriRegexList(".*google.*",".*youtube.*",".*blogger.*");
+		crawler.setHtmlPageCrawler(htmlPageCrawler);
+		return crawler;
+	}
 	
 	/**
 	 * 合并过于短小的文章
@@ -224,26 +246,49 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	}
 	
 	private CmsContent buildCmsContent(HtmlPage page) {
+		return buildCmsContent(page,new GoogleTranslateTransformer());
+	}
+	
+	public static interface Transformer {
+		public String transform(String sourceLang,String content);
+	}
+	
+	public static class GoogleTranslateTransformer implements Transformer {
+		public String transform(String sourceLang,String content) {
+			String transformedContent = null;
+			if("zh-cn".equalsIgnoreCase(sourceLang) || "zh-tw".equalsIgnoreCase(sourceLang)) {
+				transformedContent = GoogleTranslateUtil.reverseTwoWayTranslate(content,"zh-CN","en");
+			}else {
+				transformedContent = GoogleTranslateUtil.translate(content,sourceLang,"zh-CN");
+			}
+			return transformedContent;
+		}
+	}
+	
+	public static class NaipanTransformer implements Transformer {
+		public String transform(String sourceLang,String content) {
+			String transformedContent = null;
+			if("zh-cn".equalsIgnoreCase(sourceLang) || "zh-tw".equalsIgnoreCase(sourceLang)) {
+				transformedContent = NaipanArticleGeneratorUtil.transformArticle(content);
+			}else {
+				transformedContent = GoogleTranslateUtil.translate(content,sourceLang,"zh-CN");
+			}
+			return transformedContent;
+		}
+	}
+	
+	private CmsContent buildCmsContent(HtmlPage page,Transformer transformer) {
 		if(hasFilterKeyword(page.getTitle(),page.getContent())) {
 			return null;
 		}
 		
 		CmsContent c = new CmsContent();
-		String content = null;
-		String title = null;
-		if("zh-cn".equalsIgnoreCase(page.getSourceLang()) || "zh-tw".equalsIgnoreCase(page.getSourceLang())) {
-			content = GoogleTranslateUtil.reverseTwoWayTranslate(page.getContent(),"zh-CN","en");
-			title = KeywordUtil.getMaxLengthToken(GoogleTranslateUtil.reverseTwoWayTranslate(page.getTitle(),"zh-CN","en"));
-//		}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
-//			c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
-//			c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));
-		}else {
-			content = GoogleTranslateUtil.translate(page.getContent(),page.getSourceLang(),"zh-CN");
-			title = GoogleTranslateUtil.translate(page.getTitle(),page.getSourceLang(),"zh-CN");
-		}
+		String content = transformer.transform(page.getSourceLang(),page.getContent());
+		String title = transformer.transform(page.getSourceLang(),page.getTitle());
 		
 		c.setContent(HtmlFormatUtil.htmlBeauty(content));
 		c.setTitle(title);
+		c.setTags(page.getTags());
 		
 		if(hasFilterKeyword(c.getTitle(),c.getContent())) {
 			return null;
