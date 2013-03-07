@@ -138,7 +138,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 					continue;
 				}
 				useedLink.add(link);
-				return link;
+				return " "+link+" ";
 			}
 			return "";
 		}

@@ -232,8 +232,8 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		String content = null;
 		String title = null;
 		if("zh-cn".equalsIgnoreCase(page.getSourceLang()) || "zh-tw".equalsIgnoreCase(page.getSourceLang())) {
-			content = NaipanArticleGeneratorUtil.transformArticle(GoogleTranslateUtil.reverseTwoWayTranslate(page.getContent(),"zh-CN","en"));
-			title = KeywordUtil.getMaxLengthToken(NaipanArticleGeneratorUtil.transformArticle(GoogleTranslateUtil.reverseTwoWayTranslate(page.getTitle(),"zh-CN","en")));
+			content = GoogleTranslateUtil.reverseTwoWayTranslate(page.getContent(),"zh-CN","en");
+			title = KeywordUtil.getMaxLengthToken(GoogleTranslateUtil.reverseTwoWayTranslate(page.getTitle(),"zh-CN","en"));
 //		}else if("zh-tw".equalsIgnoreCase(page.getSourceLang())) {
 //			c.setTitle(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getTitle())));
 //			c.setContent(NaipanArticleGeneratorUtil.transformArticle(JChineseConvertor.getInstance().t2s(page.getContent())));

@@ -110,6 +110,7 @@
 		<property name="urlList">
 			<list>
 				<value><![CDATA[https://www.google.com.tw/search?q=%E5%8F%91%E7%A5%A8+-%E5%BC%80&hl=zh-CN&newwindow=1&source=lnt&tbs=qdr:d&sa=X&biw=1440&bih=69&num=40]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?q=%E5%8F%91%E7%A5%A8&num=100&hl=zh-CN&tbm=nws&biw=1440&bih=702]]></value>
 			</list>
 		</property>
 		<property name="excludeUriRegexList">
