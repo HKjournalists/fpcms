@@ -11,8 +11,9 @@ import static com.duowan.common.util.DateFormats.DATE_FORMAT;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -25,6 +26,7 @@ import com.duowan.common.util.DateConvertUtils;
 import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.ChineseSegmenterUtil;
 import com.fpcms.common.util.StringHelper;
+import com.fpcms.common.util.Tags;
 
 
 /**
@@ -58,8 +60,7 @@ public class CmsContent  implements java.io.Serializable{
     /**
      * 标签       db_column: tags 
      */ 	
-	@Length(max=50)
-	private java.lang.String tags;
+	private Set<String> tags = new HashSet<String>();
 	
     /**
      * 网页头title       db_column: head_title 
@@ -139,11 +140,15 @@ public class CmsContent  implements java.io.Serializable{
 	}
 	
 	public java.lang.String getTags() {
-		return this.tags;
+		return Tags.toString(tags);
 	}
 	
 	public void setTags(java.lang.String value) {
-		this.tags = value;
+		this.tags = Tags.fromString(value);
+	}
+	
+	public Set<String> getTagSet() {
+		return this.tags;
 	}
 	
 	public java.lang.String getHeadTitle() {
