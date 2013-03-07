@@ -24,4 +24,14 @@ public class Tags {
 		return new HashSet<String>(Arrays.asList(tags));
 	}
 	
+	public static boolean containOne(String expectedTags,String actualTags) {
+		Set<String> exptecedTagSet = fromString(expectedTags);
+		Set<String> actualTagSet = fromString(actualTags);
+		for(String actualTag : actualTagSet) {
+			if(exptecedTagSet.contains(actualTag)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

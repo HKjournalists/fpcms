@@ -3,7 +3,10 @@ package com.fpcms.scheduled.job;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,7 @@ import org.springframework.util.Assert;
 
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.DomainUtil;
+import com.fpcms.common.util.Tags;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsContentQuery;
@@ -62,8 +66,20 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				break;
 			
 			String site = cmsSite.getSiteDomain();
+			String siteExceptContentTags = cmsSite.getProperty(CmsSite.PROP_EXPECT_CONTENT_TAGS);
 			if(DomainUtil.isMainSite(site)) {
-				CmsContent content = list.remove(0);
+				CmsContent content = null;
+				if(StringUtils.isNotBlank(siteExceptContentTags)) {
+					content = findExpectContentByTags(siteExceptContentTags,list);
+				}else {
+					content = list.remove(0);
+				}
+				
+				if(content == null) {
+					logger.warn("not found CmsContent for site:"+site+" siteExceptContentTags:"+siteExceptContentTags);
+					continue;
+				}
+				
 				content.setSite(site);
 				content.setDateCreated(new Date());
 				logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
@@ -71,6 +87,17 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				CmsContent.baiduBlogPing(content);
 			}
 		}
+	}
+
+	private CmsContent findExpectContentByTags(String siteExceptContentTags,List<CmsContent> list) {
+		for(ListIterator<CmsContent> it = list.listIterator();it.hasNext();) {
+			CmsContent c = it.next();
+			if(Tags.containOne(siteExceptContentTags, c.getTags())) {
+				it.remove();
+				return c;
+			}
+		}
+		return null;
 	}
 
 	@Override

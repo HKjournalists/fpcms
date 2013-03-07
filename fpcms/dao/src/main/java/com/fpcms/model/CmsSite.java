@@ -31,8 +31,15 @@ import com.fpcms.common.util.StringHelper;
 public class CmsSite  implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
-	
+	/**
+	 * 百度关键字排名
+	 */
 	public static final String PROP_KEYWORDS_RANK_BAIDU = "keywordsRankBaidu";
+	
+	/**
+	 * 期待的网站内容tag
+	 */
+	public static final String PROP_EXPECT_CONTENT_TAGS = "exceptContentTags";
 	
 	//date formats
 	
@@ -362,6 +369,14 @@ public class CmsSite  implements java.io.Serializable{
 	
 	public Properties getProperties() {
 		return this.props;
+	}
+
+	public String getProperty(String key) {
+		return this.props.getProperty(key);
+	}
+	
+	public String getProperty(String key,String defaultValue) {
+		return this.props.getProperty(key,defaultValue);
 	}
 	
 	public void setProperty(String key,String value) {
