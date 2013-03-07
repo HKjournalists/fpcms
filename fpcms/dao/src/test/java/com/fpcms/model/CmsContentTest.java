@@ -26,4 +26,17 @@ public class CmsContentTest extends Assert{
 		assertEquals(c.getUrl(),"http://www.163.com/content/20130206/100.do"); 
 	}
 	
+	
+	@Test
+	public void test_getTags() {
+		c.setTags("abc,123");
+		assertTrue(c.getTagSet().contains("abc"));
+		assertTrue(c.getTagSet().add("blog"));
+		assertEquals(c.getTags(),"abc,123,blog");
+		
+		c.setTags(null);
+		assertEquals(c.getTags(),"");
+	}
+	
+	
 }
