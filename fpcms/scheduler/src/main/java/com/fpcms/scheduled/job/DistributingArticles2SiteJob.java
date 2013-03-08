@@ -39,7 +39,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 	
 	public DistributingArticles2SiteJob() {
 //		super("0 * * * * *");
-		super("0 1 8,16 * * *");
+		super("0 1 11 * * *");
 	}
 	
 	public void setCmsContentService(CmsContentService cmsContentService) {
