@@ -9,6 +9,13 @@
 	<bean id="parentSinglePageCrawler" class="com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler" abstract="true">
 		<property name="minContentLength" value="500"></property>
 		<property name="sourceLang" value="auto"></property>
+		<property name="excludeUriRegexList">
+			<list>
+				<value>.*google.*</value>
+				<value>.*youtube.*</value>
+				<value>.*ebay.*</value>
+			</list>
+		</property>		
 	</bean>
 	
 	<!-- 
@@ -89,22 +96,43 @@
 		<property name="tags" value="en_fapiao"></property>
 		<property name="urlList">
 			<list>
-				<value><![CDATA[https://www.google.com.hk/search?num=30&hl=en&gl=us&tbm=nws&q=allintitle:invoice]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=70&hl=en&gl=us&tbm=nws&q=allintitle:invoice]]></value>
 				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1]]></value>
 				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=100]]></value>
 				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=200]]></value>
 				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=en&as_epq=invoice&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=300]]></value>
 			</list>
 		</property>
-		<property name="excludeUriRegexList">
+	</bean>	
+
+	<bean parent="parentSinglePageCrawler">
+		<property name="sourceLang" value="fr"></property>
+		<property name="tags" value="en_fapiao"></property>
+		<property name="urlList">
 			<list>
-				<value>.*google.*</value>
-				<value>.*youtube.*</value>
-				<value>.*ebay.*</value>
+				<value><![CDATA[https://www.google.com.hk/search?num=30&hl=fr&gl=us&tbm=nws&q=allintitle:facture]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=fr&as_epq=facture&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=fr&as_epq=facture&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=100]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=fr&as_epq=facture&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=200]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=fr&as_epq=facture&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=300]]></value>
 			</list>
 		</property>
 	</bean>	
-	
+		
+	<bean parent="parentSinglePageCrawler">
+		<property name="sourceLang" value="jp"></property>
+		<property name="tags" value="en_fapiao"></property>
+		<property name="urlList">
+			<list>
+				<value><![CDATA[https://www.google.com.hk/search?num=30&hl=jp&gl=us&tbm=nws&q=allintitle:%E9%80%81%E3%82%8A%E7%8A%B6]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=jp&as_epq=%E9%80%81%E3%82%8A%E7%8A%B6&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=jp&as_epq=%E9%80%81%E3%82%8A%E7%8A%B6&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=100]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=jp&as_epq=%E9%80%81%E3%82%8A%E7%8A%B6&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=200]]></value>
+				<value><![CDATA[https://www.google.com.hk/search?num=100&hl=jp&as_epq=%E9%80%81%E3%82%8A%E7%8A%B6&as_qdr=d&as_occt=title&tbs=qdr:d,sbd:1&start=300]]></value>
+			</list>
+		</property>
+	</bean>	
+		
 	<!-- 
 	<bean parent="parentSinglePageCrawler">
 		<property name="sourceLang" value="zh-CN"></property>
