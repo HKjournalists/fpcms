@@ -84,9 +84,9 @@
 	</bean>
 	 -->
 	
-	<!-- 
 	<bean parent="parentSinglePageCrawler">
 		<property name="sourceLang" value="en"></property>
+		<property name="tags" value="en_fapiao"></property>
 		<property name="urlList">
 			<list>
 				<value><![CDATA[https://www.google.com.hk/search?num=30&hl=en&gl=us&tbm=nws&q=allintitle:invoice]]></value>
@@ -98,15 +98,17 @@
 		</property>
 		<property name="excludeUriRegexList">
 			<list>
-				<value>.*ebay.*</value>
 				<value>.*google.*</value>
+				<value>.*youtube.*</value>
+				<value>.*ebay.*</value>
 			</list>
 		</property>
 	</bean>	
-	 -->
 	
+	<!-- 
 	<bean parent="parentSinglePageCrawler">
 		<property name="sourceLang" value="zh-CN"></property>
+		<property name="tags" value="zh_fapiao"></property>
 		<property name="urlList">
 			<list>
 				<value><![CDATA[https://www.google.com.tw/search?q=%E5%8F%91%E7%A5%A8+-%E5%BC%80&hl=zh-CN&newwindow=1&source=lnt&tbs=qdr:d&sa=X&biw=1440&bih=69&num=40]]></value>
@@ -116,11 +118,13 @@
 		<property name="excludeUriRegexList">
 			<list>
 				<value>.*google.*</value>
+				<value>.*youtube.*</value>
 				<value>.*360buy.*</value>
 				<value>.*youku.*</value>
 				<value>.*taobao.*</value>
 			</list>
 		</property>
 	</bean>
+	 -->
 	 
 </beans>

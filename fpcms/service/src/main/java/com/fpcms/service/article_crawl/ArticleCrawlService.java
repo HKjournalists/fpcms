@@ -133,7 +133,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	 */
 	public void crawlFapiaoKeyword() {
 		String searchUrl = "http://www.google.com/search?q=%E5%8F%91%E7%A5%A8&num=100&hl=zh-CN&biw=1440&bih=702&tbm=nws";
-		SinglePageCrawler crawler = newGoogleSinglePageCrawler("fapiao",new HtmlPageCrawlerImpl(){
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler("zh_fapiao",new HtmlPageCrawlerImpl(){
 			@Override
 			public void visit(HtmlPage page) {
 				CmsContent c = buildCmsContent(page,new NaipanTransformer());
