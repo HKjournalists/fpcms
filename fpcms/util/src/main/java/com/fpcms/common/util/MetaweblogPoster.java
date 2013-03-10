@@ -111,7 +111,8 @@ public class MetaweblogPoster {
 			xmlString = output.toString();
 			return xmlString;
 		}catch(Exception e) {
-			throw new RuntimeException(e);
+			logger.error("toXmlString() error params:"+StringUtils.join(params,","),e);
+			return "";
 		}
 	}
 
