@@ -155,8 +155,11 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	private List<HtmlPage> cralwerForPageList() {
 		SinglePageCrawler cralwer = new SinglePageCrawler();
 		cralwer.setSourceLang("zh-CN");
-		cralwer.setAcceptUrlRegexList("http://www.oschina.net/code/snippet_.*","http://\\w+.blog.51cto.com/\\d+/\\d+");
-		cralwer.setUrlList("http://www.oschina.net/code/list/1/java","http://blog.51cto.com/original/","http://blog.51cto.com/original.php?cid=0&page=2");
+		cralwer.setAcceptUrlRegexList("http://www.oschina.net/code/snippet_.*","http://\\w+.blog.51cto.com/\\d+/\\d+","http://blog.csdn.net/.*/article/details/\\d+");
+		cralwer.setUrlList("http://www.oschina.net/code/list/1/java",
+				"http://blog.csdn.net/code/index.html","http://blog.csdn.net/www/index.html",
+				"http://blog.csdn.net/web/index.html","http://blog.csdn.net/database/index.html",
+				"http://blog.51cto.com/original/","http://blog.51cto.com/original.php?cid=0&page=2");
 		
 		final List<HtmlPage> pageList = new ArrayList<HtmlPage>();
 		cralwer.setHtmlPageCrawler(new HtmlPageCrawler() {
