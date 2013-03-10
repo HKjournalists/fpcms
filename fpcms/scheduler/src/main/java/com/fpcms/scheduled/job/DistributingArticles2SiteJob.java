@@ -16,6 +16,8 @@ import org.springframework.util.Assert;
 
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.DomainUtil;
+import com.fpcms.common.util.KeywordUtil;
+import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.util.Tags;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
@@ -51,15 +53,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 	}
 
 	public synchronized void execute() {
-		CmsContentQuery query = new CmsContentQuery();
-		query.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
-		query.setSite(Constants.CRAWL_SITE);
-		query.setAuthor(Constants.CRAWL_AUTHOR);
-		query.setDateCreatedBegin(DateUtils.addDays(new Date(), -15));
-		query.setDateCreatedEnd(new Date());
-		query.setPageSize(5000);
-		
-		List<CmsContent> list = new ArrayList<CmsContent>(cmsContentService.findPage(query).getItemList());
+		List<CmsContent> list = findCmsContentList();
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		for (CmsSite cmsSite : siteList) {
 			if(list.isEmpty()) 
@@ -82,11 +76,40 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				
 				content.setSite(site);
 				content.setDateCreated(new Date());
+				
+				if(RandomUtil.randomTrue(65)) {
+					content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",cmsSite.getKeyword()));
+					content.setContent(processWithSiteKeyword(content.getContent(),"发票",cmsSite.getKeyword()));
+				}
+				
 				logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
 				cmsContentService.update(content);
 				CmsContent.baiduBlogPing(content);
 			}
 		}
+	}
+
+	public static String processWithSiteKeyword(String text,String searchString,String keywords) {
+		List<String> keywordList = KeywordUtil.toTokenizerList(keywords);
+		if(keywordList.isEmpty()) {
+			return text;
+		}
+		
+		String keyword = RandomUtil.randomSelect(keywordList);
+		return StringUtils.replace(text, searchString, keyword);
+	}
+
+	private List<CmsContent> findCmsContentList() {
+		CmsContentQuery query = new CmsContentQuery();
+		query.setChannelCode(Constants.CRAWL_CHANNEL_CODE);
+		query.setSite(Constants.CRAWL_SITE);
+		query.setAuthor(Constants.CRAWL_AUTHOR);
+		query.setDateCreatedBegin(DateUtils.addDays(new Date(), -15));
+		query.setDateCreatedEnd(new Date());
+		query.setPageSize(5000);
+		
+		List<CmsContent> list = new ArrayList<CmsContent>(cmsContentService.findPage(query).getItemList());
+		return list;
 	}
 
 	private CmsContent findExpectContentByTags(String siteExceptContentTags,List<CmsContent> list) {
