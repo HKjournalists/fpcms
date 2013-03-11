@@ -80,4 +80,7 @@ public interface CmsSiteService {
 	public void updateHttpStatus();
 
 	public List<CmsSite> findSubSites(String domain);
+	
+	
+	public void batchUpdateProperty(String[] sites, String key, String value);
 }

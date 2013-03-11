@@ -197,6 +197,7 @@ public class SinglePageCrawler {
 			page.setKeywords(keywords);
 			page.setTitle(title);
 			page.setSourceLang(sourceLang);
+			page.setTags(tags);
 			
 			//TODO 增加anchor.text 与 page.title的比较或者是替换
 			logger.info("------------------- url:"+page.getAnchor().getHref()+" ---------------------------");

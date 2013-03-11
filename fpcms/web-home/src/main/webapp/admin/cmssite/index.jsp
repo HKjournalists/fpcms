@@ -83,6 +83,7 @@
 		</fieldset>
 		<div class="handleControl">
 			<input type="submit" class="stdButton" style="width:80px" value="查询" onclick="getReferenceForm(this).action='${ctx}/admin/cmssite/index.do'"/>
+			<input type="submit" class="stdButton" style="width:80px" value="批量更新属性" onclick="getReferenceForm(this).action='${ctx}/admin/cmssite/batchUpdateProperty.do'"/>
 			<input type="button" class="stdButton" style="width:80px" value="新增" onclick="window.location = '${ctx}/admin/cmssite/add.do'"/>
 			<a href="${ctx}/admin/cmssite/initAllSiteDefaultChannels.do">初始化所有网站频道</a>
 			<a href="${ctx}/admin/cmssite/updateSearchEngineRecord.do">更新百度site记录</a>
@@ -103,7 +104,7 @@
 		  <thead>
 			  
 			  <tr>
-				<th style="width:1px;"> </th>
+				<th style="width:1px;"> <input type="checkbox" onclick="setAllCheckboxState('sites',this.checked)"></input></th>
 				
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
 				<th sortColumn="site_domain" >网站域名</th>
@@ -116,6 +117,7 @@
 				<th sortColumn="rank_baidu" title="百度" >关键字排名</th>
 				<th sortColumn="rank_baidu" title="百度" >详细排名</th>
 				<th sortColumn="keyword" >网站关键词</th>
+				<th sortColumn="props" >属性</th>
 				<th sortColumn="mobile" >移动电话</th>
 				<th sortColumn="redirect_site" >重定向site</th>
 				<!-- 
@@ -135,6 +137,7 @@
 		  	  <c:forEach items="${page.itemList}" var="item" varStatus="status">
 		  	  
 			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}" style="${item.httpSuccess ? '' : 'background-color: rgb(255,100,0)'}">
+				<td><input type="checkbox" name="sites" value="${item.siteDomain}"></input></td>
 				<td>${page.paginator.startRow + status.index}</td>
 				
 				<td><a href="http://${item.siteDomain}${ctx}" title="预览" target="_blank">${item.siteDomain}</a>&nbsp;</td>
@@ -147,6 +150,7 @@
 				<td><font color="${item.rankBaidu <=0 ? 'red' : ''}">${item.rankBaidu}</font></td>
 				<td><a href="http://www.baidu.com/s?wd=${item.keyword}" target="_blank">${item.keyword}</a></td>
 				<td>${item.properties.keywordsRankBaidu}</td>
+				<td><c:out value='${item.properties}'/>&nbsp;</td>
 				<td><c:out value='${item.mobile}'/>&nbsp;</td>
 				<td><a href="http://${item.redirectSite}${ctx}" title="预览" target="_blank">${item.redirectSite}</a></td>
 				<!-- 

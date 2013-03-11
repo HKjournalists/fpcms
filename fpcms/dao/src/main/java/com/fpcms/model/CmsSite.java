@@ -31,16 +31,6 @@ import com.fpcms.common.util.StringHelper;
 public class CmsSite  implements java.io.Serializable{
 	private static final long serialVersionUID = 5454155825314635342L;
 	
-	/**
-	 * 百度关键字排名
-	 */
-	public static final String PROP_KEYWORDS_RANK_BAIDU = "keywordsRankBaidu";
-	
-	/**
-	 * 期待的网站内容tag
-	 */
-	public static final String PROP_EXPECT_CONTENT_TAGS = "exceptContentTags";
-	
 	//date formats
 	
 	//可以直接使用: @Length(max=50,message="用户名长度不能大于50")显示错误消息

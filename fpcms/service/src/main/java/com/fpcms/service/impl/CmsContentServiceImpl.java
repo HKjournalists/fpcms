@@ -10,6 +10,7 @@ import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithExce
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -297,6 +298,8 @@ public class CmsContentServiceImpl implements CmsContentService {
 		return cmsContentDao.findFirstByCreatedDay(site,createdDay);
 	}
 
-
+	public List<Map<String, Object>> statSite(DateRange range) {
+		return cmsContentDao.statSite(range);
+	}
 
 }

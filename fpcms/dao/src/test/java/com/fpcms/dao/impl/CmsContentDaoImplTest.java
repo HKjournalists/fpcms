@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Rule;
@@ -170,5 +171,12 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 		CmsContent createdDay = dao.findFirstByCreatedDay("localhost", DateConvertUtils.extract(new Date(), "yyyy-MM-dd"));
 		assertNotNull(createdDay);
 	}
+	
+	@Test
+	public void statSite() {
+		List<Map<String,Object>> list = dao.statSite(new DateRange());
+		assertNotNull(list);
+	}
+	
 }
 

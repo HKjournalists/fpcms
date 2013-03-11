@@ -14,6 +14,7 @@
 				<value>.*google.*</value>
 				<value>.*youtube.*</value>
 				<value>.*ebay.*</value>
+				<value>.*eostis.*</value>
 			</list>
 		</property>		
 	</bean>

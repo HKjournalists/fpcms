@@ -10,6 +10,7 @@ import static com.duowan.common.util.ObjectUtils.isNotEmpty;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.time.DateUtils;
@@ -101,7 +102,7 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
             sql.append(" and channel_code = :channelCode ");
         }
 		if(isNotEmpty(query.getTags())) {
-            sql.append(" and tags = :tags ");
+            sql.append(" and tags like concat('%',:tags,'%') ");
         }
 		if(isNotEmpty(query.getHeadTitle())) {
             sql.append(" and head_title = :headTitle ");
@@ -228,7 +229,12 @@ public class CmsContentDaoImpl extends BaseSpringJdbcDao implements CmsContentDa
 		String sql = SELECT_FROM + " where  site = ? and date_created between ? and ? limit 1";
 		return (CmsContent)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),site,createdDay,end));
 	}
-
-
+	
+	@Override
+	public List<Map<String,Object>> statSite(DateRange range) {
+		String sql = "select cs.site_domain site, CONVERT(date_format(cc.date_created,'%Y-%m-%d'), date) day,count(*) new_content_count from cms_site cs left join cms_content cc on cc.site = cs.site_domain " + 
+		"where cc.date_created between ? and ? group by site,day order by site,day ";
+		return getSimpleJdbcTemplate().queryForList(sql, range.getStartDate(),range.getEndDate());
+	}
 	
 }

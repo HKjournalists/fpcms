@@ -33,6 +33,7 @@ import com.fpcms.common.util.MapUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.dao.CmsSiteDao;
 import com.fpcms.model.CmsSite;
+import com.fpcms.model.CmsSitePropertyEnum;
 import com.fpcms.query.CmsSiteQuery;
 import com.fpcms.service.CmsChannelService;
 import com.fpcms.service.CmsPropertyService;
@@ -236,7 +237,7 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 						updatedSiteList.add(site);
 						site.setRankBaidu(max);
 					}
-					site.setProperty(CmsSite.PROP_KEYWORDS_RANK_BAIDU, rankMap.toString());
+					site.setProperty(CmsSitePropertyEnum.PROP_KEYWORDS_RANK_BAIDU.getCode(), rankMap.toString());
 					update(site);
 				}catch(Exception e) {
 					log.error("error updateSearchEngineKeywordMaxRank on :"+site.getSiteDomain(),e);
@@ -250,6 +251,15 @@ public class CmsSiteServiceImpl implements CmsSiteService {
 	@Override
 	public List<CmsSite> findSubSites(String domain) {
 		return cmsSiteDao.findSubSites(domain);
+	}
+
+	@Override
+	public void batchUpdateProperty(String[] sites, String key, String value) {
+		for(String site : sites) {
+			CmsSite cmsSite = getById(site);
+			cmsSite.setProperty(key, value);
+			update(cmsSite);
+		}
 	}
 	
 }

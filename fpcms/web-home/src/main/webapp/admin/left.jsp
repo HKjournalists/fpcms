@@ -43,6 +43,10 @@
 		<li><a href="${ctx}/admin/cmscontent/index.do?author=ramd" target="rightFrame">查看随机生成文章</a></li>
 		<li><a href="${ctx}/admin/cmscontent/genRandomCmsContent.do?count=1" target="rightFrame" onclick="if(!confirm('确认执行生成文章?')) return false;">随机生成文章</a></li>
 	  </ul>
+	  <h3 class="headerbar">数据统计</h3>
+	  <ul>
+		<li><a href="${ctx}/admin/cmscontent/statSite.do" target="rightFrame">网站新文章统计</a></li>
+	  </ul>	  
 	  <h3 class="headerbar">系统管理</h3>
 	  <ul>
 		<li><a href="${ctx}/admin/cron/index.do" target="rightFrame">定时任务</a></li>

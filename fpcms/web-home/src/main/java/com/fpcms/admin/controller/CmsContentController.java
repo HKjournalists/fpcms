@@ -11,15 +11,17 @@ import static com.duowan.common.util.ValidationErrorsUtils.convert;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
-import org.apache.commons.lang.NumberUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -28,12 +30,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.duowan.common.exception.MessageException;
+import com.duowan.common.util.DateConvertUtils;
+import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
-import com.fpcms.common.util.StringHelper;
 import com.fpcms.model.CmsContent;
-import com.fpcms.model.CmsDomain;
 import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsDomainService;
@@ -199,6 +201,25 @@ public class CmsContentController extends BaseController{
 		cmsContent.setContent(linkedContent);
 		model.addAttribute("cmsContent",cmsContent);
 		return "/admin/cmscontent/show";
+	}
+	
+	/**
+	 * 网站统计信息
+	 * @param model
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	@RequestMapping
+	public String statSite(ModelMap model,String startDate,String endDate) {
+		startDate = StringUtils.defaultIfBlank(startDate,DateConvertUtils.format(DateUtils.addDays(new Date(),-1), "yyyy-MM-dd"));
+		endDate = StringUtils.defaultIfBlank(endDate,DateConvertUtils.format(new Date(), "yyyy-MM-dd"));
+		Date start = DateConvertUtils.parse(startDate, "yyyy-MM-dd");
+		Date end = DateConvertUtils.parse(endDate, "yyyy-MM-dd");
+		
+		List<Map<String,Object>> list = cmsContentService.statSite(new DateRange(start,end));
+		model.addAttribute("list", list);
+		return "/admin/cmscontent/statSite";
 	}
 	
 }

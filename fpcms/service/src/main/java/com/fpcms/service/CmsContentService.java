@@ -7,6 +7,8 @@
 package com.fpcms.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
@@ -88,4 +90,5 @@ public interface CmsContentService {
 
 	public CmsContent findFirstByCreatedDay(String site,Date createdDay);
 
+	List<Map<String, Object>> statSite(DateRange range);
 }

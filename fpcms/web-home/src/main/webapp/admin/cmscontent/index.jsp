@@ -100,6 +100,7 @@
 				<th >长度</th>
 				<th sortColumn="title" >文章来源网站</th>
 				<th sortColumn="author" >作者</th>
+				<th sortColumn="tags" >标签</th>
 <!--				<th sortColumn="date_last_modified" >更新时间</th>-->
 	 
 				<th>操作</th>
@@ -120,6 +121,7 @@
 				<td>${fn:length(item.content)}</td>
 				<td><a href="${item.sourceUrl}" target="_blank">${item.sourceSite}</a></td> 
 				<td><c:out value='${item.author}'/>&nbsp;</td>
+				<td><c:out value='${item.tags}'/>&nbsp;</td>
 <!--				<td><fmt:formatDate value='${item.dateLastModified}' pattern='yyyy-MM-dd'/>&nbsp;</td>-->
 				<td>
 					<a href='http://www.baidu.com/s?wd="${item.title}"' target="_blank">百度搜索</a>&nbsp;&nbsp;

@@ -21,6 +21,7 @@ import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.util.Tags;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
+import com.fpcms.model.CmsSitePropertyEnum;
 import com.fpcms.query.CmsContentQuery;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsSiteService;
@@ -60,7 +61,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				break;
 			
 			String site = cmsSite.getSiteDomain();
-			String siteExceptContentTags = cmsSite.getProperty(CmsSite.PROP_EXPECT_CONTENT_TAGS);
+			String siteExceptContentTags = cmsSite.getProperty(CmsSitePropertyEnum.PROP_EXPECT_CONTENT_TAGS.getCode());
 			if(DomainUtil.isMainSite(site)) {
 				CmsContent content = null;
 				if(StringUtils.isNotBlank(siteExceptContentTags)) {
@@ -77,7 +78,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				content.setSite(site);
 				content.setDateCreated(new Date());
 				
-				if(RandomUtil.randomTrue(65)) {
+				if(RandomUtil.randomTrue(100)) {
 					content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",cmsSite.getKeyword()));
 					content.setContent(processWithSiteKeyword(content.getContent(),"发票",cmsSite.getKeyword()));
 				}

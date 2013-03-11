@@ -18,6 +18,7 @@ import com.duowan.common.web.httpinclude.HttpInclude;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.util.CmsSiteUtil;
 import com.fpcms.common.util.URLUtil;
+import com.fpcms.model.CmsSitePropertyEnum;
 import com.fpcms.service.CmsSiteService;
 
 /**
@@ -85,7 +86,7 @@ public class SharedRenderVariableInterceptor extends HandlerInterceptorAdapter i
 	private void initSharedRenderVariables() {
 		globalRenderVariables.put("systemStartupTime", new Date(systemStartupTime) );
 		//也可以存放一些共享的工具类,以便视图使用,如StringUtils
-		
+		globalRenderVariables.put(CmsSitePropertyEnum.class.getSimpleName(), CmsSitePropertyEnum.values());
 	}
 	
 	//在系统启动时会执行

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
 import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -191,5 +192,16 @@ public class CmsSiteController extends BaseController{
 		model.put("cityList", cityList);
 		return "/admin/cmssite/showAllSiteLink";
 	}
+	
+	@RequestMapping
+	public String batchUpdateProperty(ModelMap model,String[] sites,String key,String value) {
+		if(sites != null && StringUtils.isNotBlank(key)) {
+			cmsSiteService.batchUpdateProperty(sites, key, value);
+			Flash.current().success("batchUpdateProperty成功");
+		}
+		
+		return "/admin/cmssite/batchUpdateProperty";
+	}
+
 }
 

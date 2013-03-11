@@ -41,7 +41,6 @@ import com.fpcms.model.CmsSite;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsKeyValueService;
 import com.fpcms.service.CmsSiteService;
-import com.fpcms.service.article_crawl.ArticleCrawlService.Transformer;
 
 /**
  * 从其它网站进行文章采集的service
@@ -131,7 +130,8 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 爬发票关键词
 	 */
-	public void crawlFapiaoKeyword() {
+	public List<CmsContent> crawlFapiaoKeyword() {
+		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
 		String searchUrl = "http://www.google.com/search?q=%E5%8F%91%E7%A5%A8&num=100&hl=zh-CN&biw=1440&bih=702&tbm=nws";
 		SinglePageCrawler crawler = newGoogleSinglePageCrawler("zh_fapiao",new HtmlPageCrawlerImpl(){
 			@Override
@@ -139,10 +139,12 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 				CmsContent c = buildCmsContent(page,new NaipanTransformer());
 				if(c != null) {
 					cmsContentService.create(c);
+					resultCollector.add(c);
 				}
 			}
 		},searchUrl);
 		crawler.execute();
+		return resultCollector;
 	}
 	
 	private void crawByKeyword(final String buzz,String tags,HtmlPageCrawler htmlPageCrawler) {

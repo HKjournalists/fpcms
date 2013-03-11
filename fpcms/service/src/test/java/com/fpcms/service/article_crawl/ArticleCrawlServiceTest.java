@@ -1,6 +1,6 @@
 package com.fpcms.service.article_crawl;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -82,7 +82,13 @@ public class ArticleCrawlServiceTest extends Mockito{
 	
 	@Test
 	public void crawlFapiaoKeyword() {
-		articleCrawlService.crawlFapiaoKeyword();
+		List<CmsContent> list = articleCrawlService.crawlFapiaoKeyword();
+		assertFalse(list.isEmpty());
+		for(CmsContent c : list) {
+			System.out.println("----------------"+c.getTitle()+"---------------------");
+			System.out.println(c.getContent());
+		}
+		
 	}
 
 	private CmsContent newCmsContent(int i) {
