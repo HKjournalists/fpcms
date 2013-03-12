@@ -11,6 +11,8 @@
 		a.subject_title :hover{text-decoration:none;color:#FFF;!important}	
 	</style>
 	
+	${webMetaVerifyCode}
+	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/js/application.js"></script>
 	<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>

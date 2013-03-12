@@ -64,11 +64,8 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 			String siteExceptContentTags = cmsSite.getProperty(CmsSitePropertyEnum.PROP_EXPECT_CONTENT_TAGS.getCode());
 			if(DomainUtil.isMainSite(site)) {
 				CmsContent content = null;
-				if(StringUtils.isNotBlank(siteExceptContentTags)) {
-					content = findExpectContentByTags(siteExceptContentTags,list);
-				}else {
-					content = list.remove(0);
-				}
+				Assert.hasText(siteExceptContentTags,"siteExceptContentTags must be not empty on site:"+site);
+				content = findExpectContentByTags(siteExceptContentTags,list);
 				
 				if(content == null) {
 					logger.warn("not found CmsContent for site:"+site+" siteExceptContentTags:"+siteExceptContentTags);
