@@ -131,19 +131,19 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 爬发票关键词
 	 */
-	public synchronized List<CmsContent> crawlFapiaoKeyword() {
+	public synchronized List<CmsContent> crawlKeyword(String keyword) {
+		return crawlByKeyword("zh_fapiao",keyword,keyword,"zh-CN");
+	}
+
+	public synchronized List<CmsContent> crawlByKeyword(String tags,final String searchKeyword,final String replaceKeyword,String hl) {
 		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
-		List<String> urls = new ArrayList<String>();
-		for(int i = 0; i < 20; i++) {
-			int num = 100;
-			int start = 0 * num;
-			String searchUrl = "http://www.google.com/search?q=%E5%8F%91%E7%A5%A8&num="+num+"&hl=zh-CN&biw=1440&bih=702&tbm=nws&start="+start;
-			urls.add(searchUrl);
-		}
+		List<String> urls = buildSearchUrl(searchKeyword,20,hl);
 		
-		SinglePageCrawler crawler = newGoogleSinglePageCrawler("zh_fapiao",new HtmlPageCrawlerImpl(){
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,new HtmlPageCrawlerImpl(){
 			@Override
 			public void visit(HtmlPage page) {
+				page.setTitle(page.getTitle().replace("(?i)"+searchKeyword,replaceKeyword));
+				page.setContent(page.getContent().replace("(?i)"+searchKeyword,replaceKeyword));
 				CmsContent c = buildCmsContent(page,new NaipanTransformer());
 				if(c != null) {
 					cmsContentService.create(c);
@@ -153,6 +153,17 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		},urls.toArray(new String[0]));
 		crawler.execute();
 		return resultCollector;
+	}
+	
+	private List<String> buildSearchUrl(String keyword,int pageCount,String hl) {
+		List<String> urls = new ArrayList<String>();
+		for(int i = 0; i < pageCount; i++) {
+			int num = 100;
+			int start = 0 * num;
+			String searchUrl = "http://www.google.com/search?q="+URLEncoderUtil.encode(keyword)+"&num="+num+"&hl="+hl+"&biw=1440&bih=702&tbm=nws&start="+start;
+			urls.add(searchUrl);
+		}
+		return urls;
 	}
 	
 	private void crawByKeyword(final String buzz,String tags,HtmlPageCrawler htmlPageCrawler) {

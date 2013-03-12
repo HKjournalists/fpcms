@@ -82,13 +82,23 @@ public class ArticleCrawlServiceTest extends Mockito{
 	
 	@Test
 	public void crawlFapiaoKeyword() {
-		List<CmsContent> list = articleCrawlService.crawlFapiaoKeyword();
+		List<CmsContent> list = articleCrawlService.crawlKeyword("发票");
+		assertAndPrint(list);
+		
+	}
+
+	@Test
+	public void crawl_by_java_replace_invoice() {
+		List<CmsContent> list = articleCrawlService.crawlByKeyword("zh_fapiao", "java", "invoice", "en");
+		assertAndPrint(list);
+	}
+
+	private void assertAndPrint(List<CmsContent> list) {
 		assertFalse(list.isEmpty());
 		for(CmsContent c : list) {
 			System.out.println("----------------"+c.getTitle()+"---------------------");
 			System.out.println(c.getContent());
 		}
-		
 	}
 
 	private CmsContent newCmsContent(int i) {
