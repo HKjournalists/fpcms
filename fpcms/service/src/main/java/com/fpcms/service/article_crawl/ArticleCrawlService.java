@@ -137,7 +137,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 
 	public synchronized List<CmsContent> crawlByKeyword(String tags,final String searchKeyword,final String replaceKeyword,String hl) {
 		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
-		List<String> urls = buildSearchUrl(searchKeyword,20,hl);
+		List<String> urls = buildSearchUrl(searchKeyword,20,hl,true);
 		
 		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,new HtmlPageCrawlerImpl(){
 			@Override
@@ -155,12 +155,13 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		return resultCollector;
 	}
 	
-	private List<String> buildSearchUrl(String keyword,int pageCount,String hl) {
+	private List<String> buildSearchUrl(String keyword,int pageCount,String hl,boolean keywordAllintitle) {
 		List<String> urls = new ArrayList<String>();
 		for(int i = 0; i < pageCount; i++) {
 			int num = 100;
 			int start = 0 * num;
-			String searchUrl = "http://www.google.com/search?q="+URLEncoderUtil.encode(keyword)+"&num="+num+"&hl="+hl+"&biw=1440&bih=702&tbm=nws&start="+start;
+			String encodeKeyword = keywordAllintitle ? URLEncoderUtil.encode("allintitle:"+keyword) : URLEncoderUtil.encode(keyword);
+			String searchUrl = "http://www.google.com/search?q="+encodeKeyword+"&num="+num+"&hl="+hl+"&biw=1440&bih=702&tbm=nws&start="+start;
 			urls.add(searchUrl);
 		}
 		return urls;
