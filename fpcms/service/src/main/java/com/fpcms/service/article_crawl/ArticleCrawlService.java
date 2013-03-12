@@ -83,7 +83,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 爬网站
 	 */
-	public void crawlAllSite() {
+	public synchronized void crawlAllSite() {
 		for(SinglePageCrawler crawler : singlePageCrawlerList) {
 			crawler.setHtmlPageCrawler(htmlPageCrawler);
 			crawler.execute();
@@ -93,7 +93,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 爬每个站点的关键词
 	 */
-	public void crawlAllSiteKeyword() {
+	public synchronized void crawlAllSiteKeyword() {
 		for(final CmsSite cmsSite : cmsSiteService.findAll()) {
 			ArrayList<String> keywordList = KeywordUtil.toTokenizerList(cmsSite.getKeyword());
 			if(keywordList.isEmpty()) {
@@ -115,7 +115,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 爬热门关键词
 	 */
-	public void crawlAllBuzzKeyword() {
+	public synchronized void crawlAllBuzzKeyword() {
 		Set<String> buzzList = BaiduTopBuzzUtil.getBaiduBuzzs();
 		for(final String buzz : buzzList) {
 			crawByKeyword(buzz,"buzz",new HtmlPageCrawlerImpl() {
@@ -130,7 +130,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 爬发票关键词
 	 */
-	public List<CmsContent> crawlFapiaoKeyword() {
+	public synchronized List<CmsContent> crawlFapiaoKeyword() {
 		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
 		List<String> urls = new ArrayList<String>();
 		for(int i = 0; i < 20; i++) {
@@ -182,7 +182,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 合并过于短小的文章
 	 */
-	public void mergeSmallArticle() {
+	public synchronized void mergeSmallArticle() {
 		DateRange createdRange = new DateRange(DateUtils.addDays(new Date(),-5), new Date());
 		Page<CmsContent> page = cmsContentService.findPage(new PageQuery(1000), Constants.CRAWL_SITE, Constants.CRAWL_CHANNEL_CODE, createdRange);
 		List<CmsContent> list = page.getItemList();
