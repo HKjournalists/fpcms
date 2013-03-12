@@ -10,7 +10,7 @@ public class Blog {
 	private String title;
 	private String content;
 	private String metaDescription;
-	private String[] categories;
+	private String[] categories = new String[0];
 	private Map<String,String> ext = new HashMap<String,String>();
 	
 	public Blog() {

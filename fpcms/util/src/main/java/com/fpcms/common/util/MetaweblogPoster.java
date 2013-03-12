@@ -19,6 +19,7 @@ import org.apache.xmlrpc.common.XmlRpcStreamConfig;
 import org.apache.xmlrpc.serializer.XmlRpcWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
@@ -80,6 +81,10 @@ public class MetaweblogPoster {
 	 * @blog 要发送的博文对象,它存储了博文的标题,分类,标签,内容等信息
 	 */
 	public String newPost(String username, String password, Blog blog) {
+		
+		Assert.notNull(blog,"blog must be not null");
+		Assert.notNull(blog.getCategories(),"blog.getCategories() must be not null");
+		
 		// Set up parameters required by newPost method
 		Map<String, Object> post = new HashMap<String, Object>();
 		post.put("title", blog.getTitle());// 标题
