@@ -25,8 +25,8 @@ public class ArticleCrawlJob extends BaseCronJob{
 	@Override
 	public synchronized void execute() {
 //		articleCrawlService.crawlAllBuzzKeyword();
-		articleCrawlService.crawlKeyword("发票");
 		articleCrawlService.crawlByKeyword("zh_fapiao", "java", "invoice", "en");
+		articleCrawlService.crawlKeyword("发票");
 		articleCrawlService.crawlAllSite();
 		articleCrawlService.mergeSmallArticle();
 	}
