@@ -1,5 +1,7 @@
 package com.fpcms.common.util;
 
+import org.apache.commons.lang.StringUtils;
+
 public class TextLangUtil {
 
 	// GENERAL_PUNCTUATION 判断中文的“号
@@ -33,6 +35,14 @@ public class TextLangUtil {
 			}
 		}
 		return count;
+	}
+	
+	public static int chineseCountPercent(String str) {
+		if(StringUtils.isBlank(str)) {
+			return 0;
+		}
+		float chineseCountPercent = TextLangUtil.chineseCount(str) / (float)str.length();
+		return (int)(chineseCountPercent * 100);
 	}
 
 	public static boolean hasChinese(String strName) {

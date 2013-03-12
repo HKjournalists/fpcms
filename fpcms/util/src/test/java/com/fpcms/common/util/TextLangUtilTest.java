@@ -22,4 +22,13 @@ public class TextLangUtilTest extends Assert{
 		assertEquals("[a, a1, c1, bbbb]",list.toString());
 	}
 	
+	
+	@Test
+	public void chineseCountPercent() {
+		assertEquals(TextLangUtil.chineseCountPercent("我是一个中国人,12"),70);
+		assertEquals(TextLangUtil.chineseCountPercent(null),0);
+		assertEquals(TextLangUtil.chineseCountPercent(" "),0);
+		assertEquals(TextLangUtil.chineseCountPercent(" 中1"),33);
+	}
+	
 }

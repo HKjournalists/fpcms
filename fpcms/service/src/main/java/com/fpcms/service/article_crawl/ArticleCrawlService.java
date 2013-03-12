@@ -30,6 +30,7 @@ import com.fpcms.common.util.HtmlFormatUtil;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RegexUtil;
 import com.fpcms.common.util.SearchEngineUtil;
+import com.fpcms.common.util.TextLangUtil;
 import com.fpcms.common.util.URLEncoderUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
@@ -309,6 +310,8 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			logger.info("ignore has sensitiveKeyword HtmlPage:"+c.getTitle());
 			return null;
 		}
+		
+		Assert.isTrue(TextLangUtil.chineseCountPercent(c.getContent()) > 60,"chineseCountPercent > 60 must be true on content:"+c.getContent());
 		
 		if(SearchEngineUtil.baiduKeywordsNotExist(c.getTitle())) {
 			logger.info("baidu_not_exist article:"+c.getTitle());
