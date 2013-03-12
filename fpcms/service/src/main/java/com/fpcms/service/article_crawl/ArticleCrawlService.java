@@ -132,14 +132,14 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	 * 爬发票关键词
 	 */
 	public synchronized List<CmsContent> crawlKeyword(String keyword) {
-		return crawlByKeyword("zh_fapiao",keyword,keyword,"zh-CN");
+		return crawlByKeyword("zh_fapiao","zh-CN",keyword,keyword,"zh-CN");
 	}
 
-	public synchronized List<CmsContent> crawlByKeyword(String tags,final String searchKeyword,final String replaceKeyword,String hl) {
+	public synchronized List<CmsContent> crawlByKeyword(String tags,String sourceLang,final String searchKeyword,final String replaceKeyword,String hl) {
 		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
 		List<String> urls = buildSearchUrl(searchKeyword,5,hl,true);
 		
-		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,new HtmlPageCrawlerImpl(){
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,sourceLang,new HtmlPageCrawlerImpl(){
 			@Override
 			public void visit(HtmlPage page) {
 				page.setTitle(page.getTitle().replace("(?i)"+searchKeyword,replaceKeyword));
@@ -178,14 +178,14 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		
 		final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
 		String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
-		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,htmlPageCrawler,searchUrl);
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,"zh-CN",htmlPageCrawler,searchUrl);
 		crawler.execute();
 	}
 
-	private SinglePageCrawler newGoogleSinglePageCrawler(String tags,HtmlPageCrawler htmlPageCrawler, String... searchUrl) {
+	private SinglePageCrawler newGoogleSinglePageCrawler(String tags,String sourceLang,HtmlPageCrawler htmlPageCrawler, String... searchUrl) {
 		SinglePageCrawler crawler = new SinglePageCrawler();
 		crawler.setUrlList(searchUrl);
-		crawler.setSourceLang("zh-CN");
+		crawler.setSourceLang(sourceLang);
 		crawler.setTags(tags);
 		crawler.setExcludeUriRegexList(".*google.*",".*youtube.*",".*blogger.*");
 		crawler.setHtmlPageCrawler(htmlPageCrawler);
