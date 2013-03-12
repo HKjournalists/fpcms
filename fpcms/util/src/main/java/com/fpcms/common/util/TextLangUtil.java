@@ -19,6 +19,21 @@ public class TextLangUtil {
 		}
 		return false;
 	}
+	
+	/**
+	 * 得到中文字符数量
+	 * @param str
+	 * @return
+	 */
+	public static int chineseCount(String str) {
+		int count = 0;
+		for(int i = 0; i < str.length(); i ++) {
+			if(isChinese(str.charAt(i))) {
+				count ++;
+			}
+		}
+		return count;
+	}
 
 	public static boolean hasChinese(String strName) {
 		char[] ch = strName.toCharArray();

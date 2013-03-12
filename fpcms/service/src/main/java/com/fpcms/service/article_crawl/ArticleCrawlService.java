@@ -132,7 +132,14 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	 */
 	public List<CmsContent> crawlFapiaoKeyword() {
 		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
-		String searchUrl = "http://www.google.com/search?q=%E5%8F%91%E7%A5%A8&num=100&hl=zh-CN&biw=1440&bih=702&tbm=nws";
+		List<String> urls = new ArrayList<String>();
+		for(int i = 0; i < 20; i++) {
+			int num = 100;
+			int start = 0 * num;
+			String searchUrl = "http://www.google.com/search?q=%E5%8F%91%E7%A5%A8&num="+num+"&hl=zh-CN&biw=1440&bih=702&tbm=nws&start="+start;
+			urls.add(searchUrl);
+		}
+		
 		SinglePageCrawler crawler = newGoogleSinglePageCrawler("zh_fapiao",new HtmlPageCrawlerImpl(){
 			@Override
 			public void visit(HtmlPage page) {
@@ -142,7 +149,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 					resultCollector.add(c);
 				}
 			}
-		},searchUrl);
+		},urls.toArray(new String[0]));
 		crawler.execute();
 		return resultCollector;
 	}
