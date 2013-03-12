@@ -137,7 +137,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 
 	public synchronized List<CmsContent> crawlByKeyword(String tags,String sourceLang,final String searchKeyword,final String replaceKeyword,String hl) {
 		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
-		List<String> urls = buildSearchUrl(searchKeyword,5,hl,true);
+		List<String> urls = buildSearchUrl(searchKeyword,10,hl,true);
 		
 		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,sourceLang,new HtmlPageCrawlerImpl(){
 			@Override
