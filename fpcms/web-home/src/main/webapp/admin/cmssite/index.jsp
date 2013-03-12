@@ -105,6 +105,7 @@
 			  
 			  <tr>
 				<th style="width:1px;"> <input type="checkbox" onclick="setAllCheckboxState('sites',this.checked)"></input></th>
+				<th style="width:1px;"> </th>
 				
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
 				<th sortColumn="site_domain" >网站域名</th>
@@ -115,8 +116,8 @@
 				<th sortColumn="city" >城市</th>
 				<th sortColumn="record_baidu" title="百度" >site记录数</th>
 				<th sortColumn="rank_baidu" title="百度" >关键字排名</th>
-				<th sortColumn="rank_baidu" title="百度" >详细排名</th>
 				<th sortColumn="keyword" >网站关键词</th>
+				<th title="百度" >详细排名</th>
 				<th sortColumn="props" >属性</th>
 				<th sortColumn="mobile" >移动电话</th>
 				<th sortColumn="redirect_site" >重定向site</th>
