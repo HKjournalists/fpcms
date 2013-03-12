@@ -87,6 +87,10 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 				}
 				String transformTitle = NaipanArticleGeneratorUtil.transformArticle(page.getTitle());
 				String content = new RandomLinkPrecessor().execute(page);
+				
+				Assert.isNull(content,"content must be not null");
+				Assert.isTrue(content.length() > 300,"post blog content must great 300,title:"+transformTitle);
+				
 				poster.postBlog(new Blog(transformTitle,content));
 			}catch(RuntimeException e) {
 				logger.error("postBlog error",e);
