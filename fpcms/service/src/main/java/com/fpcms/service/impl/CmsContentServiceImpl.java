@@ -27,7 +27,9 @@ import com.fpcms.common.random_gen_article.RandomArticle;
 import com.fpcms.common.random_gen_article.RandomArticleBuilder;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.DomainUtil;
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.util.TextLangUtil;
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.dao.CmsContentDao;
 import com.fpcms.model.CmsContent;
@@ -188,6 +190,11 @@ public class CmsContentServiceImpl implements CmsContentService {
             int contentLength = cmsContent.getContent().length();
 			Assert.isTrue(contentLength > 200,"cmsContent.title:" + cmsContent.getTitle() + " length > 200 false,current length:"+contentLength);
             
+			if(KeywordUtil.isSensitiveKeyword(cmsContent.getTitle()) || KeywordUtil.isSensitiveKeyword(cmsContent.getContent())) {
+				throw new RuntimeException("SensitiveKeyword article on "+cmsContent.getTitle());
+			}
+			Assert.isTrue(TextLangUtil.chineseCountPercent(cmsContent.getContent()) > 60,"chineseCountPercent > 60 must be true on content:"+cmsContent.getContent());
+			
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
     }
