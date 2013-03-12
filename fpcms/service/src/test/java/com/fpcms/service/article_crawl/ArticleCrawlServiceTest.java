@@ -93,6 +93,11 @@ public class ArticleCrawlServiceTest extends Mockito{
 		assertAndPrint(list);
 	}
 
+	@Test
+	public void replaceWithCaseInsentisive() {
+		assertEquals("Jitterz invoice咖啡厅入室盗窃的风行照相机",articleCrawlService.replaceWithCaseInsentisive("Jitterz Java咖啡厅入室盗窃的风行照相机", "java", "invoice"));
+	}
+	
 	private void assertAndPrint(List<CmsContent> list) {
 		assertFalse(list.isEmpty());
 		for(CmsContent c : list) {

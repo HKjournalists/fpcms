@@ -142,17 +142,24 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,sourceLang,new HtmlPageCrawlerImpl(){
 			@Override
 			public void visit(HtmlPage page) {
-				page.setTitle(page.getTitle().replace("(?i)"+searchKeyword,replaceKeyword));
-				page.setContent(page.getContent().replace("(?i)"+searchKeyword,replaceKeyword));
+				page.setTitle(replaceWithCaseInsentisive(page.getTitle(),searchKeyword, replaceKeyword));
+				page.setContent(replaceWithCaseInsentisive(page.getContent(),searchKeyword,replaceKeyword));
 				CmsContent c = buildCmsContent(page,new NaipanTransformer());
 				if(c != null) {
 					cmsContentService.create(c);
 					resultCollector.add(c);
 				}
 			}
+
+
 		},urls.toArray(new String[0]));
 		crawler.execute();
 		return resultCollector;
+	}
+
+	static String replaceWithCaseInsentisive(String string,final String searchKeyword,
+			final String replaceKeyword) {
+		return string.replaceAll("(?i)"+searchKeyword,replaceKeyword);
 	}
 	
 	private List<String> buildSearchUrl(String keyword,int pageCount,String hl,boolean keywordAllintitle) {
