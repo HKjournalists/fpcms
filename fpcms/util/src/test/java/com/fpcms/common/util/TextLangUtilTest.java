@@ -28,7 +28,7 @@ public class TextLangUtilTest extends Assert{
 		assertEquals(TextLangUtil.chineseCountPercent("我是一个中国人,12"),70);
 		assertEquals(TextLangUtil.chineseCountPercent(null),0);
 		assertEquals(TextLangUtil.chineseCountPercent(" "),0);
-		assertEquals(TextLangUtil.chineseCountPercent(" 中1"),33);
+		assertEquals(TextLangUtil.chineseCountPercent(" 中1"),50);
 	}
 	
 }

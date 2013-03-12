@@ -41,7 +41,7 @@ public class TextLangUtil {
 		if(StringUtils.isBlank(str)) {
 			return 0;
 		}
-		float chineseCountPercent = TextLangUtil.chineseCount(str) / (float)str.length();
+		float chineseCountPercent = TextLangUtil.chineseCount(str) / (float)StringUtils.remove(str," ").length();
 		return (int)(chineseCountPercent * 100);
 	}
 
