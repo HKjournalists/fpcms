@@ -78,7 +78,9 @@
 			博客RPC类型:
 		</td>		
 		<td>
-		<form:input path="blogRpcApi" id="blogRpcApi" cssClass="" maxlength="30"  size="100"/>
+		<c:forEach items="${BlogRpcApiEnum}" var="item">
+			<form:radiobutton path="blogRpcApi" value="${item.code}" />${item.desc}
+		</c:forEach>
 		<font color='red'><form:errors path="blogRpcApi"/></font>
 		</td>
 	</tr>	
@@ -112,3 +114,15 @@
 		<font color='red'><form:errors path="blogRpcApiClass"/></font>
 		</td>
 	</tr>	
+
+	<tr>	
+		<td class="tdLabel">
+			激活状态:
+		</td>		
+		<td>
+		<form:radiobutton path="enabled" value="true"/>激活
+		<form:radiobutton path="enabled" value="false"/>不激活
+		<font color='red'><form:errors path="enabled"/></font>
+		</td>
+	</tr>	
+	

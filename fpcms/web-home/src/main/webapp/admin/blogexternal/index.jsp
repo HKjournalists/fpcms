@@ -87,6 +87,7 @@
 				<th sortColumn="blog_desc" >博客描述</th>
 				<th sortColumn="blog_post_count" >blogPostCount</th>
 				<th sortColumn="blog_rpc_api_class" >blogRpcApiClass</th>
+				<th sortColumn="enabled" >激活状态</th>
 	
 				<th>操作</th>
 			  </tr>
@@ -109,10 +110,12 @@
 				<td><c:out value='${item.blogDesc}'/>&nbsp;</td>
 				<td><c:out value='${item.blogPostCount}'/>&nbsp;</td>
 				<td><c:out value='${item.blogRpcApiClass}'/>&nbsp;</td>
+				<td><c:out value='${item.enabled}'/>&nbsp;</td>
 				<td>
 					<a href="${ctx}/admin/blogexternal/show.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}">查看</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/blogexternal/edit.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}">修改</a>&nbsp;&nbsp;
 					<a href="${ctx}/admin/blogexternal/delete.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
+					<a href="${ctx}/admin/blogexternal/testPostBlog.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}" >发送测试Blog</a>
 				</td>
 			  </tr>
 			  

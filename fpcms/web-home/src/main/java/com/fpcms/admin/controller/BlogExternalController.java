@@ -142,5 +142,12 @@ public class BlogExternalController extends BaseController{
 		return LIST_ACTION;
 	}
 	
+	/** testPostBlog*/
+	@RequestMapping
+	public String testPostBlog(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username, @RequestParam("password") String password) {
+		Flash.current().success("发送成功");
+		return LIST_ACTION;
+	}	
+	
 }
 

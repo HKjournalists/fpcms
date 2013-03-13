@@ -4,3 +4,6 @@ v.20130203
 	cms_content增加 source_url,display
 	SQL
 		alter table cms_content add column	`source_url` varchar(200) default NULL COMMENT '文章来源URL';
+v.20130313
+	alter table blog_external add column enabled tinyint default 1 comment '激活状态';
+	

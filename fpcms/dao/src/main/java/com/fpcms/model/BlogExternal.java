@@ -89,6 +89,10 @@ public class BlogExternal  implements java.io.Serializable{
 	 */
 	private String blogRpcApiClass;
 	
+	/**
+	 * 激活状态
+	 */
+	private boolean enabled;
 	//columns END
 
 	public BlogExternal(){
@@ -190,6 +194,14 @@ public class BlogExternal  implements java.io.Serializable{
 
 	public void setBlogRpcApiClass(String blogRpcApiClass) {
 		this.blogRpcApiClass = blogRpcApiClass;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String toString() {

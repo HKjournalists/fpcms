@@ -1,6 +1,8 @@
 package com.fpcms.model;
 
-public enum CmsSitePropertyEnum {
+import com.duowan.common.lang.enums.EnumBase;
+
+public enum CmsSitePropertyEnum implements EnumBase{
 	PROP_KEYWORDS_RANK_BAIDU("keywordsRankBaidu","百度关键字排名"),
 	PROP_EXPECT_CONTENT_TAGS("exceptContentTags","期待的网站内容tag"),
 	WEB_META_VERIFY_CODE("webMetaVerifyCode","验证网站归属的Html Head Meta"),

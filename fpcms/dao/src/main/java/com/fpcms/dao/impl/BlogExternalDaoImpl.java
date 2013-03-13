@@ -31,7 +31,7 @@ public class BlogExternalDaoImpl extends BaseSpringJdbcDao implements BlogExtern
 	
 	private RowMapper<BlogExternal> entityRowMapper = new BeanPropertyRowMapper<BlogExternal>(getEntityClass());
 	
-	static final private String COLUMNS = "blog_url,blog_rpc_url,blog_name,username,password,tags,categories,blog_rpc_api,blog_desc,blog_post_count,blog_rpc_api_class";
+	static final private String COLUMNS = "blog_url,blog_rpc_url,blog_name,username,password,tags,categories,blog_rpc_api,blog_desc,blog_post_count,blog_rpc_api_class,enabled";
 	static final private String SELECT_FROM = "select " + COLUMNS + " from blog_external";
 	
 	@Override
@@ -50,9 +50,9 @@ public class BlogExternalDaoImpl extends BaseSpringJdbcDao implements BlogExtern
 	
 	public void insert(BlogExternal entity) {
 		String sql = "insert into blog_external " 
-			 + " (blog_url,blog_rpc_url,blog_name,username,password,tags,categories,blog_rpc_api,blog_desc,blog_post_count,blog_rpc_api_class) " 
+			 + " (blog_url,blog_rpc_url,blog_name,username,password,tags,categories,blog_rpc_api,blog_desc,blog_post_count,blog_rpc_api_class,enabled) " 
 			 + " values "
-			 + " (:blogUrl,:blogRpcUrl,:blogName,:username,:password,:tags,:categories,:blogRpcApi,:blogDesc,:blogPostCount,:blogRpcApiClass)";
+			 + " (:blogUrl,:blogRpcUrl,:blogName,:username,:password,:tags,:categories,:blogRpcApi,:blogDesc,:blogPostCount,:blogRpcApiClass,:enabled)";
 //		insertWithGeneratedKey(entity,sql); //for sqlserver:identity and mysql:auto_increment
 		
 		insertWithAssigned(entity,sql); //手工分配
@@ -60,7 +60,7 @@ public class BlogExternalDaoImpl extends BaseSpringJdbcDao implements BlogExtern
 	
 	public int update(BlogExternal entity) {
 		String sql = "update blog_external set "
-					+ " blog_rpc_url=:blogRpcUrl,blog_name=:blogName,tags=:tags,categories=:categories,blog_rpc_api=:blogRpcApi,blog_desc=:blogDesc,blog_post_count=:blogPostCount,blog_rpc_api_class=:blogRpcApiClass "
+					+ " blog_rpc_url=:blogRpcUrl,blog_name=:blogName,tags=:tags,categories=:categories,blog_rpc_api=:blogRpcApi,blog_desc=:blogDesc,blog_post_count=:blogPostCount,blog_rpc_api_class=:blogRpcApiClass,enabled=:enabled "
 					+ " where  blog_url = :blogUrl and username = :username and password = :password ";
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
 	}
