@@ -131,28 +131,47 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 	/**
 	 * 爬发票关键词
 	 */
-	public synchronized List<CmsContent> crawlFapiaoKeyword() {
+	public synchronized List<CmsContent> crawlKeyword(String keyword) {
+		return crawlByKeyword("zh_fapiao","zh-CN",keyword,keyword,"zh-CN");
+	}
+
+	public synchronized List<CmsContent> crawlByKeyword(String tags,String sourceLang,final String searchKeyword,final String replaceKeyword,String hl) {
 		final List<CmsContent> resultCollector = new ArrayList<CmsContent>();
-		List<String> urls = new ArrayList<String>();
-		for(int i = 0; i < 20; i++) {
-			int num = 100;
-			int start = 0 * num;
-			String searchUrl = "http://www.google.com/search?q=%E5%8F%91%E7%A5%A8&num="+num+"&hl=zh-CN&biw=1440&bih=702&tbm=nws&start="+start;
-			urls.add(searchUrl);
-		}
+		List<String> urls = buildSearchUrl(searchKeyword,10,hl,true);
 		
-		SinglePageCrawler crawler = newGoogleSinglePageCrawler("zh_fapiao",new HtmlPageCrawlerImpl(){
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,sourceLang,new HtmlPageCrawlerImpl(){
 			@Override
 			public void visit(HtmlPage page) {
+				page.setTitle(replaceWithCaseInsentisive(page.getTitle(),searchKeyword, replaceKeyword));
+				page.setContent(replaceWithCaseInsentisive(page.getContent(),searchKeyword,replaceKeyword));
 				CmsContent c = buildCmsContent(page,new NaipanTransformer());
 				if(c != null) {
 					cmsContentService.create(c);
 					resultCollector.add(c);
 				}
 			}
+
+
 		},urls.toArray(new String[0]));
 		crawler.execute();
 		return resultCollector;
+	}
+
+	static String replaceWithCaseInsentisive(String string,final String searchKeyword,
+			final String replaceKeyword) {
+		return string.replaceAll("(?i)"+searchKeyword,replaceKeyword);
+	}
+	
+	private List<String> buildSearchUrl(String keyword,int pageCount,String hl,boolean keywordAllintitle) {
+		List<String> urls = new ArrayList<String>();
+		for(int i = 0; i < pageCount; i++) {
+			int num = 100;
+			int start = 0 * num;
+			String encodeKeyword = keywordAllintitle ? URLEncoderUtil.encode("allintitle:"+keyword) : URLEncoderUtil.encode(keyword);
+			String searchUrl = "http://www.google.com/search?q="+encodeKeyword+"&num="+num+"&hl="+hl+"&biw=1440&bih=702&tbm=nws&start="+start;
+			urls.add(searchUrl);
+		}
+		return urls;
 	}
 	
 	private void crawByKeyword(final String buzz,String tags,HtmlPageCrawler htmlPageCrawler) {
@@ -166,14 +185,14 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		
 		final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
 		String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
-		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,htmlPageCrawler,searchUrl);
+		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,"zh-CN",htmlPageCrawler,searchUrl);
 		crawler.execute();
 	}
 
-	private SinglePageCrawler newGoogleSinglePageCrawler(String tags,HtmlPageCrawler htmlPageCrawler, String... searchUrl) {
+	private SinglePageCrawler newGoogleSinglePageCrawler(String tags,String sourceLang,HtmlPageCrawler htmlPageCrawler, String... searchUrl) {
 		SinglePageCrawler crawler = new SinglePageCrawler();
 		crawler.setUrlList(searchUrl);
-		crawler.setSourceLang("zh-CN");
+		crawler.setSourceLang(sourceLang);
 		crawler.setTags(tags);
 		crawler.setExcludeUriRegexList(".*google.*",".*youtube.*",".*blogger.*");
 		crawler.setHtmlPageCrawler(htmlPageCrawler);
@@ -306,12 +325,6 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		if(StringUtils.isBlank(c.getContent())) {
 			return null;
 		}
-		if(KeywordUtil.isSensitiveKeyword(c.getTitle()) || KeywordUtil.isSensitiveKeyword(c.getContent())) {
-			logger.info("ignore has sensitiveKeyword HtmlPage:"+c.getTitle());
-			return null;
-		}
-		
-		Assert.isTrue(TextLangUtil.chineseCountPercent(c.getContent()) > 60,"chineseCountPercent > 60 must be true on content:"+c.getContent());
 		
 		if(SearchEngineUtil.baiduKeywordsNotExist(c.getTitle())) {
 			logger.info("baidu_not_exist article:"+c.getTitle());
