@@ -38,4 +38,15 @@ public class URLUtil {
 		}
 	}
 	
+	public static void assertURL(String url,String message) {
+		if(StringUtils.isBlank(url)) {
+			return;
+		}
+		try {
+			new URL(url);
+		} catch (MalformedURLException e) {
+			throw new IllegalArgumentException(message+",MalformedURLException:"+url+" cause:"+e);
+		}
+	}
+	
 }

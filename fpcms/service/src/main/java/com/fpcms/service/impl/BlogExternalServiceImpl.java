@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 import com.duowan.common.util.page.Page;
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.blog_post.impl.MetaWeblogBlogPoster;
+import com.fpcms.common.util.URLUtil;
 import com.fpcms.dao.BlogExternalDao;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.query.BlogExternalQuery;
@@ -103,7 +104,7 @@ public class BlogExternalServiceImpl implements BlogExternalService {
     /**
      * BlogExternal的属性检查类,根据自己需要编写自定义检查
      **/
-    public class BlogExternalChecker {
+    public static class BlogExternalChecker {
         /**可以在此检查只有更新才需要的特殊检查 */
         public void checkUpdateBlogExternal(BlogExternal blogExternal) {
             checkBlogExternal(blogExternal);
@@ -119,8 +120,11 @@ public class BlogExternalServiceImpl implements BlogExternalService {
         	// Bean Validator检查,属性检查失败将抛异常
             validateWithException(blogExternal);
             
+            URLUtil.assertURL(blogExternal.getBlogUrl(),"blogUrl is error");
+            URLUtil.assertURL(blogExternal.getBlogRpcUrl(),"blogRpcUrl is error");
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
+
     }
 
 	private MetaWeblogBlogPoster newMetaWeblogBlogPoster(BlogExternal be) {
@@ -146,6 +150,10 @@ public class BlogExternalServiceImpl implements BlogExternalService {
 	public void postNewBlog(BlogExternal be, Blog blog) {
 		MetaWeblogBlogPoster blogPoster = newMetaWeblogBlogPoster(be);
 		blogPoster.postBlog(blog);
+		
+		be.setBlogPostCount(be.getBlogPostCount() + 1);
+		update(be);
 	}
+	
 	
 }
