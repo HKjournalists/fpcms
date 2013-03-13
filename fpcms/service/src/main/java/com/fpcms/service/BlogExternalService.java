@@ -6,7 +6,10 @@
 
 package com.fpcms.service;
 
+import java.util.List;
+
 import com.duowan.common.util.page.Page;
+import com.fpcms.common.blog_post.Blog;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.query.BlogExternalQuery;
 
@@ -44,6 +47,11 @@ public interface BlogExternalService {
 	 * 分页查询: BlogExternal
 	 **/      
 	public Page<BlogExternal> findPage(BlogExternalQuery query);
+
+	
+	public List<BlogExternal> findAll();
+	
+	public void postNewBlog(BlogExternal be, Blog blog);
 	
     
 }

@@ -95,7 +95,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 					break;
 				}
 				String transformTitle = NaipanArticleGeneratorUtil.transformArticle(page.getTitle());
-				String content = randomLinkPrecessor.execute(page);
+				String content = randomLinkPrecessor.execute(NaipanArticleGeneratorUtil.transformArticle(page.getContent()));
 				
 				Assert.notNull(content,"content must be not null");
 				Assert.isTrue(content.length() > 300,"post blog content must great 300,title:"+transformTitle);
@@ -134,10 +134,10 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 
 	public class RandomLinkPrecessor {
 		Set<String> useedLink = new HashSet();
-		private String execute(HtmlPage page) {
-			Assert.hasText(page.getContent());
-			Assert.isTrue(page.getContent().length() > 200);
-			String transformArticle = NaipanArticleGeneratorUtil.transformArticle(page.getContent());
+		private String execute(String input) {
+			Assert.hasText(input);
+			Assert.isTrue(input.length() > 200);
+			String transformArticle = NaipanArticleGeneratorUtil.transformArticle(input);
 			StringBuilder content = new StringBuilder(transformArticle);
 			content.insert(Math.min(content.length(),200), selectRandomDomain());
 			content.append(selectRandomDomain());

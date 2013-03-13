@@ -6,6 +6,8 @@
 
 package com.fpcms.dao;
 
+import java.util.List;
+
 import com.duowan.common.util.page.Page;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.query.BlogExternalQuery;
@@ -29,6 +31,8 @@ public interface BlogExternalDao {
 	public BlogExternal getById(String blogUrl, String username, String password);
 	
 
-	public Page<BlogExternal> findPage(BlogExternalQuery query);	
+	public Page<BlogExternal> findPage(BlogExternalQuery query);
+
+	public List<BlogExternal> findAll();	
 	
 }

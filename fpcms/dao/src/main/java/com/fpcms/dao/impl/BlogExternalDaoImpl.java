@@ -8,6 +8,8 @@ package com.fpcms.dao.impl;
 
 import static com.duowan.common.util.ObjectUtils.isNotEmpty;
 
+import java.util.List;
+
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -111,4 +113,10 @@ public class BlogExternalDaoImpl extends BaseSpringJdbcDao implements BlogExtern
 		
 		return pageQuery(sql.toString(),query,getEntityRowMapper());				
 	}
+
+	@Override
+	public List<BlogExternal> findAll() {
+		return getSimpleJdbcTemplate().query(SELECT_FROM, getEntityRowMapper());
+	}
+	
 }

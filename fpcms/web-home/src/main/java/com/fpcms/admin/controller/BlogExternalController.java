@@ -9,12 +9,14 @@ package com.fpcms.admin.controller;
 
 import static com.duowan.common.util.ValidationErrorsUtils.convert;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +31,7 @@ import com.duowan.common.exception.MessageException;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
+import com.fpcms.common.blog_post.Blog;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.query.BlogExternalQuery;
 import com.fpcms.service.BlogExternalService;
@@ -145,7 +148,9 @@ public class BlogExternalController extends BaseController{
 	/** testPostBlog*/
 	@RequestMapping
 	public String testPostBlog(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username, @RequestParam("password") String password) {
-		Flash.current().success("发送成功");
+		BlogExternal be = blogExternalService.getById(blogUrl,username,password);
+		blogExternalService.postNewBlog(be,new Blog("test_title_测试标题_"+new Timestamp(System.currentTimeMillis()),StringUtils.repeat("test_content,",100)));
+		Flash.current().success("发送BLOG成功 on blogUrl:"+blogUrl+ " by username:"+username);
 		return LIST_ACTION;
 	}	
 	

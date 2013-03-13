@@ -8,6 +8,9 @@ package com.fpcms.service.impl;
 
 import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
 
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.duowan.common.util.page.Page;
+import com.fpcms.common.blog_post.Blog;
+import com.fpcms.common.blog_post.impl.MetaWeblogBlogPoster;
 import com.fpcms.dao.BlogExternalDao;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.query.BlogExternalQuery;
@@ -117,4 +122,30 @@ public class BlogExternalServiceImpl implements BlogExternalService {
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
     }
+
+	private MetaWeblogBlogPoster newMetaWeblogBlogPoster(BlogExternal be) {
+		Assert.notNull(be,"BlogExternal must be not null");
+		MetaWeblogBlogPoster bp = new MetaWeblogBlogPoster();
+		bp.setUsername(be.getUsername());
+		bp.setPassword(be.getPassword());
+		bp.setBlogUrl(be.getBlogUrl());
+		
+		if(StringUtils.isNotBlank(be.getCategories())) {
+			bp.setCategories(be.getCategories().split(","));
+		}
+		
+		return bp;
+	}
+
+	@Override
+	public List<BlogExternal> findAll() {
+		return blogExternalDao.findAll();
+	}
+
+	@Override
+	public void postNewBlog(BlogExternal be, Blog blog) {
+		MetaWeblogBlogPoster blogPoster = newMetaWeblogBlogPoster(be);
+		blogPoster.postBlog(blog);
+	}
+	
 }
