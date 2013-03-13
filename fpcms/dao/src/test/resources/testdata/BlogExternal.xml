@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DBUnit flatXml DataFile -->
+<dataset>
+
+
+	  <blog_external 
+			blog_url='BlogUrl857' 
+			blog_rpc_url='BlogRpcUrl458' 
+			blog_name='BlogName961' 
+			username='Username919' 
+			password='Password787' 
+			tags='Tags312' 
+			categories='Categories553' 
+			blog_rpc_api='BlogRpcApi286' 
+			blog_desc='BlogDesc769' 
+	  />	
+  
+</dataset>

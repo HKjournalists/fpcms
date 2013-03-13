@@ -20,5 +20,6 @@
 	<bean id="cmsSiteDao" class="com.fpcms.dao.impl.CmsSiteDaoImpl" parent="daoParent" />
 	<bean id="cmsDomainDao" class="com.fpcms.dao.impl.CmsDomainDaoImpl" parent="daoParent" />
 	<bean id="cmsKeyValueDao" class="com.fpcms.dao.impl.CmsKeyValueDaoImpl" parent="daoParent" />
+	<bean id="blogExternalDao" class="com.fpcms.dao.impl.BlogExternalDaoImpl" parent="daoParent" />
 	
 </beans>

@@ -49,6 +49,7 @@
 	  </ul>	  
 	  <h3 class="headerbar">系统管理</h3>
 	  <ul>
+		<li><a href="${ctx}/admin/blogexternal/index.do" target="rightFrame">外部博客管理</a></li>
 		<li><a href="${ctx}/admin/cron/index.do" target="rightFrame">定时任务</a></li>
 		<li><a href="${ctx}/admin/sysuser/index.do" target="rightFrame">用户管理</a></li>
 		<li><a href="${ctx}/admin/cmskeyvalue/index.do" target="rightFrame">KeyValue管理</a></li>

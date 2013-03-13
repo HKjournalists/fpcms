@@ -581,3 +581,33 @@ Vox.com - Part of the SixApart family of blogging sites, very much geared toward
 Xanga.com - Part social network, part blogging, all free.
 Yahoo 360 - Part of your Yahoo account and features easy publishing.
 Zoomshare.com - Free blog hosting with 250MB of free storage.
+
+
+
+新搜集！国内基于WordPress的免费博客托管商和致力于WordPress中文化的博客        
+         Liberalsky   编写 
+          月光博客曾提供过《免费WordPress托管服务商》(http://www.williamlong.info/archives/541.html) 其中有的国外网站已不能打开啦。 我就搜索一些信息，主要是国内的免费WordPress托管服务商。前三个是我这段时间发现的，许多人没提过，应该是新网站，大家可以来关注哦~~
+ixiezi爱写字博客                  http://ixiezi.com/  
+麦地-wordpress                    http://veryid.com/
+明日会wordpress自主建站         http://mingrihui.com /   （11月1号刚发现的啊，是中文博客）
+ 优博网                          http://yo2.cn
+iyublog请来博         http://iyublog.com/default.php   （需要申请，原创文章要达到50%以上 ）
+七十二松WP             http://72pines.com/     （ 需要松子，即邀请码）
+DoNews -               http://my.donews.com
+wordpress.com.cn    http://wordpress.com.cn/
+歪酷博客首页             http://yculblog.com            （模板较简单）
+ 博客蓝   www.bokeland.com   （50M。这个网站针对其他博客服务商的搬家服务真厉害啊。里面有种蓝色模板基于wordpress，不过还不确定这个网站是否全部基于wordpress）
+Wealog.Com ，文字和图片比我们活得更久 ，  http://wealog.com   （原创要达到50%以上，每季度交1元钱）
+另外下面两个基于worddpress的国内博客网打不开了
+                       http://www.linux-fans.com
+CRAZY BLOG  ， http://www.fengkuang.net/      据说是知名Blog风言风语之IT罗盘提供的
+yourblog        http://www.yourblog.in  （这是一家国外博客服务商，提供的博客网址后缀不止yourblog.in，竟然高达10多个。
+ Read00 -             http://read100.com/    
+以下为国内研究、致力于WordPress中文化的博客，信息丰富。
+WordPress 中文团队  http://www.wp-cn.com/
+ WordPress中文化  http://wordpresschina.org/  WordPressCHINA - WordPress中文化
+  zh-cnwordpress中文 http://zh-cn.wordpress.com/ 
+台湾地区对worspress中文化研究的博客http://www.wordpress.com.tw/wp/ 
+BloggingPro China（中文）  http://www.wordpresscn.com/
+ WordPress粉丝       http://wfans.org/
+WordPress 中文论坛 - Powered by Discuz! http://wordpress.org.cn/forums/
