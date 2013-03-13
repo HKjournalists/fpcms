@@ -30,8 +30,8 @@ public class MetaWeblogBlogPosterTest {
 	@Test
 	public void test_51cto() throws IOException {
 		// encoding='UTF-8' 必须修改了 GB2312才正确
-		String result = NetUtil.httpPost("http://51ctoblog.blog.51cto.com/xmlrpc.php", "<?xml version='1.0' encoding='UTF-8'?><methodCall><methodName>metaWeblog.newPost</methodName><params><param><value>1</value></param><param><value>fpqqchao@gmail.com</value></param><param><value>abc123</value></param><param><value><struct><member><name>title</name><value>MetaWeblogBlogPosterTest title from Http Post</value></member><member><name>description</name><value>MetaWeblogBlogPosterTest content,</value></member><member><name>mt_excerpt</name><value></value></member><member><name>mt_keywords</name><value></value></member><member><name>categories</name><value><array><data><value><string>【创作类型:原创】</string></value><value><string>开发技术</string></value></data></array></value></member></struct></value></param><param><value><boolean>1</boolean></value></param></params></methodCall>", "text/xml");
-		System.out.println(result);
+//		String result = NetUtil.httpPost("http://51ctoblog.blog.51cto.com/xmlrpc.php", "<?xml version='1.0' encoding='UTF-8'?><methodCall><methodName>metaWeblog.newPost</methodName><params><param><value>1</value></param><param><value>fpqqchao@gmail.com</value></param><param><value>abc123</value></param><param><value><struct><member><name>title</name><value>MetaWeblogBlogPosterTest title from Http Post</value></member><member><name>description</name><value>MetaWeblogBlogPosterTest content,</value></member><member><name>mt_excerpt</name><value></value></member><member><name>mt_keywords</name><value></value></member><member><name>categories</name><value><array><data><value><string>【创作类型:原创】</string></value><value><string>开发技术</string></value></data></array></value></member></struct></value></param><param><value><boolean>1</boolean></value></param></params></methodCall>", "text/xml");
+//		System.out.println(result);
 		
 //		poster.setBlogUrl("http://51ctoblog.blog.51cto.com");
 //		poster.setUsername("fpqqchao@gmail.com");

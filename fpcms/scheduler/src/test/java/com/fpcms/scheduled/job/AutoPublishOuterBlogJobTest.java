@@ -74,9 +74,10 @@ public class AutoPublishOuterBlogJobTest extends Mockito{
 	@Test
 	public void test_post_meta() {
 		List<BlogPoster> posterList = new ArrayList<BlogPoster>();
-		posterList.add(new MetaWeblogBlogPoster("http://sh292did.blog.163.com/","fpqqchao@gmail.com","asdf@1234"));
-		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3099457992","fpqqchao@gmail.com","asdf@1234"));
-		posterList.add(new MetaWeblogBlogPoster("http://blogtg123.blog.com/","blogtg123@gmail.com","abc123"));
+//		posterList.add(new MetaWeblogBlogPoster("http://sh292did.blog.163.com/","fpqqchao@gmail.com","asdf@1234"));
+//		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3099457992","fpqqchao@gmail.com","asdf@1234"));
+//		posterList.add(new MetaWeblogBlogPoster("http://blogtg123.blog.com/","blogtg123@gmail.com","abc123"));
+		posterList.add(new MetaWeblogBlogPoster("http://bbstg123.blogbus.com/","bbstg123","abc123"));
 		
 		for(BlogPoster poster : posterList) {
 			poster.postBlog(newBlog());

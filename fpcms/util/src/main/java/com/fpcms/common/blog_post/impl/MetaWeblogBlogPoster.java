@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -15,6 +16,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.blog_post.BlogPoster;
@@ -29,6 +31,8 @@ public class MetaWeblogBlogPoster implements BlogPoster,InitializingBean{
 	private String blogUrl;
 	private MetaweblogPoster poster = null;
 	private boolean isInit = false;
+	
+	private String[] categories = new String[0];
 	
 	public MetaWeblogBlogPoster() {
 	}
@@ -54,6 +58,15 @@ public class MetaWeblogBlogPoster implements BlogPoster,InitializingBean{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String[] getCategories() {
+		return categories;
+	}
+
+	public void setCategories(String... categories) {
+		Assert.notNull(categories,"categories must be not null");
+		this.categories = categories;
 	}
 
 	public String getBlogUrl() {
@@ -136,6 +149,11 @@ public class MetaWeblogBlogPoster implements BlogPoster,InitializingBean{
 		}
 		String username = StringUtils.defaultIfBlank(blog.getUsername(),this.username);
 		String password = StringUtils.defaultIfBlank(blog.getPassword(),this.password);
+		
+		if(ArrayUtils.isEmpty(blog.getCategories())) {
+			blog.setCategories(categories);
+		}
+		
 		poster.newPost(username, password, blog);
 	}
 

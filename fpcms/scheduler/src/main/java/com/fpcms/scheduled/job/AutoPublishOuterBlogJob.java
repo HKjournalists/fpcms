@@ -70,6 +70,10 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		posterList.add(new MetaWeblogBlogPoster("http://sh292did.blog.163.com/","fpqqchao@gmail.com","asdf@1234"));
 		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3099457992","fpqqchao@gmail.com","asdf@1234"));
 		posterList.add(new MetaWeblogBlogPoster("http://blogtg123.blog.com/","blogtg123@gmail.com","abc123"));
+		
+		MetaWeblogBlogPoster cto51 = new MetaWeblogBlogPoster("http://51ctoblog.blog.51cto.com","fpqqchao@gmail.com","abc123");
+		cto51.setCategories("【创作类型:原创】","开发技术");
+		posterList.add(cto51);
 	}
 	
 	@Override
@@ -91,7 +95,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 				Assert.notNull(content,"content must be not null");
 				Assert.isTrue(content.length() > 300,"post blog content must great 300,title:"+transformTitle);
 				
-				poster.postBlog(new Blog(transformTitle,content));
+				Blog blog = new Blog(transformTitle,content);
+				poster.postBlog(blog);
 			}catch(RuntimeException e) {
 				logger.error("postBlog error",e);
 			}
