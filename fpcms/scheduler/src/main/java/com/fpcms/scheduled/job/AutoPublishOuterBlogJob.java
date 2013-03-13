@@ -67,8 +67,11 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		posterList.add(new AccountBlogPosterDecorator(new CnblogBlogPoster(),"fpqqchao","abc123"));
 		posterList.add(new AccountBlogPosterDecorator(new ChinaUnixBlogPoster(),"fpqqchao","abc123"));
 		posterList.add(new AccountBlogPosterDecorator(new OschinaBlogPoster(),"fpqqchao@gmail.com","6367c48dd193d56ea7b0baad25b19455e529f5ee"));
+		
 		posterList.add(new MetaWeblogBlogPoster("http://sh292did.blog.163.com/","fpqqchao@gmail.com","asdf@1234"));
 		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3099457992","fpqqchao@gmail.com","asdf@1234"));
+		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3225401060","blogtg123@gmail.com","asdf@1234"));
+		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3225400392","bbstg123@gmail.com","asdf@1234"));
 		posterList.add(new MetaWeblogBlogPoster("http://blogtg123.blog.com/","blogtg123@gmail.com","abc123"));
 		
 		MetaWeblogBlogPoster cto51 = new MetaWeblogBlogPoster("http://51ctoblog.blog.51cto.com","fpqqchao@gmail.com","abc123");
@@ -83,6 +86,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 	}
 
 	void postAllBlog(final List<HtmlPage> pageList) {
+		
+		RandomLinkPrecessor randomLinkPrecessor = new RandomLinkPrecessor();
 		for(BlogPoster poster : posterList) {
 			try {
 				HtmlPage page = getRandomValidPage(pageList);
@@ -90,7 +95,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 					break;
 				}
 				String transformTitle = NaipanArticleGeneratorUtil.transformArticle(page.getTitle());
-				String content = new RandomLinkPrecessor().execute(page);
+				String content = randomLinkPrecessor.execute(page);
 				
 				Assert.notNull(content,"content must be not null");
 				Assert.isTrue(content.length() > 300,"post blog content must great 300,title:"+transformTitle);
@@ -101,6 +106,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 				logger.error("postBlog error",e);
 			}
 		}
+		
 	}
 	
 	HtmlPage getRandomValidPage(final List<HtmlPage> pageList) {
@@ -139,8 +145,9 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		}
 		
 		private String selectRandomDomain() {
+			CmsDomain domain = null;
 			for(int i = 0; i < 10; i++) {
-				CmsDomain domain = cmsDomainService.randomSelectDomain();
+				domain = cmsDomainService.randomSelectDomain();
 				Assert.notNull(domain,"not found any random CmsDomain");
 				String link =  domain.getYesterdayOuterLinked();
 				if(useedLink.contains(link)) {
@@ -149,7 +156,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 				useedLink.add(link);
 				return " "+link+" ";
 			}
-			return "";
+			return domain.getYesterdayOuterLinked();
 		}
 	
 		private String selectRandomSite() {
