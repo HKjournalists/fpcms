@@ -89,7 +89,7 @@ public class ArticleCrawlServiceTest extends Mockito{
 
 	@Test
 	public void crawl_by_java_replace_invoice() {
-		List<CmsContent> list = articleCrawlService.crawlByKeyword("zh_fapiao","en", "java", "invoice", "en");
+		List<CmsContent> list = articleCrawlService.crawlByKeyword("en_fapiao,java","en", "java", "invoice", "en");
 		assertAndPrint(list);
 	}
 
