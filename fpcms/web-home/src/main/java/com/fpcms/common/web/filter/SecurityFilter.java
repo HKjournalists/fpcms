@@ -18,6 +18,7 @@ import com.fpcms.common.util.Constants;
 public class SecurityFilter extends BaseIncludeExcludeFilter implements Filter{
 
 	private String loginPage = "/admin/login.jsp";
+	public static String RETURN_URL = "returnUrl";
 	
 	@Override
 	protected void initFilterBean() throws ServletException {
@@ -36,7 +37,7 @@ public class SecurityFilter extends BaseIncludeExcludeFilter implements Filter{
 		if(!isMatch(request, excludeSet)) {
 			String username = (String)request.getSession().getAttribute(Constants.ADMIN_LOGIN_USER);
 			if(StringUtils.isBlank(username)) {
-				response.sendRedirect(request.getContextPath()+loginPage);
+				response.sendRedirect(request.getContextPath()+loginPage+"?"+RETURN_URL+"="+request.getRequestURL());
 				return;
 			}
 			filterChain.doFilter(request, response);

@@ -2,6 +2,7 @@ package com.fpcms.admin.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,17 @@ public class LoginController {
 	}
 
 	@RequestMapping
-	public String login(String username,String password,HttpServletRequest request){
+	public String login(String username,String password,String returnUrl,HttpServletRequest request){
 		SysUser sysUser = sysUserService.authUser(username,password);
 		request.getSession().setAttribute(Constants.ADMIN_LOGIN_USER, sysUser.getUsername());
 		logger.info("login success:"+username+" clientIp:"+IpUtil.getIpAddr(request));
-		return "redirect:/admin/index.do";
+		
+		if(StringUtils.isBlank(returnUrl)) {
+			return "redirect:/admin/index.do";
+		}else {
+			return "redirect:"+returnUrl;
+		}
+		
 	}
 	
 }
