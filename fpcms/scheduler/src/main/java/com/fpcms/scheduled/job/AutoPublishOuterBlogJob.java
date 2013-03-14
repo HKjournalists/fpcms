@@ -70,8 +70,8 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 		
 		posterList.add(new MetaWeblogBlogPoster("http://sh292did.blog.163.com/","fpqqchao@gmail.com","asdf@1234"));
 		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3099457992","fpqqchao@gmail.com","asdf@1234"));
-		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3225401060","blogtg123@gmail.com","asdf@1234"));
-		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3225400392","bbstg123@gmail.com","asdf@1234"));
+		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3225400392","blogtg123@gmail.com","asdf@1234"));
+		posterList.add(new MetaWeblogBlogPoster("http://blog.sina.com.cn/u/3225401060","bbstg123@gmail.com","asdf@1234"));
 		posterList.add(new MetaWeblogBlogPoster("http://blogtg123.blog.com/","blogtg123@gmail.com","abc123"));
 		
 		MetaWeblogBlogPoster cto51 = new MetaWeblogBlogPoster("http://51ctoblog.blog.51cto.com","fpqqchao@gmail.com","abc123");

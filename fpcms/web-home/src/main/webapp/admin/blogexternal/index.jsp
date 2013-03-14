@@ -99,7 +99,7 @@
 			  <tr class="${status.count % 2 == 0 ? 'odd' : 'even'}">
 				<td>${page.paginator.startRow + status.index}</td>
 				
-				<td><a href="${item.blogUrl}">${item.blogUrl}</a>&nbsp;</td>
+				<td><a href="${item.blogUrl}" target="_blank">${item.blogUrl}</a>&nbsp;</td>
 				<td><c:out value='${item.blogRpcUrl}'/>&nbsp;</td>
 				<td><c:out value='${item.blogName}'/>&nbsp;</td>
 				<td><c:out value='${item.username}'/>&nbsp;</td>
