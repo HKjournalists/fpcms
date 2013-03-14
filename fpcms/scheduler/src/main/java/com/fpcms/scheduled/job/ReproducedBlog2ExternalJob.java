@@ -29,7 +29,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 	private BlogExternalService blogExternalService;
 	
 	public ReproducedBlog2ExternalJob() {
-		super("0 1 3,6 * * *");
+		super("0 1 1/4 * * *");
 	}
 	
 	public void setCmsDomainService(CmsDomainService cmsDomainService) {
