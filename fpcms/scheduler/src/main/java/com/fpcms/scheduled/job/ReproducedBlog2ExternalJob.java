@@ -56,7 +56,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 					CmsContent cc = findCmsContent();
 					if(cc == null) continue;
 					
-					String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cc.getContent();
+					String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cc.getContent() +" <br/>\n" ;
 					blogExternalService.postNewBlog(be,new Blog(cc.getTitle(),blogContent));
 					break;
 				}
@@ -69,7 +69,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 	private CmsContent findCmsContent() {
 		DateRange createdRange = new DateRange(DateUtils.addDays(new Date(),-10),DateUtils.addDays(new Date(),-5));
 		CmsDomain domain = cmsDomainService.randomSelectDomain();
-		Page<CmsContent> page = cmsContentService.findPage(new PageQuery(10), "www."+domain.getDomain(), Constants.CHANNED_CODE_NEWS, createdRange);
+		Page<CmsContent> page = cmsContentService.findPage(new PageQuery(100), "www."+domain.getDomain(), Constants.CHANNED_CODE_NEWS, createdRange);
 		return RandomUtil.randomSelect(page.getItemList());
 	}
 
