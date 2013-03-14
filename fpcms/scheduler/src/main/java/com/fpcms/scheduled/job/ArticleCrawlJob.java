@@ -14,7 +14,7 @@ import com.fpcms.service.article_crawl.ArticleCrawlService;
 public class ArticleCrawlJob extends BaseCronJob{
 	private ArticleCrawlService articleCrawlService;
 	public ArticleCrawlJob() {
-		super("1 1 1/2 * * *");
+		super("1 1 5,20 * * *");
 	}
 
 	public void setArticleCrawlService(
