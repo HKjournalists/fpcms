@@ -36,12 +36,12 @@ public interface BlogExternalService {
 	/** 
 	 * 删除BlogExternal
 	 **/
-    public void removeById(String blogUrl, String username, String password);
+    public void removeById(String blogUrl, String username);
     
 	/** 
 	 * 根据ID得到BlogExternal
 	 **/    
-    public BlogExternal getById(String blogUrl, String username, String password);
+    public BlogExternal getById(String blogUrl, String username );
     
 	/** 
 	 * 分页查询: BlogExternal

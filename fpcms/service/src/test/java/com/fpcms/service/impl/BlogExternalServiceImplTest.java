@@ -56,18 +56,18 @@ public class BlogExternalServiceImplTest extends BaseServiceTestCase{
 	
 	@Test
 	public void test_removeById() {
-		service.removeById(new java.lang.String("1"),new java.lang.String("1"),new java.lang.String("1"));
+		service.removeById(new java.lang.String("1"),new java.lang.String("1"));
 		
-		verify(blogExternalDao).deleteById(new java.lang.String("1"),new java.lang.String("1"),new java.lang.String("1")); //验证执行了该语句
+		verify(blogExternalDao).deleteById(new java.lang.String("1"),new java.lang.String("1")); //验证执行了该语句
 	}
 	
 	@Test
 	public void test_getById() {
-		when(blogExternalDao.getById(new java.lang.String("1"),new java.lang.String("1"),new java.lang.String("1"))).thenReturn(BlogExternalDataFactory.newBlogExternal()); // mock方法调用
+		when(blogExternalDao.getById(new java.lang.String("1"),new java.lang.String("1"))).thenReturn(BlogExternalDataFactory.newBlogExternal()); // mock方法调用
 		
-		BlogExternal blogExternal = service.getById(new java.lang.String("1"),new java.lang.String("1"),new java.lang.String("1"));
+		BlogExternal blogExternal = service.getById(new java.lang.String("1"),new java.lang.String("1"));
 		
-		verify(blogExternalDao).getById(new java.lang.String("1"),new java.lang.String("1"),new java.lang.String("1")); //验证执行了该语句
+		verify(blogExternalDao).getById(new java.lang.String("1"),new java.lang.String("1")); //验证执行了该语句
 		assertNotNull(blogExternal);
 	}
 	

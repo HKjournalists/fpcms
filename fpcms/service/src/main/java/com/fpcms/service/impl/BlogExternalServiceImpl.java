@@ -74,15 +74,15 @@ public class BlogExternalServiceImpl implements BlogExternalService {
 	/** 
 	 * 删除BlogExternal
 	 **/
-    public void removeById(String blogUrl, String username, String password) {
-        blogExternalDao.deleteById(blogUrl,username,password);
+    public void removeById(String blogUrl, String username) {
+        blogExternalDao.deleteById(blogUrl,username);
     }
     
 	/** 
 	 * 根据ID得到BlogExternal
 	 **/    
-    public BlogExternal getById(String blogUrl, String username, String password) {
-        return blogExternalDao.getById(blogUrl,username,password);
+    public BlogExternal getById(String blogUrl, String username) {
+        return blogExternalDao.getById(blogUrl,username);
     }
     
 	/** 

@@ -73,12 +73,12 @@ public class BlogExternalDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_delete() {
-		dao.deleteById(new java.lang.String("1"),new java.lang.String("1"),new java.lang.String("1"));
+		dao.deleteById(new java.lang.String("1"),new java.lang.String("1"));
 	}
 	
 	@Test
 	public void test_getById() {
-		dao.getById(new java.lang.String("1"),new java.lang.String("1"),new java.lang.String("1"));
+		dao.getById(new java.lang.String("1"),new java.lang.String("1"));
 	}
 	
 	@Test

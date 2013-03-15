@@ -63,18 +63,18 @@ public class BlogExternalDaoImpl extends BaseSpringJdbcDao implements BlogExtern
 	public int update(BlogExternal entity) {
 		String sql = "update blog_external set "
 					+ " blog_rpc_url=:blogRpcUrl,blog_name=:blogName,tags=:tags,categories=:categories,blog_rpc_api=:blogRpcApi,blog_desc=:blogDesc,blog_post_count=:blogPostCount,blog_rpc_api_class=:blogRpcApiClass,enabled=:enabled "
-					+ " where  blog_url = :blogUrl and username = :username and password = :password ";
+					+ " where  blog_url = :blogUrl and username = :username ";
 		return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(entity));
 	}
 	
-	public int deleteById(String blogUrl, String username, String password) {
-		String sql = "delete from blog_external where  blog_url = ? and username = ? and password = ? ";
-		return  getSimpleJdbcTemplate().update(sql,  blogUrl,username,password);
+	public int deleteById(String blogUrl, String username) {
+		String sql = "delete from blog_external where  blog_url = ? and username = ? ";
+		return  getSimpleJdbcTemplate().update(sql,  blogUrl,username);
 	}
 
-	public BlogExternal getById(String blogUrl, String username, String password) {
-		String sql = SELECT_FROM + " where  blog_url = ? and username = ? and password = ? ";
-		return (BlogExternal)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),blogUrl,username,password));
+	public BlogExternal getById(String blogUrl, String username) {
+		String sql = SELECT_FROM + " where  blog_url = ? and username = ? ";
+		return (BlogExternal)DataAccessUtils.singleResult(getSimpleJdbcTemplate().query(sql, getEntityRowMapper(),blogUrl,username));
 	}
 	
 

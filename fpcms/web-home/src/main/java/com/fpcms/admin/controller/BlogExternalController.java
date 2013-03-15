@@ -84,8 +84,8 @@ public class BlogExternalController extends BaseController{
 	
 	/** 显示 */
 	@RequestMapping
-	public String show(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username, @RequestParam("password") String password) throws Exception {
-		BlogExternal blogExternal = (BlogExternal)blogExternalService.getById(blogUrl,username,password);
+	public String show(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username) throws Exception {
+		BlogExternal blogExternal = (BlogExternal)blogExternalService.getById(blogUrl,username);
 		model.addAttribute("blogExternal",blogExternal);
 		return "/admin/blogexternal/show";
 	}
@@ -115,8 +115,8 @@ public class BlogExternalController extends BaseController{
 	
 	/** 编辑 */
 	@RequestMapping
-	public String edit(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username, @RequestParam("password") String password) throws Exception {
-		BlogExternal blogExternal = (BlogExternal)blogExternalService.getById(blogUrl,username,password);
+	public String edit(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username) throws Exception {
+		BlogExternal blogExternal = (BlogExternal)blogExternalService.getById(blogUrl,username);
 		model.addAttribute("blogExternal",blogExternal);
 		return "/admin/blogexternal/edit";
 	}
@@ -139,16 +139,16 @@ public class BlogExternalController extends BaseController{
 	
 	/** 批量删除 */
 	@RequestMapping
-	public String delete(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username, @RequestParam("password") String password) {
-		blogExternalService.removeById(blogUrl,username,password);
+	public String delete(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username) {
+		blogExternalService.removeById(blogUrl,username);
 		Flash.current().success(DELETE_SUCCESS);
 		return LIST_ACTION;
 	}
 	
 	/** testPostBlog*/
 	@RequestMapping
-	public String testPostBlog(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username, @RequestParam("password") String password) {
-		BlogExternal be = blogExternalService.getById(blogUrl,username,password);
+	public String testPostBlog(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username) {
+		BlogExternal be = blogExternalService.getById(blogUrl,username);
 		blogExternalService.postNewBlog(be,new Blog("test_title_测试标题_"+new Timestamp(System.currentTimeMillis()),StringUtils.repeat("test_content,",100)));
 		Flash.current().success("发送BLOG成功 on blogUrl:"+blogUrl+ " by username:"+username);
 		return LIST_ACTION;

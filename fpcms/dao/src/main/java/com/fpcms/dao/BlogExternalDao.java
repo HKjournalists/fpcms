@@ -26,10 +26,9 @@ public interface BlogExternalDao {
 	
 	public int update(BlogExternal entity);
 
-	public int deleteById(String blogUrl, String username, String password);
+	public int deleteById(String blogUrl, String username);
 	
-	public BlogExternal getById(String blogUrl, String username, String password);
-	
+	public BlogExternal getById(String blogUrl, String username);
 
 	public Page<BlogExternal> findPage(BlogExternalQuery query);
 
