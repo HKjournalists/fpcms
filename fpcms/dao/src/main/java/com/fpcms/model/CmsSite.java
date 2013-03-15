@@ -164,6 +164,8 @@ public class CmsSite  implements java.io.Serializable{
 	 */
 	private String httpStatus;
 	
+	private String htmlLayout;
+	
 	public CmsSite(){
 	}
 
@@ -388,6 +390,14 @@ public class CmsSite  implements java.io.Serializable{
 	public void setHttpStatus(String httpStatus) {
 		this.httpStatus = StringUtils.substring(httpStatus,0,Math.min(40, StringUtils.length(httpStatus)));
 	}
+	
+	public String getHtmlLayout() {
+		return htmlLayout;
+	}
+
+	public void setHtmlLayout(String pageLayout) {
+		this.htmlLayout = pageLayout;
+	}
 
 	public boolean isHttpSuccess() {
 		return HttpStatusCheckUtil.isHttpSuccess(httpStatus);
@@ -415,5 +425,6 @@ public class CmsSite  implements java.io.Serializable{
 			.append(getSiteDomain(),other.getSiteDomain())
 			.isEquals();
 	}
+
 }
 

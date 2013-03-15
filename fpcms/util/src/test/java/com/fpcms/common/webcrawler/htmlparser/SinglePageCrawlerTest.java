@@ -1,6 +1,8 @@
 package com.fpcms.common.webcrawler.htmlparser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
@@ -55,6 +57,12 @@ public class SinglePageCrawlerTest extends Mockito{
 		List<Anchor> list = c.getShoudVisitAnchorList("http://news.yahoo.com/");
 		System.out.println(StringUtils.join(list,"\n"));
 		assertTrue(list.size() > 20);
+	}
+	
+	@Test
+	public void test() throws IOException {
+		HtmlPage page = c.extractArticleByJsoup(newAnchor("http://blogs.wsj.com/venturecapital/2013/03/14/mobeam-brings-digital-coupons-to-new-samsung-phone/"));
+		System.out.println(page.getContent());
 	}
 	
 	

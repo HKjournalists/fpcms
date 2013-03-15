@@ -183,18 +183,5 @@
 		</div>
 </duowan:override>
 
-<duowan:override name="not_exist_foot">
-		<c:forEach items="${allSiteList}" var="item">
-			<c:choose>
-				<c:when test="${fn:contains(item.siteDomain,'info')}">
-				</c:when>
-				<c:when test="${fn:startsWith(item.siteDomain,'www.')}">
-					<a href="http://${item.siteDomain}${ctx}">${fn:split(item.keyword,",")[0]}</a> |
-				</c:when>
-				<c:otherwise></c:otherwise>
-			</c:choose>
-		</c:forEach>
-</duowan:override>
-
 <%-- jsp模板继承,具体使用请查看: http://code.google.com/p/rapid-framework/wiki/rapid_jsp_extends --%>
 <jsp:include page="/layout.do"></jsp:include>

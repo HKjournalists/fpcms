@@ -3,6 +3,7 @@ package com.fpcms.scheduled.job;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +57,8 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 					CmsContent cc = findCmsContent();
 					if(cc == null) continue;
 					
-					String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cc.getContent() +" <br/>\n" ;
+					String blogContent = buildBlogContent(blogExternalList, cc);
+					
 					blogExternalService.postNewBlog(be,new Blog(cc.getTitle(),blogContent));
 					break;
 				}
@@ -64,6 +66,16 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 				logger.error("error_postNewBlog_on:"+be.getBlogUrl()+" by_username:"+be.getUsername(),e);
 			}
 		}
+	}
+
+	private String buildBlogContent(List<BlogExternal> blogExternalList,
+			CmsContent cc) {
+		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cc.getContent() +" <br/>\n" ;
+		if(RandomUtil.randomTrue(50)) {
+			BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
+			blogContent += "<br/> "+randomBe.getBlogName()+""+randomBe.getBlogRpcUrl()+"?rand="+RandomUtils.nextInt(); 
+		}
+		return blogContent;
 	}
 
 	private CmsContent findCmsContent() {

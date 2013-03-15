@@ -7,3 +7,7 @@ v.20130203
 v.20130313
 	alter table blog_external add column enabled tinyint default 1 comment '激活状态';
 	
+v.20130315
+	ALTER TABLE `cms_site` ADD COLUMN `html_layout`  varchar(30) NULL AFTER `http_status`;
+
+	

@@ -187,12 +187,12 @@ public class SinglePageCrawler {
 			String title = HtmlPageTitleUtil.smartGetTitle(anchor,doc.title());
 			String keywords = JsoupSelectorUtil.select(doc.head(),"[name=keywords]").attr("content");
 			String description = JsoupSelectorUtil.select(doc.head(),"[name=description]").attr("content");
-			String content = JsoupSelectorUtil.select(doc.body(),mainContentSelector).text();
+			String mainContentSelectorContent = JsoupSelectorUtil.select(doc.body(),mainContentSelector).text();
 			Element smartMainContent = smartGetMainContent(doc);
 			
 			HtmlPage page = new HtmlPage();
 			page.setAnchor(anchor);
-			page.setContent(StringUtils.defaultIfBlank(content,smartMainContent == null ? null : smartMainContent.text()));
+			page.setContent(StringUtils.defaultIfBlank(mainContentSelectorContent,smartMainContent == null ? null : smartMainContent.text()));
 			page.setDescription(description);
 			page.setKeywords(keywords);
 			page.setTitle(title);
@@ -207,7 +207,7 @@ public class SinglePageCrawler {
 			logger.info("description:"+page.getDescription());
 			logger.info("content,size:"+ StringUtils.length(page.getContent()) +" "+page.getContent());
 			logger.info("content.deepLevel:"+JsoupSelectorUtil.select(doc,mainContentSelector).parents().size());
-			if(smartMainContent != null && StringUtils.isNotBlank(content)) {
+			if(smartMainContent != null && StringUtils.isNotBlank(mainContentSelectorContent)) {
 				if(!smartMainContent.text().equals(page.getContent())) {
 					logger.warn("-------------------error: smart max length text != selector["+StringUtils.join(mainContentSelector,",")+"] text----------------------");
 				}
@@ -233,25 +233,47 @@ public class SinglePageCrawler {
 			int divCount = element.getElementsByTag("div").size();
 			int parentsSize = element.parents().size();
 			
+			if("articlePage".equals(element.className().trim())) {
+				int a = 1 + 1;
+			}
 			/*
 			 * TODO 增加判断如果出现空格数过多的文字也属于垃圾特征,如: 首页 产品列表 关于我们 
 			 * TODO 包含垃圾子段的父亲,也是垃圾
 			 * TODO 
 			 */
-			if(element.text().length() >= minContentLength  && parentsSize >= 4 && commonSymbolesCount > conditionSymbolesCount) {
-				if(element.getElementsByTag("a").size() >= 10) {
-					continue;
-				}
-				if(divCount >= 5) {
-					continue;
-				}
-				
-				logger.info("success_found_valid_content:"+element.tagName()+ " class:" + element.className() + " id:"+ element.id() + " anchor.count:"+element.getElementsByTag("a").size() + " parentsSize:" + parentsSize + " contentSize:"+element.text().length()+" commonSymbolesCount:"+commonSymbolesCount+" divCount:"+divCount);
+			int textLength = element.text().length();
+			int anchorSize = element.getElementsByTag("a").size();
+			if(getPageElementScore(textLength,parentsSize,commonSymbolesCount,conditionSymbolesCount,divCount,anchorSize) >= 30) {
+				logger.info("success_found_valid_content:"+element.tagName()+ " class:" + element.className() + " id:"+ element.id() + " anchor.count:"+anchorSize + " parentsSize:" + parentsSize + " contentSize:"+textLength+" commonSymbolesCount:"+commonSymbolesCount+" divCount:"+divCount+" anchorSize:"+anchorSize);
 				return element;
 			}
 		}
 		return null;
 	}
+	
+	public int getPageElementScore(int textLength,int parentsSize,int commonSymbolesCount,int conditionSymbolesCount,int divCount,int anchorSize) {
+		int score = 0;
+		if(textLength >= minContentLength) {
+			score += 10;
+		}
+		if(parentsSize >= 4) {
+			score += 10;
+		}
+		if(commonSymbolesCount > conditionSymbolesCount) {
+			score += 10;
+		}
+		if(textLength >= 2000) {
+			score += 10;
+		}
+		if(anchorSize >= 13) {
+			score -= 10;
+		}
+		if(divCount >= 5) {
+			score -= 10;
+		}
+		return score;
+	}
+	
 
 	boolean isAcceptUrl(String href) {
 		if(StringUtils.isBlank(href)) {

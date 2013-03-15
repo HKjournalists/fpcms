@@ -163,7 +163,17 @@
 		<font color='red'><form:errors path="dailyGenContentCount"/></font>
 		</td>
 	</tr>
-	
+
+	<tr>	
+		<td class="tdLabel">
+			页面布局:
+		</td>		
+		<td>
+		<form:input path="htmlLayout" id="htmlLayout" maxlength="20"  size="60"/>
+		<font color='red'><form:errors path="htmlLayout"/></font>
+		</td>
+	</tr>
+		
 	<tr>	
 		<td class="tdLabel">
 			扩展属性:key_value字段
