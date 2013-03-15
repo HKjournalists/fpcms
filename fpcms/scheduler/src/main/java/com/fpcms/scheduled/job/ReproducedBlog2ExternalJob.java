@@ -73,7 +73,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cc.getContent() +" <br/>\n" ;
 		if(RandomUtil.randomTrue(50)) {
 			BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
-			blogContent += "<br/> "+randomBe.getBlogName()+""+randomBe.getBlogRpcUrl()+"?rand="+RandomUtils.nextInt(); 
+			blogContent += "<br/> "+randomBe.getBlogName()+""+randomBe.getBlogUrl()+"?rand="+RandomUtils.nextInt()+" ; "; 
 		}
 		return blogContent;
 	}

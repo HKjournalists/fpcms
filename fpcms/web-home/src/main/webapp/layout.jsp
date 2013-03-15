@@ -105,6 +105,7 @@
 				</div>
 			</div>
 			</duowan:block>
+			<duowan:block name="subPageRight"/>
 		</div>
 	</div>
 

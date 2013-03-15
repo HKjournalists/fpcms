@@ -132,7 +132,11 @@
 			
 		</div>
 	</div>
-	
+</duowan:override>
+
+
+<duowan:override name="subPageRight">
+
 	<div class="subject_bg">
 		<div class="subject_title" style="">产品中心</div>
 	</div>
@@ -169,7 +173,6 @@
 			</div>
 		</div>
 	</div>
-
 				
 </duowan:override>
 
