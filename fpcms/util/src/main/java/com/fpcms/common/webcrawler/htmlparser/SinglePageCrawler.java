@@ -265,7 +265,7 @@ public class SinglePageCrawler {
 		if(textLength >= 2000) {
 			score += 10;
 		}
-		if(anchorSize >= 13) {
+		if(anchorSize >= 10) {
 			score -= 10;
 		}
 		if(divCount >= 5) {
