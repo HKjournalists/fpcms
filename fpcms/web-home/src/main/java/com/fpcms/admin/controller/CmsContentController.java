@@ -212,8 +212,8 @@ public class CmsContentController extends BaseController{
 	 */
 	@RequestMapping
 	public String statSite(ModelMap model,String startDate,String endDate) {
-		startDate = StringUtils.defaultIfBlank(startDate,DateConvertUtils.format(DateUtils.addDays(new Date(),-1), "yyyy-MM-dd"));
-		endDate = StringUtils.defaultIfBlank(endDate,DateConvertUtils.format(new Date(), "yyyy-MM-dd"));
+		startDate = StringUtils.defaultIfBlank(startDate,DateConvertUtils.format(new Date(), "yyyy-MM-dd"));
+		endDate = StringUtils.defaultIfBlank(endDate,DateConvertUtils.format(DateUtils.addDays(new Date(),1), "yyyy-MM-dd"));
 		Date start = DateConvertUtils.parse(startDate, "yyyy-MM-dd");
 		Date end = DateConvertUtils.parse(endDate, "yyyy-MM-dd");
 		
