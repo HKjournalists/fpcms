@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -56,34 +55,47 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 	public synchronized void execute() {
 		List<CmsContent> list = findCmsContentList();
 		List<CmsSite> siteList = cmsSiteService.findAll();
+		RuntimeException lastException = null;
 		for (CmsSite cmsSite : siteList) {
-			if(list.isEmpty()) 
-				break;
-			
-			String site = cmsSite.getSiteDomain();
-			String siteExceptContentTags = cmsSite.getProperty(CmsSitePropertyEnum.PROP_EXPECT_CONTENT_TAGS.getCode());
-			if(DomainUtil.isMainSite(site)) {
-				CmsContent content = null;
-				Assert.hasText(siteExceptContentTags,"siteExceptContentTags must be not empty on site:"+site);
-				content = findExpectContentByTags(siteExceptContentTags,list);
-				
-				if(content == null) {
-					logger.warn("not found CmsContent for site:"+site+" siteExceptContentTags:"+siteExceptContentTags);
-					continue;
-				}
-				
-				content.setSite(site);
-				content.setDateCreated(new Date());
-				
-				if(RandomUtil.randomTrue(100)) {
-					content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",cmsSite.getKeyword()));
-					content.setContent(processWithSiteKeyword(content.getContent(),"发票",cmsSite.getKeyword()));
-				}
-				
-				logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
-				cmsContentService.update(content);
-				CmsContent.baiduBlogPing(content);
+			try {
+				if(list.isEmpty()) 
+					break;
+				assignArticle2Site(cmsSite,list);
+			}catch(RuntimeException e) {
+				logger.error("assign content 2 site error,on cmsSite:"+cmsSite.getSiteDomain(),e);
+				lastException = e;
 			}
+		}
+		
+		if(lastException != null) {
+			throw lastException;
+		}
+	}
+	
+	public void assignArticle2Site(CmsSite cmsSite,List<CmsContent> contentList) {
+		String site = cmsSite.getSiteDomain();
+		String siteExceptContentTags = cmsSite.getProperty(CmsSitePropertyEnum.PROP_EXPECT_CONTENT_TAGS.getCode());
+		if(DomainUtil.isMainSite(site)) {
+			CmsContent content = null;
+			Assert.hasText(siteExceptContentTags,"siteExceptContentTags must be not empty on site:"+site);
+			content = findExpectContentByTags(siteExceptContentTags,contentList);
+			
+			if(content == null) {
+				logger.warn("not found CmsContent for site:"+site+" siteExceptContentTags:"+siteExceptContentTags);
+				return;
+			}
+			
+			content.setSite(site);
+			content.setDateCreated(new Date());
+			
+			if(RandomUtil.randomTrue(100)) {
+				content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",cmsSite.getKeyword()));
+				content.setContent(processWithSiteKeyword(content.getContent(),"发票",cmsSite.getKeyword()));
+			}
+			
+			logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
+			cmsContentService.update(content);
+//			CmsContent.baiduBlogPing(content);
 		}
 	}
 

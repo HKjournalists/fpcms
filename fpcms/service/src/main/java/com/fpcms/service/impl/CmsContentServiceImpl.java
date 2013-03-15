@@ -244,7 +244,7 @@ public class CmsContentServiceImpl implements CmsContentService {
 		cmsContent.setSearchKeyword(article.getKeyword());
 		createWithRandomLink(cmsContent,40);
 		log.info("generate_random_news by finalSearchKeyword:"+article.getFinalSearchKeyword()+",new title:"+title);
-		CmsContent.baiduBlogPing(cmsContent);
+//		CmsContent.baiduBlogPing(cmsContent);
 	}
 
 //	/** 
