@@ -94,6 +94,7 @@ select t.title from (
 #52. 更加智能的抽取title
 53. 增加文章转载模块
 #54. 增加随机显示子站文章模块
+55.  如果referrer的关键字带"查询" 则导航至不同的网页查询页面
 
 http://www.pc51.com/
 账号haofapiao.com
@@ -114,6 +115,9 @@ http://www.pc51.com/
 网站页脚次导航，网站的更新也是很重要的一方面，包括更新的频率、内容的质量，最后是网站的导入链接、外链建设。
 
 长尾关键字查询: http://tool.chinaz.com/baidu/words.aspx 发票
+
+
+20130315分析长尾: 发票中奖,发票抬头,发票抽奖,发票管理办法,普通发票,定额发票,机打发票,服务发票
 
 关键词密度达到 11个, 6.2% : http://www.fp-hongy.com/ 排名第一
 
@@ -148,6 +152,7 @@ where channel_code='home'  and site in (select site_domain from cms_site where r
 #########
 网站内部外链: 同一IP 不可互相链接
 SEO: 网站排名的唯一最关键因素: 外链
+
 
 
 安全修改:
