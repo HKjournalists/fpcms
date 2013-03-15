@@ -155,7 +155,7 @@
 				<td><c:out value='${item.properties}'/>&nbsp;</td>
 				<td><c:out value='${item.mobile}'/>&nbsp;</td>
 				<td><a href="http://${item.redirectSite}${ctx}" title="预览" target="_blank">${item.redirectSite}</a></td>
-				<td>${htmlLayout}</td>
+				<td>${item.htmlLayout}</td>
 				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
 				<td><c:out value='${item.company}'/>&nbsp;</td>
