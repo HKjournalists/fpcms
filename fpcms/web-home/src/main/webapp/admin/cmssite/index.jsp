@@ -121,6 +121,7 @@
 				<th sortColumn="props" >属性</th>
 				<th sortColumn="mobile" >移动电话</th>
 				<th sortColumn="redirect_site" >重定向site</th>
+				<th sortColumn="html_layout" >页面布局</th>
 				<!-- 
 				<th sortColumn="remarks" >备注</th>
 				<th sortColumn="company" >公司</th>
@@ -154,6 +155,7 @@
 				<td><c:out value='${item.properties}'/>&nbsp;</td>
 				<td><c:out value='${item.mobile}'/>&nbsp;</td>
 				<td><a href="http://${item.redirectSite}${ctx}" title="预览" target="_blank">${item.redirectSite}</a></td>
+				<td>${htmlLayout}</td>
 				<!-- 
 				<td><c:out value='${item.remarks}'/>&nbsp;</td>
 				<td><c:out value='${item.company}'/>&nbsp;</td>
