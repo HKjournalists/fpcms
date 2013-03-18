@@ -76,8 +76,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 			blogContent += "<br/> "+randomBe.getBlogName()+""+randomBe.getBlogUrl()+"?rand="+RandomUtils.nextInt()+" ; "; 
 		}
 		
-		CmsDomain domain = cmsDomainService.randomSelectDomain();
-		return blogContent + " \n<br />" + domain.getYesterdayOuterLinked();
+		return cmsDomainService.insertRandomLinks(blogContent,3);
 	}
 
 	private CmsContent findCmsContent() {
