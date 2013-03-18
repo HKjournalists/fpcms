@@ -15,6 +15,7 @@ import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.util.ThreadUtil;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsDomain;
@@ -62,6 +63,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 					blogExternalService.postNewBlog(be,new Blog(cc.getTitle(),blogContent));
 					break;
 				}
+				ThreadUtil.sleep(1000 * 3);
 			}catch(Exception e) {
 				logger.error("error_postNewBlog_on:"+be.getBlogUrl()+" by_username:"+be.getUsername(),e);
 			}
