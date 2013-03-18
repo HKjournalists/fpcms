@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
+import com.fpcms.common.util.HtmlUtil;
+
 public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 
 	static Logger logger = LoggerFactory.getLogger(BaseBlogPoster.class);
@@ -97,6 +99,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			
 //			printResponseHeaders(post);
 			Cookie[] cookies = client.getState().getCookies();
+			
 //			printCookies(cookies);
 			
 			InputStream stream = post.getResponseBodyAsStream();
@@ -195,7 +198,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 	private static String toRequestHeaderCookieString(List<BasicClientCookie> cookies) {
 		 String tmpcookies = "";  
 		for(BasicClientCookie c : cookies) {
-			tmpcookies = tmpcookies + c.toString() + ";";  
+			tmpcookies = tmpcookies + c.getName()+"="+c.getValue() + "; ";  
 		}
 		return tmpcookies;
 	}
@@ -216,14 +219,19 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 		for(String key : postNewBlogHeaders.keySet()) {
 			post.setRequestHeader(key, postNewBlogHeaders.get(key));
 		}
-		post.setRequestHeader("Cookie",toRequestHeaderCookieString(cookies));
+		
+		String cookieHeader = toRequestHeaderCookieString(cookies);
+		post.setRequestHeader("Cookie",cookieHeader);
+		logger.debug("postNewBlog() cookieHeader:"+cookieHeader);
 		
 		try {
 			logger.info("start postNewBlog:"+title+" url:"+getPostNewBlogUrl());
 			setPostNewBlogRequestBody(title, content,metaDescription, ext, post);
 			client.executeMethod(post);
+			
+			String charset = StringUtils.defaultIfBlank(HtmlUtil.getCharsetFromHtml(post.getResponseBodyAsString()),post.getResponseCharSet());
 			InputStream stream = post.getResponseBodyAsStream();
-			String responseString = IOUtils.toString(stream,"UTF-8");
+			String responseString = IOUtils.toString(stream,StringUtils.defaultIfBlank(charset,"UTF-8"));
 			stream.close();
 			verifyHttpStatusCode(post.getStatusCode(),"post new blog error,blog title:"+title);
 			Assert.isTrue(verifyPostNewBlogResult(responseString),"post blog error,title:"+title+" response:"+responseString);

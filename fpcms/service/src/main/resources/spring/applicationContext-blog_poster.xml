@@ -82,6 +82,25 @@
 		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
 	</bean>	
 	 -->
-	 
+
+	<!-- 
+	<bean id="sohuBlogPoster" class="com.fpcms.common.blog_post.impl.ConfigableBlogPoster" >
+		<property name="loginUrl" value="https://passport.sohu.com/sso/login.jsp"></property>
+		<property name="loginRequestBodyTemplate" >
+			<value><![CDATA[userid=fpqqchao@gmail.com&password=ebe5011d4966e71138e51edac4587a79&appid=1019&persistentcookie=0&s=1363618028782&b=7&w=1280&pwdtype=1&v=26]]></value>
+		</property>
+		<property name="verifyLoginResultRegex" >
+			<value><![CDATA[]]></value>
+		</property>
+		
+		<property name="postNewBlogUrl" value="http://blog.sohu.com/manage/entry.do"></property>
+		<property name="postNewBlogRequestBodyTemplate">
+			<value><![CDATA[
+			oper=art_ok&m=save&aid=0505752aa380e1c53e952aa587acb17b&shortcutFlag=true&contrChId=&contrCataId=&subflag=0&entrytitle=${title}&keywords=test_tag&categoryId=0&newGategory=&entrycontent=${content}&excerpt=&allowComment=2&perm=0
+			]]></value>
+		</property>
+		<property name="verifyPostNewBlogResultRegex" value="aaa"></property>
+	</bean>		 
+	 -->
 	
 </beans>

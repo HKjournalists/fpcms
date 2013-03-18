@@ -120,17 +120,10 @@ public class NetUtil {
 	}
 
 	private static String getCharset(HttpMethodBase method) throws IOException {
-		String charset = RegexUtil.findByRegexGroup(method.getResponseBodyAsString(), "(?s)<meta.*?charset\\s*=\\s*([\\w-]+)", 1);
-		if(StringUtils.hasText(charset)) {
-			return charset;
-		}
-		charset = RegexUtil.findByRegexGroup(method.getResponseBodyAsString(), "(?s)encoding=['\"]([\\w-]+)['\"]", 1);
-		if(StringUtils.hasText(charset)) {
-			return charset;
-		}
-		return method.getResponseCharSet();
+		String responseBodyAsString = method.getResponseBodyAsString();
+		String charset = HtmlUtil.getCharsetFromHtml(responseBodyAsString);
+		return org.apache.commons.lang.StringUtils.defaultIfBlank(charset,method.getResponseCharSet());
 	}
-
 
 	private static String getUrlWithParameters(String url, String parameters) {
 		String finalUrl = null;
