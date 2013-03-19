@@ -335,7 +335,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			c.setAuthor(Constants.CRAWL_AUTHOR);
 			return c;
 		}else {
-			throw new RuntimeException("百度已经存在该文章,cmsContent.title:"+c.getTitle()+" htmlPage.title:"+page.getTitle());
+			throw new RuntimeException("百度已经存在该文章,cmsContent.title:"+c.getTitle()+" htmlPage.title:"+page.getTitle()+" Transformer:"+transformer.getClass()+" page.sourceLang:"+page.getSourceLang());
 		}
 	}
 	

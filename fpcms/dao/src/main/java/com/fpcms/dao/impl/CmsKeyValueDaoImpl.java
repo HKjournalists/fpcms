@@ -105,7 +105,7 @@ public class CmsKeyValueDaoImpl extends BaseSpringJdbcDao implements CmsKeyValue
             sql.append(" and value = :value ");
         }
 		if(isEmpty(query.getSortColumns())) {
-			query.setSortColumns("date_created desc");
+			query.setSortColumns("key_group,date_created desc");
 		}
 		
         sql.append(" order by :sortColumns ");

@@ -79,7 +79,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 
 	private String buildBlogContent(List<BlogExternal> blogExternalList,
 			CmsContent cc) {
-		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),3) +" <br/>\n" ;
+		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),1) +" <br/>\n" ;
 		if(RandomUtil.randomTrue(50)) {
 			BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
 			blogContent += "<br/> "+randomBe.getBlogName()+""+randomBe.getBlogUrl()+"?rand="+RandomUtils.nextInt()+" ; "; 

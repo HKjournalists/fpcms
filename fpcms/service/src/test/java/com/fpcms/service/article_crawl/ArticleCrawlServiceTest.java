@@ -25,6 +25,7 @@ import com.fpcms.model.CmsContent;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsKeyValueService;
 import com.fpcms.service.article_crawl.ArticleCrawlService.GoogleTranslateTransformer;
+import com.fpcms.service.article_crawl.ArticleCrawlService.NaipanTransformer;
 
 public class ArticleCrawlServiceTest extends Mockito{
 	private ArticleCrawlService articleCrawlService = new ArticleCrawlService(); ;
@@ -136,6 +137,10 @@ public class ArticleCrawlServiceTest extends Mockito{
 		GoogleTranslateTransformer t = new GoogleTranslateTransformer();
 		String str = t.transform("en", "Samsung Galaxy S4 Twice As Fast As iPhone 5, Even Galaxy S3 Proves Faster Than Apple’s Latest [Report]");
 		assertEquals("三星Galaxy S4快两倍， iPhone 5 ，即使是银河S3阅兵超苹果[举报]",str);
+		
+		for(int i = 0; i < 50; i++) {
+			assertEquals("苹果的新“为什么发票”运动分析", new NaipanTransformer().transform("auto","Bridger Management's new invoice picks"));
+		}
 	}
 	
 	
