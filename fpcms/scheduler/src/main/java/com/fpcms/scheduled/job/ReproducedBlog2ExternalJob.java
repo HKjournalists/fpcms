@@ -31,7 +31,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 	private BlogExternalService blogExternalService;
 	
 	public ReproducedBlog2ExternalJob() {
-		super("0 1 8,10,16,21 * * *");
+		super("0 1 * * * *");
 	}
 	
 	public void setCmsDomainService(CmsDomainService cmsDomainService) {
@@ -49,24 +49,31 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 	@Override
 	public void execute() {
 		List<BlogExternal> blogExternalList = blogExternalService.findAll();
-		for(BlogExternal be : blogExternalList) {
-			if(!be.isEnabled()) {
-				continue;
+		
+		for(int i = 0; i < Math.floor(blogExternalList.size() * 5 / 24); i++) {
+			BlogExternal be = RandomUtil.randomSelect(blogExternalList);
+			postBlog(blogExternalList, be);
+		}
+		
+	}
+
+	private void postBlog(List<BlogExternal> blogExternalList, BlogExternal be) {
+		if(!be.isEnabled()) {
+			return;
+		}
+		try {
+			for(int retry = 0; retry < 10; retry++) {
+				CmsContent cc = findCmsContent();
+				if(cc == null) continue;
+				
+				String blogContent = buildBlogContent(blogExternalList, cc);
+				
+				blogExternalService.postNewBlog(be,new Blog(cc.getTitle(),blogContent));
+				break;
 			}
-			try {
-				for(int retry = 0; retry < 10; retry++) {
-					CmsContent cc = findCmsContent();
-					if(cc == null) continue;
-					
-					String blogContent = buildBlogContent(blogExternalList, cc);
-					
-					blogExternalService.postNewBlog(be,new Blog(cc.getTitle(),blogContent));
-					break;
-				}
-				ThreadUtil.sleep(1000 * 3);
-			}catch(Exception e) {
-				logger.error("error_postNewBlog_on:"+be.getBlogUrl()+" by_username:"+be.getUsername(),e);
-			}
+			ThreadUtil.sleep(1000 * 3);
+		}catch(Exception e) {
+			logger.error("error_postNewBlog_on:"+be.getBlogUrl()+" by_username:"+be.getUsername(),e);
 		}
 	}
 
