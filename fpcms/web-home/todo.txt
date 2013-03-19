@@ -80,7 +80,7 @@ select t.title from (
 # 43. 原创度过高也是有问题的
 # 44. 支持site重定向至主域
 45. 支持site配置是否自动生成文章
-46. 每一个site都配置不同的网站模板 layout
+# 46. 每一个site都配置不同的网站模板 layout
 
 # 44. 保护好自己的QQ,手机号
 # 45. 禁止百度快照 http://bbs.phpcms.cn/thread-284832-1-1.html
@@ -92,7 +92,7 @@ select t.title from (
 # 50. CSS,JS未启用gzip压缩
 51. 自运化测试: content,channel,home_page
 #52. 更加智能的抽取title
-53. 增加文章转载模块
+# 53. 增加文章转载模块
 #54. 增加随机显示子站文章模块
 55.  如果referrer的关键字带"查询" 则导航至不同的网页查询页面
 

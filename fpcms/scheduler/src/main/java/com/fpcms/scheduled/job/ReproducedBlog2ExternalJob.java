@@ -15,6 +15,7 @@ import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.util.ThreadUtil;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsDomain;
@@ -62,6 +63,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 					blogExternalService.postNewBlog(be,new Blog(cc.getTitle(),blogContent));
 					break;
 				}
+				ThreadUtil.sleep(1000 * 3);
 			}catch(Exception e) {
 				logger.error("error_postNewBlog_on:"+be.getBlogUrl()+" by_username:"+be.getUsername(),e);
 			}
@@ -70,14 +72,13 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 
 	private String buildBlogContent(List<BlogExternal> blogExternalList,
 			CmsContent cc) {
-		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cc.getContent() +" <br/>\n" ;
+		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),3) +" <br/>\n" ;
 		if(RandomUtil.randomTrue(50)) {
 			BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
 			blogContent += "<br/> "+randomBe.getBlogName()+""+randomBe.getBlogUrl()+"?rand="+RandomUtils.nextInt()+" ; "; 
 		}
 		
-		CmsDomain domain = cmsDomainService.randomSelectDomain();
-		return blogContent + " \n<br />" + domain.getYesterdayOuterLinked();
+		return blogContent;
 	}
 
 	private CmsContent findCmsContent() {

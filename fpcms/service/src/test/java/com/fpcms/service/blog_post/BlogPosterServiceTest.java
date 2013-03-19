@@ -1,6 +1,8 @@
 package com.fpcms.service.blog_post;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
@@ -13,18 +15,18 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.duowan.common.util.DateConvertUtils;
 import com.fpcms.common.blog_post.Blog;
-import com.fpcms.common.blog_post.BlogPoster;
+import com.fpcms.common.blog_post.impl.ConfigableBlogPoster;
 
 
 public class BlogPosterServiceTest {
 	public @Rule TestName testName = new TestName();
 	private ApplicationContext applicationContext;
-	private BlogPoster blogPoster;
+	private ConfigableBlogPoster blogPoster;
 	
 	@Before
 	public void setUp() {
 		applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/applicationContext-blog_poster.xml");
-		blogPoster = (BlogPoster)applicationContext.getBean(testName.getMethodName());
+		blogPoster = (ConfigableBlogPoster)applicationContext.getBean(testName.getMethodName());
 	}
 	
 	@Test
@@ -46,6 +48,14 @@ public class BlogPosterServiceTest {
 	
 	@Test
 	public void blogbusBlogPoster() {
+		blogPoster.postBlog(newBlog("fpqqchao","abc123"));
+	}
+
+	@Test
+	public void sohuBlogPoster() {
+		Map<String, String> postNewBlogHeaders = new HashMap();
+		postNewBlogHeaders.put("Referer","http://blog.sohu.com/manage/entry.do?m=add&t=shortcut");
+		blogPoster.setPostNewBlogHeaders(postNewBlogHeaders );
 		blogPoster.postBlog(newBlog("fpqqchao","abc123"));
 	}
 	
