@@ -178,6 +178,11 @@ public class ContentController extends BaseController{
 		
 		Date dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
 		CmsContent cmsContent = cmsContentService.getById(dateCreated,contentId);
+		if(cmsContent == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		
 		String content = cmsContent.getContent();
 		
 		BufferedImage backgroudImage = getBackgroudImage();
