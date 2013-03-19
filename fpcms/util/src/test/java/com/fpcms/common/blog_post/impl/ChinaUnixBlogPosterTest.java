@@ -10,7 +10,7 @@ public class ChinaUnixBlogPosterTest {
 	@Test
 	public void test() {
 		Blog blog = CnblogBlogPosterTest.newBlog();
-		blog.setUsername("fpqqchao");
+		blog.setUsername("blogtg123");
 		blog.setPassword("abc123");
 		poster.postBlog(blog);
 	}
