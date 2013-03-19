@@ -239,7 +239,9 @@ public class SinglePageCrawler {
 		}
 		
 		Element element = CollectionHelper.getMaxKeyByValue(elementScores);
-		logger.info("success_found_valid_content:"+element.tagName()+ " class:" + element.className() + " id:"+ element.id() +" score:"+getPageElementScore(element));
+		if(element != null) {
+			logger.info("success_found_valid_content:"+element.tagName()+ " class:" + element.className() + " id:"+ element.id() +" score:"+getPageElementScore(element));
+		}
 		return element;
 	}
 
