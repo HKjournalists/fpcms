@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Connection;
@@ -113,13 +115,17 @@ public class SinglePageCrawler {
 	public void execute() {
 		logger.info("start_execute_craw,sourceLang:"+sourceLang+" tags:"+tags+" minContentLength:"+minContentLength+" acceptUrlRegexList:"+StringUtils.join(acceptUrlRegexList,","));
 		
+		Set<Anchor> anchorSet = new HashSet<Anchor>();
 		for(String url : urlList) {
 			try {
-				crlawUrl(url);
+				List<Anchor> shoudVisitAnchorList = getShoudVisitAnchorList(url);
+				anchorSet.addAll(shoudVisitAnchorList);
 			}catch(Exception e) {
 				logger.error("error_on_crlaw_url:"+url,e);
 			}
 		}
+		
+		visitAnchorList(anchorSet);
 	}
 
 	public List<HtmlPage> crlawUrl(String url) {
@@ -127,7 +133,7 @@ public class SinglePageCrawler {
 		return visitAnchorList(shoudVisitAnchorList);
 	}
 
-	List<HtmlPage> visitAnchorList(List<Anchor> shoudVisitAnchorList) {
+	List<HtmlPage> visitAnchorList(Collection<Anchor> shoudVisitAnchorList) {
 		List<HtmlPage> visitedPage = new ArrayList<HtmlPage>();
 		for(Anchor a : shoudVisitAnchorList) {
 			try {

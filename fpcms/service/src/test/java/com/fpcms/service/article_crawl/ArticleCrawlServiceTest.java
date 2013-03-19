@@ -1,6 +1,8 @@
 package com.fpcms.service.article_crawl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -22,6 +24,7 @@ import com.duowan.common.util.page.Paginator;
 import com.fpcms.model.CmsContent;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsKeyValueService;
+import com.fpcms.service.article_crawl.ArticleCrawlService.GoogleTranslateTransformer;
 
 public class ArticleCrawlServiceTest extends Mockito{
 	private ArticleCrawlService articleCrawlService = new ArticleCrawlService(); ;
@@ -127,5 +130,14 @@ public class ArticleCrawlServiceTest extends Mockito{
 			}
 		}
 	}
+	
+	@Test
+	public void test_GoogleTranslateTransformer() {
+		GoogleTranslateTransformer t = new GoogleTranslateTransformer();
+		String str = t.transform("en", "Samsung Galaxy S4 Twice As Fast As iPhone 5, Even Galaxy S3 Proves Faster Than Apple’s Latest [Report]");
+		assertEquals("三星Galaxy S4快两倍， iPhone 5 ，即使是银河S3阅兵超苹果[举报]",str);
+	}
+	
+	
 	
 }

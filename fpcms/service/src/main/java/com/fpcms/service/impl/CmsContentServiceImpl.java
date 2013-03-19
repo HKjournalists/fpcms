@@ -190,9 +190,8 @@ public class CmsContentServiceImpl implements CmsContentService {
             int contentLength = cmsContent.getContent().length();
 			Assert.isTrue(contentLength > 200,"cmsContent.title:" + cmsContent.getTitle() + " length > 200 false,current length:"+contentLength);
             
-			if(KeywordUtil.isSensitiveKeyword(cmsContent.getTitle()) || KeywordUtil.isSensitiveKeyword(cmsContent.getContent())) {
-				throw new RuntimeException("SensitiveKeyword article on "+cmsContent.getTitle());
-			}
+			KeywordUtil.assertSensitiveKeyword(cmsContent.getTitle());
+			KeywordUtil.assertSensitiveKeyword(cmsContent.getContent());
 			Assert.isTrue(TextLangUtil.chineseCountPercent(cmsContent.getContent()) > 60,"chineseCountPercent > 60 must be true on content:"+cmsContent.getContent());
 			
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)

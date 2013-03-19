@@ -128,16 +128,37 @@ public class KeywordUtil {
 	 * @return
 	 */
 	public static boolean isSensitiveKeyword(String keyword) {
+		return getSensitiveKeyword(keyword) == null ? false : true;
+	}
+
+	/**
+	 * 得到敏感关键字
+	 * @param keyword
+	 * @return
+	 */
+	public static String getSensitiveKeyword(String keyword) {
 		if(StringUtils.isBlank(keyword)) {
-			return false;
+			return null;
 		}
 		
 		for(String str : sensitiveKeywordSet) {
 			if(keyword.contains(str)) {
-				return true;
+				return str;
 			}
 		}
-		return false;
+		return null;
+	}
+	
+	/**
+	 * 得到敏感关键字
+	 * @param keyword
+	 * @return
+	 */
+	public static void assertSensitiveKeyword(String keyword) {
+		String sensitiveKeyword = getSensitiveKeyword(keyword);
+		if(sensitiveKeyword != null) {
+			throw new IllegalArgumentException("sensitiveKeyword:"+sensitiveKeyword+" on String:"+keyword);
+		}
 	}
 	
 	/**

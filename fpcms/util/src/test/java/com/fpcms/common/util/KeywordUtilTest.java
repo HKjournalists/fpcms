@@ -58,6 +58,7 @@ public class KeywordUtilTest extends Assert{
 	public void test_isSensitiveKeyword() {
 		assertTrue(KeywordUtil.isSensitiveKeyword("乳交"));
 		assertFalse(KeywordUtil.isSensitiveKeyword("xxxxx"));
+		assertEquals(null,KeywordUtil.getSensitiveKeyword("安全研究人员攻击的“不一致”甲骨文的发"));
 	}
 	
 	@Test

@@ -168,7 +168,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			int num = 100;
 			int start = 0 * num;
 			String encodeKeyword = keywordAllintitle ? URLEncoderUtil.encode("allintitle:"+keyword) : URLEncoderUtil.encode(keyword);
-			String searchUrl = "https://www.google.com/search?q="+encodeKeyword+"&num="+num+"&hl="+hl+"&biw=1440&bih=702&tbm=nws&start="+start+"&tbs=qdr:d";
+			String searchUrl = "https://www.google.com.hk/search?q="+encodeKeyword+"&num="+num+"&hl="+hl+"&biw=1440&bih=702&tbm=nws&start="+start+"&tbs=qdr:d";
 			urls.add(searchUrl);
 		}
 		return urls;
@@ -335,7 +335,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 			c.setAuthor(Constants.CRAWL_AUTHOR);
 			return c;
 		}else {
-			throw new RuntimeException("百度已经存在该文章,title:"+c.getTitle());
+			throw new RuntimeException("百度已经存在该文章,cmsContent.title:"+c.getTitle()+" htmlPage.title:"+page.getTitle());
 		}
 	}
 	
