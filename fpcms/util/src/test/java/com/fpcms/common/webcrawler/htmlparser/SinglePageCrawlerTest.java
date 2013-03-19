@@ -61,6 +61,7 @@ public class SinglePageCrawlerTest extends Mockito{
 	
 	@Test
 	public void test() throws IOException {
+		verifyExtractArticleByJsoup("http://www.arabnews.com/news/445285", 1000);
 		verifyExtractArticleByJsoup("http://blogs.wsj.com/venturecapital/2013/03/14/mobeam-brings-digital-coupons-to-new-samsung-phone/", 1000);
 		verifyExtractArticleByJsoup("http://www.washingtonpost.com/local/education/cava-java-offers-more-than-just-coffee-for-students-in-silver-spring/2013/03/17/4f24bf96-8cc0-11e2-9f54-f3fdd70acad2_story.html", 1000);
 	}
