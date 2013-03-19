@@ -61,8 +61,14 @@ public class SinglePageCrawlerTest extends Mockito{
 	
 	@Test
 	public void test() throws IOException {
-		HtmlPage page = c.extractArticleByJsoup(newAnchor("http://blogs.wsj.com/venturecapital/2013/03/14/mobeam-brings-digital-coupons-to-new-samsung-phone/"));
-		System.out.println(page.getContent());
+		verifyExtractArticleByJsoup("http://blogs.wsj.com/venturecapital/2013/03/14/mobeam-brings-digital-coupons-to-new-samsung-phone/", 1000);
+		verifyExtractArticleByJsoup("http://www.washingtonpost.com/local/education/cava-java-offers-more-than-just-coffee-for-students-in-silver-spring/2013/03/17/4f24bf96-8cc0-11e2-9f54-f3fdd70acad2_story.html", 1000);
+	}
+
+	private void verifyExtractArticleByJsoup(String url, int expectedLength) throws IOException {
+		HtmlPage page = c.extractArticleByJsoup(newAnchor(url));
+		System.out.println(page.getContent().length() + " "+page.getContent());
+		assertTrue(page.getContent().length() > expectedLength);
 	}
 	
 	

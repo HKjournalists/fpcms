@@ -6,8 +6,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Connection;
@@ -19,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
+import com.fpcms.common.util.CollectionHelper;
 import com.fpcms.common.util.JsoupSelectorUtil;
 import com.fpcms.common.util.JsoupSelectorUtil.JsoupElementParentsSizeComparator;
 import com.fpcms.common.util.KeywordUtil;
@@ -227,32 +230,39 @@ public class SinglePageCrawler {
 		List<Element> allDiv = JsoupSelectorUtil.selectList(doc,"div");
 		Collections.sort(allDiv,new JsoupElementParentsSizeComparator());
 		
+		Map<Element,Float> elementScores = new HashMap<Element,Float>();
 		for(Element element : allDiv) {
-			int conditionSymbolesCount = minContentLength / 50;
-			int commonSymbolesCount = KeywordUtil.getCommonSymbolsCount(element.text());
-			int divCount = element.getElementsByTag("div").size();
-			int parentsSize = element.parents().size();
-			
-			if("articlePage".equals(element.className().trim())) {
-				int a = 1 + 1;
-			}
-			/*
-			 * TODO 增加判断如果出现空格数过多的文字也属于垃圾特征,如: 首页 产品列表 关于我们 
-			 * TODO 包含垃圾子段的父亲,也是垃圾
-			 * TODO 
-			 */
-			int textLength = element.text().length();
-			int anchorSize = element.getElementsByTag("a").size();
-			if(getPageElementScore(textLength,parentsSize,commonSymbolesCount,conditionSymbolesCount,divCount,anchorSize) >= 30) {
-				logger.info("success_found_valid_content:"+element.tagName()+ " class:" + element.className() + " id:"+ element.id() + " anchor.count:"+anchorSize + " parentsSize:" + parentsSize + " contentSize:"+textLength+" commonSymbolesCount:"+commonSymbolesCount+" divCount:"+divCount+" anchorSize:"+anchorSize);
-				return element;
+			float score = getPageElementScore(element);
+			if(score >= 25) {
+				elementScores.put(element, score);
 			}
 		}
-		return null;
+		
+		Element element = CollectionHelper.getMaxKeyByValue(elementScores);
+		logger.info("success_found_valid_content:"+element.tagName()+ " class:" + element.className() + " id:"+ element.id() +" score:"+getPageElementScore(element));
+		return element;
 	}
-	
-	public int getPageElementScore(int textLength,int parentsSize,int commonSymbolesCount,int conditionSymbolesCount,int divCount,int anchorSize) {
-		int score = 0;
+
+	private float getPageElementScore(Element element) {
+		int conditionSymbolesCount = minContentLength / 50;
+		int commonSymbolesCount = KeywordUtil.getCommonSymbolsCount(element.text());
+		int divCount = element.getElementsByTag("div").size();
+		int parentsSize = element.parents().size();
+		
+		/*
+		 * TODO 增加判断如果出现空格数过多的文字也属于垃圾特征,如: 首页 产品列表 关于我们 
+		 * TODO 包含垃圾子段的父亲,也是垃圾
+		 * TODO 
+		 */
+		int textLength = element.text().length();
+		int anchorSize = element.getElementsByTag("a").size();
+		int paragraphSize = element.getElementsByTag("p").size();
+		float score = getPageElementScore(textLength,parentsSize,commonSymbolesCount,conditionSymbolesCount,divCount,anchorSize,paragraphSize);
+		return score;
+	}
+
+	public float getPageElementScore(int textLength,int parentsSize,int commonSymbolesCount,int conditionSymbolesCount,int divCount,int anchorSize,int paragraphSize) {
+		float score = 0;
 		if(textLength >= minContentLength) {
 			score += 10;
 		}
@@ -261,16 +271,15 @@ public class SinglePageCrawler {
 		}
 		if(commonSymbolesCount > conditionSymbolesCount) {
 			score += 10;
+			score += paragraphSize * 2.5;
 		}
-		if(textLength >= 2000) {
-			score += 10;
-		}
-		if(anchorSize >= 10) {
-			score -= 10;
-		}
-		if(divCount >= 5) {
-			score -= 10;
-		}
+		
+		score += parentsSize * 1.5;
+		score += textLength / 700;
+		
+		score -= anchorSize;
+		score -= divCount * 2;
+		
 		return score;
 	}
 	

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.shiro.util.CollectionUtils;
 
 public class CollectionHelper {
 	
@@ -21,4 +24,20 @@ public class CollectionHelper {
 		return result;
 	}
 	
+	public static <K,V extends Number> K getMaxKeyByValue(Map<K, V> elementScores) {
+		if(CollectionUtils.isEmpty(elementScores)) {
+			return null;
+		}
+		
+		double maxValue = Double.MIN_VALUE;
+		K maxKey = null;
+		for(K key : elementScores.keySet()) {
+			double value = ((Number)elementScores.get(key)).doubleValue();
+			if(value > maxValue) {
+				maxValue = value;
+				maxKey = key;
+			}
+		}
+		return maxKey;
+	}
 }

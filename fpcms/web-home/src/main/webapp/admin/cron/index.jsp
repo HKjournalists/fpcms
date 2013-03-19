@@ -40,6 +40,7 @@
 				<td>${item.class.simpleName} </td>
 				<td>${item.jobRemark} </td>
 				<td>${item.cron} </td>
+				<td><fmt:formatDate value="${item.lastExecutedTime}" pattern="MM-dd HH:mm:ss"/></td>
 				<td> <a href="${ctx}/admin/cron/exec.do?jobName=${item.class.name}" onclick="if(!confirm('确认执行${item.class.simpleName}:${item.jobRemark}?')) return false; ">手工执行任务</a> </td>
 			  </tr>
 			  

@@ -1,5 +1,7 @@
 package com.fpcms.scheduled.job;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -11,7 +13,7 @@ public abstract class BaseCronJob implements InitializingBean{
 
 	private static Logger logger = LoggerFactory.getLogger(BaseCronJob.class);
 	private String cron;
-	
+	private Date lastExecutedTime = null;
 	public BaseCronJob(String cron) {
 		setCron(cron);
 	}
@@ -33,7 +35,6 @@ public abstract class BaseCronJob implements InitializingBean{
 			public void run() {
 				execute0();
 			}
-
 		};
 		taskScheduler.schedule(task, new CronTrigger(cron));
 		logger.info("scheduled_with_cron:["+cron+"] for \t"+getClass().getSimpleName());
@@ -43,8 +44,9 @@ public abstract class BaseCronJob implements InitializingBean{
 		try {
 			logger.info("start_execute_cron_job:"+getClass().getSimpleName());
 			execute();
+			lastExecutedTime = new Date();
 		}catch(Exception e) {
-			logger.error("execute error",e);
+			logger.error("cron_execute_error",e);
 		}
 	}
 	
@@ -54,6 +56,10 @@ public abstract class BaseCronJob implements InitializingBean{
 		return null;
 	}
 	
+	public Date getLastExecutedTime() {
+		return lastExecutedTime;
+	}
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		scheduedCron();
