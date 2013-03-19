@@ -65,9 +65,11 @@ public class GoogleTranslateUtil {
 			String seperator = "\",\"";
 			int indexOfEnglish = text.indexOf(seperator);
 			int indexOfChinese = text.indexOf(seperator, indexOfEnglish+1);
-			String inputChinese = text.substring(indexOfEnglish+seperator.length(),indexOfChinese);
-			String targetEnglish = text.substring(4,indexOfEnglish);
-			return targetEnglish;
+			if(indexOfEnglish >= 0 && indexOfChinese >= 0) {
+				String input = text.substring(indexOfEnglish+seperator.length(),indexOfChinese);
+				String output = text.substring(4,indexOfEnglish);
+				return output;
+			}
 		}
 		
 		String replacedText = StringUtils.replace(text, "\\\"", "");
