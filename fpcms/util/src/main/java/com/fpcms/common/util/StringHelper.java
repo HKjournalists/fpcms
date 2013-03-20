@@ -7,6 +7,7 @@ import java.util.ListIterator;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.springframework.util.Assert;
 
 import com.duowan.common.util.DateConvertUtils;
 
@@ -70,6 +71,21 @@ public class StringHelper {
 			}
 		}
 		return -1;
+	}
+	
+	public static String insertAfter(String string,String insertContent,String... afterTags) {
+		Assert.notNull(string,"string must be not Null");
+		Assert.notNull(insertContent,"insertContent must be not Null");
+		Assert.notEmpty(afterTags,"afterTags must be not Empty");
+		
+		StringBuilder result = new StringBuilder(string);
+		int fromIndex = 0;
+		int index = StringHelper.indexOf(result,fromIndex,afterTags);
+		if(index >= 0) {
+			fromIndex = index + 1 + insertContent.length();
+			result.insert(index + 1, insertContent);
+		}
+		return result.toString();
 	}
 	
 }

@@ -154,14 +154,19 @@ public class CmsDomainServiceImpl implements CmsDomainService {
 		for(int i = 0 ; i < randomLinkCount; i++) {
 			int index = StringHelper.indexOf(result,fromIndex,"。",".");
 			if(index >= 0) {
-				CmsDomain domain = randomSelectDomain();
-				Assert.notNull(domain);
-				String link = domain.getYesterdayOuterLinked();
+				String link = randomDomainLink();
 				fromIndex = index + 1 + link.length();
 				result.insert(index + 1, link);
 			}
 		}
 		return result.toString();
+	}
+
+	private String randomDomainLink() {
+		CmsDomain domain = randomSelectDomain();
+		Assert.notNull(domain);
+		String link = domain.getYesterdayOuterLinked();
+		return link;
 	}
 	
 }

@@ -35,4 +35,10 @@ public class StringHelperTest extends Assert{
 		StringHelper.removeRegexMatch(list, ".*\\d.*");
 		assertEquals(list.toString(),"[中国, 人民]");
 	}
+	
+	@Test
+	public void insertAfter() {
+		assertEquals("中国,123人民.",StringHelper.insertAfter("中国,人民.", "123", ",","，"));
+	}
+	
 }

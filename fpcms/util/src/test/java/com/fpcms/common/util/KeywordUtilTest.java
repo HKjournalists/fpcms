@@ -81,4 +81,19 @@ public class KeywordUtilTest extends Assert{
 		assertFalse(KeywordUtil.isNameKeyword("中国的"));
 		assertFalse(KeywordUtil.isNameKeyword("我的"));
 	}
+	
+	@Test 
+	public void test_getRandomKeyword() {
+		for(int i = 0; i < 10; i++) {
+			String k = KeywordUtil.getRandomKeyword("中国,人民");
+			System.out.println(k);
+			if(k.equals("中国") || k.equals("人民")) {
+				assertTrue(true);
+			}else {
+				fail("unknows keyword:"+k);
+			}
+		}
+		
+		assertEquals(KeywordUtil.getRandomKeyword("   "),null);
+	}
 }

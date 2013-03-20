@@ -17,6 +17,7 @@ import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.DomainUtil;
 import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.RandomUtil;
+import com.fpcms.common.util.StringHelper;
 import com.fpcms.common.util.Tags;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsSite;
@@ -93,20 +94,22 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",cmsSite.getKeyword()));
 				content.setContent(processWithSiteKeyword(content.getContent(),"发票",cmsSite.getKeyword()));
 			}
+			if(RandomUtil.randomTrue(45)) {
+				String anchor = String.format("<a href='http://%s'>%s</a>",cmsSite.getSiteDomain(),KeywordUtil.getRandomKeyword(cmsSite.getKeyword()));
+				content.setContent(StringHelper.insertAfter(content.getContent(),anchor,",","，"));
+			}
 			
-			logger .info("assign article for site:"+site+" article.title:"+content.getTitle());
+			logger .info("assign article for site:"+site+" article.title:"+content.getTitle()+" on channel:"+content.getChannelCode());
 			cmsContentService.update(content);
 //			CmsContent.baiduBlogPing(content);
 		}
 	}
-
+	
 	public static String processWithSiteKeyword(String text,String searchString,String keywords) {
-		List<String> keywordList = KeywordUtil.toTokenizerList(keywords);
-		if(keywordList.isEmpty()) {
+		String keyword = KeywordUtil.getRandomKeyword(keywords);
+		if(StringUtils.isBlank(keyword)) {
 			return text;
 		}
-		
-		String keyword = RandomUtil.randomSelect(keywordList);
 		return StringUtils.replace(text, searchString, keyword);
 	}
 

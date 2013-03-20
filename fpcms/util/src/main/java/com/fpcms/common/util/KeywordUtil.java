@@ -209,6 +209,15 @@ public class KeywordUtil {
 		}
 	}
 	
+	public static String getRandomKeyword(String keywords) {
+		List<String> keywordList = KeywordUtil.toTokenizerList(keywords);
+		if(keywordList.isEmpty()) {
+			return null;
+		}
+		
+		return RandomUtil.randomSelect(keywordList);
+	}
+	
 	public static int getMaxRank(String keywords,String site) {
 		String[] keywordsArray = org.springframework.util.StringUtils.tokenizeToStringArray(keywords, ",_| ");
 		Map<String,Integer> keywordRankMap = SearchEngineUtil.baiduKeywordsRank(keywords, site);
