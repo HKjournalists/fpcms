@@ -112,10 +112,11 @@
 				<td><c:out value='${item.blogRpcApiClass}'/>&nbsp;</td>
 				<td><c:out value='${item.enabled}'/>&nbsp;</td>
 				<td>
-					<a href="${ctx}/admin/blogexternal/show.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}">查看</a>&nbsp;&nbsp;
-					<a href="${ctx}/admin/blogexternal/edit.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}">修改</a>&nbsp;&nbsp;
-					<a href="${ctx}/admin/blogexternal/delete.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
-					<a href="${ctx}/admin/blogexternal/testPostBlog.do?blogUrl=${item.blogUrl}&username=${item.username}&password=${item.password}" >发送测试Blog</a>
+					<a href="${ctx}/admin/blogexternal/show.do?blogUrl=${item.blogUrl}&username=${item.username}">查看</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/blogexternal/edit.do?blogUrl=${item.blogUrl}&username=${item.username}">修改</a>&nbsp;&nbsp;
+					<a href="${ctx}/admin/blogexternal/delete.do?blogUrl=${item.blogUrl}&username=${item.username}" onclick="doRestDelete(this,'你确认删除?');return false;">删除</a>
+					<a href="${ctx}/admin/blogexternal/testPostBlog.do?blogUrl=${item.blogUrl}&username=${item.username}">发送测试Blog</a>
+					<a href="${ctx}/admin/blogexternal/pingAllBlog.do?blogUrl=${item.blogUrl}&username=${item.username}">ping所有博客</a>
 				</td>
 			  </tr>
 			  

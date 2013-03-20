@@ -3,11 +3,14 @@ package com.fpcms.common.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
+import com.fpcms.common.webcrawler.htmlparser.SinglePageCrawler;
 
 public class BlogUtil {
-
+	private static Logger logger = LoggerFactory.getLogger(BlogUtil.class);
 	/**
 	 * 根据blogUrl得到有效的blog文章URL
 	 * @param blogUrl
@@ -29,11 +32,18 @@ public class BlogUtil {
 		return filtered;
 	}
 	
-	public static void pingAllBlog(String blogUrl) {
+	public static List<Anchor> pingAllBlog(String blogUrl) {
+		List<Anchor> successList = new ArrayList<Anchor>();
 		List<Anchor> list = BlogUtil.getValidBlogLinks(blogUrl, 8);
 		for(Anchor a : list) {
-			BlogPingUtil.baiduPing(blogUrl, blogUrl, a.getHref(), "");
+			try {
+				BlogPingUtil.baiduPing(blogUrl, blogUrl, a.getHref(), "");
+				successList.add(a);
+			}catch(Exception e) {
+				logger.error("error_on_ping_blog_url:"+a);
+			}
 		}
+		return successList;
 	}
 	
 }

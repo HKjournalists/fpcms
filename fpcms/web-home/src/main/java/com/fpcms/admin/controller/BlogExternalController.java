@@ -12,6 +12,7 @@ import static com.duowan.common.util.ValidationErrorsUtils.convert;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
@@ -32,6 +33,8 @@ import com.duowan.common.util.page.Page;
 import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
 import com.fpcms.common.blog_post.Blog;
+import com.fpcms.common.util.BlogUtil;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.query.BlogExternalQuery;
 import com.fpcms.service.BlogExternalService;
@@ -154,6 +157,14 @@ public class BlogExternalController extends BaseController{
 		Flash.current().success("发送BLOG成功 on blogUrl:"+blogUrl+ " by username:"+username);
 		return LIST_ACTION;
 	}	
+	
+	@RequestMapping
+	public String pingAllBlog(ModelMap model,@RequestParam("blogUrl") String blogUrl, @RequestParam("username") String username) {
+		BlogExternal be = blogExternalService.getById(blogUrl,username);
+		List<Anchor> pingSuccessList = BlogUtil.pingAllBlog(be.getBlogUrl());
+		Flash.current().success("blog_pingSuccessList:"+StringUtils.join(pingSuccessList,"\n<br/>"));
+		return LIST_ACTION;
+	}
 	
 }
 
