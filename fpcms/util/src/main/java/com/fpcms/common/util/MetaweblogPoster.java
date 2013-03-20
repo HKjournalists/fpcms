@@ -97,7 +97,7 @@ public class MetaweblogPoster {
 		try {
 			// 发布新博文
 			String result = String.valueOf(this.blogClient.execute("metaWeblog.newPost", params));
-			logger.info("Created with blogid " + result+" on url:"+blogUrl);
+			logger.info("Created_with_blogid " + result+" on rpc url:"+blogUrl);
 			return result;
 		} catch (Exception e) {
 			String xmlString = toXmlString(params);
