@@ -87,8 +87,9 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 			
 			content.setSite(site);
 			content.setDateCreated(new Date());
+			content.setChannelCode(Constants.CHANNED_CODE_NEWS);
 			
-			if(RandomUtil.randomTrue(100)) {
+			if(RandomUtil.randomTrue(65)) {
 				content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",cmsSite.getKeyword()));
 				content.setContent(processWithSiteKeyword(content.getContent(),"发票",cmsSite.getKeyword()));
 			}
