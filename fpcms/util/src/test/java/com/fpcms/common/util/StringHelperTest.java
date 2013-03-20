@@ -39,6 +39,8 @@ public class StringHelperTest extends Assert{
 	@Test
 	public void insertAfter() {
 		assertEquals("中国,123人民.",StringHelper.insertAfter("中国,人民.", "123", ",","，"));
+		
+		assertEquals("<a href='http://www.163.com'>java</a>", String.format("<a href='http://%s'>%s</a>","www.163.com",KeywordUtil.getRandomKeyword("java")));
 	}
 	
 }
