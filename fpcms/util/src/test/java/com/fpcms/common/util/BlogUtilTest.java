@@ -12,16 +12,18 @@ public class BlogUtilTest extends Assert{
 	
 	@Test
 	public void test_getValidBlogLinks() {
-		String blogUrl = "http://www.blogjava.net/badqiu";
-		printAndAssert(blogUrl);
-		printAndAssert("http://blog.sina.com.cn/u/3225400392");
-//			BlogPingUtil.baiduPing(blogUrl, blogUrl, a.getHref(), "");
+		printAndAssert("http://www.blogjava.net/badqiu",false);
+		printAndAssert("http://blog.sina.com.cn/u/3225400392",false);
+//		printAndAssert("http://sh292did.blog.163.com/",true);
 	}
 
-	private void printAndAssert(String blogUrl) {
+	private void printAndAssert(String blogUrl,boolean ping) {
 		List<Anchor> list = BlogUtil.getValidBlogLinks(blogUrl, 8);
 		assertFalse(blogUrl+" not found any blog to ping",list.isEmpty());
 		for(Anchor a : list) {
+			if(ping) {
+				BlogPingUtil.baiduPing(blogUrl, blogUrl, a.getHref(), "");
+			}
 			System.out.println(a);
 		}
 	}
