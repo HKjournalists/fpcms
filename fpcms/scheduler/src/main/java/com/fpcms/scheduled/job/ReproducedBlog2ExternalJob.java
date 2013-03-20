@@ -3,6 +3,7 @@ package com.fpcms.scheduled.job;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.blog_post.Blog;
+import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.BlogUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.RandomUtil;
@@ -62,6 +64,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 		if(!be.isEnabled()) {
 			return;
 		}
+		String blogUrl = be.getBlogUrl();
 		try {
 			for(int retry = 0; retry < 10; retry++) {
 				CmsContent cc = findCmsContent();
@@ -70,11 +73,22 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 				String blogContent = buildBlogContent(blogExternalList, cc);
 				
 				blogExternalService.postNewBlog(be,new Blog(cc.getTitle(),blogContent));
+				
+				pingLastNewBlog(blogUrl);
 				break;
 			}
 			ThreadUtil.sleep(1000 * 3);
 		}catch(Exception e) {
-			logger.error("error_postNewBlog_on:"+be.getBlogUrl()+" by_username:"+be.getUsername(),e);
+			logger.error("error_postNewBlog_on:"+blogUrl+" by_username:"+be.getUsername(),e);
+		}
+	}
+
+	private  void pingLastNewBlog(String blogUrl) {
+		List<Anchor> blogLinkList = BlogUtil.getValidBlogLinks(blogUrl, 8);
+		if(CollectionUtils.isNotEmpty(blogLinkList)) {
+			Anchor a = blogLinkList.get(0);
+			logger.info("pingLastNewBlog,anchor:"+a);
+			BlogPingUtil.baiduPing(blogUrl, blogUrl, a.getHref(), "");
 		}
 	}
 

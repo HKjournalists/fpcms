@@ -20,7 +20,7 @@ public class BlogUtil {
 	 */
 	public static List<Anchor> getValidBlogLinks(String blogUrl,int expectedLinkChineseCount) {
 		SinglePageCrawler singlePageCrawler = new SinglePageCrawler();
-		singlePageCrawler.setAcceptUrlRegexList(".*"+blogUrl+".*");
+//		singlePageCrawler.setAcceptUrlRegexList(".*"+blogUrl+".*");
 		
 		List<Anchor> filtered = new ArrayList<Anchor>();
 		List<Anchor> anchorList = singlePageCrawler.getShoudVisitAnchorList(blogUrl);

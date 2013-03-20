@@ -26,7 +26,7 @@ public class HtmlPageTest extends Assert{
 	@Test
 	public void test_anchor_toString() {
 		assertEquals(new Anchor("http://www.163.com","text","title").toString(),"<a href='http://www.163.com' title='title'>text</a>");
-		assertEquals(new Anchor("http://www.163.com","text",null).toString(),"<a href='http://www.163.com' title=''>text</a>");
-		assertEquals(new Anchor("http://www.163.com",null,null).toString(),"<a href='http://www.163.com' title=''>http://www.163.com</a>");
+		assertEquals(new Anchor("http://www.163.com","text",null).toString(),"<a href='http://www.163.com'>text</a>");
+		assertEquals(new Anchor("http://www.163.com",null,null).toString(),"<a href='http://www.163.com'>http://www.163.com</a>");
 	}
 }
