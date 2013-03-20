@@ -83,10 +83,10 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 		}
 	}
 
-	private  void pingLastNewBlog(String blogUrl) {
+	private static void pingLastNewBlog(String blogUrl) {
 		List<Anchor> blogLinkList = BlogUtil.getValidBlogLinks(blogUrl, 8);
-		if(CollectionUtils.isNotEmpty(blogLinkList)) {
-			Anchor a = blogLinkList.get(0);
+		for(int i = 0; i < blogLinkList.size() && i < 2; i++) {
+			Anchor a = RandomUtil.randomRemove(blogLinkList);
 			logger.info("pingLastNewBlog,anchor:"+a);
 			BlogPingUtil.baiduPing(blogUrl, blogUrl, a.getHref(), "");
 		}
