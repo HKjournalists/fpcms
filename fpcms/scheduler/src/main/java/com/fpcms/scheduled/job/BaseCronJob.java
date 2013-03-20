@@ -2,6 +2,7 @@ package com.fpcms.scheduled.job;
 
 import java.util.Date;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -66,6 +67,10 @@ public abstract class BaseCronJob implements InitializingBean{
 		return lastExcetpion;
 	}
 
+	public String getLastExcetpionFullStackTrace() {
+		return ExceptionUtils.getFullStackTrace(lastExcetpion);
+	}
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		scheduedCron();
