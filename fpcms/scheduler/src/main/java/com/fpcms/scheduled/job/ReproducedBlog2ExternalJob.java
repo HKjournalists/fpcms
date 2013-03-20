@@ -3,7 +3,6 @@ package com.fpcms.scheduled.job;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +12,11 @@ import com.duowan.common.util.DateRange;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
 import com.fpcms.common.blog_post.Blog;
+import com.fpcms.common.util.BlogUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.util.ThreadUtil;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.model.BlogExternal;
 import com.fpcms.model.CmsContent;
 import com.fpcms.model.CmsDomain;
@@ -80,9 +81,12 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 	private String buildBlogContent(List<BlogExternal> blogExternalList,
 			CmsContent cc) {
 		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),1) +" <br/>\n" ;
-		if(RandomUtil.randomTrue(50)) {
+		if(RandomUtil.randomTrue(100)) {
 			BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
-			blogContent += "<br/> "+randomBe.getBlogName()+""+randomBe.getBlogUrl()+"?rand="+RandomUtils.nextInt()+" ; "; 
+			
+			List<Anchor> validBlogLinks = BlogUtil.getValidBlogLinks(randomBe.getBlogUrl(),8);
+			Anchor randomBlogLink = RandomUtil.randomSelect(validBlogLinks);
+			blogContent += "<br/> "+String.valueOf(randomBlogLink)+" ; ";
 		}
 		
 		return blogContent;

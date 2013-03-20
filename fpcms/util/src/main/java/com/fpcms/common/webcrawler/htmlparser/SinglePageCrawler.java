@@ -157,9 +157,27 @@ public class SinglePageCrawler {
 	}
 	
 	private List<Anchor> getShoudVisitAnchorList(String url, Document doc) {
+		LinkedHashSet<Anchor> allAnchorList = getAllAnchors(url, doc);
+		return filterAnchorList(allAnchorList);
+	}
+
+	private List<Anchor> filterAnchorList(
+			LinkedHashSet<Anchor> shoudVisitAnchorSet) {
+		List<Anchor> result = new ArrayList<Anchor>();
+		for(Anchor a : shoudVisitAnchorSet) {
+			if(isAcceptUrl(a.getHref()) && htmlPageCrawler.shoudVisitPage(a)) {
+				result.add(a);
+			}else {
+				logger.info("ignore_by_not_accept_url:{}",a.getHref());
+			}
+		}
+		return result;
+	}
+
+	private LinkedHashSet<Anchor> getAllAnchors(String url, Document doc) {
 		Elements elements = doc.getElementsByTag("a");
 		
-		LinkedHashSet<Anchor> shoudVisitAnchorSet = new LinkedHashSet<Anchor>();
+		LinkedHashSet<Anchor> result = new LinkedHashSet<Anchor>();
 		for(Element anchor : elements) {
 			String href = anchor.attr("href");
 			String text = StringUtils.trim(anchor.text());
@@ -170,16 +188,7 @@ public class SinglePageCrawler {
 			a.setHref(fullHref);
 			a.setText(text);
 			a.setTitle(title);
-			shoudVisitAnchorSet.add(a);
-		}
-		
-		List<Anchor> result = new ArrayList<Anchor>();
-		for(Anchor a : shoudVisitAnchorSet) {
-			if(isAcceptUrl(a.getHref()) && htmlPageCrawler.shoudVisitPage(a)) {
-				result.add(a);
-			}else {
-				logger.info("ignore_by_not_accept_url:{}",a.getHref());
-			}
+			result.add(a);
 		}
 		return result;
 	}

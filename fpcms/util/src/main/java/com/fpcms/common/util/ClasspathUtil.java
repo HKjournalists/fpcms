@@ -8,7 +8,7 @@ import org.springframework.util.ClassUtils;
 
 public class ClasspathUtil {
 	
-	public static String getStringResouce(String name,String encoding) {
+	public static String getStringResource(String name,String encoding) {
 		InputStream input = ClassUtils.getDefaultClassLoader().getResourceAsStream(name);
 		try {
 			return IOUtils.toString(input,encoding);

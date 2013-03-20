@@ -91,6 +91,17 @@ public class HtmlPage {
 		private String text;
 		private String title;
 
+		
+		public Anchor() {
+		}
+		
+		public Anchor(String href, String text, String title) {
+			super();
+			this.href = href;
+			this.text = text;
+			this.title = title;
+		}
+
 		public String getHref() {
 			return href;
 		}
@@ -142,8 +153,7 @@ public class HtmlPage {
 
 		@Override
 		public String toString() {
-			return "Anchor [href=" + href + ", text=" + text + ", title="
-					+ title + "]";
+			return String.format("<a href='%s' title='%s'>%s</a>", href,StringUtils.defaultString(title),StringUtils.defaultString(text,href));
 		}
 		
 		public static String toFullUrl(String baseUrl,String href)  {

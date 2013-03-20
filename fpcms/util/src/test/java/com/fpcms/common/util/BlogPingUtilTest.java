@@ -13,4 +13,5 @@ public class BlogPingUtilTest {
 		assertTrue(result);
 	}
 	
+	
 }
