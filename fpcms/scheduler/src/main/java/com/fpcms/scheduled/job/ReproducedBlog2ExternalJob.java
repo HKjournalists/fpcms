@@ -96,11 +96,15 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 			CmsContent cc) {
 		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),1) +" <br/>\n" ;
 		if(RandomUtil.randomTrue(100)) {
-			BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
-			
-			List<Anchor> validBlogLinks = BlogUtil.getValidBlogLinks(randomBe.getBlogUrl(),8);
-			Anchor randomBlogLink = RandomUtil.randomSelect(validBlogLinks);
-			blogContent += "<br/> "+String.valueOf(randomBlogLink)+" ; ";
+			try {
+				BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
+				
+				List<Anchor> validBlogLinks = BlogUtil.getValidBlogLinks(randomBe.getBlogUrl(),8);
+				Anchor randomBlogLink = RandomUtil.randomSelect(validBlogLinks);
+				blogContent += "<br/> "+String.valueOf(randomBlogLink)+" ; ";
+			}catch(Exception e) {
+				logger.error("error_on_insert_randomBlogLink into blog:"+cc.getId()+" title:"+cc.getTitle());
+			}
 		}
 		
 		return blogContent;
