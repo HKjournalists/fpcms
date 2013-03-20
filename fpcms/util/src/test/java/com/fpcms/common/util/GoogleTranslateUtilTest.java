@@ -71,6 +71,7 @@ public class GoogleTranslateUtilTest extends Assert {
 		
 		str = GoogleTranslateUtil.translate("財政部稅務入口網統一發票管理","zh-TW", "zh-CN");
 		assertEquals(str,"财政部税务入口网统一发票管理");
+		assertEquals("的Xbox 360",GoogleTranslateUtil.translate("Xbox 360","fr", "zh-CN"));
 	}
 	
 	@Test

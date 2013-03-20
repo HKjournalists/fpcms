@@ -97,7 +97,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 			}
 			
 			if(RandomUtil.randomTrue(45)) {
-				String anchor = String.format("<a href='http://%s'>%s</a>",cmsSite.getSiteDomain(),KeywordUtil.getRandomKeyword(cmsSite.getKeyword()));
+				String anchor = String.format("<a href='http://%s'><b>%s</b></a>",cmsSite.getSiteDomain(),KeywordUtil.getRandomKeyword(cmsSite.getKeyword()));
 				content.setContent(StringHelper.insertAfter(content.getContent(),anchor,",","，"));
 				logger.info("insert_site_keyword_anchor into article:"+content.getTitle()+" anchor:"+anchor + " id:"+content.getId());
 			}
