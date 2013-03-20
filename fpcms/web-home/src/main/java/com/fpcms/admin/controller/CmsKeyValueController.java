@@ -73,7 +73,7 @@ public class CmsKeyValueController extends BaseController{
 	/** 列表 */
 	@RequestMapping
 	public String index(ModelMap model,CmsKeyValueQuery query,HttpServletRequest request) {
-		query.setPageSize(Math.max(200, query.getPageSize()));
+		query.setPageSize(Math.max(100, query.getPageSize()));
 		Page<CmsKeyValue> page = this.cmsKeyValueService.findPage(query);
 		
 		model.addAllAttributes(toModelMap(page, query));

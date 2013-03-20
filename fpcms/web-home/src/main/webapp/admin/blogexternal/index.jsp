@@ -76,17 +76,17 @@
 				<th style="width:1px;"> </th>
 				
 				<!-- 排序时为th增加sortColumn即可,new SimpleTable('sortColumns')会为tableHeader自动增加排序功能; -->
-				<th sortColumn="blog_url" >博客地址</th>
-				<th sortColumn="blog_rpc_url" >博客RPC地址</th>
-				<th sortColumn="blog_name" >blogName</th>
-				<th sortColumn="username" >username</th>
-				<th sortColumn="password" >password</th>
-				<th sortColumn="tags" >tags</th>
-				<th sortColumn="categories" >categories</th>
+				<th sortColumn="blog_url" >博客URL</th>
+				<th sortColumn="blog_rpc_url" >RPC地址</th>
+				<th sortColumn="blog_name" >博客名称</th>
+				<th sortColumn="username" >用户名</th>
+				<th sortColumn="password" >密码</th>
+				<th sortColumn="tags" >标签</th>
+				<th sortColumn="categories" >分类</th>
 				<th sortColumn="blog_rpc_api" >博客RPC类型</th>
 				<th sortColumn="blog_desc" >博客描述</th>
-				<th sortColumn="blog_post_count" >blogPostCount</th>
-				<th sortColumn="blog_rpc_api_class" >blogRpcApiClass</th>
+				<th sortColumn="blog_post_count" >发送数</th>
+				<th sortColumn="blog_rpc_api_class" >API实现类</th>
 				<th sortColumn="enabled" >激活状态</th>
 	
 				<th>操作</th>

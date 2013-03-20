@@ -76,6 +76,7 @@ public class BlogExternalController extends BaseController{
 	/** 列表 */
 	@RequestMapping
 	public String index(ModelMap model,BlogExternalQuery query,HttpServletRequest request) {
+		query.setPageSize(Math.max(query.getPageSize(), 100));
 		Page<BlogExternal> page = this.blogExternalService.findPage(query);
 		
 		model.addAllAttributes(toModelMap(page, query));

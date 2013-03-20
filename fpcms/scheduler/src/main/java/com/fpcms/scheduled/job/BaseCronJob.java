@@ -14,6 +14,7 @@ public abstract class BaseCronJob implements InitializingBean{
 	private static Logger logger = LoggerFactory.getLogger(BaseCronJob.class);
 	private String cron;
 	private Date lastExecutedTime = null;
+	private Exception lastExcetpion = null;
 	public BaseCronJob(String cron) {
 		setCron(cron);
 	}
@@ -43,10 +44,11 @@ public abstract class BaseCronJob implements InitializingBean{
 	private synchronized void execute0() {
 		try {
 			logger.info("start_execute_cron_job:"+getClass().getSimpleName());
-			execute();
 			lastExecutedTime = new Date();
+			execute();
 		}catch(Exception e) {
 			logger.error("cron_execute_error",e);
+			lastExcetpion = e;
 		}
 	}
 	
@@ -58,6 +60,10 @@ public abstract class BaseCronJob implements InitializingBean{
 	
 	public Date getLastExecutedTime() {
 		return lastExecutedTime;
+	}
+	
+	public Exception getLastExcetpion() {
+		return lastExcetpion;
 	}
 
 	@Override
