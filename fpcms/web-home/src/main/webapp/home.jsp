@@ -114,7 +114,7 @@
 	<div>
 		<div class="neirong">
 			<c:forEach items="${newsPage.itemList}" var="item" varStatus="i">
-				<div class="list_title"><a href="${ctx}${item.uri}" class="news_anchor" title="${item.title}" style="font-weight:bold;">${fn:substring(item.title,0,15)}</a></div>
+				<div class="list_title"><a href="${ctx}${item.uri}" class="news_anchor" title="${item.title}" >${fn:substring(item.title,0,40)}</a></div>
 			</c:forEach>
 			
 			<!-- page slider START -->
