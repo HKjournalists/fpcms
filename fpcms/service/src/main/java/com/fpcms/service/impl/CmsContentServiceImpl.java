@@ -181,6 +181,8 @@ public class CmsContentServiceImpl implements CmsContentService {
             if(countBySearchKeyword > 0) {
             	throw new IllegalStateException("already exist same searchKeyword:"+cmsContent.getSearchKeyword()+" CmsContent");
             }
+			Assert.isTrue(TextLangUtil.chineseCountPercent(cmsContent.getContent()) > 60,"chineseCountPercent > 60 must be true on content:"+cmsContent.getContent());
+
         }
         
         /** 检查到有错误请直接抛异常，不要使用 return errorCode的方式 */
@@ -192,7 +194,6 @@ public class CmsContentServiceImpl implements CmsContentService {
             
 			KeywordUtil.assertSensitiveKeyword(cmsContent.getTitle());
 			KeywordUtil.assertSensitiveKeyword(cmsContent.getContent());
-			Assert.isTrue(TextLangUtil.chineseCountPercent(cmsContent.getContent()) > 60,"chineseCountPercent > 60 must be true on content:"+cmsContent.getContent());
 			
         	//复杂的属性的检查一般需要分开写几个方法，如 checkProperty1(v),checkProperty2(v)
         }
