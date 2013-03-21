@@ -114,8 +114,7 @@
 	<div>
 		<div class="neirong">
 			<c:forEach items="${newsPage.itemList}" var="item" varStatus="i">
-				<div class="list_title"><a href="${ctx}${item.uri}" class="news_anchor" title="${item.title}" style="font-weight:bold;">${item.title}</a></div>
-				<div class="list_other">标签:${item.tags} 日期：<span><fmt:formatDate value="${item.dateCreated }" pattern="yyyy-MM-dd HH:00:00"/></span></div>
+				<div class="list_title"><a href="${ctx}${item.uri}" class="news_anchor" title="${item.title}" style="font-weight:bold;">${fn:substring(item.title,0,15)}</a></div>
 			</c:forEach>
 			
 			<!-- page slider START -->
