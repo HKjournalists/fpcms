@@ -115,7 +115,8 @@
 		<div class="neirong">
 			<c:forEach items="${newsPage.itemList}" var="item" varStatus="i">
 				<div class="list_title"><a href="${ctx}${item.uri}" class="news_anchor" title="${item.title}" >${fn:substring(item.title,0,40)}</a></div>
-				<div class="clear" ></div>
+				<div class="list_jj">${ fn:substring(item.metaDescription,0,50)}</div>
+				<div class="list_other">标签:${item.tags} 分类：<span>${item.author}</span></div>
 			</c:forEach>
 			
 			<!-- page slider START -->
