@@ -15,7 +15,7 @@
 			<img alt="${cmsContent.title}" src="${ctx}/gen/content_img/<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyyMMdd"/>/${cmsContent.id}.jpg"></img><br/>
 			${cmsContent.content}
 			<br />
-			<span>创建时间:<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyy-MM-dd HH:mm"/></span><br />
+			<span>创建时间:<fmt:formatDate value="${cmsContent.dateCreated}" pattern="yyyy-MM-dd"/></span><br />
 			<span>本文地址:<a href="${cmsContent.url}">${cmsContent.title}</a><a href="${cmsContent.url}">${cmsContent.url}</a>;</span>
 			<div>
 			<h3>
