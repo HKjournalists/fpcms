@@ -6,6 +6,7 @@
 
 package com.fpcms.model;
 
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.fpcms.common.util.HttpStatusCheckUtil;
+import com.fpcms.common.util.KeywordUtil;
 import com.fpcms.common.util.PropertyHelper;
 import com.fpcms.common.util.StringHelper;
 
@@ -205,6 +207,10 @@ public class CmsSite  implements java.io.Serializable{
 	
 	public void setCity(java.lang.String value) {
 		this.city = StringUtils.trim(value);
+	}
+
+	public List<String> getKeywordList() {
+		return KeywordUtil.toTokenizerList(this.keyword);
 	}
 	
 	public java.lang.String getKeyword() {

@@ -35,6 +35,7 @@ import com.duowan.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
 import com.fpcms.common.util.Constants;
 import com.fpcms.model.CmsSite;
+import com.fpcms.query.CmsDomainQuery;
 import com.fpcms.query.CmsSiteQuery;
 import com.fpcms.service.CmsSiteService;
 
@@ -201,6 +202,13 @@ public class CmsSiteController extends BaseController{
 		}
 		
 		return "/admin/cmssite/batchUpdateProperty";
+	}
+	
+	/** 显示列表用于签名 */
+	@RequestMapping
+	public String signature(ModelMap model,CmsDomainQuery query,HttpServletRequest request) {
+		model.put("cmsSiteList", cmsSiteService.findAll());
+		return "/admin/cmssite/signature";
 	}
 
 }
