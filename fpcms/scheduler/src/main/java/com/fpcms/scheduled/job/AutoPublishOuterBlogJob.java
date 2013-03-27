@@ -151,7 +151,7 @@ public class AutoPublishOuterBlogJob extends BaseCronJob{
 			for(int i = 0; i < 10; i++) {
 				domain = cmsDomainService.randomSelectDomain();
 				Assert.notNull(domain,"not found any random CmsDomain");
-				String link =  domain.getYesterdayOuterLinked();
+				String link =  "http://www."+domain.getDomain();
 				if(useedLink.contains(link)) {
 					continue;
 				}
