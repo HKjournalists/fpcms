@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -43,4 +44,17 @@ public class StringHelperTest extends Assert{
 		assertEquals("<a href='http://www.163.com'>java</a>", String.format("<a href='http://%s'>%s</a>","www.163.com",KeywordUtil.getRandomKeyword("java")));
 	}
 	
+	
+	@Test
+	public void replace_first() {
+		assertEquals("ppp,a,b,c","a,a,b,c".replaceFirst("a", "ppp"));
+		assertEquals("ppp,a,b,c",StringUtils.replaceOnce("a,a,b,c", "a", "ppp"));
+		assertEquals("ppp,ppp,b,c",StringUtils.replace("a,a,b,c", "a", "ppp"));
+		assertEquals("重庆发票,浙江发票",replace代开("重庆代开发票,浙江开发票"));
+		
+	}
+	
+	private String replace代开(String str) {
+		return str.replaceAll("代开", "").replaceAll("开", "");
+	}
 }

@@ -6,10 +6,15 @@
 
 package com.fpcms.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
+
+import com.fpcms.common.util.Tags;
 
 
 /**
@@ -60,7 +65,7 @@ public class BlogExternal  implements java.io.Serializable{
      * tags       db_column: tags 
      */ 	
 	@Length(max=100)
-	private java.lang.String tags;
+	private Set<String> tags = new HashSet<String>();
 	
     /**
      * categories       db_column: categories 
@@ -149,11 +154,15 @@ public class BlogExternal  implements java.io.Serializable{
 	}
 	
 	public java.lang.String getTags() {
-		return this.tags;
+		return Tags.toString(tags);
 	}
 	
 	public void setTags(java.lang.String value) {
-		this.tags = value;
+		this.tags = Tags.fromString(value);
+	}
+	
+	public Set<String> getTagSet() {
+		return this.tags;
 	}
 	
 	public java.lang.String getCategories() {

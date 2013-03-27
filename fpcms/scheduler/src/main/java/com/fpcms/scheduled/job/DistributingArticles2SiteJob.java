@@ -90,8 +90,8 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 			content.setChannelCode(Constants.CHANNED_CODE_NEWS);
 			
 			if(RandomUtil.randomTrue(65)) {
-				content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",cmsSite.getKeyword()));
-				content.setContent(processWithSiteKeyword(content.getContent(),"发票",cmsSite.getKeyword()));
+				content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",replace代开(cmsSite.getKeyword())));
+				content.setContent(processWithSiteKeyword(content.getContent(),"发票",replace代开(cmsSite.getKeyword())));
 				logger.info("replace_title_with_site_keyword:"+content.getTitle()+" id:"+content.getId());
 			}
 			
@@ -106,13 +106,20 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 //			CmsContent.baiduBlogPing(content);
 		}
 	}
+
+	private String replace代开(String str) {
+		if(StringUtils.isBlank(str)) {
+			return str;
+		}
+		return str.replaceAll("代开", "").replaceAll("开", "");
+	}
 	
 	public static String processWithSiteKeyword(String text,String searchString,String keywords) {
 		String keyword = KeywordUtil.getRandomKeyword(keywords);
 		if(StringUtils.isBlank(keyword)) {
 			return text;
 		}
-		return StringUtils.replace(text, searchString, keyword);
+		return StringUtils.replaceOnce(text, searchString, keyword);
 	}
 
 	private List<CmsContent> findCmsContentList() {

@@ -1,9 +1,9 @@
 package com.fpcms.scheduled.job;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,17 +97,28 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 		String blogContent = "原文请查看:" + cc.getUrl() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),1) +" <br/>\n" ;
 		if(RandomUtil.randomTrue(100)) {
 			try {
-				BlogExternal randomBe = RandomUtil.randomSelect(blogExternalList);
+				BlogExternal randomBe = RandomUtil.randomSelect(getByHasTag(blogExternalList,"needAd"));
 				
 				List<Anchor> validBlogLinks = BlogUtil.getValidBlogLinks(randomBe.getBlogUrl(),8);
 				Anchor randomBlogLink = RandomUtil.randomSelect(validBlogLinks);
 				blogContent += "<br/> "+String.valueOf(randomBlogLink)+" ; ";
 			}catch(Exception e) {
-				logger.error("error_on_insert_randomBlogLink into blog:"+cc.getId()+" title:"+cc.getTitle());
+				logger.error("error_on_insert_randomBlogLink into blog:"+cc.getId()+" title:"+cc.getTitle(),e);
 			}
 		}
 		
 		return blogContent;
+	}
+
+	private static List<BlogExternal> getByHasTag(List<BlogExternal> blogExternalList,
+			String tag) {
+		List<BlogExternal> result = new ArrayList<BlogExternal>();
+		for(BlogExternal be : blogExternalList) {
+			if(be.getTagSet().contains(tag)) {
+				result.add(be);
+			}
+		}
+		return result;
 	}
 
 	private CmsContent findCmsContent() {
