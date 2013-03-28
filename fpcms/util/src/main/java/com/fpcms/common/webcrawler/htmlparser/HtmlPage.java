@@ -95,6 +95,11 @@ public class HtmlPage {
 		public Anchor() {
 		}
 		
+		public Anchor(String href) {
+			super();
+			this.href = href;
+		}
+
 		public Anchor(String href, String text, String title) {
 			super();
 			this.href = href;

@@ -77,7 +77,7 @@ public class CmsDomainServiceImplTest extends BaseServiceTestCase{
 		List<CmsDomain> list = Arrays.asList(CmsDomainDataFactory.newCmsDomain(),CmsDomainDataFactory.newCmsDomain());
 		when(cmsDomainDao.findAll()).thenReturn(list);
 		String str = service.insertRandomLinks("我是一个中国人.你不是;我到底是不是呢。", 2);
-		assertEquals(str,"我是一个中国人.你不是;我到底是不是呢。http://www.null/linked/20130302.do");
+		assertEquals(str,"我是一个中国人.你不是;我到底是不是呢。<a href='http://www.null'>http://www.null</a>");
 	}
 	
 }

@@ -20,6 +20,7 @@ import com.duowan.common.util.page.Page;
 import com.fpcms.common.util.IpUtil;
 import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.util.StringHelper;
+import com.fpcms.common.webcrawler.htmlparser.HtmlPage.Anchor;
 import com.fpcms.dao.CmsDomainDao;
 import com.fpcms.model.CmsDomain;
 import com.fpcms.query.CmsDomainQuery;
@@ -154,7 +155,7 @@ public class CmsDomainServiceImpl implements CmsDomainService {
 		for(int i = 0 ; i < randomLinkCount; i++) {
 			int index = StringHelper.indexOf(result,fromIndex,"。",".");
 			if(index >= 0) {
-				String link = randomDomainLink();
+				String link = new Anchor(randomDomainLink()).toString();
 				fromIndex = index + 1 + link.length();
 				result.insert(index + 1, link);
 			}
