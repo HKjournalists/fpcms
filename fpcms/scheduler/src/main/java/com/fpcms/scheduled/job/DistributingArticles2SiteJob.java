@@ -52,7 +52,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 		this.cmsSiteService = cmsSiteService;
 	}
 
-	public synchronized void execute() {
+	public synchronized void executeInternal() {
 		List<CmsContent> list = findCmsContentList();
 		List<CmsSite> siteList = cmsSiteService.findAll();
 		RuntimeException lastException = null;

@@ -50,7 +50,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 	}
 
 	@Override
-	public void execute() {
+	public void executeInternal() {
 		List<BlogExternal> blogExternalList = blogExternalService.findAll();
 		
 		for(int i = 0; i < Math.floor(blogExternalList.size() * 5 / 24); i++) {

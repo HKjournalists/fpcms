@@ -252,6 +252,12 @@ http://9.douban.com/subject/9367463/
 
 http://bbs.28tui.com 陈有达 abc123
 http://bbs.28tui18.com 陈有达 abc123
+http://space.yoka.com bbstg123@gmail.com abc123
+http://dev.10086.cn/	blogtg123@gmail.com abc123
+http://www.58.com	blogtg123	abc123
+http://changsha.qd8.com.cn/ blogtg123 abc123
+http://www.020.com blogtg123 abc123
+http://bbs.yantian.com.cn blogtg123 abc123
 
 
 待链接:

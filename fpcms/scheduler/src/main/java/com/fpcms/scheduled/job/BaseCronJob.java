@@ -53,7 +53,11 @@ public abstract class BaseCronJob implements InitializingBean{
 		}
 	}
 	
-	public abstract void execute();
+	public synchronized void execute() {
+		executeInternal();
+	}
+	
+	protected abstract void executeInternal();
 	
 	public String getJobRemark() {
 		return null;
