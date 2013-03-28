@@ -64,7 +64,6 @@ public class BlogExternal  implements java.io.Serializable{
     /**
      * tags       db_column: tags 
      */ 	
-	@Length(max=100)
 	private Set<String> tags = new HashSet<String>();
 	
     /**
