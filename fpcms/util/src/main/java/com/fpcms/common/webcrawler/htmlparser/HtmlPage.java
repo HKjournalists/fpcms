@@ -154,7 +154,7 @@ public class HtmlPage {
 		@Override
 		public String toString() {
 			String titleAttr = StringUtils.isBlank(title) ? "" : " title='"+title+"'";
-			return String.format("<a href='"+href+"'"+titleAttr+">"+StringUtils.defaultString(text,href)+"</a>");
+			return "<a href='"+href+"'"+titleAttr+">"+StringUtils.defaultString(text,href)+"</a>";
 		}
 		
 		public static String toFullUrl(String baseUrl,String href)  {
