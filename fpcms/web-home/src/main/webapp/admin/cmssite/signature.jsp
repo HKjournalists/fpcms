@@ -14,6 +14,7 @@
 	
 	<hr />
 	<hr />
+	<c:forEach items="${cmsSiteList}" var="site"><c:if test="${fn:startsWith(site.siteDomain,'www.')}"><a href="http://${site.siteDomain}">${site.city}</a>${site.siteDomain},</c:if></c:forEach>
 	<hr />
 	<hr />
 	
