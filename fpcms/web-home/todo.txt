@@ -273,3 +273,17 @@ http://www.ewxf.com
 待链接:
 http://123lk21182.blog.bokee.net
 http://21325290.blog.hexun.com/
+
+
+和讯博客支持同步:
+支持如下同步博客类型
+和讯博客：http://blogname.blog.hexun.com/
+百度空间：http://hi.baidu.com/blogname
+新浪博客：http://blog.sina.com.cn/blogname
+搜狐博客：http://blogname.blog.sohu.com
+网易博客：http://blog.163.com/blogname/
+QQ空间：http://blogname.qzone.qq.com/
+凤凰博客：http://blog.ifeng.com/blogname.html
+BlogBus博客：http://blogname.blogbus.com/
+Msn空间：http://blogname.spaces.live.com/
+MySpace：http://blog.myspace.cn/blogname/
