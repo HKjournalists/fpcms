@@ -261,7 +261,13 @@ http://bbs.yantian.com.cn blogtg123 abc123
 http://www.coema.org.cn/ blogtg123 abc123 可以评论
 http://www.baixing.com bxuser8965934 abc123
 http://bbs.xgo.com.cn/ blogtg123 abc123
+http://bbs.xiaomi.cn blogtg123@gmail.com abc123
+http://qing.blog.sina.com.cn blogtg123@gmail.com asdf@1234
 
+
+互链网站:
+http://www.baixingwz.com
+http://www.ewxf.com
 
 
 待链接:
