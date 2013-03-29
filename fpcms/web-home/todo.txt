@@ -259,6 +259,8 @@ http://changsha.qd8.com.cn/ blogtg123 abc123
 http://www.020.com blogtg123 abc123
 http://bbs.yantian.com.cn blogtg123 abc123
 http://www.coema.org.cn/ blogtg123 abc123 可以评论
+http://www.baixing.com bxuser8965934 abc123
+http://bbs.xgo.com.cn/ blogtg123 abc123
 
 
 
