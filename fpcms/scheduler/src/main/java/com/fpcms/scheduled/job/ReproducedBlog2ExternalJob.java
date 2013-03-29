@@ -53,7 +53,7 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 	public void executeInternal() {
 		List<BlogExternal> blogExternalList = blogExternalService.findAll();
 		
-		for(int i = 0; i < Math.floor(blogExternalList.size() * 5 / 24); i++) {
+		for(int i = 0; i < Math.floor(blogExternalList.size() * 4 / 24); i++) {
 			BlogExternal be = RandomUtil.randomSelect(blogExternalList);
 			postBlog(blogExternalList, be);
 		}
@@ -94,8 +94,9 @@ public class ReproducedBlog2ExternalJob extends BaseCronJob{
 
 	private String buildBlogContent(List<BlogExternal> blogExternalList,
 			CmsContent cc) {
-		String blogContent = "原文请查看:" + new Anchor(cc.getUrl()).toString() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),1) +" <br/>\n" ;
-		if(RandomUtil.randomTrue(65)) {
+//		String blogContent = "原文请查看:" + new Anchor(cc.getUrl()).toString() + "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),1) +" <br/>\n" ;
+		String blogContent =  "\n<br /> "+cmsDomainService.insertRandomLinks(cc.getContent(),1) +" <br/>\n" ;
+		if(RandomUtil.randomTrue(50)) {
 			try {
 				BlogExternal randomBe = RandomUtil.randomSelect(getByHasTag(blogExternalList,"needAd"));
 				
