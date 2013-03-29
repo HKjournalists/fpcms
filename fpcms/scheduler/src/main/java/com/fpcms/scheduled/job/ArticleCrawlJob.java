@@ -23,7 +23,7 @@ public class ArticleCrawlJob extends BaseCronJob{
 	}
 	
 	@Override
-	public synchronized void execute() {
+	public synchronized void executeInternal() {
 //		articleCrawlService.crawlAllBuzzKeyword();
 		String[] keywords = {"java","phone","iphone","company","cameras","printer","notebook","refrigerator","mobile","car","game","novel","cartoon","movie","music","animation","suv","food","pet","travel","stock","money","fund"};
 		for(String keyword : keywords) {

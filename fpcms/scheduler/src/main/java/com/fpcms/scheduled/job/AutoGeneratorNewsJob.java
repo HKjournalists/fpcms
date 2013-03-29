@@ -23,7 +23,7 @@ public class AutoGeneratorNewsJob extends BaseCronJob implements InitializingBea
 		this.cmsContentService = cmsContentService;
 	}
 
-	public synchronized void execute() {
+	public synchronized void executeInternal() {
 		logger.info("started execute AutoGeneratorNewsJob");
 		Profiler.start("AutoGeneratorNewsJob.execute");
 		try {

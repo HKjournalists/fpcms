@@ -28,7 +28,7 @@ public class CleanDatabaseJob extends BaseCronJob implements InitializingBean{
 	}
 
 	@Override
-	public synchronized void execute() {
+	public synchronized void executeInternal() {
 		cmsKeyValueService.deleteBy(DateUtils.addDays(new Date(),-180));
 	}
 	

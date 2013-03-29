@@ -27,7 +27,7 @@ public class UpdateSiteHttpStatusJob extends BaseCronJob implements Initializing
 		this.cmsSiteService = cmsSiteService;
 	}
 
-	public synchronized void execute() {
+	public synchronized void executeInternal() {
 		cmsSiteService.updateHttpStatus();
 		cmsDomainService.updateCmsDomainStatus();
 	}
