@@ -273,6 +273,7 @@ http://www.open-open.com blogtg123 abc123
 http://www.cn-java.com blogtg123 abc123
 						bbstg123	abc123
 http://phpfans.net/	blogtg123 abc123
+http://blog.donews.com	
 
 
 互链网站:
