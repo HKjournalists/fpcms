@@ -73,3 +73,5 @@ function generateKefuDialog(kefuDialog) {
 	return dialogContent;
 }
 
+
+

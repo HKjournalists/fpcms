@@ -110,7 +110,7 @@
 	</div>
 
 	<script type="text/javascript" src="${ctx}/js/application.js"></script>
-	<script type="text/javascript" src="${ctx}/js/topad.js"></script>
+	<script type="text/javascript" src="${ctx}/js/misc.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="${ctx}/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>
@@ -147,23 +147,20 @@
 		
 		function closeKefuDialog() {
 			$("#_kefuDialogDiv").hide();
-			$.cookie('closedKefuDialog', 'true', { expires: 7, path: '/' });
+			$.cookie('closedKefuDialog', 'true', { expires: 700000000, path: '/' });
 		}
 		function openQQChat() {
 			closeKefuDialog();
 			window.open("http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes");
 		}
 		function openKefuDialog() {
-
-			var content = generateKefuDialog($('#kefuDialog').html());
-			$("#kefuContainer").append(content);
-			
 			var closedKefuDialog = $.cookie('closedKefuDialog');
 			if('true' == closedKefuDialog) {
 				return;
 			}
-
-
+			
+			var content = generateKefuDialog($('#kefuDialog').html());
+			$("#kefuContainer").append(content);
 		}
 
 		setTimeout(openKefuDialog,3000);

@@ -276,6 +276,7 @@ http://www.cn-java.com blogtg123 abc123
 						bbstg123	abc123
 http://phpfans.net/	blogtg123 abc123
 http://blog.donews.com	
+http://i.sohu.com/	blogtg123@gmail.com abc123
 
 
 互链网站:
