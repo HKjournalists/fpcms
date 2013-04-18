@@ -95,6 +95,7 @@ select t.title from (
 # 53. 增加文章转载模块
 #54. 增加随机显示子站文章模块
 55.  如果referrer的关键字带"查询" 则导航至不同的网页查询页面
+56. invoice,代打发票,作为关键字
 
 http://www.pc51.com/
 账号haofapiao.com
