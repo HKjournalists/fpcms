@@ -1,5 +1,7 @@
 package com.fpcms.scheduled.job;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.fpcms.service.article_crawl.ArticleCrawlService;
@@ -12,6 +14,8 @@ import com.fpcms.service.article_crawl.ArticleCrawlService;
  */
 @Service
 public class ArticleCrawlJob extends BaseCronJob{
+	private static Logger logger = LoggerFactory.getLogger(ArticleCrawlJob.class);
+	
 	private ArticleCrawlService articleCrawlService;
 	public ArticleCrawlJob() {
 		super("1 1 5 * * *");
@@ -27,12 +31,16 @@ public class ArticleCrawlJob extends BaseCronJob{
 //		articleCrawlService.crawlAllBuzzKeyword();
 		String[] keywords = {"java","phone","iphone","company","cameras","printer","notebook","refrigerator","mobile","car","game","novel","cartoon","movie","music","animation","suv","food","pet","travel","stock","money","fund"};
 		for(String keyword : keywords) {
-			articleCrawlService.crawlByKeyword("en_fapiao,"+keyword,"en",keyword, "invoice", "en");
+			try {
+				articleCrawlService.crawlByKeyword("en_fapiao,"+keyword,"en",keyword, "invoice", "en");
+			}catch(Exception e) {
+				logger.error("error on crawlByKeyword:"+keyword,e);
+			}
 		}
 		
 		articleCrawlService.crawlKeyword("发票");
 		articleCrawlService.crawlAllSite();
-		articleCrawlService.mergeSmallArticle();
+//		articleCrawlService.mergeSmallArticle();
 	}
 
 	@Override

@@ -95,7 +95,7 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 				logger.info("replace_title_with_site_keyword:"+content.getTitle()+" id:"+content.getId());
 			}
 			
-			if(RandomUtil.randomTrue(55)) {
+			if(RandomUtil.randomTrue(75)) {
 				String anchor = String.format("<a href='http://%s'><b>%s</b></a>",cmsSite.getSiteDomain(),KeywordUtil.getRandomKeyword(cmsSite.getKeyword()));
 				content.setContent(StringHelper.insertAfter(content.getContent(),anchor,",","，"));
 				logger.info("insert_site_keyword_anchor into article:"+content.getTitle()+" anchor:"+anchor + " id:"+content.getId());

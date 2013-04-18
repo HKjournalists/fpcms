@@ -12,7 +12,7 @@
 
 <duowan:override name="content">
 		<script type="text/javascript" src="${ctx}/js/application.js"></script>
-		<script type="text/javascript" src="${ctx}/js/topad.js"></script>
+		<script type="text/javascript" src="${ctx}/js/misc.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script type="text/javascript" src="${ctx}/js/jquery.cookie.js"></script>
 		<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>

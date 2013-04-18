@@ -155,7 +155,7 @@ public class CmsDomainServiceImpl implements CmsDomainService {
 		for(int i = 0 ; i < randomLinkCount; i++) {
 			int index = StringHelper.indexOf(result,fromIndex,"。",".");
 			if(index >= 0) {
-				String link = new Anchor(randomDomainLink()).toString();
+				String link = randomDomainLink();
 				fromIndex = index + 1 + link.length();
 				result.insert(index + 1, link);
 			}
