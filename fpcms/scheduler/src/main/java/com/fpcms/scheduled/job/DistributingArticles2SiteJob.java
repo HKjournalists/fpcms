@@ -89,17 +89,17 @@ public class DistributingArticles2SiteJob extends BaseCronJob implements Initial
 			content.setDateCreated(new Date());
 			content.setChannelCode(Constants.CHANNED_CODE_NEWS);
 			
-			if(RandomUtil.randomTrue(65)) {
-				content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",replace代开(cmsSite.getKeyword())));
-				content.setContent(processWithSiteKeyword(content.getContent(),"发票",replace代开(cmsSite.getKeyword())));
-				logger.info("replace_title_with_site_keyword:"+content.getTitle()+" id:"+content.getId());
-			}
+//			if(RandomUtil.randomTrue(65)) {
+//				content.setTitle(processWithSiteKeyword(content.getTitle(),"发票",replace代开(cmsSite.getKeyword())));
+//				content.setContent(processWithSiteKeyword(content.getContent(),"发票",replace代开(cmsSite.getKeyword())));
+//				logger.info("replace_title_with_site_keyword:"+content.getTitle()+" id:"+content.getId());
+//			}
 			
-			if(RandomUtil.randomTrue(75)) {
-				String anchor = String.format("<a href='http://%s'><b>%s</b></a>",cmsSite.getSiteDomain(),KeywordUtil.getRandomKeyword(cmsSite.getKeyword()));
-				content.setContent(StringHelper.insertAfter(content.getContent(),anchor,",","，"));
-				logger.info("insert_site_keyword_anchor into article:"+content.getTitle()+" anchor:"+anchor + " id:"+content.getId());
-			}
+//			if(RandomUtil.randomTrue(75)) {
+//				String anchor = String.format("<a href='http://%s'><b>%s</b></a>",cmsSite.getSiteDomain(),KeywordUtil.getRandomKeyword(cmsSite.getKeyword()));
+//				content.setContent(StringHelper.insertAfter(content.getContent(),anchor,",","，"));
+//				logger.info("insert_site_keyword_anchor into article:"+content.getTitle()+" anchor:"+anchor + " id:"+content.getId());
+//			}
 			
 			logger .info("assign article for site:"+site+" article.title:"+content.getTitle()+" on channel:"+content.getChannelCode()+" id:"+content.getId());
 			cmsContentService.update(content);
