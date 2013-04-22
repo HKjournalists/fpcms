@@ -277,7 +277,13 @@ http://www.cn-java.com blogtg123 abc123
 http://phpfans.net/	blogtg123 abc123
 http://blog.donews.com	
 http://i.sohu.com/	blogtg123@gmail.com abc123
-
+http://www.xici.net/	blogtg123 abc123
+http://www.itpub.net/
+http://k.pconline.com.cn/	blogtg123	abc123
+http://b2982fls83.blog.hexun.com/	blogtg123 abc123
+http://blog.home.blogbus.com/ blogtg123	abc123
+http://bbs.phpchina.com/	blogtg123 abc123
+http://blog.ccidnet.com/	blogtg123	abc123
 
 互链网站:
 http://www.baixingwz.com
