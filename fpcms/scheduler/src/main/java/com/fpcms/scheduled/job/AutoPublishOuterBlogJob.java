@@ -41,7 +41,7 @@ import com.fpcms.service.CmsSiteService;
  * @author badqiu
  *
  */
-//@Service
+@Service
 public class AutoPublishOuterBlogJob extends BaseCronJob{
 	private static Logger logger = LoggerFactory.getLogger(AutoPublishOuterBlogJob.class);
 	
