@@ -302,3 +302,6 @@ QQ空间：http://blogname.qzone.qq.com/
 BlogBus博客：http://blogname.blogbus.com/
 Msn空间：http://blogname.spaces.live.com/
 MySpace：http://blog.myspace.cn/blogname/
+
+垃圾外链判断
+http://zhanzhang.baidu.com/wiki/160

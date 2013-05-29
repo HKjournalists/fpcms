@@ -24,6 +24,7 @@ import com.duowan.common.beanutils.BeanUtils;
 import com.duowan.common.beanutils.PropertyUtils;
 import com.duowan.common.jdbc.dialect.Dialect;
 import com.duowan.common.jdbc.support.OffsetLimitResultSetExtractor;
+import com.duowan.common.util.ObjectUtils;
 import com.duowan.common.util.SqlRemoveUtils;
 import com.duowan.common.util.page.Page;
 import com.duowan.common.util.page.PageQuery;
@@ -211,4 +212,5 @@ public abstract class BaseSpringJdbcDao extends JdbcDaoSupport {
 			throw new IllegalStateException("cannot get property value on entityClass:"+entity.getClass()+" by propertyName:"+getIdentifierPropertyName(),e);
 		}
 	}
+	
 }
