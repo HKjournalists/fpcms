@@ -166,7 +166,7 @@ public class CmsDomainServiceImpl implements CmsDomainService {
 	private String randomDomainLink() {
 		CmsDomain domain = randomSelectDomain();
 		Assert.notNull(domain);
-		return "http://www."+domain.getDomain();
+		return domain.getYesterdayOuterLinked();
 	}
 	
 }
