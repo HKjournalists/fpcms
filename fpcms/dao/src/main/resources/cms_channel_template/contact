@@ -1,5 +1,5 @@
 <div align="left">
-	<b>联系人:</b>&nbsp;{%= o.contactName %} <br />
 <b>电话:</b>&nbsp; &nbsp;<span>{%= o.mobile %} <br />
-<b>QQ:</b>&nbsp; &nbsp; &nbsp;<span>{%= o.qq %}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin={%= o.qq %}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:{%= o.qq %}:41" border="0" /></a> </span></span> 
+<b>联系人:</b>&nbsp;{%= o.contactName %} <br />
+<b>QQ号码:</b>&nbsp; &nbsp; &nbsp;<span>{%= o.qq %}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin={%= o.qq %}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:{%= o.qq %}:41" border="0" /></a> </span></span> 
 </div>
