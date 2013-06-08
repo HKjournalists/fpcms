@@ -181,8 +181,6 @@
 				return false;
 			});
 		</script>
-		<div class="foot_menu">
-		</div>
 </duowan:override>
 
 <%-- jsp模板继承,具体使用请查看: http://code.google.com/p/rapid-framework/wiki/rapid_jsp_extends --%>
