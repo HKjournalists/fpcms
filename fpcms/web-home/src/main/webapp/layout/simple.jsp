@@ -3,13 +3,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-	<meta name="robots" content="noarchive">
 	
 	<duowan:block name="head">
 	</duowan:block>
-	
 	<link href="${ctx}/styles/kaipiao.css" rel="stylesheet" type="text/css" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	
 </head>
 
 <body>
@@ -66,12 +65,31 @@
 				</div>
 				<div >
 					<div class="neirong">
+						<div>
 						<duowan:block name="content"></duowan:block>
+						</div>
 					</div>
 				</div>
 			</div>
 			</duowan:block>
-		</div>	
+		</div>
+		
+		<div id="page_left" style="float: left;">
+			<duowan:block name="page_left">
+				<div class="border mt10" style="font-size: 15pt">
+					<div class="subject_bg">
+						<div class="subject_title"><font color="red" style="font-size: 15pt">联系我们</font></div>
+					</div>
+					<div class="m10 " id="template_contact_layout">
+						<div align="left" >
+						<b>联系人:</b> {%= o.contactName %} <br/>
+						<b>电话:</b>&nbsp;&nbsp;&nbsp;{%= o.mobile %} <br/>
+						<b>QQ:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%= o.qq %}<a href="http://wpa.qq.com/msgrd?v=3&amp;uin=${qq}&amp;site=${requestHost}&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:${qq}:41" border="0" /></a>
+						</div>
+					</div>
+				</div>
+			</duowan:block>
+		</div>			
 	</div>
 
 	<script type="text/javascript" src="${ctx}/js/tmpl.js"></script>
