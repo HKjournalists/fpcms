@@ -122,6 +122,9 @@
 			<a href="/">网站首页</a> | 
 		</div>
 		<strong>${company}</strong> <br /> Copyright &copy; 2005-2012｜&nbsp;&nbsp;保留所有权利 | 时间:<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/><br />
+		<div>
+			${links}
+		</div>
 	</div>
 	
 	<div id="kefuDialog" style="display: none;">
