@@ -6,7 +6,7 @@
 
 package com.fpcms.service.impl;
 
-import static com.duowan.common.util.holder.BeanValidatorHolder.validateWithException;
+import static com.github.rapid.common.util.holder.BeanValidatorHolder.validateWithException;
 
 import java.util.Date;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.dao.CmsKeyValueDao;
 import com.fpcms.model.CmsKeyValue;
 import com.fpcms.query.CmsKeyValueQuery;

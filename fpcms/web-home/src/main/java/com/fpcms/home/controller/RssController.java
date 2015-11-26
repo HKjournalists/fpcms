@@ -16,9 +16,9 @@ import churchillobjects.rss4j.RssDocument;
 import churchillobjects.rss4j.generator.RssGenerationException;
 import churchillobjects.rss4j.generator.RssGenerator;
 
-import com.duowan.common.util.DateRange;
-import com.duowan.common.util.page.Page;
-import com.duowan.common.util.page.PageQuery;
+import com.github.rapid.common.util.DateRange;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.util.page.PageQuery;
 import com.fpcms.common.BaseController;
 import com.fpcms.common.util.Constants;
 import com.fpcms.model.CmsContent;

@@ -17,10 +17,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.util.Assert;
 
-import com.duowan.common.util.DateConvertUtils;
-import com.duowan.common.util.DateRange;
-import com.duowan.common.util.page.Page;
-import com.duowan.common.util.page.PageQuery;
+import com.github.rapid.common.util.DateConvertUtil;
+import com.github.rapid.common.util.DateRange;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.util.page.PageQuery;
 import com.fpcms.common.random_gen_article.BaiduTopBuzzUtil;
 import com.fpcms.common.random_gen_article.NaipanArticleGeneratorUtil;
 import com.fpcms.common.util.ApplicationContextUtil;
@@ -183,7 +183,7 @@ public class ArticleCrawlService implements ApplicationContextAware,Initializing
 		
 		cmsKeyValueService.create(cmsKeyValue);
 		
-		final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtils.format(new Date(), "yyyy年MM月"));
+		final String finalSearchKeyword = URLEncoderUtil.encode(buzz + " " + DateConvertUtil.format(new Date(), "yyyy年MM月"));
 		String searchUrl = "https://www.google.com.hk/search?num=10&hl=zh-CN&safe=strict&tbs=qdr:d&q="+finalSearchKeyword;
 		SinglePageCrawler crawler = newGoogleSinglePageCrawler(tags,"zh-CN",htmlPageCrawler,searchUrl);
 		crawler.execute();

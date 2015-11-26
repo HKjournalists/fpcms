@@ -5,10 +5,9 @@ import java.util.Date;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.lang.time.DateUtils;
 
-import com.duowan.common.util.DateConvertUtils;
-import com.fpcms.common.util.RandomUtil;
 import com.fpcms.common.util.SearchEngineUtil;
 import com.fpcms.common.util.UnuseKeywordsUtil;
+import com.github.rapid.common.util.DateConvertUtil;
 
 /**
  * 生成一个随机文章
@@ -52,12 +51,12 @@ public class RandomArticleBuilder {
 //			return "";
 //		}
 		
-		Date startMonth = DateConvertUtils.parse("2006-01", "yyyy-MM");
+		Date startMonth = DateConvertUtil.parse("2006-01", "yyyy-MM");
 		Date now = new Date();
 		int maxMonth = (int)((now.getTime() - startMonth.getTime())/1000.0/3600/24/30);
 		Date result = DateUtils.addMonths(startMonth, RandomUtils.nextInt(maxMonth));
-		return DateConvertUtils.format(result, "yyyy年");
-//		return DateConvertUtils.format(result, "yyyy年M月");
+		return DateConvertUtil.format(result, "yyyy年");
+//		return DateConvertUtil.format(result, "yyyy年M月");
 	}
 
 	RandomArticle buildBySearchKeyword(String city,

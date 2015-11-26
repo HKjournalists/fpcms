@@ -6,7 +6,7 @@
 
 package com.fpcms.model;
 
-import static com.duowan.common.util.DateFormats.DATE_FORMAT;
+import static com.github.rapid.common.util.DateFormats.DATE_FORMAT;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.duowan.common.util.tree.Node;
-import com.duowan.common.util.tree.NodeWrapper;
-import com.duowan.common.util.tree.TreeCreator;
+import com.github.rapid.common.util.tree.Node;
+import com.github.rapid.common.util.tree.NodeWrapper;
+import com.github.rapid.common.util.tree.TreeCreator;
 import com.fpcms.common.util.ClasspathUtil;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.FreemarkerUtil;

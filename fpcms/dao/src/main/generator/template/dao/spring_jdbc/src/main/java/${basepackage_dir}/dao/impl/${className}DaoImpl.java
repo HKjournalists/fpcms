@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
-import static com.duowan.common.util.ObjectUtils.*;
+import static com.github.rapid.common.util.ObjectUtil.*;
 
 /**
  * tableName: ${table.sqlName}

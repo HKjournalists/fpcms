@@ -11,7 +11,7 @@ import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.duowan.common.util.ArrayUtils;
+import com.github.rapid.common.util.ArrayUtil;
 
 
 public class CityUtil {
@@ -112,7 +112,7 @@ public class CityUtil {
 				}else {
 					// rank gdp province city四列数据
 					String[] array = line.split("[\\s　]+");
-					Map<String,String> map = ArrayUtils.toMap(array, "rank","gdp","province","city");
+					Map<String,String> map = ArrayUtil.toMap(array, "rank","gdp","province","city");
 					map.put("province", map.get("province").replaceAll("\\d", ""));
 					map.put("city", map.get("city").replaceAll("\\d", ""));
 					result.add(map);

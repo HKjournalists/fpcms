@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.duowan.common.util.DateRange;
-import com.duowan.common.util.page.Page;
-import com.duowan.common.util.page.PageQuery;
+import com.github.rapid.common.util.DateRange;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.util.page.PageQuery;
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.BlogUtil;

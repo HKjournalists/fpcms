@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Component;
 
-import static com.duowan.common.util.ObjectUtils.*;
+import static com.github.rapid.common.util.ObjectUtil.*;
 
 /**
  * tableName: ${table.sqlName}

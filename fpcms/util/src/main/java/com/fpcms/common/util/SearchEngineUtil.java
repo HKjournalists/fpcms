@@ -6,7 +6,7 @@ import java.util.TreeMap;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.Assert;
 
-import com.duowan.common.util.Profiler;
+import com.github.rapid.common.util.Profiler;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.cache.ValueCallback;

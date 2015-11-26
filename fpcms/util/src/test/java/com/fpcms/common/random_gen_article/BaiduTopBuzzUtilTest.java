@@ -7,7 +7,7 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.duowan.common.util.Profiler;
+import com.github.rapid.common.util.Profiler;
 
 
 public class BaiduTopBuzzUtilTest extends Assert{

@@ -6,7 +6,7 @@
 
 package com.fpcms.model;
 
-import static com.duowan.common.util.DateFormats.DATE_FORMAT;
+import static com.github.rapid.common.util.DateFormats.DATE_FORMAT;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -22,7 +22,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.duowan.common.util.DateConvertUtils;
+import com.github.rapid.common.util.DateConvertUtil;
 import com.fpcms.common.util.BlogPingUtil;
 import com.fpcms.common.util.ChineseSegmenterUtil;
 import com.fpcms.common.util.StringHelper;
@@ -267,7 +267,7 @@ public class CmsContent  implements java.io.Serializable{
 	 * @return
 	 */
 	public String getUri() {
-		return "/content/"+DateConvertUtils.format(getDateCreated(), "yyyyMMdd")+"/"+getId()+".do";
+		return "/content/"+DateConvertUtil.format(getDateCreated(), "yyyyMMdd")+"/"+getId()+".do";
 	}
 	
 	public String toString() {

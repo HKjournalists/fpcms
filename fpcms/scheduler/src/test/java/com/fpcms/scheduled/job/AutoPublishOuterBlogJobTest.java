@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.blog_post.BlogPoster;
 import com.fpcms.common.blog_post.impl.MetaWeblogBlogPoster;

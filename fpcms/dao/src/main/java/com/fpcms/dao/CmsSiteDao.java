@@ -8,7 +8,7 @@ package com.fpcms.dao;
 
 import java.util.List;
 
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.model.CmsSite;
 import com.fpcms.query.CmsSiteQuery;
 

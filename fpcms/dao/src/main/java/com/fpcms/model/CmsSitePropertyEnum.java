@@ -1,6 +1,6 @@
 package com.fpcms.model;
 
-import com.duowan.common.lang.enums.EnumBase;
+import com.github.rapid.common.lang.enums.EnumBase;
 
 public enum CmsSitePropertyEnum implements EnumBase{
 	PROP_KEYWORDS_RANK_BAIDU("keywordsRankBaidu","百度关键字排名"),

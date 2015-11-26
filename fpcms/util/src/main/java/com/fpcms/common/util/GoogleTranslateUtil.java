@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import com.duowan.common.util.ArrayUtils;
-import com.duowan.common.util.MapUtils;
-import com.duowan.common.web.util.HttpUtils;
+import com.github.rapid.common.util.ArrayUtil;
+import com.github.rapid.common.util.MapUtil;
+import com.github.rapid.common.web.util.HttpUtil;
 
 public class GoogleTranslateUtil {
 	static Logger logger = LoggerFactory.getLogger(GoogleTranslateUtil.class);
@@ -58,7 +58,7 @@ public class GoogleTranslateUtil {
 		params.put("sl", sourceLang);
 //		params.put("hl", sourceLang); //该参数用于控制html页面展示是什么语言,非翻译语言需要使用
 		params.put("tl", targetLang);
-		params.putAll(HttpUtils.parseQueryString("client=t"));
+		params.putAll(HttpUtil.parseQueryString("client=t"));
 		String text = NetUtil.httpPost("http://translate.google.cn/translate_a/t",params);
 		
 		if(words.length() < 20) {
@@ -84,7 +84,7 @@ public class GoogleTranslateUtil {
 		List<List<String>> rows = CollectionHelper.toMultiRows(result, 4);
 		for(int i = 0; i < rows.size(); i++) {
 			List<String> cols = rows.get(i);
-			Map<String,String> map = ArrayUtils.toMap(cols.toArray(), "target","source","unuse","pinyin");
+			Map<String,String> map = ArrayUtil.toMap(cols.toArray(), "target","source","unuse","pinyin");
 			String target = removeDoubleQuotes(map.get("target")).trim();
 //			if(target.equalsIgnoreCase("\"zh-CN\"") || target.equalsIgnoreCase("\"en\"")) {
 //				break;

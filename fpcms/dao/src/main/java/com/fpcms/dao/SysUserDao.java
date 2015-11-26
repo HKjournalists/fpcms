@@ -6,7 +6,7 @@
 
 package com.fpcms.dao;
 
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.model.SysUser;
 import com.fpcms.query.SysUserQuery;
 

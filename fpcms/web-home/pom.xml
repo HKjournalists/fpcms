@@ -28,8 +28,8 @@
 		</dependency>
 
 		<dependency>
-		        <groupId>com.duowan.common</groupId>
-		        <artifactId>duowan-common-rpc</artifactId>
+	        <groupId>com.github.rapid.common</groupId>
+	        <artifactId>rapid-common-rest</artifactId>
 		</dependency>
 			
 		<!-- jetty -->

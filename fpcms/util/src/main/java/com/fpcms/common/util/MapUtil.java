@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.duowan.common.util.ObjectUtils;
+import com.github.rapid.common.util.ObjectUtil;
 
 public class MapUtil {
 
@@ -16,7 +16,7 @@ public class MapUtil {
 		for(Object key : defaultMap.keySet()) {
 			Object value = map.get(key);
 			Object defaultValue = defaultMap.get(key);
-			if(ObjectUtils.isNullOrEmptyString(value)) {
+			if(ObjectUtil.isNullOrEmptyString(value)) {
 				map.put(key, defaultValue);
 			}
 		}

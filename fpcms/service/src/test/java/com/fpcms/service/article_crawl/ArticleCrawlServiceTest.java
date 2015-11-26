@@ -17,10 +17,10 @@ import org.mockito.Mockito;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.duowan.common.util.DateRange;
-import com.duowan.common.util.page.Page;
-import com.duowan.common.util.page.PageQuery;
-import com.duowan.common.util.page.Paginator;
+import com.github.rapid.common.util.DateRange;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.util.page.PageQuery;
+import com.github.rapid.common.util.page.Paginator;
 import com.fpcms.model.CmsContent;
 import com.fpcms.service.CmsContentService;
 import com.fpcms.service.CmsKeyValueService;

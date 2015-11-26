@@ -7,7 +7,7 @@
 
 package com.fpcms.admin.controller;
 
-import static com.duowan.common.util.ValidationErrorsUtils.convert;
+import static com.github.rapid.common.util.ValidationErrorsUtil.convert;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.duowan.common.exception.MessageException;
-import com.duowan.common.util.page.Page;
-import com.duowan.common.web.scope.Flash;
+import com.github.rapid.common.exception.MessageException;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
 import com.fpcms.model.CmsAttachment;
 import com.fpcms.query.CmsAttachmentQuery;

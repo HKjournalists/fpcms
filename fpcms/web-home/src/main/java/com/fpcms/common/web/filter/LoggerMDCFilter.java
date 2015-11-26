@@ -15,8 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.duowan.common.util.LogTraceUtils;
-import com.duowan.common.util.Profiler;
+import com.github.rapid.common.util.LogTraceUtil;
+import com.github.rapid.common.util.Profiler;
 import com.fpcms.common.util.Constants;
 import com.fpcms.common.util.IpUtil;
 import com.fpcms.common.util.SpiderUtil;
@@ -49,7 +49,7 @@ public class LoggerMDCFilter extends OncePerRequestFilter implements Filter{
             
             //为每一个请求创建一个traceId，方便查找日志时可以根据ID查找出一个http请求所有相关日志
             // LogTraceUtils完成的功能是: MDC.put("traceId",StringUtils.remove(UUID.randomUUID().toString(),"-"))
-            LogTraceUtils.beginTrace();
+            LogTraceUtil.beginTrace();
             chain.doFilter(request, response);
             
 			logSpiderUserAgent(request, clientIp);

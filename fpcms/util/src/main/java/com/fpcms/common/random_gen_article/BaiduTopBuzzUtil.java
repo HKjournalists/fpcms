@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.duowan.common.util.Profiler;
+import com.github.rapid.common.util.Profiler;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.cache.ValueCallback;

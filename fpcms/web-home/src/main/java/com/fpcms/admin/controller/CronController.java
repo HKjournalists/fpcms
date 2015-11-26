@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.duowan.common.web.scope.Flash;
+import com.github.rapid.common.web.scope.Flash;
 import com.fpcms.common.util.ApplicationContextUtil;
 import com.fpcms.scheduled.job.BaseCronJob;
 

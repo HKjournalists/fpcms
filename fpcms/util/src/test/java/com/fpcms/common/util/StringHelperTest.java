@@ -10,7 +10,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.duowan.common.util.DateConvertUtils;
+import com.github.rapid.common.util.DateConvertUtil;
 
 public class StringHelperTest extends Assert{
 	
@@ -27,7 +27,7 @@ public class StringHelperTest extends Assert{
 	public void test_getYesterdayOuterLinked() {
 		Date date = DateUtils.addDays(new Date(),-1);
 		String string = StringHelper.getYesterdayOuterLinked("www.163.com");
-		assertEquals(string,"http://www.163.com/linked/"+DateConvertUtils.format(date, "yyyyMMdd")+".do");
+		assertEquals(string,"http://www.163.com/linked/"+DateConvertUtil.format(date, "yyyyMMdd")+".do");
 	}
 	
 	@Test

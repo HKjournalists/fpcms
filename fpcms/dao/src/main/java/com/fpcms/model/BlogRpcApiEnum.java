@@ -1,6 +1,6 @@
 package com.fpcms.model;
 
-import com.duowan.common.lang.enums.EnumBase;
+import com.github.rapid.common.lang.enums.EnumBase;
 
 public enum BlogRpcApiEnum implements EnumBase{
 	WORD_PRESS("WordPress"),

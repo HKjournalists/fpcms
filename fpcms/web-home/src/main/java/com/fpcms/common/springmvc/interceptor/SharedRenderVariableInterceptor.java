@@ -14,8 +14,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.duowan.common.web.httpinclude.HttpInclude;
-import com.duowan.common.web.scope.Flash;
+import com.github.rapid.common.web.httpinclude.HttpInclude;
+import com.github.rapid.common.web.scope.Flash;
 import com.fpcms.common.util.CmsSiteUtil;
 import com.fpcms.common.util.URLUtil;
 import com.fpcms.model.BlogRpcApiEnum;

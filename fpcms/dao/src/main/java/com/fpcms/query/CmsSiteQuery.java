@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import com.duowan.common.util.page.PageQuery;
+import com.github.rapid.common.util.page.PageQuery;
 
 
 /**

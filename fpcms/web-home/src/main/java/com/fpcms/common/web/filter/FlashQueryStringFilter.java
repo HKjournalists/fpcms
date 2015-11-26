@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.duowan.common.web.scope.Flash;
+import com.github.rapid.common.web.scope.Flash;
 import com.fpcms.common.util.Constants;
 
 public class FlashQueryStringFilter extends OncePerRequestFilter implements Filter{

@@ -6,8 +6,8 @@
 
 package com.fpcms.dao.impl;
 
-import static com.duowan.common.util.ObjectUtils.isEmpty;
-import static com.duowan.common.util.ObjectUtils.isNotEmpty;
+import static com.github.rapid.common.util.ObjectUtil.isEmpty;
+import static com.github.rapid.common.util.ObjectUtil.isNotEmpty;
 
 import java.util.Date;
 import java.util.List;
@@ -18,8 +18,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 
-import com.duowan.common.util.DateRange;
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.DateRange;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.common.cache.Cache;
 import com.fpcms.common.cache.CacheManager;
 import com.fpcms.common.cache.ValueCallback;

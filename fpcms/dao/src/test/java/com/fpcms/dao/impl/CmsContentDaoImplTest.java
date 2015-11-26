@@ -21,10 +21,10 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.duowan.common.util.DateConvertUtils;
-import com.duowan.common.util.DateRange;
-import com.duowan.common.util.page.Page;
-import com.duowan.common.util.page.PageQuery;
+import com.github.rapid.common.util.DateConvertUtil;
+import com.github.rapid.common.util.DateRange;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.util.page.PageQuery;
 import com.fpcms.CmsContentDataFactory;
 import com.fpcms.common.base.BaseDaoTestCase;
 import com.fpcms.dao.CmsContentDao;
@@ -168,7 +168,7 @@ public class CmsContentDaoImplTest extends BaseDaoTestCase{
 	
 	@Test
 	public void test_findFirstByCreatedDay() {
-		CmsContent createdDay = dao.findFirstByCreatedDay("localhost", DateConvertUtils.extract(new Date(), "yyyy-MM-dd"));
+		CmsContent createdDay = dao.findFirstByCreatedDay("localhost", DateConvertUtil.extract(new Date(), "yyyy-MM-dd"));
 		assertNotNull(createdDay);
 	}
 	

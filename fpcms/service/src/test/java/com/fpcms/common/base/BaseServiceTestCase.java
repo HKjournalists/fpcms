@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.mockito.Mockito;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import com.duowan.common.util.holder.BeanValidatorHolder;
+import com.github.rapid.common.util.holder.BeanValidatorHolder;
 
 /**
  * 

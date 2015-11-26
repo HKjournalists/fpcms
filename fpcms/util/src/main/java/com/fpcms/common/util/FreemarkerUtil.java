@@ -9,8 +9,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.text.StrLookup;
 import org.apache.commons.lang.text.StrSubstitutor;
 
-import com.duowan.common.beanutils.PropertyUtils;
-import com.duowan.common.io.freemarker.FreemarkerInputStream;
+import com.github.rapid.common.beanutils.PropertyUtils;
+import com.github.rapid.common.io.freemarker.FreemarkerInputStream;
 
 public class FreemarkerUtil {
 

@@ -40,34 +40,34 @@
   <dependencies>
 
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-util</artifactId>
-	  	<version>1.0.9</version>        
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-util</artifactId>
+	  	<version>1.0.0</version>        
 	</dependency>
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-web</artifactId>
-	  	<version>1.0.2</version>        
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-web</artifactId>
+	  	<version>1.0.0</version>        
 	</dependency>	
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-jdbc</artifactId>
-	  	<version>1.0.2</version>        
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-jdbc</artifactId>
+	  	<version>1.0.0</version>        
 	</dependency>	
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-mvc</artifactId>
-	  	<version>1.1.2</version>        
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-mvc</artifactId>
+	  	<version>1.0.0</version>        
 	</dependency>
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-test</artifactId>
-	  	<version>1.0</version>        
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-test</artifactId>
+	  	<version>1.0.0</version>        
 	</dependency>	
 	<dependency>
-			<groupId>com.duowan.common</groupId>
-			<artifactId>duowan-common-rpc</artifactId>
-			<version>1.0.9</version>
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-rest</artifactId>
+		<version>1.0.0</version>
 	</dependency>
 
   	<!-- rapid generator begn -->

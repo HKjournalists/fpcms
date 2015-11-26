@@ -6,7 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.duowan.common.util.Profiler;
+import com.github.rapid.common.util.Profiler;
 import com.fpcms.service.CmsContentService;
 
 @Service

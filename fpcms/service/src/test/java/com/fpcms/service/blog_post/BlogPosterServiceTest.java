@@ -13,7 +13,7 @@ import org.junit.rules.TestName;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.duowan.common.util.DateConvertUtils;
+import com.github.rapid.common.util.DateConvertUtil;
 import com.fpcms.common.blog_post.Blog;
 import com.fpcms.common.blog_post.impl.ConfigableBlogPoster;
 
@@ -68,7 +68,7 @@ public class BlogPosterServiceTest {
 		blog.setUsername(username);
 		blog.setPassword(password);
 		blog.setMetaDescription("metaDescription");
-		blog.setTitle("test_title 航空第一: "+DateConvertUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
+		blog.setTitle("test_title 航空第一: "+DateConvertUtil.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
 		blog.setContent(StringUtils.repeat("test_content\n\t 航空第一:\n <br /> <h1>H1标题</h1>",50));
 		return blog;
 	}

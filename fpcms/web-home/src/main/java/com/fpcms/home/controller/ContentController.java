@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.duowan.common.util.DateConvertUtils;
+import com.github.rapid.common.util.DateConvertUtil;
 import com.fpcms.common.BaseController;
 import com.fpcms.common.util.SpiderUtil;
 import com.fpcms.common.util.WebUtil;
@@ -89,7 +89,7 @@ public class ContentController extends BaseController{
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return null;
 		}
-		return show0(model, content.getId(), response, DateConvertUtils.extract(content.getDateCreated(),"yyyyMMdd"), content);
+		return show0(model, content.getId(), response, DateConvertUtil.extract(content.getDateCreated(),"yyyyMMdd"), content);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class ContentController extends BaseController{
 		if(SpiderUtil.isSpider(request) || StringUtils.isNotBlank(request.getParameter("debug"))) {
 			Date dateCreated = null;
 			try {
-				dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
+				dateCreated = DateConvertUtil.parse(dateCreatedString, "yyyyMMdd");
 			}catch(Exception e) {
 				return last(model,request,response);
 			}
@@ -129,7 +129,7 @@ public class ContentController extends BaseController{
 	 */
 	@RequestMapping("/content/{dateCreated}/{contentId}.do")
 	public String show(ModelMap model,CmsChannelQuery query,@PathVariable("dateCreated") String dateCreatedString,@PathVariable("contentId") long contentId,HttpServletRequest request,HttpServletResponse response) throws IOException {
-		Date dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
+		Date dateCreated = DateConvertUtil.parse(dateCreatedString, "yyyyMMdd");
 		CmsContent cmsContent = cmsContentService.getById(dateCreated,contentId);
 		return show0(model, contentId, response, dateCreated, cmsContent);
 	}
@@ -165,7 +165,7 @@ public class ContentController extends BaseController{
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		String day = DateConvertUtils.format(cmsContent.getDateCreated(), "yyyyMMdd");
+		String day = DateConvertUtil.format(cmsContent.getDateCreated(), "yyyyMMdd");
 		String location = request.getContextPath() + "/content/"+day+"/"+contentId+".do";
 		WebUtil.send301Redirect(response,location);
 	}
@@ -176,7 +176,7 @@ public class ContentController extends BaseController{
 		response.setDateHeader("Expires", DateUtils.addDays(new Date(), 360 * 5).getTime());
 		response.setHeader("Cache-Control", "max-age=180000");
 		
-		Date dateCreated = DateConvertUtils.parse(dateCreatedString, "yyyyMMdd");
+		Date dateCreated = DateConvertUtil.parse(dateCreatedString, "yyyyMMdd");
 		CmsContent cmsContent = cmsContentService.getById(dateCreated,contentId);
 		if(cmsContent == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);

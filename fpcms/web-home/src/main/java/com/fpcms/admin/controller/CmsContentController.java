@@ -7,7 +7,7 @@
 
 package com.fpcms.admin.controller;
 
-import static com.duowan.common.util.ValidationErrorsUtils.convert;
+import static com.github.rapid.common.util.ValidationErrorsUtil.convert;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,11 +29,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.duowan.common.exception.MessageException;
-import com.duowan.common.util.DateConvertUtils;
-import com.duowan.common.util.DateRange;
-import com.duowan.common.util.page.Page;
-import com.duowan.common.web.scope.Flash;
+import com.github.rapid.common.exception.MessageException;
+import com.github.rapid.common.util.DateConvertUtil;
+import com.github.rapid.common.util.DateRange;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.web.scope.Flash;
 import com.fpcms.common.BaseController;
 import com.fpcms.model.CmsContent;
 import com.fpcms.query.CmsContentQuery;
@@ -212,10 +212,10 @@ public class CmsContentController extends BaseController{
 	 */
 	@RequestMapping
 	public String statSite(ModelMap model,String startDate,String endDate) {
-		startDate = StringUtils.defaultIfBlank(startDate,DateConvertUtils.format(new Date(), "yyyy-MM-dd"));
-		endDate = StringUtils.defaultIfBlank(endDate,DateConvertUtils.format(DateUtils.addDays(new Date(),1), "yyyy-MM-dd"));
-		Date start = DateConvertUtils.parse(startDate, "yyyy-MM-dd");
-		Date end = DateConvertUtils.parse(endDate, "yyyy-MM-dd");
+		startDate = StringUtils.defaultIfBlank(startDate,DateConvertUtil.format(new Date(), "yyyy-MM-dd"));
+		endDate = StringUtils.defaultIfBlank(endDate,DateConvertUtil.format(DateUtils.addDays(new Date(),1), "yyyy-MM-dd"));
+		Date start = DateConvertUtil.parse(startDate, "yyyy-MM-dd");
+		Date end = DateConvertUtil.parse(endDate, "yyyy-MM-dd");
 		
 		List<Map<String,Object>> list = cmsContentService.statSite(new DateRange(start,end));
 		model.addAttribute("list", list);

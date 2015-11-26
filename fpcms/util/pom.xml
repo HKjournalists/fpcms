@@ -23,24 +23,24 @@
 	</dependency>
   
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-util</artifactId>
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-util</artifactId>
 	</dependency>
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-web</artifactId>
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-web</artifactId>
 	</dependency>	
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-jdbc</artifactId>
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-jdbc</artifactId>
 	</dependency>	
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-test</artifactId>
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-test</artifactId>
 	</dependency>	
 	<dependency>
-		<groupId>com.duowan.common</groupId>
-		<artifactId>duowan-common-mvc</artifactId>
+		<groupId>com.github.rapid.common</groupId>
+		<artifactId>rapid-common-mvc</artifactId>
 	</dependency>
 
   	<dependency>

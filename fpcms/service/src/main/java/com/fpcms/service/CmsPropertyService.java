@@ -8,7 +8,7 @@ package com.fpcms.service;
 
 import java.util.Map;
 
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.model.CmsProperty;
 import com.fpcms.query.CmsPropertyQuery;
 

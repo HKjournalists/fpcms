@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.util.Assert;
 
-import com.duowan.common.util.DateConvertUtils;
+import com.github.rapid.common.util.DateConvertUtil;
 
 public class StringHelper {
 	
@@ -23,7 +23,7 @@ public class StringHelper {
 	}
 	
 	public static String getOuterLinked(String site,Date date) {
-		return "http://"+site+"/linked/"+DateConvertUtils.format(date, "yyyyMMdd")+".do";
+		return "http://"+site+"/linked/"+DateConvertUtil.format(date, "yyyyMMdd")+".do";
 	}
 
 	public static List<String> removeEmptyLines(List<String> lines) {

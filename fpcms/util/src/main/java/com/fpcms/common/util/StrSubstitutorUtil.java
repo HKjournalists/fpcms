@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.commons.lang.text.StrLookup;
 import org.apache.commons.lang.text.StrSubstitutor;
 
-import com.duowan.common.beanutils.PropertyUtils;
+import com.github.rapid.common.beanutils.PropertyUtils;
 
 public class StrSubstitutorUtil {
 

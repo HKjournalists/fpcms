@@ -6,7 +6,7 @@
 
 package com.fpcms.model;
 
-import static com.duowan.common.util.DateFormats.DATE_FORMAT;
+import static com.github.rapid.common.util.DateFormats.DATE_FORMAT;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.rules.TestName;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.CmsDomainDataFactory;
 import com.fpcms.common.base.BaseDaoTestCase;
 import com.fpcms.dao.CmsDomainDao;

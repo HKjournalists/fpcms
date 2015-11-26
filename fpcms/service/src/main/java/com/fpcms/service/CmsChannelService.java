@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.duowan.common.util.page.Page;
-import com.duowan.common.util.tree.NodeWrapper;
+import com.github.rapid.common.util.page.Page;
+import com.github.rapid.common.util.tree.NodeWrapper;
 import com.fpcms.model.CmsChannel;
 import com.fpcms.query.CmsChannelQuery;
 

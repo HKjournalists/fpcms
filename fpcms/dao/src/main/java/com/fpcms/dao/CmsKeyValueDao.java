@@ -8,7 +8,7 @@ package com.fpcms.dao;
 
 import java.util.Date;
 
-import com.duowan.common.util.page.Page;
+import com.github.rapid.common.util.page.Page;
 import com.fpcms.model.CmsKeyValue;
 import com.fpcms.query.CmsKeyValueQuery;
 

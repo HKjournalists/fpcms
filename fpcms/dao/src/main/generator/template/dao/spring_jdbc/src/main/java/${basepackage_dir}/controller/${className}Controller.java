@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.duowan.common.exception.MessageException;
-import com.duowan.common.web.scope.Flash;
+import com.github.rapid.common.exception.MessageException;
+import com.github.rapid.common.web.scope.Flash;
 
 <#include "/java_imports.include">
 

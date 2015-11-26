@@ -8,7 +8,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.duowan.common.util.Profiler;
+import com.github.rapid.common.util.Profiler;
 import com.fpcms.common.util.SimpleHttpInvokerRequestExecutor;
 
 public class NaipanArticleGeneratorUtil {
