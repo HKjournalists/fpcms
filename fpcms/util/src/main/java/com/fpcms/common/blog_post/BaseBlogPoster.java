@@ -107,7 +107,7 @@ public abstract class BaseBlogPoster implements BlogPoster,InitializingBean{
 			verifyHttpStatusCode(post.getStatusCode(),"login error,username:" + username+" response:"+responseString);
 			Assert.isTrue(verifyLoginResult(responseString),"login error,username:"+username + " response:"+responseString);
 			logger.info("login_success with username:"+username+" loginUrl:"+getLoginUrl());
-			
+			logger.info("responseString:"+responseString);
 			return fromSetCookieHeader(post.getResponseHeaders("Set-Cookie"));
 		}finally {
 			post.releaseConnection();

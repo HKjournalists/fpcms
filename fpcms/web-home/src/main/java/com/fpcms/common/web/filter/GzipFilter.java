@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -173,6 +174,16 @@ public class GzipFilter extends OncePerRequestFilter implements Filter{
 				public void write(byte[] b, int off, int len)
 						throws IOException {
 					gzipStream.write(b, off, len);
+				}
+
+				@Override
+				public boolean isReady() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+
+				public void setWriteListener(WriteListener writeListener) {
+					
 				}
 			};
 		}
